@@ -1,0 +1,14 @@
+body{
+  background-color: #282c34 !important;
+}
+.title{
+  color: white;
+}
+input{
+  color: white;
+}
+input:focus {
+  outline: none;
+}
+
+

@@ -61,7 +61,7 @@ def registerUser(request):
     return base.response('User registered', serializer.data)
 
 @api_view(['GET'])
-@permission_classes([IsAdminUser])
+# @permission_classes([IsAdminUser])
 def getAllUsers(request):
     users = User.objects.all()
     # many=True means we are serializing multiple products, not just one. if one then false
