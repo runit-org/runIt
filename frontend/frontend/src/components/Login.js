@@ -1,22 +1,33 @@
-import React, {useEffect} from "react";
-import {
-  Card,
-  Form,
-  Row,
-  Col,
-  Button,
-  FloatingLabel,
-} from "react-bootstrap";
-import Footer from "./Footer"
-import {useDispatch, useSelector} from "react-redux"
-import {getUsers} from "../actions/securityActions"
+import React, { useEffect, useState } from "react";
+import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
+import Footer from "./Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers, login } from "../actions/securityActions";
 
 function Login() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState({});
+  const [password, setPassword] = useState({});
 
-  useEffect(()=>{
+  /*   useEffect(()=>{
       dispatch(getUsers())
-  }, [])
+  }, []) */
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const LoginRequest = {
+      username: username,
+      password: password,
+    };
+
+    dispatch(login(LoginRequest));
+  };
+  /* const loginError = useSelector(errors => errors.errors.detail)
+  if(loginError !== undefined){
+    alert(loginError)
+  } */
+
   return (
     <div>
       <div className="d-flex justify-content-center mt-5">
@@ -25,22 +36,35 @@ function Login() {
       <div className="d-flex justify-content-center p-3">
         <Card>
           <h3 className="d-flex justify-content-center mt-3">Login</h3>
-          <Form className="p-4">
-              <Form.Label className="text-muted">Email</Form.Label>
+          <Form
+            className="p-4"
+            onSubmit={(e) => {
+              handleSubmit(e);
+            }}
+          >
+            <Form.Label className="text-muted">Email</Form.Label>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <FloatingLabel
                 controlId="floatingInput"
                 label="Email address"
                 className="mb-3"
               >
-                <Form.Control type="email" placeholder="name@example.com" />
+                <Form.Control
+                  type="username"
+                  placeholder="name@example.com"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
               </FloatingLabel>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label className="text-muted">Password</Form.Label>
+              <Form.Label className="text-muted">Password</Form.Label>
               <FloatingLabel controlId="floatingPassword" label="Password">
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </FloatingLabel>
             </Form.Group>
             <Row>
@@ -71,7 +95,7 @@ function Login() {
           </Card.Footer>
         </Card>
       </div>
-     <Footer/>
+      <Footer />
     </div>
   );
 }

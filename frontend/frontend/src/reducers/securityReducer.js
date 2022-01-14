@@ -2,8 +2,10 @@ import { SET_CURRENT_USER, GET_USERS, GET_USER,
 } from "../actions/types";
 
 const initialState = {
+  user: {},
   users: {},
   data: [],
+  validToken: false,
 };
 
 const booleanPayload = (payload) => {
