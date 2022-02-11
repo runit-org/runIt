@@ -2,26 +2,41 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import store from "./store";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import Posts from "./components/Posts";
+import { Children } from "react";
+
+function ProtectedRoute({ children }) {
+  const isAuthenticated = localStorage.getItem("token");
+  console.log("this", isAuthenticated);
+
+  return isAuthenticated ? children : <Navigate to="/signin" />;
+}
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/signin" element={<Login />} />
+
           <Route
-            path="posts"
+            path="/posts"
             element={
-              <div className="content">
+              <ProtectedRoute>
                 <Header />
                 <Posts />
-              </div>
+              </ProtectedRoute>
             }
           />
+          <Route path="*" element={<Navigate to="/signin" />} />
         </Routes>
       </Router>
     </Provider>

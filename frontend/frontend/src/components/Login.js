@@ -3,9 +3,12 @@ import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
 import Footer from "./Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers, login } from "../actions/securityActions";
+import { useNavigate } from "react-router-dom";
 
-function Login(props) {
+function Login() {
+  let navigate = useNavigate();
   const dispatch = useDispatch();
+  const [authLogin, setAuthLogin] = useState({});
   const [username, setUsername] = useState({});
   const [password, setPassword] = useState({});
 
@@ -21,12 +24,8 @@ function Login(props) {
       password: password,
     };
 
-    dispatch(login(LoginRequest));
+    dispatch(login(LoginRequest, navigate));
   };
-  /* const loginError = useSelector(errors => errors.errors.detail)
-  if(loginError !== undefined){
-    alert(loginError)
-  } */
 
   return (
     <div>

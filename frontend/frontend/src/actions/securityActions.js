@@ -12,18 +12,13 @@ export const getUsers = () => async (dispatch) => {
   });
 };
 
-export const login = (LoginRequest) => async (dispatch) => {
+export const login = (LoginRequest, navigate) => async (dispatch) => {
   try {
     //post => login request
     const res = await axios.post(
       "http://localhost:8000/api/auth/login/",
-      LoginRequest,
+      LoginRequest
     );
-    window.location.href = 'posts'
-    
-
-    // alert("Login Success")
-
     console.log(res);
 
     //extract token from data
@@ -38,6 +33,9 @@ export const login = (LoginRequest) => async (dispatch) => {
     };
 
     localStorage.setItem("username", decoded.username);
+    if (localStorage.getItem("token")) {
+      navigate("/posts");
+    }
 
     //dispatch to securityReducer
     dispatch({
