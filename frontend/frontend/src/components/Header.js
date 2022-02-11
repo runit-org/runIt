@@ -1,5 +1,7 @@
 import React from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import img from "../logo192.png";
+
 
 function Header() {
   return (
@@ -9,7 +11,7 @@ function Header() {
           <Navbar.Brand href="/">
             <img
               alt=""
-              src="/logo.svg"
+              src={img}
               width="30"
               height="30"
               className="d-inline-block align-top"

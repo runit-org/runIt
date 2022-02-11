@@ -30,9 +30,9 @@ input:focus {
 }
 
 div.content {
-  padding: 80px 16px;
+  padding: 80px 12px;
   background-color: #e1e5ee;
-  min-height: 85vh;
+  min-height: 100vh;
 }
 
 .navbar {
@@ -60,6 +60,36 @@ a.dropdown-item:hover {
   background-color: transparent;
   color: #5865f2 !important;
 }
+.post-cards .card{
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+}
+.post-cards .card-header{
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  display: inline;
+}
+
+.jobCard-Logo {
+  width: 50px;
+  border-radius: 12px;
+  padding: 5px;
+  background-color: white;
+}
+.recents-Logo{
+  width: 30px;
+  border-radius: 12px;
+  padding: 5px;
+  background-color: black;
+}
+/* .sidebar{
+  height: 50vw;
+} */
+
+
 /* ul.nav.nav-tabs {
   display: flex;
   justify-content: center;
