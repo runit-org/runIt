@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
 import Footer from "./Footer";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getUsers, login } from "../actions/securityActions";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  const [authLogin, setAuthLogin] = useState({});
   const [username, setUsername] = useState({});
   const [password, setPassword] = useState({});
 

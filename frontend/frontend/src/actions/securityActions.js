@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_USERS, GET_USER, GET_ERRORS, SET_CURRENT_USER } from "./types";
+import { GET_USERS, GET_ERRORS, SET_CURRENT_USER} from "./types";
 import setToken from "../securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 
@@ -53,6 +53,19 @@ export const login = (LoginRequest, navigate) => async (dispatch) => {
     });
   }
 };
+
+/* export const logout = (navigate) => async (dispatch) => {
+  const res = await axios.get("http://localhost:8000/api/auth/logout");
+  localStorage.clear();
+  setToken(false);
+  if (!localStorage.getItem("token")) {
+    navigate("/signin");
+  }
+  dispatch({
+    type: SET_CURRENT_USER,
+    payload: null,
+  });
+}; */
 
 /* export const getUser = () => async (dispatch) => {
   const res = await axios.get(`http://localhost:8000/api/user/`);

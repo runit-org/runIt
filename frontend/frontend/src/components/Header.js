@@ -8,7 +8,7 @@ function Header() {
     <div>
       <Navbar collapseOnSelect expand="xl" variant="dark" fixed="top">
         <Container>
-          <Navbar.Brand href="/">
+          <Navbar.Brand href="/posts">
             <img
               alt=""
               src={img}
