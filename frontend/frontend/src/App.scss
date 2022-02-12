@@ -1,0 +1,133 @@
+//color pallet
+$theme: #5865f2;
+$primary-light: #ffffff;
+$secondary-light: #f6f6f6;
+$primary-dark: #2c2f33;
+$secondary-dark: #23272a;
+$button-hover: #404EED;
+
+html,
+body {
+  background-color: $theme !important;
+}
+.title {
+  color: $primary-light;
+}
+
+.btn-primary{
+  background-color: $theme !important;
+  border: none !important;
+}
+.btn-primary:hover{
+  background-color: $button-hover !important;
+  border: none;
+}
+.btn-primary:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.form-floating > .form-control:focus {
+  border: 2px solid $theme;
+  box-shadow: none !important;
+}
+.centerContent {
+  display: flex;
+  justify-content: center;
+}
+.footer-hr {
+  color: $primary-light;
+  background-color: $primary-light;
+  height: 1;
+}
+.footer-links > div.col > small > a {
+  color: $primary-light;
+  text-decoration: none;
+  font-weight: bold;
+}
+.footer-links > div.col > small > a:hover {
+  text-decoration: underline;
+}
+
+.bodyContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: auto;
+  height: fit-content;
+}
+
+div.content {
+  padding: 80px 12px;
+  /* background-color: #e1e5ee;  */
+  background-color: $secondary-light;
+  min-height: 100vh;
+}
+
+.navbar {
+  background-color: $primary-dark;
+}
+
+.navbar-nav .nav-link {
+  color: $primary-light !important;
+}
+
+.navbar-nav .nav-link:hover {
+  color: $theme !important;
+}
+
+.navbar .container {
+  padding-left: 6rem;
+  padding-right: 6rem;
+}
+
+.dropdown-menu {
+  background-color: $secondary-dark !important;
+}
+
+a.dropdown-item:hover {
+  background-color: transparent;
+  color: $theme !important;
+}
+
+.login-card .card {
+  background-color: $primary-dark;
+  color: $primary-light;
+  font-weight: 500;
+  min-width: auto;
+  width: 400px;
+}
+.login-card .card-footer {
+  border-top: 1px solid #777;
+}
+
+.login-card .form-floating > label {
+  color: $primary-dark;
+}
+
+.post-cards .card {
+  background-color: $primary-light;
+  border: none;
+  border-radius: 6px;
+}
+.post-cards .card-header {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  display: inline;
+}
+
+.jobCard-Logo {
+  width: 50px;
+  border-radius: 12px;
+  padding: 5px;
+  background-color: $primary-light;
+}
+.recents-Logo {
+  width: 30px;
+  border-radius: 12px;
+  padding: 5px;
+  background-color: $secondary-dark;
+}
+

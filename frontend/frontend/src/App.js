@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import store from "./store";
 import { Provider } from "react-redux";
