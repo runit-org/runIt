@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, GET_USERS, GET_USER } from "../actions/types";
+import { SET_CURRENT_USER, GET_USERS, GET_USER, SET_NEW_USER } from "../actions/types";
 
 const initialState = {
   user: {},
@@ -23,6 +23,10 @@ export default function setUser(state = initialState, action) {
         validToken: booleanPayload(action.payload),
         user: action.payload,
       };
+    case SET_NEW_USER:
+        return {
+          userData: action.payload,
+        };  
     case GET_USERS:
       return {
         ...state,

@@ -5,7 +5,7 @@ function Footer() {
   return (
     <div>
       <footer
-        className="centerContent align-items-center mt-5 w-100 p-4 fixed-bottom"
+        className="align-items-center mt-5 w-100 p-4 fixed-bottom"
         style={{ color: "white", background: "#282c34" }}
       >
         <Container>

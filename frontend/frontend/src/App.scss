@@ -1,11 +1,12 @@
-//color pallet
+/*------Color Pallet------*/
 $theme: #5865f2;
 $primary-light: #ffffff;
 $secondary-light: #f6f6f6;
 $primary-dark: #2c2f33;
 $secondary-dark: #23272a;
-$button-hover: #404EED;
+$button-hover: #404eed;
 
+/*------General Components------*/
 html,
 body {
   background-color: $theme !important;
@@ -13,12 +14,30 @@ body {
 .title {
   color: $primary-light;
 }
-
-.btn-primary{
+.fullPage {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.fullBody {
+  height: 80%;
+  display: -webkit-flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  justify-content: center;
+}
+.btn-primary {
   background-color: $theme !important;
   border: none !important;
 }
-.btn-primary:hover{
+.btn-primary:hover {
   background-color: $button-hover !important;
   border: none;
 }
@@ -26,31 +45,16 @@ body {
   outline: none !important;
   box-shadow: none !important;
 }
-.form-floating > .form-control:focus {
-  border: 2px solid $theme;
-  box-shadow: none !important;
-}
+
 .centerContent {
   display: flex;
   justify-content: center;
+  margin: 0 auto;
 }
 .toasts {
   width: fit-content !important;
   top: 10px;
   margin-left: 4px;
-}
-.footer-hr {
-  color: $primary-light;
-  background-color: $primary-light;
-  height: 1;
-}
-.footer-links > div.col > small > a {
-  color: $primary-light;
-  text-decoration: none;
-  font-weight: bold;
-}
-.footer-links > div.col > small > a:hover {
-  text-decoration: underline;
 }
 
 .bodyContainer {
@@ -69,6 +73,24 @@ div.content {
   min-height: 100vh;
 }
 
+/*------Footer------*/
+.footer-section {
+  height: 20%;
+}
+.footer-hr {
+  color: $primary-light;
+  background-color: $primary-light;
+  height: 1;
+}
+.footer-links > div.col > small > a {
+  color: $primary-light;
+  text-decoration: none;
+  font-weight: bold;
+}
+.footer-links > div.col > small > a:hover {
+  text-decoration: underline;
+}
+/*------Header Nav------*/
 .navbar {
   background-color: $primary-dark;
 }
@@ -95,21 +117,43 @@ a.dropdown-item:hover {
   color: $theme !important;
 }
 
+/*------Forms------*/
+
+.form-floating > .form-control:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: $primary-light !important;
+}
+.form-floating > .form-control:focus {
+  border: 1px solid $theme;
+  box-shadow: none !important;
+  background-color: $secondary-dark;
+  color: $primary-light;
+}
+.form-floating > .form-control {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: $secondary-dark;
+  color: $primary-light;
+}
+.form-floating > .form-control:hover {
+  border: 1px solid $theme;
+}
 .login-card .card {
   background-color: $primary-dark;
   color: $primary-light;
   font-weight: 500;
   min-width: auto;
   width: 400px;
+  height: fit-content;
 }
 .login-card .card-footer {
   border-top: 1px solid #777;
 }
 
 .login-card .form-floating > label {
-  color: $primary-dark;
+  color: $primary-light;
 }
 
+/*------Event posts------*/
 .post-cards .card {
   background-color: $primary-light;
   border: none;
@@ -123,6 +167,7 @@ a.dropdown-item:hover {
   display: inline;
 }
 
+/*------Logo------*/
 .jobCard-Logo {
   width: 50px;
   border-radius: 12px;
@@ -135,4 +180,3 @@ a.dropdown-item:hover {
   padding: 5px;
   background-color: $secondary-dark;
 }
-

@@ -9,6 +9,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Login from "./components/Login";
+import SignUp from "./components/SignUp";
 import Header from "./components/Header";
 import Posts from "./components/Posts";
 
@@ -25,7 +26,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/signin" element={<Login />} />
-
+          <Route path="/signup" element={<SignUp />} />
           <Route
             path="/posts"
             element={

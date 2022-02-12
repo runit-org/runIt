@@ -1,44 +1,65 @@
-import React, { useState } from "react";
-import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Card, Form, Row, Button, FloatingLabel } from "react-bootstrap";
 import Footer from "./Footer";
-import { useDispatch } from "react-redux";
-import { login } from "../actions/securityActions";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { createNewUser } from "../actions/securityActions";
 import Loading from "./Loading";
 import ErrorToast from "./ErrorToast";
 
-function Login() {
-  let navigate = useNavigate();
+function SignUp() {
   const dispatch = useDispatch();
   const [username, setUsername] = useState({});
+  const [email, setEmail] = useState({});
   const [password, setPassword] = useState({});
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
+  const [signUpStatus, setSignUpStatus] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const LoginRequest = {
-      username: username,
+    const userData = {
+      name: username,
+      email: email,
       password: password,
     };
 
-    dispatch(login(LoginRequest, navigate, setLoad, setShow, setError));
+    dispatch(createNewUser(userData, setLoad, setShow, setError));
+  };
+
+  var newUserStatus = useSelector(
+    (securityReducer) => securityReducer.security
+  );
+  useEffect(() => {
+    if (newUserStatus.userData != null) {
+      if (Object.keys(newUserStatus.userData).length !== 0) {
+        setSignUpStatus(newUserStatus.userData.success);
+      } else {
+        setSignUpStatus("false");
+      }
+    }
+  }, [newUserStatus]);
+
+  let successVariant = {
+    background: "#DFF2BF",
+    color: "#4F8A10",
   };
   let errorVariant = {
-    background: "#FFD2D2", 
-    color: "#D8000C", 
-  }
+    background: "#FFD2D2",
+    color: "#D8000C",
+  };
+
   return (
     <div className="fullPage">
-      <ErrorToast errors={error} showToast={show} variant={errorVariant} />
+      <ErrorToast
+        errors={error}
+        showToast={show}
+        variant={signUpStatus == "true" ? successVariant : errorVariant}
+      />
       <Row className="centerContent p-3 login-card fullBody">
-        {/* <div className="centerContent mt-5">
-        <h1 className="title">Event Matcher</h1>
-      </div> */}
         <Card>
-          <h3 className="centerContent mt-3">Welcome Back!</h3>
+          <h3 className="centerContent mt-3">Create an account</h3>
           <Form
             className="p-4"
             onSubmit={(e) => {
@@ -53,9 +74,25 @@ function Login() {
                 className="mb-3"
               >
                 <Form.Control
-                  type="username"
+                  type="text"
                   placeholder="mysticMac"
                   onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </FloatingLabel>
+            </Form.Group>
+
+            <Form.Label className="text-muted">Email</Form.Label>
+            <Form.Group className="mb-3" controlId="formBasicEmail2">
+              <FloatingLabel
+                controlId="floatingInput2"
+                label="Email"
+                className="mb-3"
+              >
+                <Form.Control
+                  type="email"
+                  placeholder="mysticMac"
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </FloatingLabel>
@@ -72,34 +109,22 @@ function Login() {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Row className="mb-2">
-              <Col>
-                <Form.Check
-                  type="checkbox"
-                  id="autoSizingCheck"
-                  className="text-muted"
-                  label="Remember me"
-                />
-              </Col>
-              <Col className="text-end">
-                <a href="#">Forgot Password</a>
-              </Col>
-            </Row>
+
             <div className="centerContent align-items-center">
               <Button type="submit" className="mb-2 mt-3 w-100">
                 {(() => {
                   if (load) {
                     return <Loading />;
                   } else {
-                    return <>Login</>;
+                    return <>Continue</>;
                   }
                 })()}
               </Button>
             </div>
           </Form>
-          <Card.Footer >
+          <Card.Footer>
             <small className="centerContent align-items-center">
-              New to the platform?&nbsp;<a href="/signup">Sign Up</a>
+              <a href="/signin">Already have an account?</a>
             </small>
           </Card.Footer>
         </Card>
@@ -111,4 +136,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;
