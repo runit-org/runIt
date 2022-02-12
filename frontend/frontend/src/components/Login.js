@@ -4,13 +4,18 @@ import Footer from "./Footer";
 import { useDispatch } from "react-redux";
 import { login } from "../actions/securityActions";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
+import ErrorToast from "./ErrorToast";
 
 function Login() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const [username, setUsername] = useState({});
   const [password, setPassword] = useState({});
- 
+  const [load, setLoad] = useState(false);
+  const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -19,10 +24,13 @@ function Login() {
       password: password,
     };
 
-    dispatch(login(LoginRequest, navigate));
+    dispatch(login(LoginRequest, navigate, setLoad, setShow, setError));
   };
   return (
+    <>
+    <ErrorToast errors={error} showToast={show} />
     <div className="centerContent mt-5 p-3 login-card">
+      
       {/* <div className="centerContent mt-5">
         <h1 className="title">Event Matcher</h1>
       </div> */}
@@ -76,7 +84,13 @@ function Login() {
           </Row>
           <div className="centerContent align-items-center">
             <Button type="submit" className="mb-2 mt-3 w-100">
-              Login
+              {(() => {
+                if (load) {
+                  return <Loading />;
+                } else {
+                  return <>Login</>;
+                }
+              })()}
             </Button>
           </div>
         </Form>
@@ -88,6 +102,7 @@ function Login() {
       </Card>
       <Footer />
     </div>
+    </>
   );
 }
 

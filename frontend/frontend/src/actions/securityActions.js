@@ -12,14 +12,15 @@ export const getUsers = () => async (dispatch) => {
   });
 };
 
-export const login = (LoginRequest, navigate) => async (dispatch) => {
+export const login = (LoginRequest, navigate, setLoad, setShow, setError) => async (dispatch) => {
   try {
     //post => login request
+    setLoad(true);
     const res = await axios.post(
       "http://localhost:8000/api/auth/login/",
       LoginRequest
     );
-    console.log(res);
+    // console.log(res);
 
     //extract token from data
     const token = res.data.access;
@@ -47,11 +48,14 @@ export const login = (LoginRequest, navigate) => async (dispatch) => {
       payload: decoded,
     });
   } catch (error) {
+    setLoad(false);
+    setShow(true);
+    setError(error.response.data.detail);
     dispatch({
       type: GET_ERRORS,
       payload: error.response.data,
     });
-    alert(error.response.data.detail)
+    // alert(error.response.data.detail)
   }
 };
 
