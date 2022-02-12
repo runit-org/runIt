@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
 import Footer from "./Footer";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsers, login } from "../actions/securityActions";
+import { useDispatch } from "react-redux";
+import { login } from "../actions/securityActions";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -10,12 +10,7 @@ function Login() {
   const dispatch = useDispatch();
   const [username, setUsername] = useState({});
   const [password, setPassword] = useState({});
-  const [loginError, setLoginError] = useState(false);
-
-  /*   useEffect(()=>{
-      dispatch(getUsers())
-  }, []) */
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,17 +21,6 @@ function Login() {
 
     dispatch(login(LoginRequest, navigate));
   };
-  /* var data = useSelector((securityReducer) => securityReducer.errors.detail);
-  useEffect(() => {
-    if(data != null){
-      setLoginError(true);
-    }
-  }, [data]);
-
-  if(loginError){
-  alert(loginError)
-  }
- */
   return (
     <div className="centerContent mt-5 p-3 login-card">
       {/* <div className="centerContent mt-5">

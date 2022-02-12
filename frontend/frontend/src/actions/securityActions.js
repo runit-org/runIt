@@ -51,6 +51,7 @@ export const login = (LoginRequest, navigate) => async (dispatch) => {
       type: GET_ERRORS,
       payload: error.response.data,
     });
+    alert(error.response.data.detail)
   }
 };
 

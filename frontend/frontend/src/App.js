@@ -11,7 +11,6 @@ import {
 import Login from "./components/Login";
 import Header from "./components/Header";
 import Posts from "./components/Posts";
-import { Children } from "react";
 
 function ProtectedRoute({ children }) {
   const isAuthenticated = localStorage.getItem("token");
