@@ -22,7 +22,9 @@ def createEvent(request):
     event = Event.objects.create(
         user = user,
         title = data['title'],
-        maxMember = data['maxMember']
+        maxMember = data['maxMember'],
+        userName = user.username,
+        details = data['details']
     )
     
     serializer = EventSerializer(event, many=False)

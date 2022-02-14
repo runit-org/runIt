@@ -20,7 +20,7 @@ def checkEventId(id):
         return False
 
 def eventValidator(data):
-    if data.get('title') == None or data.get('maxMember') == None:
+    if data.get('title') == None or data.get('maxMember') == None or data.get('details') == None:
         return 'Required fields not met'
 
     elif str(data['title']) == '' or str(data['title']).isspace() == True:

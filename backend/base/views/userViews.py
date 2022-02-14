@@ -47,12 +47,16 @@ def registerUser(request):
     checkEmailExist = User.objects.filter(email = data['email'])
 
     if len(checkEmailExist) > 0:
-        message = {'detail': 'Email is taken'}
         return base.error('Email taken')
+
+    checkUsernameExist = User.objects.filter(username = data['username'])
+
+    if len(checkUsernameExist) > 0:
+        return base.error('Username taken')
     
     user = User.objects.create(
         first_name=data['name'],
-        username=data['email'],
+        username=data['username'],
         email=data['email'],
         password=make_password(data['password'])
     )
