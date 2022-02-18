@@ -18,9 +18,6 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import status
 
 
-from rest_framework_simplejwt.tokens import AccessToken
-
-
 from . import baseViews as base
 
 
