@@ -2,8 +2,14 @@ import React from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import img from "../logo192.png";
 
-
 function Header() {
+ 
+
+const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload()
+  };
+ 
   return (
     <div>
       <Navbar collapseOnSelect expand="xl" variant="dark" fixed="top">
@@ -28,7 +34,7 @@ function Header() {
                     Support
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="#">
+                  <NavDropdown.Item onClick={handleLogout}>
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>

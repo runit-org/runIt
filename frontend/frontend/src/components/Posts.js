@@ -4,6 +4,7 @@ import PostItem from "./PostItem";
 import SideNav from "./SideNav";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEvents } from "../actions/eventActions";
+import CreatePost from "./CreatPost";
 
 function Posts() {
   const dispatch = useDispatch();
@@ -17,29 +18,48 @@ function Posts() {
   useEffect(() => {
     setEventData(allEventsData);
   }, [allEventsData]);
-  console.log(eventData);
 
   return (
     <div className="content">
       {/* <Row className="row justify-content-center">Event Data</Row> */}
+
       <Row>
         <Col className="post-cards">
+          <CreatePost />
           {eventData.map((event) => (
             <div key={event.id}>
-              <PostItem eventTitle={event.title} />
+              <PostItem
+                eventTitle={event.title}
+                eventDetails={event.details}
+                postedBy={event.userName}
+                createdTime={event.humanTimeDiffCreatedAt}
+              />
             </div>
           ))}
         </Col>
 
-        <Col sm={3} className="post-cards">
+        <Col sm={3} className="post-cards recents">
           <Card>
             <Card.Body>
               <Card.Title className="text-muted mb-4">Recent Posts</Card.Title>
-              {eventData.map((event) => (
+              {eventData.length > 4
+                ? eventData
+                    .slice(Math.max(eventData.length - 4, 0))
+                    .map((event) => (
+                      <div className="mb-3" key={event.id}>
+                        <SideNav eventTitle={event.title} />
+                      </div>
+                    ))
+                : eventData.map((event) => (
+                    <div className="mb-3" key={event.id}>
+                      <SideNav eventTitle={event.title} />
+                    </div>
+                  ))}
+              {/* {eventData.map((event) => (
                 <div className="mb-3" key={event.id}>
                   <SideNav eventTitle={event.title} />
                 </div>
-              ))}
+              ))} */}
             </Card.Body>
           </Card>
         </Col>

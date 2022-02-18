@@ -8,19 +8,21 @@ import ErrorToast from "./ErrorToast";
 
 function SignUp() {
   const dispatch = useDispatch();
+  const [name, setName] = useState({});
   const [username, setUsername] = useState({});
   const [email, setEmail] = useState({});
   const [password, setPassword] = useState({});
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
-  const [signUpStatus, setSignUpStatus] = useState("");
+  const [signUpStatus, setSignUpStatus] = useState("false");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const userData = {
-      name: username,
+      name: name,
+      username: username,
       email: email,
       password: password,
     };
@@ -37,9 +39,11 @@ function SignUp() {
         setSignUpStatus(newUserStatus.userData.success);
       } else {
         setSignUpStatus("false");
+        console.log("false")
       }
     }
   }, [newUserStatus]);
+  console.log(show)
 
   let successVariant = {
     background: "#DFF2BF",
@@ -49,7 +53,6 @@ function SignUp() {
     background: "#FFD2D2",
     color: "#D8000C",
   };
-
   return (
     <div className="fullPage">
       <ErrorToast
@@ -57,6 +60,7 @@ function SignUp() {
         showToast={show}
         variant={signUpStatus == "true" ? successVariant : errorVariant}
       />
+
       <Row className="centerContent p-3 login-card fullBody">
         <Card>
           <h3 className="centerContent mt-3">Create an account</h3>
@@ -66,10 +70,26 @@ function SignUp() {
               handleSubmit(e);
             }}
           >
-            <Form.Label className="text-muted">Username</Form.Label>
+            <Form.Label className="text-muted">Name</Form.Label>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <FloatingLabel
                 controlId="floatingInput"
+                label="Name"
+                className="mb-3"
+              >
+                <Form.Control
+                  type="text"
+                  placeholder="Mac"
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </FloatingLabel>
+            </Form.Group>
+
+            <Form.Label className="text-muted">Username</Form.Label>
+            <Form.Group className="mb-3" controlId="formBasicEmail1">
+              <FloatingLabel
+                controlId="floatingInput1"
                 label="Username"
                 className="mb-3"
               >

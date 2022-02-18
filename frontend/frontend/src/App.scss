@@ -69,7 +69,7 @@ body {
 div.content {
   padding: 80px 12px;
   /* background-color: #e1e5ee;  */
-  background-color: $secondary-light;
+  background-color: $primary-light;
   min-height: 100vh;
 }
 
@@ -117,24 +117,25 @@ a.dropdown-item:hover {
   color: $theme !important;
 }
 
-/*------Forms------*/
+/*------Login/Signup Forms------*/
 
-.form-floating > .form-control:-webkit-autofill {
+.login-card .form-floating > .form-control:-webkit-autofill {
   transition: background-color 5000s ease-in-out 0s;
   -webkit-text-fill-color: $primary-light !important;
 }
-.form-floating > .form-control:focus {
+.login-card .form-floating > .form-control:focus {
   border: 1px solid $theme;
   box-shadow: none !important;
   background-color: $secondary-dark;
   color: $primary-light;
 }
-.form-floating > .form-control {
+.login-card .form-floating > .form-control {
   border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: $secondary-dark;
   color: $primary-light;
 }
-.form-floating > .form-control:hover {
+.login-card .form-floating > .form-control:hover,
+.new-post-container .form-floating > .form-control:hover {
   border: 1px solid $theme;
 }
 .login-card .card {
@@ -154,11 +155,37 @@ a.dropdown-item:hover {
 }
 
 /*------Event posts------*/
+.new-post-container {
+  background-color: $secondary-light;
+}
+
+.new-post-container .form-floating > .form-control:focus {
+  border: 1px solid $theme;
+  box-shadow: none !important;
+  background-color: transparent;
+}
+.new-post-container .form-floating > .form-control {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: transparent !important;
+}
+.new-post-container .ql-container.ql-snow, .new-post-container .ql-toolbar.ql-snow{
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+/* .post-cards:first-of-type{
+  border-right: 1px solid #d7d8d9;
+} */
 .post-cards .card {
   background-color: $primary-light;
   border: none;
   border-radius: 6px;
 }
+
+.post-cards~.recents .card {
+  background-color: $secondary-light;
+  border: none;
+  border-radius: 6px;
+}
+
 .post-cards .card-header {
   background-color: transparent;
   border: none;
@@ -167,12 +194,12 @@ a.dropdown-item:hover {
   display: inline;
 }
 
-/*------Logo------*/
-.jobCard-Logo {
+/*------Image/Logo------*/
+.userProf-img {
   width: 50px;
   border-radius: 12px;
   padding: 5px;
-  background-color: $primary-light;
+  background-color: $secondary-dark;
 }
 .recents-Logo {
   width: 30px;

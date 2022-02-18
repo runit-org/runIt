@@ -19,6 +19,7 @@ export const createNewUser = (userData, setLoad, setShow, setError) => async (di
     
     if(res.data.success == "true"){
       setLoad(false)
+      setShow(true)
       setError(res.data.message);
     }
     dispatch({
@@ -87,16 +88,16 @@ export const login = (LoginRequest, navigate, setLoad, setShow, setError) => asy
       type: GET_ERRORS,
       payload: error.response.data,
     });
-    // alert(error.response.data.detail)
   }
 };
 
 /* export const logout = (navigate) => async (dispatch) => {
-  const res = await axios.get("http://localhost:8000/api/auth/logout");
+  const res = await axios.post("http://localhost:8000/api/auth/logout/");
   localStorage.clear();
   setToken(false);
+  navigate("/");
   if (!localStorage.getItem("token")) {
-    navigate("/signin");
+    navigate("/");
   }
   dispatch({
     type: SET_CURRENT_USER,
