@@ -26,7 +26,10 @@ def eventValidator(data):
     elif str(data['title']) == '' or str(data['title']).isspace() == True:
         return 'Title cannot be empty'
 
-    elif  isinstance(data['maxMember'], int) == False or data['maxMember'] < 2:
+    elif  isinstance(data['maxMember'], int) == False:
+        return 'Max member must be integer'
+    
+    elif data['maxMember'] < 2:
         return 'Max member must be more than 1'
 
     else:
