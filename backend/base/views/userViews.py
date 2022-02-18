@@ -17,6 +17,10 @@ from django.contrib.auth.hashers import make_password
 # this is for the error handling status code
 from rest_framework import status
 
+
+from rest_framework_simplejwt.tokens import AccessToken
+
+
 from . import baseViews as base
 
 
@@ -71,3 +75,4 @@ def getAllUsers(request):
     # many=True means we are serializing multiple products, not just one. if one then false
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
+
