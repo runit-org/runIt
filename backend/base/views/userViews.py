@@ -80,9 +80,9 @@ def getAllUsers(request):
 @csrf_exempt
 @api_view(['POST'])
 def logout (request):
-    # data = request.data
-    # if data.get('refresh') == None:
-    #     return base.error('Please provide the refresh token :)') 
+    data = request.data
+    if data.get('refresh') == None:
+        return base.error('Please provide the refresh token :)') 
 
     token = RefreshToken(request.data.get('refresh'))
     token.blacklist()
