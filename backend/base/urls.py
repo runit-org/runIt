@@ -9,6 +9,7 @@ urlpatterns = [
     path('auth/login/', userViews.MyTokenObtainPairView.as_view(), name='login'),
     path('auth/register/', userViews.registerUser, name='register'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('auth/logout/', userViews.logout, name='token_refresh'),
 
     path('user/all/', userViews.getAllUsers, name='all_users'),
 

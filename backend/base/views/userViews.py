@@ -17,6 +17,10 @@ from django.contrib.auth.hashers import make_password
 # this is for the error handling status code
 from rest_framework import status
 
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from django.views.decorators.csrf import csrf_exempt
+
 
 from . import baseViews as base
 
@@ -73,3 +77,13 @@ def getAllUsers(request):
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
+@csrf_exempt
+@api_view(['POST'])
+def logout (request):
+    # data = request.data
+    # if data.get('refresh') == None:
+    #     return base.error('Please provide the refresh token :)') 
+
+    token = RefreshToken(request.data.get('refresh'))
+    token.blacklist()
+    return base.response('Logout Successful')
