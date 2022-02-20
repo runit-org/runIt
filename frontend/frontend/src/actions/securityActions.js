@@ -64,6 +64,7 @@ export const login =
       const accessToken = res.data.access;
       //store token in local storage
       localStorage.setItem("token", refToken);
+      localStorage.setItem("accessToken", accessToken);
       //set token in header
       setToken(accessToken);
       //get data from response

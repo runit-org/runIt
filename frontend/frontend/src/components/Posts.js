@@ -41,7 +41,7 @@ function Posts() {
         <Col sm={3} className="post-cards recents">
           <Card>
             <Card.Body>
-              <Card.Title className="text-muted mb-4">Recent Posts</Card.Title>
+              <Card.Title className="text-muted mb-4">New Events</Card.Title>
               {eventData.length > 4
                 ? eventData
                     .slice(Math.max(eventData.length - 4, 0))
@@ -60,6 +60,21 @@ function Posts() {
                   <SideNav eventTitle={event.title} />
                 </div>
               ))} */}
+            </Card.Body>
+          </Card>
+
+          <Card className="mt-4">
+            <Card.Body>
+              <Card.Title className="text-muted mb-4">Your Events</Card.Title>
+              {eventData
+                .filter(
+                  (eventData) => eventData.userName == localStorage.username
+                )
+                .map((event) => (
+                  <div className="mb-3" key={event.id}>
+                    <SideNav eventTitle={event.title} />
+                  </div>
+                ))}
             </Card.Body>
           </Card>
         </Col>

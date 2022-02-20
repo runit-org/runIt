@@ -20,9 +20,10 @@ import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
 import axios from "axios";
 
 const token = localStorage.token;
+const accessToken = localStorage.accessToken
 
-/* const isMyTokenExpired = isExpired(token);
-console.log(isMyTokenExpired) */
+const isMyTokenExpired = isExpired(accessToken);
+console.log(isMyTokenExpired)
 
 const getAccessToken = async (token) => {
   try {
@@ -47,7 +48,8 @@ const getAccessToken = async (token) => {
   }
 };
 
-if (token /* && !isMyTokenExpired */) {
+if (token && isMyTokenExpired ) {
+  console.log("here")
   getAccessToken(token);
 } /* else {
   localStorage.clear();
