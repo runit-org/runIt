@@ -1,13 +1,26 @@
 import React from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import img from "../logo192.png";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../actions/securityActions";
 
 function Header() {
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
  
 
-const handleLogout = () => {
-    localStorage.clear();
-    window.location.reload()
+const handleLogout = (e) => {
+    /* localStorage.clear();
+    window.location.reload() */
+    e.preventDefault();
+    const token = localStorage.token
+
+    const refToken = {
+      refresh: token,
+    };
+
+    dispatch(logout(refToken, navigate));
   };
  
   return (
@@ -34,7 +47,9 @@ const handleLogout = () => {
                     Support
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item onClick={handleLogout}>
+                  <NavDropdown.Item onClick={(e) => {
+              handleLogout(e);
+            }}>
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>

@@ -1,6 +1,6 @@
 import "./App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'react-quill/dist/quill.snow.css';
+import "react-quill/dist/quill.snow.css";
 import store from "./store";
 import { Provider } from "react-redux";
 import {
@@ -16,26 +16,46 @@ import Posts from "./components/Posts";
 import setToken from "./securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 import { isExpired } from "react-jwt";
-import { SET_CURRENT_USER } from "./actions/types";
+import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
+import axios from "axios";
 
-const token = localStorage.token
+const token = localStorage.token;
 
-const isMyTokenExpired = isExpired(token);
+/* const isMyTokenExpired = isExpired(token);
+console.log(isMyTokenExpired) */
 
-if (token && !isMyTokenExpired) {
-  setToken(token);
-  const decoded_token = jwt_decode(token);
-  store.dispatch({
-    type: SET_CURRENT_USER,
-    payload: decoded_token,
-  });
-}else{
+const getAccessToken = async (token) => {
+  try {
+    const refToken = {
+      refresh: token,
+    };
+    const res = await axios.post(
+      "http://localhost:8000/api/auth/token/refresh/",
+      refToken
+    );
+    setToken(res.data.access);
+    const decoded_token = jwt_decode(res.data.access);
+    store.dispatch({
+      type: SET_CURRENT_USER,
+      payload: decoded_token,
+    });
+  } catch (error) {
+    store.dispatch({
+      type: GET_ERRORS,
+      payload: error.message,
+    });
+  }
+};
+
+if (token /* && !isMyTokenExpired */) {
+  getAccessToken(token);
+} /* else {
   localStorage.clear();
-  if(!window.location.hash) {
-		window.location = window.location + '#session';
-		window.location.reload();
-	}
-}
+  if (!window.location.hash) {
+    window.location = window.location + "#session";
+    window.location.reload();
+  } 
+}*/
 
 function ProtectedRoute({ children }) {
   const isAuthenticated = localStorage.getItem("token");
