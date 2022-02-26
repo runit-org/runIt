@@ -98,10 +98,22 @@ export const login =
   };
 
 export const logout = (refToken, navigate) => async (dispatch) => {
-  const res = await axios.post(
+  const ref = await axios.post(
+    "http://localhost:8000/api/auth/token/refresh/",
+    refToken
+  ).then(ref => {
+    console.log(ref.data.access)
+    setToken(ref.data.access);
+    return  axios.post(
+      "http://localhost:8000/api/auth/logout/",
+      refToken
+    );
+  })
+  
+/*   const res = await axios.post(
     "http://localhost:8000/api/auth/logout/",
     refToken
-  );
+  ); */
 
   setToken(false);
   localStorage.clear();
