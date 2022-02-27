@@ -156,7 +156,7 @@ a.dropdown-item:hover {
 
 /*------Event posts------*/
 .new-post-container {
-  background-color: $secondary-light;
+  background-color: $primary-light;
 }
 
 .new-post-container .form-floating > .form-control:focus {
@@ -178,6 +178,11 @@ a.dropdown-item:hover {
   background-color: $primary-light;
   border: none;
   border-radius: 6px;
+}
+
+.post-cards .card:hover {
+  background-color: $secondary-light;
+  transition: 0.4s;
 }
 
 .post-cards~.recents .card {

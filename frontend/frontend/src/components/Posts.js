@@ -25,7 +25,6 @@ function Posts() {
 
       <Row>
         <Col className="post-cards">
-          <CreatePost />
           {eventData.map((event) => (
             <div key={event.id}>
               <PostItem
@@ -39,9 +38,10 @@ function Posts() {
         </Col>
 
         <Col sm={3} className="post-cards recents">
+        <CreatePost />
           <Card>
             <Card.Body>
-              <Card.Title className="text-muted mb-4">New Events</Card.Title>
+              <Card.Title className="text-muted mb-4">Recents</Card.Title>
               {eventData.length > 4
                 ? eventData
                     .slice(Math.max(eventData.length - 4, 0))

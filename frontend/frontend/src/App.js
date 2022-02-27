@@ -17,13 +17,11 @@ import {setToken, refreshToken} from "./securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 import { isExpired } from "react-jwt";
 import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
-import axios from "axios";
 
 const token = localStorage.token;
 const accessToken = localStorage.accessToken
 
 const isMyTokenExpired = isExpired(accessToken);
-console.log(isMyTokenExpired)
 
 const getAccessToken = async (token) => {
   try {
@@ -53,7 +51,6 @@ const getAccessToken = async (token) => {
 };
 
 if (token && isMyTokenExpired ) {
-  console.log("here")
   getAccessToken(token);
 } /* else {
   localStorage.clear();

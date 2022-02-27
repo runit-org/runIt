@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Col, Row, Card } from "react-bootstrap";
 import img from "../logo192.png";
 
@@ -21,7 +21,7 @@ function PostItem(props) {
                   className="text-muted"
                   style={{ fontSize: "12px", display: "block" }}
                 >
-                  @{props.postedBy} . {props.createdTime}
+                  <a href="#" className="text-decoration-none">@{props.postedBy}</a> <strong> {props.createdTime} ago</strong>
                 </small>
               </Col>
             </Row>
