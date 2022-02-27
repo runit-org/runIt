@@ -13,7 +13,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Header from "./components/Header";
 import Posts from "./components/Posts";
-import setToken from "./securityUtils/setToken";
+import {setToken, refreshToken} from "./securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 import { isExpired } from "react-jwt";
 import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
@@ -27,19 +27,23 @@ console.log(isMyTokenExpired)
 
 const getAccessToken = async (token) => {
   try {
-    const refToken = {
+   /*  const refToken = {
       refresh: token,
     };
     const res = await axios.post(
       "http://localhost:8000/api/auth/token/refresh/",
       refToken
-    );
-    setToken(res.data.access);
+    ); */
+    const res = await refreshToken()
+    .then(res => {
+      setToken(res.data.access);
     const decoded_token = jwt_decode(res.data.access);
     store.dispatch({
       type: SET_CURRENT_USER,
       payload: decoded_token,
     });
+    })
+   
   } catch (error) {
     store.dispatch({
       type: GET_ERRORS,

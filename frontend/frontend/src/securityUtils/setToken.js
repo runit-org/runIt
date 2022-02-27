@@ -8,4 +8,12 @@ const setToken = (token) => {
   }
 };
 
-export default setToken;
+const refreshToken = () => {
+  const ref =  axios
+    .post("http://localhost:8000/api/auth/token/refresh/", {
+      refresh: localStorage.getItem("token"),
+    })
+    return ref
+};
+
+export  {setToken, refreshToken};

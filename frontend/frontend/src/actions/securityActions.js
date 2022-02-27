@@ -1,6 +1,6 @@
 import axios from "axios";
 import { GET_USERS, GET_ERRORS, SET_CURRENT_USER, SET_NEW_USER } from "./types";
-import setToken from "../securityUtils/setToken";
+import {setToken, refreshToken} from "../securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 
 export const getUsers = () => async (dispatch) => {
@@ -98,10 +98,10 @@ export const login =
   };
 
 export const logout = (refToken, navigate) => async (dispatch) => {
-  const ref = await axios.post(
+  /* const ref = await axios.post(
     "http://localhost:8000/api/auth/token/refresh/",
     refToken
-  ).then(ref => {
+  ) */const ref = await refreshToken().then(ref => {
     console.log(ref.data.access)
     setToken(ref.data.access);
     return  axios.post(

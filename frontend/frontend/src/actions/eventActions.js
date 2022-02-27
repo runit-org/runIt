@@ -1,12 +1,13 @@
 import axios from "axios";
 import { GET_ALL_EVENTS, GET_ERRORS } from "./types";
-import setToken from "../securityUtils/setToken";
+import {setToken, refreshToken} from "../securityUtils/setToken";
 
 export const getAllEvents = () => async (dispatch) => {
-  const ref = await axios
+  /* const ref = await axios
     .post("http://localhost:8000/api/auth/token/refresh/", {
       refresh: localStorage.getItem("token"),
-    })
+    }) */
+    const ref = await refreshToken()
     .then((ref) => {
       console.log(ref.data.access);
       setToken(ref.data.access);
@@ -29,10 +30,11 @@ export const getAllEvents = () => async (dispatch) => {
 
 export const createNewEvent =
   (postData, setLoad, setShow, setError) => async (dispatch) => {
-    const ref = await axios
+    /* const ref = await axios
       .post("http://localhost:8000/api/auth/token/refresh/", {
         refresh: localStorage.getItem("token"),
-      })
+      }) */
+      const ref = await refreshToken()
       .then((ref) => {
         console.log(ref.data.access);
         setToken(ref.data.access);
