@@ -17,3 +17,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email']
+
+class EventMemberSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = EventMember
+        fields = '__all__'

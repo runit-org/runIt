@@ -22,6 +22,14 @@ def checkEventId(id):
     else:
         return False
 
+def checkUserId(id):
+    checkUserExist = User.objects.filter(id = id)
+
+    if len(checkUserExist) > 0:
+        return True
+    else:
+        return False
+
 def eventValidator(data):
     if data.get('title') == None or data.get('maxMember') == None or data.get('details') == None:
         return 'Required fields not met'
@@ -37,6 +45,40 @@ def eventValidator(data):
 
     else:
         return ''
+
+def requestJoinEventValidator(data):
+    if data.get('eventId') == None:
+        return 'Please provide an event ID'
+
+    else:
+        return ''
+
+def changeEventMemberStatusValidator(data):
+    if data.get('eventId') == None:
+        return 'Please provide an eventId'
+
+    elif data.get('userId') == None:
+        return 'Please provide a user ID'
+
+    elif data.get('status') == None:
+        return 'Please provide a status'
+
+    elif data['status'] != 1 and data['status'] != 2:
+        return 'Invalid status code (1=accept, 2=reject)'
+
+    else:
+        return ''
+
+def checkEventMemberStatus(eventId, userId):
+    checkExist = EventMember.objects.filter(eventId = eventId, userId = userId)
+
+    if len(checkExist) > 0:
+        return checkExist[0].status
+
+    else:
+        # return -1 if no event-member record exist
+        return -1
+    
 
 def getHumanTimeDifferenceToNow(targetTime):
     currentTime = datetime.datetime.utcnow().replace(tzinfo=utc)

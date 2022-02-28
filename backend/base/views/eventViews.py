@@ -1,3 +1,4 @@
+from tabnanny import check
 from django.shortcuts import render
 from django.http import JsonResponse
 from base.models import *
@@ -29,7 +30,7 @@ def createEvent(request):
     
     serializer = EventSerializer(event, many=False)
 
-    return base.response('Post created', serializer.data)
+    return base.response('Event created', serializer.data)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -87,3 +88,112 @@ def allEvent(request):
     events = Event.objects.all()
     serializer = EventSerializer(events, many=True)
     return base.response('All events retrieved', serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def requestJoinEvent(request):
+    user = request.user
+    data = request.data
+
+    validator = base.requestJoinEventValidator(data)
+
+    if validator != '':
+        return base.error(validator)
+
+    if not base.checkEventId(data['eventId']):
+        return base.error('Event ID not found')
+
+    event = Event.objects.get(id = data['eventId'])
+
+    if user.id == event.user.id:
+        return base.error('You cannot request to join your own event')
+
+    checkMemberStatus = base.checkEventMemberStatus(data['eventId'], user.id)
+
+    if checkMemberStatus == -1:
+        # No record exist, then create a new event member record
+        eventMember = EventMember.objects.create (
+            userId = user.id,
+            eventId = data['eventId'],
+            user = user,
+            event = Event.objects.get(id = data['eventId']),
+            status = 0
+        )
+
+        return base.response('Your request to join this event have been submitted. Please wait for approval from the event creator')
+    elif checkMemberStatus == 0:
+        return base.error('You already have a pending request to join this event')
+    elif checkMemberStatus == 1:
+        return base.error('You are already part of this event')
+    else:
+        return base.error('Your request to join this event have been denied by the event creator')
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getEventMembers(request, pk):
+    user = request.user
+
+    if not base.checkEventId(pk):
+        return base.error('Event ID not found')
+
+    event = Event.objects.get(id=pk)
+    eventMember = EventMember.objects.filter(eventId = pk)
+    serializer = EventMemberSerializer(eventMember, many=True)
+
+    return base.response('Members of event retrieved', serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def changeEventMemberStatus(request):
+    user = request.user
+    data = request.data
+
+    validator = base.changeEventMemberStatusValidator(data)
+
+    if validator != '':
+        return base.error(validator)
+
+    if not base.checkEventId:
+        return base.error('Event ID not found')
+
+    event = Event.objects.get(id=data['eventId'])
+
+    if user.id != event.user.id:
+        return base.error('You can only approve members as an event creator')
+    
+    if not base.checkUserId(data['userId']):
+        return base.error('User ID not found')
+    
+
+    checkMemberStatus = base.checkEventMemberStatus(data['eventId'], data['userId'])
+
+    if checkMemberStatus == -1:
+        return base.error('No existing join request record from this user')
+
+    if checkMemberStatus == 0 or checkMemberStatus == 2:
+        # If the user have a pending request or was rejected, event creator can approve/re-approve it
+        findEventMember = EventMember.objects.filter(eventId=data['eventId'], userId = data['userId'])
+
+        eventMember = findEventMember[0]
+        eventMember.status = data['status']
+        eventMember.save()
+
+        if (data['status']) == 1:
+            return base.response('Request approved')
+        else:
+            return base.response('Request rejected')
+    else:
+        return base.error('This user has already been accepted into the event')
+
+    
+
+
+
+    
+
+
+
+
+    
+
