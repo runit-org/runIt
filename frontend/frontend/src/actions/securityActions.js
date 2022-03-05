@@ -68,6 +68,7 @@ export const login =
       //set token in header
       setToken(accessToken);
       //get data from response
+      const decoded_token = jwt_decode(res.data.access);
       const decoded = {
         username: res.data.username,
       };
@@ -84,7 +85,7 @@ export const login =
     }); */
       dispatch({
         type: SET_CURRENT_USER,
-        payload: decoded,
+        payload: decoded_token,
       });
     } catch (error) {
       setLoad(false);

@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Col,
   Row,
-  Card,
   Form,
   FloatingLabel,
   Button,
   Container,
   Modal,
 } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createNewEvent } from "../actions/eventActions";
 import ReactQuill from "react-quill";
 import Loading from "./Loading";
-import ErrorToast from "./ErrorToast";
 
 function CreatePost() {
   const dispatch = useDispatch();
@@ -21,7 +19,6 @@ function CreatePost() {
   const [maxMembers, setMaxMembers] = useState({});
   const [details, setDetails] = useState({});
   const [load, setLoad] = useState(false);
-  const [show, setShow] = useState(false);
   const [error, setError] = useState("");
   const [modalShow, setModalShow] = useState(false);
 
@@ -34,7 +31,7 @@ function CreatePost() {
       details: details,
     };
 
-    dispatch(createNewEvent(postData, setLoad, setShow, setError));
+    dispatch(createNewEvent(postData, setLoad, setError));
   };
 
   return (

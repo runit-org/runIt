@@ -32,6 +32,8 @@ function Posts() {
                 eventDetails={event.details}
                 postedBy={event.userName}
                 createdTime={event.humanTimeDiffCreatedAt}
+                eventId={event.id}
+                userId={event.user}
               />
             </div>
           ))}

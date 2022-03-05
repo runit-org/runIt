@@ -13,52 +13,35 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Header from "./components/Header";
 import Posts from "./components/Posts";
-import {setToken, refreshToken} from "./securityUtils/setToken";
+import { setToken, refreshToken } from "./securityUtils/setToken";
 import jwt_decode from "jwt-decode";
-import { isExpired } from "react-jwt";
+// import { isExpired } from "react-jwt";
 import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
 
 const token = localStorage.token;
-const accessToken = localStorage.accessToken
-
-const isMyTokenExpired = isExpired(accessToken);
 
 const getAccessToken = async (token) => {
-  try {
-   /*  const refToken = {
-      refresh: token,
-    };
-    const res = await axios.post(
-      "http://localhost:8000/api/auth/token/refresh/",
-      refToken
-    ); */
-    const res = await refreshToken()
-    .then(res => {
+  const res = await refreshToken()
+    .then((res) => {
+      console.log(res);
       setToken(res.data.access);
-    const decoded_token = jwt_decode(res.data.access);
-    store.dispatch({
-      type: SET_CURRENT_USER,
-      payload: decoded_token,
-    });
+      const decoded_token = jwt_decode(res.data.access);
+      store.dispatch({
+        type: SET_CURRENT_USER,
+        payload: decoded_token,
+      });
     })
-   
-  } catch (error) {
-    store.dispatch({
-      type: GET_ERRORS,
-      payload: error.message,
+    .catch((error) => {
+      store.dispatch({
+        type: GET_ERRORS,
+        payload: error.message,
+      });
     });
-  }
 };
 
-if (token && isMyTokenExpired ) {
+if (token) {
   getAccessToken(token);
-} /* else {
-  localStorage.clear();
-  if (!window.location.hash) {
-    window.location = window.location + "#session";
-    window.location.reload();
-  } 
-}*/
+}
 
 function ProtectedRoute({ children }) {
   const isAuthenticated = localStorage.getItem("token");
