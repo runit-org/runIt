@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import *
 from base.views.baseViews import getHumanTimeDifferenceToNow
-from base.views.enums import NotificationStatus
+from base.views.utils.enums import NotificationStatus
 
 class EventSerializer(serializers.ModelSerializer):
     humanTimeDiffCreatedAt = serializers.SerializerMethodField(read_only=True)
