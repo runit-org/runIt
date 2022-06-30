@@ -108,3 +108,9 @@ def getHumanTimeDifferenceToNow(targetTime):
         humanTimeDifference+="s"
 
     return humanTimeDifference
+
+def notifyUser(userId, details):
+    Notification.objects.create(
+        userId = userId,
+        details = details
+    )

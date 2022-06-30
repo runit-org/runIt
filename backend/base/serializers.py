@@ -29,7 +29,7 @@ class NotificationSerializer(serializers.ModelSerializer):
     statusName = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Notification
-        fields = ['id', 'details']
+        fields = ['id', 'details', 'statusName']
     
     def get_statusName(self, obj):
         return NotificationStatus(obj.status).name
