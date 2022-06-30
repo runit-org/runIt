@@ -24,4 +24,5 @@ urlpatterns = [
     path('event/member/changeStatus/', eventViews.changeEventMemberStatus, name="approve_member_request"),
 
     path('notifications/all/', notificationViews.index, name="user_notification"),
+    path('notifications/read/<str:pk>/', notificationViews.read, name="read_notification"),
 ]

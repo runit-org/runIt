@@ -121,7 +121,6 @@ def requestJoinEvent(request):
             status = 0
         )
 
-
         print(event.user.id)
         eventCreatorUserId = event.user.id
         notificationMessage = 'User ' + user.username + ' has requested to join your event'
