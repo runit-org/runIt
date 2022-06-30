@@ -1,5 +1,5 @@
 from django.urls import path
-from base.views import eventViews, userViews
+from base.views import eventViews, userViews, notificationViews
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
@@ -22,4 +22,7 @@ urlpatterns = [
     path('event/member/requestJoin/', eventViews.requestJoinEvent, name="request_join_event"),
     path('event/member/getMembers/<str:pk>/', eventViews.getEventMembers, name="get_event_members"),
     path('event/member/changeStatus/', eventViews.changeEventMemberStatus, name="approve_member_request"),
+
+    path('notifications/all/', notificationViews.index, name="user_notification"),
+    path('notifications/read/<str:pk>/', notificationViews.read, name="read_notification"),
 ]

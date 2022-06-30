@@ -121,6 +121,11 @@ def requestJoinEvent(request):
             status = 0
         )
 
+        print(event.user.id)
+        eventCreatorUserId = event.user.id
+        notificationMessage = 'User ' + user.username + ' has requested to join your event'
+        base.notifyUser(eventCreatorUserId, notificationMessage)
+
         return base.response('Your request to join this event have been submitted. Please wait for approval from the event creator')
     elif checkMemberStatus == 0:
         return base.error('You already have a pending request to join this event')
