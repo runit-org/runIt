@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Col, Row, Card, Button } from "react-bootstrap";
 import img from "../../logo192.png";
 import JoinEvent from "./JoinEvent";
+import EventMembers from "./EventMembers";
 
 function EventItem(props) {
   const [currentUser, setCurrentUser] = useState();
@@ -48,12 +49,13 @@ function EventItem(props) {
             dangerouslySetInnerHTML={{ __html: props.eventDetails }}
           />
         </Card.Body>
-        <footer className="p-2">
+        <footer className="p-2 d-flex">
           {currentUser != null && currentUser != props.userId ? (
             <JoinEvent eventId={props.eventId} eventTitle={props.eventTitle} />
           ) : (
             ""
           )}
+           <EventMembers eventId={props.eventId}/>
         </footer>
       </Card>
       <hr />

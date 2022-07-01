@@ -28,7 +28,7 @@ function JoinEvent(props) {
 
   return (
     <div className="mb-4">
-      <Button  onClick={() => setModalShow(true)}>Join</Button>
+      <Button className="me-2" onClick={() => setModalShow(true)}>Join</Button>
 
       <Modal
         size="lg"
