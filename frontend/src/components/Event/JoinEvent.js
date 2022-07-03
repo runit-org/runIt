@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Row,
-  Form,
-  Button,
-  Container,
-  Modal,
-} from "react-bootstrap";
+import { Row, Form, Button, Container, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { requestToJoin } from "../../actions/eventActions";
 import Loading from "../SiteElements/Loading";
@@ -20,7 +14,7 @@ function JoinEvent(props) {
     e.preventDefault();
 
     const postData = {
-        eventId: props.eventId,
+      eventId: props.eventId,
     };
 
     dispatch(requestToJoin(postData, setLoad, setError));
@@ -28,17 +22,19 @@ function JoinEvent(props) {
 
   return (
     <div className="mb-4">
-      <Button className="me-2" onClick={() => setModalShow(true)}>Join</Button>
+      <Button className="me-2" onClick={() => setModalShow(true)}>
+        Join
+      </Button>
 
       <Modal
-        size="lg"
+        size="md"
         show={modalShow}
         onHide={() => setModalShow(false)}
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
-            Request to join 
+            Request to join
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -54,7 +50,6 @@ function JoinEvent(props) {
 
               {error}
               <div className="d-flex justify-content-center">
-
                 <Button type="submit" className="mb-2 mt-3 w-25">
                   {(() => {
                     if (load) {
