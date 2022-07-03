@@ -7,36 +7,56 @@ import Loading from "../SiteElements/Loading";
 function MemberStatus(props) {
   const dispatch = useDispatch();
   const [load, setLoad] = useState(false);
+  const [status, setStatus] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const postData = {
       eventId: props.eventId,
       userId: props.userId,
-      status: 1,
+      status: status,
     };
 
     dispatch(memberStatus(postData, setLoad));
   };
 
   return (
-    <div className="mb-4">
       <Form
         onSubmit={(e) => {
           handleSubmit(e);
         }}
       >
-        <Button type="submit" className="mb-2 mt-3 w-25">
-          {(() => {
-            if (load) {
-              return <Loading />;
-            } else {
-              return <>Accept</>;
-            }
-          })()}
-        </Button>
+        {props.memberStatus == 0 ? (
+          <>
+            <Button
+              type="submit"
+              className="me-2"
+              onClick={(e) => setStatus(1)}
+            >
+              {(() => {
+                if (load) {
+                  return <Loading />;
+                } else {
+                  return <>Accept</>;
+                }
+              })()}
+            </Button>
+            <Button type="submit" onClick={(e) => setStatus(2)}>
+              {(() => {
+                if (load) {
+                  return <Loading />;
+                } else {
+                  return <>Reject</>;
+                }
+              })()}
+            </Button>
+          </>
+        ) : props.memberStatus == 1 ? (
+          <strong>Accepted</strong>
+        ) : (
+          <strong>Rejected</strong>
+        )}
       </Form>
-    </div>
   );
 }
 

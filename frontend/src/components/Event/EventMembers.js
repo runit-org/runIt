@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Form, Button, Container, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getEventMembers, memberStatus } from "../../actions/eventActions";
 import Loading from "../SiteElements/Loading";
@@ -36,19 +36,16 @@ function EventMembers(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* <Form> */}
-            <Container className="new-post-container p-3">
-              <Row>
-                {members.map((member) => (
-                  <div key={member.id}>
-                    <p>User Id: {member.userId}</p>
-                    <MemberStatus eventId={props.eventId} userId={member.userId}/>
-
-                  </div>
-                ))}
-              </Row>
-            </Container>
-          {/* </Form> */}
+          {members.map((member) => (
+            <div className="d-flex justify-content-between" key={member.id}>
+              User Id: {member.userId}
+              <MemberStatus
+                eventId={props.eventId}
+                userId={member.userId}
+                memberStatus={member.status}
+              />
+            </div>
+          ))}
         </Modal.Body>
       </Modal>
     </div>
