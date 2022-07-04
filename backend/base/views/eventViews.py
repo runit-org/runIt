@@ -191,6 +191,8 @@ def changeEventMemberStatus(request):
     else:
         return base.error('This user has already been accepted into the event')
 
+def 
+
     
 
 
