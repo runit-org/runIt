@@ -191,7 +191,17 @@ def changeEventMemberStatus(request):
     else:
         return base.error('This user has already been accepted into the event')
 
-def 
+# Get events owned by auth user
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def ownedEvent(request):
+    user = request.user
+
+    user_events = Event.objects.filter(user = user)
+
+    serializer = EventSerializer(user_events, many=True)
+    return base.response('User owned events retrieved', serializer.data)
+
 
     
 
