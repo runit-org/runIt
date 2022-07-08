@@ -26,7 +26,7 @@ function MemberStatus(props) {
           handleSubmit(e);
         }}
       >
-        {props.memberStatus == 0 ? (
+        {props.memberStatus === "PENDING" &&( props.eventCreator == props.currentUser) ? (
           <>
             <Button
               type="submit"
@@ -51,11 +51,7 @@ function MemberStatus(props) {
               })()}
             </Button>
           </>
-        ) : props.memberStatus == 1 ? (
-          <strong>Accepted</strong>
-        ) : (
-          <strong>Rejected</strong>
-        )}
+        ) : (props.memberStatus)}
       </Form>
   );
 }

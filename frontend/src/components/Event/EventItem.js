@@ -55,7 +55,7 @@ function EventItem(props) {
           ) : (
             ""
           )}
-           <EventMembers eventId={props.eventId}/>
+           <EventMembers eventId={props.eventId} userId={props.userId} currentUser={currentUser}/>
         </footer>
       </Card>
       <hr />
