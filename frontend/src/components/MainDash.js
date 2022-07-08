@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Card } from "react-bootstrap";
-import PostItem from "./Event/EventItem";
+import EventItem from "./Event/EventItem";
 import SideNav from "./SiteElements/SideNav";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEvents } from "../actions/eventActions";
@@ -27,7 +27,7 @@ function MainDash() {
         <Col className="post-cards">
           {eventData.map((event) => (
             <div key={event.id}>
-              <PostItem
+              <EventItem
                 eventTitle={event.title}
                 eventDetails={event.details}
                 postedBy={event.userName}

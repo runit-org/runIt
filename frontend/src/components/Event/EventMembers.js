@@ -36,16 +36,20 @@ function EventMembers(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+         
           {members.map((member) => (
             <div className="d-flex justify-content-between" key={member.id}>
-              User Id: {member.userId}
+             {member.username}
               <MemberStatus
                 eventId={props.eventId}
                 userId={member.userId}
                 memberStatus={member.status}
+                eventCreator={props.userId}
+                currentUser={props.currentUser}
               />
             </div>
-          ))}
+          )) }
+          
         </Modal.Body>
       </Modal>
     </div>
