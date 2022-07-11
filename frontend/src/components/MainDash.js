@@ -12,7 +12,7 @@ function MainDash() {
 
   useEffect(() => {
     dispatch(getAllEvents());
-  }, []);
+  }, [dispatch]);
 
   var allEventsData = useSelector((eventReducer) => eventReducer.events.data);
   useEffect(() => {
@@ -25,8 +25,8 @@ function MainDash() {
 
       <Row>
         <Col className="post-cards">
-          {eventData.map((event) => (
-            <div key={event.id}>
+          {eventData.map((event, index) => (
+            <div key={index}>
               <EventItem
                 eventTitle={event.title}
                 eventDetails={event.details}
@@ -72,8 +72,8 @@ function MainDash() {
                 .filter(
                   (eventData) => eventData.userName == localStorage.username
                 )
-                .map((event) => (
-                  <div className="mb-3" key={event.id}>
+                .map((event, index) => (
+                  <div className="mb-3" key={index}>
                     <SideNav eventTitle={event.title} />
                   </div>
                 ))}
