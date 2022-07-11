@@ -124,3 +124,4 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
       });
   });
 };
+
