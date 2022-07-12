@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../actions/securityActions";
 import UserProfile from "../UserProfile";
+import Notifications from "../Notifications";
 
 function Header() {
   let navigate = useNavigate();
@@ -13,6 +14,11 @@ function Header() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [showNotif, setShowNotif] = useState(false);
+
+  const handleNotifShow = () => setShowNotif(true);
+  const handleNotifClose = () => setShowNotif(false);
 
   const handleLogout = (e) => {
     /* localStorage.clear();
@@ -26,10 +32,12 @@ function Header() {
 
     dispatch(logout(refToken, navigate));
   };
+  
 
   return (
     <div>
       <UserProfile accountShow={show} close={handleClose} />
+      <Notifications notifShow={showNotif} close={handleNotifClose} />
       <Navbar collapseOnSelect expand="xl" variant="dark" fixed="top">
         <Container>
           <Navbar.Brand href="/posts">
@@ -46,6 +54,9 @@ function Header() {
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
               <Nav className="me-aut">
+                <Nav.Link href="#" onClick={handleNotifShow}>
+                  Notifications
+                </Nav.Link>
                 <Nav.Link href="#" onClick={handleShow}>
                   Account
                 </Nav.Link>

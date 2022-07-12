@@ -9,5 +9,8 @@ export const CHECK_TOKEN = "CHECK_TOKEN"
 //event types
 export const GET_ALL_EVENTS = "GET_ALL_EVENTS";
 
+//Notifications
+export const GET_ALL_NOTIFS = "GET_ALL_NOTIFS";
+
 
 
