@@ -1,6 +1,6 @@
 import axios from "axios";
 import { GET_USERS, GET_ERRORS, SET_CURRENT_USER, SET_NEW_USER } from "./types";
-import {setToken, refreshToken} from "../securityUtils/setToken";
+import { setToken, refreshToken } from "../securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 
 export const getUsers = () => async (dispatch) => {
@@ -21,11 +21,10 @@ export const createNewUser =
         userData
       );
 
-      if (res.data.success == "true") {
-        setLoad(false);
+      if (res.data.success === "true") {
+        // setLoad(false);
         setShow(true);
-        setError(res.data.message);
-
+        setError(res.data);
       }
       dispatch({
         type: GET_ERRORS,
@@ -38,7 +37,7 @@ export const createNewUser =
     } catch (error) {
       setLoad(false);
       setShow(true);
-      setError(error.response.data.message);
+      setError(error.response.data);
       dispatch({
         type: SET_NEW_USER,
         payload: {},
@@ -103,16 +102,13 @@ export const logout = (refToken, navigate) => async (dispatch) => {
   /* const ref = await axios.post(
     "http://localhost:8000/api/auth/token/refresh/",
     refToken
-  ) */const ref = await refreshToken().then(ref => {
-    console.log(ref.data.access)
+  ) */ const ref = await refreshToken().then((ref) => {
+    console.log(ref.data.access);
     setToken(ref.data.access);
-    return  axios.post(
-      "http://localhost:8000/api/auth/logout/",
-      refToken
-    );
-  })
-  
-/*   const res = await axios.post(
+    return axios.post("http://localhost:8000/api/auth/logout/", refToken);
+  });
+
+  /*   const res = await axios.post(
     "http://localhost:8000/api/auth/logout/",
     refToken
   ); */
