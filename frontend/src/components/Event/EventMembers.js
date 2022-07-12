@@ -14,8 +14,6 @@ function EventMembers(props) {
 
   useEffect(() => {
     if (modalShow) {
-      console.log(props.eventId);
-
       dispatch(getEventMembers(props.eventId, setMembers));
     }
   }, [modalShow]);
@@ -36,20 +34,25 @@ function EventMembers(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-         
-          {members.map((member) => (
-            <div className="d-flex justify-content-between" key={member.id}>
-             {member.username}
-              <MemberStatus
-                eventId={props.eventId}
-                userId={member.userId}
-                memberStatus={member.status}
-                eventCreator={props.userId}
-                currentUser={props.currentUser}
-              />
-            </div>
-          )) }
-          
+          {members.length == 0 ? (
+            <strong>Nobody here yet....</strong>
+          ) : (
+            members.map((member) => (
+              <div className="d-flex justify-content-between" key={member.id}>
+                {props.currentUser == member.userId
+                  ? `Your request (${member.username})`
+                  : member.username}
+
+                <MemberStatus
+                  eventId={props.eventId}
+                  userId={member.userId}
+                  memberStatus={member.status}
+                  eventCreator={props.userId}
+                  currentUser={props.currentUser}
+                />
+              </div>
+            ))
+          )}
         </Modal.Body>
       </Modal>
     </div>

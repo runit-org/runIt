@@ -33,7 +33,7 @@ function JoinEvent(props) {
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-lg">
+          <Modal.Title >
             Request to join
           </Modal.Title>
         </Modal.Header>
@@ -43,23 +43,22 @@ function JoinEvent(props) {
               handleSubmit(e);
             }}
           >
-            <Container className="new-post-container p-3">
+            <Container className="new-post-container ">
               <Row>
-                <p>Send request to join {props.eventTitle}.</p>
-              </Row>
-
-              {error}
-              <div className="d-flex justify-content-center">
-                <Button type="submit" className="mb-2 mt-3 w-25">
-                  {(() => {
-                    if (load) {
-                      return <Loading />;
-                    } else {
-                      return <>Confirm</>;
-                    }
-                  })()}
-                </Button>
-              </div>
+                {error ? <small className="mb-4">{error}</small> : ""}
+                <strong className="d-flex justify-content-between">
+                  Request to join the event - {props.eventTitle}.
+                  <Button type="submit">
+                    {(() => {
+                      if (load) {
+                        return <Loading />;
+                      } else {
+                        return <>Confirm</>;
+                      }
+                    })()}
+                  </Button>
+                </strong>
+              </Row>{" "}
             </Container>
           </Form>
         </Modal.Body>

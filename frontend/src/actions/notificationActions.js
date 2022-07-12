@@ -16,13 +16,13 @@ export const getNotifications = () => async (dispatch) => {
   });
 };
 
-export const notificationRead = (id) => async () => {
+export const notificationRead = (id, setReadStatus) => async () => {
   const ref = await refreshToken().then((ref) => {
     setToken(ref.data.access);
     const res = axios
       .patch(`http://localhost:8000/api/notifications/read/${id}/`)
       .then((res) => {
-        console.log(res)
+        setReadStatus(res.data.success)
       });
   });
 };
