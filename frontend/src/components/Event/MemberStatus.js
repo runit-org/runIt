@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { memberStatus } from "../../actions/eventActions";
@@ -21,38 +21,37 @@ function MemberStatus(props) {
   };
 
   return (
-      <Form
-        onSubmit={(e) => {
-          handleSubmit(e);
-        }}
-      >
-        {props.memberStatus === "PENDING" &&( props.eventCreator == props.currentUser) ? (
-          <>
-            <Button
-              type="submit"
-              className="me-2"
-              onClick={(e) => setStatus(1)}
-            >
-              {(() => {
-                if (load) {
-                  return <Loading />;
-                } else {
-                  return <>Accept</>;
-                }
-              })()}
-            </Button>
-            <Button type="submit" onClick={(e) => setStatus(2)}>
-              {(() => {
-                if (load) {
-                  return <Loading />;
-                } else {
-                  return <>Reject</>;
-                }
-              })()}
-            </Button>
-          </>
-        ) : (props.memberStatus)}
-      </Form>
+    <Form
+      onSubmit={(e) => {
+        handleSubmit(e);
+      }}
+    >
+      {props.memberStatus === "PENDING" &&
+      props.eventCreator == props.currentUser ? (
+        <>
+          <Button type="submit" className="me-2" onClick={(e) => setStatus(1)}>
+            {(() => {
+              if (load) {
+                return <Loading />;
+              } else {
+                return <>Accept</>;
+              }
+            })()}
+          </Button>
+          <Button type="submit" onClick={(e) => setStatus(2)}>
+            {(() => {
+              if (load) {
+                return <Loading />;
+              } else {
+                return <>Reject</>;
+              }
+            })()}
+          </Button>
+        </>
+      ) : (
+        props.memberStatus
+      )}
+    </Form>
   );
 }
 

@@ -68,7 +68,7 @@ export const requestToJoin =
           if (res.data.success == "true") {
             setLoad(false);
             setError(res.data.message);
-            window.location.reload();
+            // window.location.reload();
           }
           dispatch({
             type: GET_ERRORS,
