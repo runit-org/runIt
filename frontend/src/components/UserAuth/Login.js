@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
 import Footer from "../SiteElements/Footer";
 import { useDispatch } from "react-redux";
@@ -6,6 +6,7 @@ import { login } from "../../actions/securityActions";
 import { useNavigate } from "react-router-dom";
 import Loading from "../SiteElements/Loading";
 import ErrorToast from "../SiteElements/ErrorToast";
+import { useLocation } from "react-router-dom";
 
 function Login() {
   let navigate = useNavigate();
@@ -15,6 +16,16 @@ function Login() {
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
+  const [signupData, setSignupData] = useState("... Join Us");
+
+  const { state } = useLocation();
+
+  useEffect(() => {
+    if (state) {
+      const { id } = state;
+      setSignupData(id.userData.data.username);
+    }
+  }, [state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,18 +38,18 @@ function Login() {
     dispatch(login(LoginRequest, navigate, setLoad, setShow, setError));
   };
   let errorVariant = {
-    background: "#FFD2D2", 
-    color: "#D8000C", 
-  }
+    background: "#FFD2D2",
+    color: "#D8000C",
+  };
   return (
     <div className="fullPage">
       <ErrorToast errors={error} showToast={show} variant={errorVariant} />
       <Row className="centerContent p-3 login-card fullBody">
-        {/* <div className="centerContent mt-5">
+        <div className="centerContent mt-5">
         <h1 className="title">Event Matcher</h1>
-      </div> */}
+      </div> 
         <Card>
-          <h3 className="centerContent mt-3">Welcome Back!</h3>
+          <h4 className="centerContent mt-3">Hello&nbsp;<span style={{color:"#5865f2"}}>{signupData}!</span></h4>
           <Form
             className="p-4"
             onSubmit={(e) => {
@@ -97,7 +108,7 @@ function Login() {
               </Button>
             </div>
           </Form>
-          <Card.Footer >
+          <Card.Footer>
             <small className="centerContent align-items-center">
               New to the platform?&nbsp;<a href="/signup">Sign Up</a>
             </small>
