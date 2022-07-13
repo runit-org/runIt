@@ -155,7 +155,8 @@ a.dropdown-item:hover {
 
 /*------Event posts------*/
 .new-post-container {
-  background-color: $primary-light;
+  // background-color: $primary-light;
+  background-color: transparent;
 }
 
 .new-post-container .form-floating > .form-control:focus {
@@ -184,7 +185,7 @@ a.dropdown-item:hover {
   transition: 0.4s;
 }
 
-.post-cards~.recents .card {
+.post-cards~.recents .card{
   background-color: $secondary-light;
   border: none;
   border-radius: 6px;
@@ -197,12 +198,23 @@ a.dropdown-item:hover {
   padding: 0;
   display: inline;
 }
+/*------Modal------*/
+.modal-header{
+  background-color: $theme ;
+  color: $primary-light;
+}
 
 /*------Notification Toasts------*/
 .notif-Toasts{
   width: 100% !important;
   // box-shadow: none !important;
   margin-bottom: 10px;
+}
+.sidebar .ql-align-justify{
+  white-space: nowrap;
+  width:100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /*------Image/Logo------*/

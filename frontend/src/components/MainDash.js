@@ -4,6 +4,7 @@ import EventItem from "./Event/EventItem";
 import SideNav from "./SiteElements/SideNav";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEvents } from "../actions/eventActions";
+import CreatePostModal from "./Event/CreatEventModal";
 import CreatePost from "./Event/CreateEvent";
 
 function MainDash() {
@@ -25,38 +26,46 @@ function MainDash() {
 
       <Row>
         <Col className="post-cards">
-          {eventData.map((event, index) => (
-            <div key={index}>
-              <EventItem
-                eventTitle={event.title}
-                eventDetails={event.details}
-                postedBy={event.userName}
-                createdTime={event.humanTimeDiffCreatedAt}
-                eventId={event.id}
-                userId={event.user}
-              />
-            </div>
-          ))}
+          {eventData.length > 0 ? (
+            eventData.map((event, index) => (
+              <div key={index}>
+                <EventItem
+                  eventTitle={event.title}
+                  eventDetails={event.details}
+                  postedBy={event.userName}
+                  createdTime={event.humanTimeDiffCreatedAt}
+                  eventId={event.id}
+                  userId={event.user}
+                />
+              </div>
+            )).reverse()
+          ) : (
+            <Card>
+              <CreatePost />
+            </Card>
+          )}
         </Col>
 
         <Col sm={3} className="post-cards recents">
-        <CreatePost />
+          {eventData.length > 0 ? <CreatePostModal btnSize={"w-100"} /> : ""}
+
           <Card>
             <Card.Body>
               <Card.Title className="text-muted mb-4">Recents</Card.Title>
-              {eventData.length > 4
-                ? eventData
-                    .slice(Math.max(eventData.length - 4, 0))
-                    .map((event) => (
-                      <div className="mb-3" key={event.id}>
-                        <SideNav eventTitle={event.title} />
-                      </div>
-                    ))
-                : eventData.map((event) => (
+              {eventData.length == 0 ? "Recent 4 events will be displayed here." : 
+              eventData.length > 4
+              ? eventData
+                  .slice(Math.max(eventData.length - 4, 0)).reverse()
+                  .map((event) => (
                     <div className="mb-3" key={event.id}>
-                      <SideNav eventTitle={event.title} />
+                      <SideNav  eventTitle={event.title} time={event.humanTimeDiffCreatedAt} detail={event.details} />
                     </div>
-                  ))}
+                  ))
+              : eventData.map((event) => (
+                  <div className="mb-3" key={event.id}>
+                    <SideNav  eventTitle={event.title} time={event.humanTimeDiffCreatedAt} detail={event.details} />
+                  </div>
+                )).reverse()}
               {/* {eventData.map((event) => (
                 <div className="mb-3" key={event.id}>
                   <SideNav eventTitle={event.title} />
@@ -65,7 +74,7 @@ function MainDash() {
             </Card.Body>
           </Card>
 
-          <Card className="mt-4">
+         {/*  <Card className="mt-4">
             <Card.Body>
               <Card.Title className="text-muted mb-4">Your Events</Card.Title>
               {eventData
@@ -74,11 +83,11 @@ function MainDash() {
                 )
                 .map((event, index) => (
                   <div className="mb-3" key={index}>
-                    <SideNav eventTitle={event.title} />
+                    <SideNav eventTitle={event.title} time={event.humanTimeDiffCreatedAt} detail={event.details} />
                   </div>
-                ))}
+                )).reverse()}
             </Card.Body>
-          </Card>
+          </Card> */}
         </Col>
       </Row>
     </div>
