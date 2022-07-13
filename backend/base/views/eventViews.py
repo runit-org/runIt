@@ -153,7 +153,7 @@ def getEventMembers(request, pk):
 def changeEventMemberStatus(request):
     user = request.user
     data = request.data
-
+ 
     validator = base.changeEventMemberStatusValidator(data)
 
     if validator != '':
