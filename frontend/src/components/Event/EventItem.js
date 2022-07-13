@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Col, Row, Card, Button } from "react-bootstrap";
+import { Col, Row, Card } from "react-bootstrap";
 import img from "../../logo192.png";
 import JoinEvent from "./JoinEvent";
 import EventMembers from "./EventMembers";
 
 function EventItem(props) {
   const [currentUser, setCurrentUser] = useState();
-
   var getCurrentUser = useSelector(
     (securityReducer) => securityReducer.security.user
   );
@@ -26,7 +25,7 @@ function EventItem(props) {
             {" "}
             <Row xs="auto">
               <Col>
-                <img src={img} className="userProf-img"></img>
+                <img src={img} className="userProf-img" alt="Img"></img>
               </Col>
               <Col>
                 <h6 className="fw-bold">{props.eventTitle}</h6>
