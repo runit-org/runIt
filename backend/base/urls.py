@@ -1,5 +1,9 @@
 from django.urls import path
-from base.views import eventViews, userViews, notificationViews
+from base.modules.event.api import eventViews
+from base.modules.notification.api import notificationViews
+from base.modules.user.api import userViews
+
+
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )

@@ -22,7 +22,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.views.decorators.csrf import csrf_exempt
 
 
-from . import baseViews as base
+from ....views import baseViews as base
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
