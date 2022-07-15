@@ -9,11 +9,13 @@ $button-hover: #404eed;
 /*------General Components------*/
 html,
 body {
-  background-color: $theme !important;
+  background-color: $theme  !important;
 }
+
 .title {
   color: $primary-light;
 }
+
 .fullPage {
   position: fixed;
   width: 100%;
@@ -21,6 +23,7 @@ body {
   left: 0;
   top: 0;
 }
+
 .fullBody {
   height: 80%;
   display: -webkit-flexbox;
@@ -33,14 +36,17 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 .btn-primary {
-  background-color: $theme !important;
+  background-color: $theme  !important;
   border: none !important;
 }
+
 .btn-primary:hover {
-  background-color: $button-hover !important;
+  background-color: $button-hover  !important;
   border: none;
 }
+
 .btn-primary:focus {
   outline: none !important;
   box-shadow: none !important;
@@ -51,6 +57,7 @@ body {
   justify-content: center;
   margin: 0 auto;
 }
+
 .toasts {
   width: fit-content !important;
   top: 10px;
@@ -77,66 +84,74 @@ div.content {
 .footer-section {
   height: 20%;
 }
+
 .footer-hr {
   color: $primary-light;
   background-color: $primary-light;
   height: 1;
 }
-.footer-links > div.col > small > a {
+
+.footer-links>div.col>small>a {
   color: $primary-light;
   text-decoration: none;
   font-weight: bold;
 }
-.footer-links > div.col > small > a:hover {
+
+.footer-links>div.col>small>a:hover {
   text-decoration: underline;
 }
+
 /*------Header Nav------*/
 .navbar {
   background-color: $primary-dark;
 }
 
 .navbar-nav .nav-link {
-  color: $primary-light !important;
+  color: $primary-light  !important;
 }
 
 .navbar-nav .nav-link:hover {
-  color: $theme !important;
+  color: $theme  !important;
 }
 
 .navbar .container {
-  padding-left: 6rem;
-  padding-right: 6rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .dropdown-menu {
-  background-color: $secondary-dark !important;
+  background-color: $secondary-dark  !important;
 }
 
 a.dropdown-item:hover {
   background-color: transparent;
-  color: $theme !important;
+  color: $theme  !important;
 }
 
 /*------Login/Signup Forms------*/
-.login-card .form-floating > .form-control:-webkit-autofill {
+.login-card .form-floating>.form-control:-webkit-autofill {
   transition: background-color 5000s ease-in-out 0s;
-  -webkit-text-fill-color: $primary-light !important;
+  -webkit-text-fill-color: $primary-light  !important;
 }
-.login-card .form-floating > .form-control:focus {
+
+.login-card .form-floating>.form-control:focus {
   border: 1px solid $theme;
   box-shadow: none !important;
   background-color: $secondary-dark;
   color: $primary-light;
 }
-.login-card .form-floating > .form-control {
+
+.login-card .form-floating>.form-control {
   border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: $secondary-dark;
   color: $primary-light;
 }
-.login-card .form-floating > .form-control:hover,
-.new-post-container .form-floating > .form-control:hover {
+
+.login-card .form-floating>.form-control:hover,
+.new-post-container .form-floating>.form-control:hover {
   border: 1px solid $theme;
 }
+
 .login-card .card {
   background-color: $primary-dark;
   color: $primary-light;
@@ -145,50 +160,62 @@ a.dropdown-item:hover {
   width: 400px;
   height: fit-content;
 }
+
 .login-card .card-footer {
   border-top: 1px solid #777;
 }
 
-.login-card .form-floating > label {
+.login-card .form-floating>label {
   color: $primary-light;
 }
 
 /*------Event posts------*/
 .new-post-container {
-  // background-color: $primary-light;
-  background-color: transparent;
+  background-color: rgba($secondary-light, 0.9);
+  color: $primary-dark;
+  border-radius: 6px
 }
-
-.new-post-container .form-floating > .form-control:focus {
+.new-post-container .form-floating>.form-control {
+  color: $primary-dark;
+}
+.new-post-container .form-floating>.form-control:focus {
   border: 1px solid $theme;
   box-shadow: none !important;
-  background-color: transparent;
+ /* background-color: transparent; */
 }
-.new-post-container .form-floating > .form-control {
-  border: 1px solid rgba(0, 0, 0, 0.3);
+
+.new-post-container .form-floating>.form-control {
+  border: 1px solid rgba($primary-dark, 0.3);
   background-color: transparent !important;
 }
-.new-post-container .ql-container.ql-snow, .new-post-container .ql-toolbar.ql-snow{
-  border: 1px solid rgba(0, 0, 0, 0.3);
+
+.new-post-container :is(.ql-container.ql-snow, .ql-toolbar.ql-snow){
+  border: 1px solid rgba($primary-dark, 0.3);
 }
+.new-post-container  .ql-picker-options{
+  color: $primary-light;
+}
+.new-post-container .ql-snow .ql-picker, .ql-toolbar .ql-stroke{
+  color: $primary-dark;
+}
+.new-post-container :is(.ql-toolbar .ql-stroke ,.ql-toolbar .ql-fill , .ql-toolbar .ql-picker ) {
+  fill: none;
+  stroke: $primary-dark;
+}
+
 /* .post-cards:first-of-type{
   border-right: 1px solid #d7d8d9;
 } */
 .post-cards .card {
   background-color: $primary-light;
-  border: none;
+  // border: none;
   border-radius: 6px;
+  margin: 20px;
 }
 
 .post-cards .card:hover {
   background-color: $secondary-light;
   transition: 0.4s;
-}
-
-.post-cards~.recents .card{
-  background-color: $secondary-light;
-  border: none;
-  border-radius: 6px;
 }
 
 .post-cards .card-header {
@@ -198,21 +225,34 @@ a.dropdown-item:hover {
   padding: 0;
   display: inline;
 }
+
+.post-cards~.recents .card {
+  background-color: $secondary-light;
+  border: none;
+  border-radius: 6px;
+  margin: 20px 0px 20px 0px;
+}
+
+.event-owned{
+  border: 1px solid $theme !important;
+}
+
 /*------Modal------*/
-.modal-header{
+.modal-header {
   background-color: $theme ;
   color: $primary-light;
 }
 
 /*------Notification Toasts------*/
-.notif-Toasts{
+.notif-Toasts {
   width: 100% !important;
   // box-shadow: none !important;
   margin-bottom: 10px;
 }
-.sidebar .ql-align-justify{
+
+.sidebar .ql-align-justify {
   white-space: nowrap;
-  width:100%;
+  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -224,6 +264,7 @@ a.dropdown-item:hover {
   padding: 5px;
   background-color: $secondary-dark;
 }
+
 .recents-Logo {
   width: 30px;
   border-radius: 12px;

@@ -53,6 +53,33 @@ export const createNewEvent =
         });
     });
   };
+ 
+  export const updateEvent =
+  (id, postData) => async (dispatch) => {
+    const ref = await refreshToken().then((ref) => {
+      setToken(ref.data.access);
+
+      
+      const res = axios
+        .put(`http://localhost:8000/api/event/update/${id}/`, postData)
+        .then((res) => {
+          if (res.data.success == "true") {
+          
+            window.location.reload();
+          }
+          dispatch({
+            type: GET_ERRORS,
+            payload: res.data,
+          });
+        })
+        .catch((error) => {
+          dispatch({
+            type: GET_ERRORS,
+            payload: error.response.data,
+          });
+        });
+    });
+  };
 
 export const requestToJoin =
   (postData, setLoad, setError) => async (dispatch) => {
@@ -82,6 +109,37 @@ export const requestToJoin =
           dispatch({
             type: GET_ERRORS,
             payload: error.response.data,
+          });
+        });
+    });
+  };
+
+export const removeEvent =
+  (id, setLoad, setError) => async (dispatch) => {
+    const ref = await refreshToken().then((ref) => {
+      setToken(ref.data.access);
+
+      setLoad(true);
+      const res = axios
+        .delete(`http://localhost:8000/api/event/delete/${id}/`)
+        .then((res) => {
+          console.log(res);
+          if (res.data.success == "true") {
+            setLoad(false);
+              setError(res.data.message);
+              window.location.reload();
+          }
+          dispatch({
+            type: GET_ERRORS,
+            payload: res.data,
+          });
+        })
+        .catch((error) => {
+          setLoad(false);
+           setError(error.response.data.message);
+          dispatch({
+            type: GET_ERRORS,
+            payload: error.response,
           });
         });
     });

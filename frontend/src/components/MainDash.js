@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Row, Card } from "react-bootstrap";
+import { Col, Row, Card, Container } from "react-bootstrap";
 import EventItem from "./Event/EventItem";
 import SideNav from "./SiteElements/SideNav";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,10 +22,14 @@ function MainDash() {
 
   return (
     <div className="content">
+      <Container>
       {/* <Row className="row justify-content-center">Event Data</Row> */}
 
       <Row>
         <Col className="post-cards">
+        <Card>
+              <CreatePost />
+            </Card>
           {eventData.length > 0 ? (
             eventData.map((event, index) => (
               <div key={index}>
@@ -40,14 +44,12 @@ function MainDash() {
               </div>
             )).reverse()
           ) : (
-            <Card>
-              <CreatePost />
-            </Card>
+           ""
           )}
         </Col>
 
         <Col sm={3} className="post-cards recents">
-          {eventData.length > 0 ? <CreatePostModal btnSize={"w-100"} /> : ""}
+          {/* {eventData.length > 0 ? <CreatePostModal btnSize={"w-100"} /> : ""} */}
 
           <Card>
             <Card.Body>
@@ -90,6 +92,7 @@ function MainDash() {
           </Card> */}
         </Col>
       </Row>
+      </Container>
     </div>
   );
 }

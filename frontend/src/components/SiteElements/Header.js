@@ -60,7 +60,15 @@ function Header() {
                 <Nav.Link href="#" onClick={handleShow}>
                   Account
                 </Nav.Link>
-                <NavDropdown title="More" id="basic-nav-dropdown">
+                <Nav.Link href="#" onClick={handleShow}>
+                Support
+                </Nav.Link>
+                <Nav.Link href="#" onClick={(e) => {
+                      handleLogout(e);
+                    }}>
+                  Logout
+                </Nav.Link>
+                {/* <NavDropdown title="More" id="basic-nav-dropdown">
                   <NavDropdown.Item href="#">Support</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item
@@ -70,7 +78,7 @@ function Header() {
                   >
                     Logout
                   </NavDropdown.Item>
-                </NavDropdown>
+                </NavDropdown> */}
               </Nav>
             </Navbar.Text>
           </Navbar.Collapse>
