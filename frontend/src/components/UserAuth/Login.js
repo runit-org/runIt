@@ -46,10 +46,10 @@ function Login() {
       <ErrorToast errors={error} showToast={show} variant={errorVariant} />
       <Row className="centerContent p-3 login-card fullBody">
         <div className="centerContent mt-5">
-        <h1 className="title">Event Matcher</h1>
+        <h1 className="titleText">Event Matcher</h1>
       </div> 
         <Card>
-          <h4 className="centerContent mt-3">Hello&nbsp;<span style={{color:"#5865f2"}}>{signupData}!</span></h4>
+          <h4 className="subTitle centerContent mt-3">Hello&nbsp;<span style={{color:"#5865f2"}}>{signupData}!</span></h4>
           <Form
             className="p-4"
             onSubmit={(e) => {

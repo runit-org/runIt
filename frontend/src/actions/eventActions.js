@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ALL_EVENTS, GET_ERRORS } from "./types";
+import { GET_ALL_EVENTS, GET_ERRORS, GET_AFFILIATED_EVENTS } from "./types";
 import { setToken, refreshToken } from "../securityUtils/setToken";
 
 /* const client = axios.create({
@@ -15,6 +15,20 @@ export const getAllEvents = () => async (dispatch) => {
       .then((res) => {
         dispatch({
           type: GET_ALL_EVENTS,
+          payload: res.data,
+        });
+      });
+  });
+};
+
+export const affiliatedEvents = () => async (dispatch) => {
+  const ref = await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+    const res = axios
+      .get(`http://localhost:8000/api/event/affiliated/`)
+      .then((res) => {
+        dispatch({
+          type: GET_AFFILIATED_EVENTS,
           payload: res.data,
         });
       });

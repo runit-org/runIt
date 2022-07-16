@@ -6,7 +6,6 @@ import Loading from "../SiteElements/Loading";
 import { RiAddBoxLine } from "react-icons/ri";
 import CTAButton from "../SiteElements/CTAButton";
 
-
 function JoinEvent(props) {
   const dispatch = useDispatch();
   const [load, setLoad] = useState(false);
@@ -50,18 +49,20 @@ function JoinEvent(props) {
           >
             <Row>
               {error ? <small className="mb-4">{error}</small> : ""}
-              <strong className="d-flex justify-content-between">
-                Request to join the event - {props.eventTitle}.
-                <Button type="submit">
+              <div>
+                <strong className="me-auto">
+                  Request to join - {props.eventTitle}.
+                </strong>
+                <Button type="submit" className="float-end">
                   {(() => {
                     if (load) {
                       return <Loading />;
                     } else {
-                      return <>Confirm</>;
+                      return <>Join</>;
                     }
                   })()}
                 </Button>
-              </strong>
+              </div>
             </Row>{" "}
           </Form>
         </Modal.Body>

@@ -32,7 +32,6 @@ function Header() {
 
     dispatch(logout(refToken, navigate));
   };
-  
 
   return (
     <div>
@@ -60,12 +59,13 @@ function Header() {
                 <Nav.Link href="#" onClick={handleShow}>
                   Account
                 </Nav.Link>
-                <Nav.Link href="#" onClick={handleShow}>
-                Support
-                </Nav.Link>
-                <Nav.Link href="#" onClick={(e) => {
-                      handleLogout(e);
-                    }}>
+
+                <Nav.Link
+                  href="#"
+                  onClick={(e) => {
+                    handleLogout(e);
+                  }}
+                >
                   Logout
                 </Nav.Link>
                 {/* <NavDropdown title="More" id="basic-nav-dropdown">

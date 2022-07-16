@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Col, Row, Card, Button, Form, FloatingLabel } from "react-bootstrap";
+import { Col, Row, Card, Form, FloatingLabel, Badge } from "react-bootstrap";
 import img from "../../logo192.png";
 import JoinEvent from "./JoinEvent";
 import EventMembers from "./EventMembers";
@@ -41,10 +41,15 @@ function EventItem(props) {
       maxMember: maxMembers,
       details: details,
     };
-    console.log(postData);
 
     dispatch(updateEvent(props.eventId, postData));
   };
+
+  var userAff = !props.eventAffiliated.map((i) => i.id).includes(props.eventId);
+
+  var userJoinedEv = props.eventAffiliated.filter((obj) => {
+    return obj.id === props.eventId && obj.user !== currentUser;
+  });
 
   return (
     <Form
@@ -52,7 +57,7 @@ function EventItem(props) {
         handleSubmit(e);
       }}
     >
-      <Card className={currentUser == props.userId ? "event-owned" : ""}>
+      <Card className={currentUser === props.userId ? "event-owned" : ""}>
         <Card.Body>
           <Card.Header>
             {" "}
@@ -64,7 +69,7 @@ function EventItem(props) {
                 {editorMode == false ? (
                   <h6 className="fw-bold">{props.eventTitle}</h6>
                 ) : (
-                  <Form.Group className="mb-3">
+                  <Form.Group className="mb d-inline-flex">
                     <FloatingLabel
                       controlId="floatingInput"
                       label="Event Title"
@@ -77,21 +82,7 @@ function EventItem(props) {
                         required
                       />
                     </FloatingLabel>
-                  </Form.Group>
-                )}
 
-                {editorMode == false ? (
-                  <small
-                    className="text-muted"
-                    style={{ fontSize: "12px", display: "block" }}
-                  >
-                    <a href="#" className="text-decoration-none">
-                      @{props.postedBy}
-                    </a>{" "}
-                    <strong> {props.createdTime} ago</strong>
-                  </small>
-                ) : (
-                  <Form.Group className="mb-3">
                     <FloatingLabel
                       controlId="floatingInput2"
                       label="Maximum Members"
@@ -109,18 +100,52 @@ function EventItem(props) {
                     </FloatingLabel>
                   </Form.Group>
                 )}
+
+                {editorMode == false ? (
+                  <small
+                    className="text-muted"
+                    style={{ fontSize: "12px", display: "block" }}
+                  >
+                    <a href="#" className="text-decoration-none">
+                      @{props.postedBy}
+                    </a>{" "}
+                    <strong> {props.createdTime} ago</strong>
+                  </small>
+                ) : (
+                  ""
+                )}
               </Col>
               <Col className="text-end d-flex justify-content-end">
-                {currentUser != null && currentUser != props.userId ? (
+                {userAff /*  currentUser != props.userId */ ? (
                   <JoinEvent
                     eventId={props.eventId}
                     eventTitle={props.eventTitle}
                   />
                 ) : currentUser == props.userId ? (
-                  <RemoveEvent
-                    eventId={props.eventId}
-                    eventTitle={props.eventTitle}
-                  />
+                  <>
+                    <RemoveEvent
+                      eventId={props.eventId}
+                      eventTitle={props.eventTitle}
+                    />
+                    <div>
+                      <CTAButton
+                        type={""}
+                        btnStyle={"postBtn-placements"}
+                        variant={"primary"}
+                        onClick={handleClick}
+                        placeholder={
+                          editorMode == false ? <RiEditLine /> : <RiCloseFill />
+                        }
+                      />
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
+                {userJoinedEv.map((i) => i.id).includes(props.eventId) ? (
+                  <div>
+                    <Badge bg="primary">Joined</Badge>
+                  </div>
                 ) : (
                   ""
                 )}
@@ -129,17 +154,6 @@ function EventItem(props) {
                   userId={props.userId}
                   currentUser={currentUser}
                 />{" "}
-                <div>
-                  <CTAButton
-                    type={""}
-                    btnStyle={"postBtn-placements"}
-                    variant={"primary"}
-                    onClick={handleClick}
-                    placeholder={
-                      editorMode == false ? <RiEditLine /> : <RiCloseFill />
-                    }
-                  />
-                </div>
               </Col>
             </Row>
           </Card.Header>
@@ -165,18 +179,7 @@ function EventItem(props) {
             </>
           )}
         </Card.Body>
-
-        {/*  <footer className="p-2 d-flex">
-          {currentUser != null && currentUser != props.userId ? (
-            <JoinEvent eventId={props.eventId} eventTitle={props.eventTitle} />
-          ) : (
-            ""
-          )}
-           <EventMembers eventId={props.eventId} userId={props.userId} currentUser={currentUser}/>
-        </footer> */}
       </Card>
-      {/* <hr /> */}
-      {/* <Row className="row justify-content-center">Event Data</Row> */}
     </Form>
   );
 }
