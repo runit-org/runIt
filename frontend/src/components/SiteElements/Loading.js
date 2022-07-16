@@ -9,7 +9,7 @@ function Loading() {
       size="sm"
       role="status"
       aria-hidden="true"
-      variant="light"
+      variant="primary"
     />
   );
 }

@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Row, Form, Button, Container, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { removeEvent } from "../../actions/eventActions";
+import CTAButton from "../SiteElements/CTAButton";
 import Loading from "../SiteElements/Loading";
+import { RiDeleteBin2Line } from "react-icons/ri";
+
 
 function RemoveEvent(props) {
   const dispatch = useDispatch();
@@ -18,9 +21,13 @@ function RemoveEvent(props) {
 
   return (
     <div className="mb-4">
-      <Button className="me-2" onClick={() => setModalShow(true)}>
-      Remove
-      </Button>
+      <CTAButton
+        type={""}
+        btnStyle={"postBtn-placements"}
+        variant={"primary"}
+        onClick={() => setModalShow(true)}
+        placeholder={<RiDeleteBin2Line/>}
+      />
 
       <Modal
         size="md"
@@ -29,9 +36,7 @@ function RemoveEvent(props) {
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header closeButton>
-          <Modal.Title >
-            Remove Event
-          </Modal.Title>
+          <Modal.Title>Remove Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
@@ -39,21 +44,21 @@ function RemoveEvent(props) {
               handleSubmit(e);
             }}
           >
-              <Row>
-                {error ? <small className="mb-4">{error}</small> : ""}
-                <strong className="d-flex justify-content-between">
-                    Remove the event - {props.eventTitle}.
-                  <Button type="submit">
-                    {(() => {
-                      if (load) {
-                        return <Loading />;
-                      } else {
-                        return <>Remove</>;
-                      }
-                    })()}
-                  </Button>
-                </strong>
-              </Row>{" "}
+            <Row>
+              {error ? <small className="mb-4">{error}</small> : ""}
+              <strong className="d-flex justify-content-between">
+                Remove the event - {props.eventTitle}.
+                <Button type="submit">
+                  {(() => {
+                    if (load) {
+                      return <Loading />;
+                    } else {
+                      return <>Remove</>;
+                    }
+                  })()}
+                </Button>
+              </strong>
+            </Row>{" "}
           </Form>
         </Modal.Body>
       </Modal>

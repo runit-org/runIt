@@ -8,7 +8,8 @@ import RemoveEvent from "./RemoveEvent";
 import ReactQuill from "react-quill";
 import { updateEvent } from "../../actions/eventActions";
 import { useDispatch } from "react-redux";
-
+import CTAButton from "../SiteElements/CTAButton";
+import { RiEditLine, RiCloseFill, RiSendPlaneLine } from "react-icons/ri";
 
 function EventItem(props) {
   const dispatch = useDispatch();
@@ -17,7 +18,6 @@ function EventItem(props) {
   const [title, setTitle] = useState({});
   const [maxMembers, setMaxMembers] = useState({});
   const [details, setDetails] = useState("");
-
 
   var getCurrentUser = useSelector(
     (securityReducer) => securityReducer.security.user
@@ -41,9 +41,10 @@ function EventItem(props) {
       maxMember: maxMembers,
       details: details,
     };
+    console.log(postData);
+
     dispatch(updateEvent(props.eventId, postData));
   };
-
 
   return (
     <Form
@@ -64,19 +65,19 @@ function EventItem(props) {
                   <h6 className="fw-bold">{props.eventTitle}</h6>
                 ) : (
                   <Form.Group className="mb-3">
-                  <FloatingLabel
-                    controlId="floatingInput"
-                    label="Event Title"
-                    className="mb-3"
-                  >
-                    <Form.Control
-                      type="title"
-                      placeholder="Event Title"
-                      onChange={(e) => setTitle(e.target.value)}
-                      required
-                    />
-                  </FloatingLabel>
-                </Form.Group>
+                    <FloatingLabel
+                      controlId="floatingInput"
+                      label="Event Title"
+                      className="mb-3"
+                    >
+                      <Form.Control
+                        type="title"
+                        placeholder="Event Title"
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                      />
+                    </FloatingLabel>
+                  </Form.Group>
                 )}
 
                 {editorMode == false ? (
@@ -91,20 +92,22 @@ function EventItem(props) {
                   </small>
                 ) : (
                   <Form.Group className="mb-3">
-                  <FloatingLabel
-                    controlId="floatingInput2"
-                    label="Maximum Members"
-                    className="mb-3"
-                  >
-                    <Form.Control
-                      type="number"
-                      placeholder="Maximum Members"
-                      onChange={(e) => setMaxMembers(parseInt(e.target.value))}
-                      min="2"
-                      required
-                    />
-                  </FloatingLabel>
-                </Form.Group>
+                    <FloatingLabel
+                      controlId="floatingInput2"
+                      label="Maximum Members"
+                      className="mb-3"
+                    >
+                      <Form.Control
+                        type="number"
+                        placeholder="Maximum Members"
+                        onChange={(e) =>
+                          setMaxMembers(parseInt(e.target.value))
+                        }
+                        min="2"
+                        required
+                      />
+                    </FloatingLabel>
+                  </Form.Group>
                 )}
               </Col>
               <Col className="text-end d-flex justify-content-end">
@@ -127,9 +130,15 @@ function EventItem(props) {
                   currentUser={currentUser}
                 />{" "}
                 <div>
-                  <Button onClick={handleClick}>
-                    {editorMode == false ? "Edit" : "Cancel"}
-                  </Button>
+                  <CTAButton
+                    type={""}
+                    btnStyle={"postBtn-placements"}
+                    variant={"primary"}
+                    onClick={handleClick}
+                    placeholder={
+                      editorMode == false ? <RiEditLine /> : <RiCloseFill />
+                    }
+                  />
                 </div>
               </Col>
             </Row>
@@ -141,15 +150,22 @@ function EventItem(props) {
               dangerouslySetInnerHTML={{ __html: props.eventDetails }}
             />
           ) : (
-            <><ReactQuill theme="snow" value={details} onChange={setDetails} /> <Button
-            type="submit"
-            className="mt-3"
-          >
-           Submit
-          </Button></>
+            <>
+              <ReactQuill theme="snow" value={details} onChange={setDetails} />{" "}
+              <div className="d-flex justify-content-end">
+                <CTAButton
+                  type={"submit"}
+                  btnStyle={"btn-placements"}
+                  variant={"primary"}
+                  formValidation={""}
+                  isLoading={""}
+                  placeholder={<RiSendPlaneLine />}
+                />
+              </div>
+            </>
           )}
         </Card.Body>
-       
+
         {/*  <footer className="p-2 d-flex">
           {currentUser != null && currentUser != props.userId ? (
             <JoinEvent eventId={props.eventId} eventTitle={props.eventTitle} />

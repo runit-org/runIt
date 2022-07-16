@@ -38,18 +38,36 @@ body {
 }
 
 .btn-primary {
-  background-color: $theme  !important;
+  background-color: transparent !important;
+  color: $theme!important;
   border: none !important;
+  font-weight: 600 !important;
 }
 
 .btn-primary:hover {
-  background-color: $button-hover  !important;
+  background-color: transparent !important;
+  color: $button-hover  !important;
   border: none;
 }
 
 .btn-primary:focus {
   outline: none !important;
   box-shadow: none !important;
+}
+
+.btn-placements{
+  padding: 2px 8px 4px 8px !important;
+  margin: 1rem 0 0 0;
+}
+
+.btn-placements:not(:first-child) {
+  margin: 1rem 0 0 1rem;
+}
+
+.postBtn-placements{
+  padding: 2px 8px 4px 8px !important;
+  margin: 0 0 0 0.5rem;
+
 }
 
 .centerContent {

@@ -10,7 +10,8 @@ import {
 import { useDispatch } from "react-redux";
 import { createNewEvent } from "../../actions/eventActions";
 import ReactQuill from "react-quill";
-import Loading from "../SiteElements/Loading";
+import CTAButton from "../SiteElements/CTAButton";
+import { RiSendPlaneLine } from "react-icons/ri";
 
 function CreateEvent() {
   const dispatch = useDispatch();
@@ -88,19 +89,14 @@ function CreateEvent() {
           {/*  <Button type="submit" className="mb-2 mt-3 w-25">
               Add Friends
             </Button> */}
-          <Button
-            type="submit"
-            className="mt-3"
-            disabled={validateFormEmpty}
-          >
-            {(() => {
-              if (load) {
-                return <Loading />;
-              } else {
-                return <>Create</>;
-              }
-            })()}
-          </Button>
+          <CTAButton
+            type={"submit"}
+            btnStyle={"btn-placements"}
+            variant={"primary"}
+            formValidation={validateFormEmpty}
+            isLoading={load}
+            placeholder={<RiSendPlaneLine />}
+          />
         </div>
       </Container>
     </Form>

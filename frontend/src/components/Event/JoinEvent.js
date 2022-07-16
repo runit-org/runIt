@@ -3,6 +3,9 @@ import { Row, Form, Button, Container, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { requestToJoin } from "../../actions/eventActions";
 import Loading from "../SiteElements/Loading";
+import { RiAddBoxLine } from "react-icons/ri";
+import CTAButton from "../SiteElements/CTAButton";
+
 
 function JoinEvent(props) {
   const dispatch = useDispatch();
@@ -22,9 +25,13 @@ function JoinEvent(props) {
 
   return (
     <div className="mb-4">
-      <Button className="me-2" onClick={() => setModalShow(true)}>
-        Join
-      </Button>
+      <CTAButton
+        type={""}
+        btnStyle={"postBtn-placements"}
+        variant={"primary"}
+        onClick={() => setModalShow(true)}
+        placeholder={<RiAddBoxLine />}
+      />
 
       <Modal
         size="md"

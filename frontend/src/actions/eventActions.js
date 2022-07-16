@@ -53,33 +53,30 @@ export const createNewEvent =
         });
     });
   };
- 
-  export const updateEvent =
-  (id, postData) => async (dispatch) => {
-    const ref = await refreshToken().then((ref) => {
-      setToken(ref.data.access);
 
-      
-      const res = axios
-        .put(`http://localhost:8000/api/event/update/${id}/`, postData)
-        .then((res) => {
-          if (res.data.success == "true") {
-          
-            window.location.reload();
-          }
-          dispatch({
-            type: GET_ERRORS,
-            payload: res.data,
-          });
-        })
-        .catch((error) => {
-          dispatch({
-            type: GET_ERRORS,
-            payload: error.response.data,
-          });
+export const updateEvent = (id, postData) => async (dispatch) => {
+  const ref = await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+
+    const res = axios
+      .put(`http://localhost:8000/api/event/update/${id}/`, postData)
+      .then((res) => {
+        if (res.data.success == "true") {
+          window.location.reload();
+        }
+        dispatch({
+          type: GET_ERRORS,
+          payload: res.data,
         });
-    });
-  };
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
+      });
+  });
+};
 
 export const requestToJoin =
   (postData, setLoad, setError) => async (dispatch) => {
@@ -114,36 +111,35 @@ export const requestToJoin =
     });
   };
 
-export const removeEvent =
-  (id, setLoad, setError) => async (dispatch) => {
-    const ref = await refreshToken().then((ref) => {
-      setToken(ref.data.access);
+export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
+  const ref = await refreshToken().then((ref) => {
+    setToken(ref.data.access);
 
-      setLoad(true);
-      const res = axios
-        .delete(`http://localhost:8000/api/event/delete/${id}/`)
-        .then((res) => {
-          console.log(res);
-          if (res.data.success == "true") {
-            setLoad(false);
-              setError(res.data.message);
-              window.location.reload();
-          }
-          dispatch({
-            type: GET_ERRORS,
-            payload: res.data,
-          });
-        })
-        .catch((error) => {
+    setLoad(true);
+    const res = axios
+      .delete(`http://localhost:8000/api/event/delete/${id}/`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.success == "true") {
           setLoad(false);
-           setError(error.response.data.message);
-          dispatch({
-            type: GET_ERRORS,
-            payload: error.response,
-          });
+          setError(res.data.message);
+          window.location.reload();
+        }
+        dispatch({
+          type: GET_ERRORS,
+          payload: res.data,
         });
-    });
-  };
+      })
+      .catch((error) => {
+        setLoad(false);
+        setError(error.response.data.message);
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response,
+        });
+      });
+  });
+};
 
 export const getEventMembers = (id, setMembers) => async (dispatch) => {
   const ref = await refreshToken().then((ref) => {
@@ -163,7 +159,7 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
     const res = axios
       .post("http://localhost:8000/api/event/member/changeStatus/", postData)
       .then((res) => {
-        console.log(res)
+        console.log(res);
         if (res.data.success == "true") {
           setLoad(false);
         }
@@ -182,4 +178,3 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
       });
   });
 };
-
