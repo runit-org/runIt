@@ -2,6 +2,7 @@ from django.urls import path
 from base.modules.event.api import EventViews
 from base.modules.notification.api import NotificationViews
 from base.modules.user.api import UserViews
+from base.modules.auth.api import AuthViews
 
 
 from rest_framework_simplejwt.views import (
@@ -10,8 +11,8 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
 
-    path('auth/login/', UserViews.MyTokenObtainPairView.as_view(), name='login'),
-    path('auth/register/', UserViews.registerUser, name='register'),
+    path('auth/login/', AuthViews.MyTokenObtainPairView.as_view(), name='login'),
+    path('auth/register/', AuthViews.registerUser, name='register'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth/logout/', UserViews.logout, name='token_refresh'),
 

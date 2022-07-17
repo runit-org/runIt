@@ -25,29 +25,9 @@ from django.views.decorators.csrf import csrf_exempt
 from ....views import baseViews as base
 
 
-
-from base.modules.user.api.validators import RegisterValidator
-from base.modules.user.api.actions import RegisterUserAction
+# Refactored imports from below:
 
 
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    def validate(self, attrs):
-        data = super().validate(attrs)
-        refresh = self.get_token(self.user)
-        data['username'] = self.user.username
-        data['email'] = self.user.email
-        return data
-
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer
-
-@api_view(['POST'])
-def registerUser(request):
-    data = request.data
-    if (RegisterValidator.validate(data) != None):
-        return RegisterValidator.validate(data)
-    
-    return RegisterUserAction.register(data)
 
 @api_view(['GET'])
 # @permission_classes([IsAdminUser])
