@@ -7,45 +7,38 @@ import { setToken, refreshToken } from "../securityUtils/setToken";
 }); */
 
 export const getAllEvents = () => async (dispatch) => {
-  const ref = await refreshToken().then((ref) => {
-    //console.log(ref.data.access);
+  await refreshToken().then((ref) => {
     setToken(ref.data.access);
-    const res = axios
-      .get(`http://localhost:8000/api/event/all/`)
-      .then((res) => {
-        dispatch({
-          type: GET_ALL_EVENTS,
-          payload: res.data,
-        });
+    axios.get(`http://localhost:8000/api/event/all/`).then((res) => {
+      dispatch({
+        type: GET_ALL_EVENTS,
+        payload: res.data,
       });
+    });
   });
 };
 
 export const affiliatedEvents = () => async (dispatch) => {
-  const ref = await refreshToken().then((ref) => {
+  await refreshToken().then((ref) => {
     setToken(ref.data.access);
-    const res = axios
-      .get(`http://localhost:8000/api/event/affiliated/`)
-      .then((res) => {
-        dispatch({
-          type: GET_AFFILIATED_EVENTS,
-          payload: res.data,
-        });
+    axios.get(`http://localhost:8000/api/event/affiliated/`).then((res) => {
+      dispatch({
+        type: GET_AFFILIATED_EVENTS,
+        payload: res.data,
       });
+    });
   });
 };
 
 export const createNewEvent =
   (postData, setLoad, setError) => async (dispatch) => {
-    const ref = await refreshToken().then((ref) => {
-      //console.log(ref.data.access);
+    await refreshToken().then((ref) => {
       setToken(ref.data.access);
 
       setLoad(true);
-      const res = axios
+      axios
         .post("http://localhost:8000/api/event/create/", postData)
         .then((res) => {
-          //console.log(res);
           if (res.data.success == "true") {
             setLoad(false);
             setError(res.data.message);
@@ -69,10 +62,10 @@ export const createNewEvent =
   };
 
 export const updateEvent = (id, postData) => async (dispatch) => {
-  const ref = await refreshToken().then((ref) => {
+  await refreshToken().then((ref) => {
     setToken(ref.data.access);
 
-    const res = axios
+    axios
       .put(`http://localhost:8000/api/event/update/${id}/`, postData)
       .then((res) => {
         if (res.data.success == "true") {
@@ -94,12 +87,12 @@ export const updateEvent = (id, postData) => async (dispatch) => {
 
 export const requestToJoin =
   (postData, setLoad, setError) => async (dispatch) => {
-    const ref = await refreshToken().then((ref) => {
+    await refreshToken().then((ref) => {
       console.log(ref.data.access);
       setToken(ref.data.access);
 
       setLoad(true);
-      const res = axios
+      axios
         .post("http://localhost:8000/api/event/member/requestJoin/", postData)
         .then((res) => {
           console.log(res);
@@ -126,11 +119,11 @@ export const requestToJoin =
   };
 
 export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
-  const ref = await refreshToken().then((ref) => {
+  await refreshToken().then((ref) => {
     setToken(ref.data.access);
 
     setLoad(true);
-    const res = axios
+    axios
       .delete(`http://localhost:8000/api/event/delete/${id}/`)
       .then((res) => {
         console.log(res);
@@ -156,9 +149,9 @@ export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
 };
 
 export const getEventMembers = (id, setMembers) => async (dispatch) => {
-  const ref = await refreshToken().then((ref) => {
+  await refreshToken().then((ref) => {
     setToken(ref.data.access);
-    const res = axios
+    axios
       .get(`http://localhost:8000/api/event/member/getMembers/${id}/`)
       .then((res) => {
         setMembers(res.data.data);
@@ -167,10 +160,10 @@ export const getEventMembers = (id, setMembers) => async (dispatch) => {
 };
 
 export const memberStatus = (postData, setLoad) => async (dispatch) => {
-  const ref = await refreshToken().then((ref) => {
+  await refreshToken().then((ref) => {
     setToken(ref.data.access);
     setLoad(true);
-    const res = axios
+    axios
       .post("http://localhost:8000/api/event/member/changeStatus/", postData)
       .then((res) => {
         console.log(res);

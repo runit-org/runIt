@@ -45,7 +45,7 @@ function EventItem(props) {
     dispatch(updateEvent(props.eventId, postData));
   };
 
-  var userAff = !props.eventAffiliated.map((i) => i.id).includes(props.eventId);
+  var userAff = props.eventAffiliated.map((i) => i.id).includes(props.eventId);
 
   var userJoinedEv = props.eventAffiliated.filter((obj) => {
     return obj.id === props.eventId && obj.user !== currentUser;
@@ -116,7 +116,7 @@ function EventItem(props) {
                 )}
               </Col>
               <Col className="text-end d-flex justify-content-end">
-                {userAff /*  currentUser != props.userId */ ? (
+                {!userAff /*  currentUser != props.userId */ ? (
                   <JoinEvent
                     eventId={props.eventId}
                     eventTitle={props.eventTitle}
