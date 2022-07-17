@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Card, Form, Row, Button, FloatingLabel } from "react-bootstrap";
-import Footer from "../SiteElements/Footer";
+import Footer from "../SiteElements/footer";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewUser } from "../../actions/securityActions";
-import Loading from "../SiteElements/Loading";
-import ErrorToast from "../SiteElements/ErrorToast";
+import Loading from "../SiteElements/loading";
+import ErrorToast from "../SiteElements/error-toast";
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {

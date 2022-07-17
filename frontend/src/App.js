@@ -9,10 +9,10 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import Login from "./components/UserAuth/Login";
-import SignUp from "./components/UserAuth/SignUp";
-import Header from "./components/SiteElements/Header";
-import Posts from "./components/MainDash";
+import Login from "./components/UserAuth/login";
+import SignUp from "./components/UserAuth/sign-up";
+import Header from "./components/SiteElements/header";
+import Posts from "./components/main-dash";
 import { setToken, refreshToken } from "./securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 // import { isExpired } from "react-jwt";

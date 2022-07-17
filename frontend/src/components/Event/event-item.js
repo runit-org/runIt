@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Col, Row, Card, Form, FloatingLabel, Badge } from "react-bootstrap";
 import img from "../../logo192.png";
-import JoinEvent from "./JoinEvent";
-import EventMembers from "./EventMembers";
-import RemoveEvent from "./RemoveEvent";
+import JoinEvent from "./join-event";
+import EventMembers from "./event-members";
+import RemoveEvent from "./remove-event";
 import ReactQuill from "react-quill";
 import { updateEvent } from "../../actions/eventActions";
 import { useDispatch } from "react-redux";
-import CTAButton from "../SiteElements/CTAButton";
+import CTAButton from "../SiteElements/cta-button";
 import { RiEditLine, RiCloseFill, RiSendPlaneLine } from "react-icons/ri";
 
 function EventItem(props) {

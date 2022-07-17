@@ -4,8 +4,8 @@ import img from "../../logo192.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../actions/securityActions";
-import UserProfile from "../UserProfile";
-import Notifications from "../Notifications";
+import UserProfile from "../user-profile";
+import Notifications from "../notification";
 
 function Header() {
   let navigate = useNavigate();

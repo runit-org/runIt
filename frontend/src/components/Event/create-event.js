@@ -10,7 +10,7 @@ import {
 import { useDispatch } from "react-redux";
 import { createNewEvent } from "../../actions/eventActions";
 import ReactQuill from "react-quill";
-import CTAButton from "../SiteElements/CTAButton";
+import CTAButton from "../SiteElements/cta-button";
 import { RiSendPlaneLine } from "react-icons/ri";
 
 function CreateEvent() {
