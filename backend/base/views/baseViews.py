@@ -14,6 +14,10 @@ def error(message):
     retVal = {'success' : 'false', 'message' : message}
     return Response(retVal, status = status.HTTP_400_BAD_REQUEST)
 
+def validationError(message='Required fields not met'):
+    retVal = {'success' : 'false', 'message' : message}
+    return Response(retVal, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
+
 def checkEventId(id):
     checkEventExist = Event.objects.filter(id = id)
 

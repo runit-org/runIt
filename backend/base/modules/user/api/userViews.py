@@ -25,49 +25,29 @@ from django.views.decorators.csrf import csrf_exempt
 from ....views import baseViews as base
 
 
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
+from base.modules.user.api.validators import RegisterValidator
+from base.modules.user.api.actions import RegisterUserAction
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
-
         refresh = self.get_token(self.user)
-
         data['username'] = self.user.username
         data['email'] = self.user.email
-
-
         return data
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-
 @api_view(['POST'])
 def registerUser(request):
     data = request.data
-
-    if data.get('name') == None or data.get('email') == None or data.get('password') == None:
-        return base.error('Required fields not met')
-
-    checkEmailExist = User.objects.filter(email = data['email'])
-
-    if len(checkEmailExist) > 0:
-        return base.error('Email taken')
-
-    checkUsernameExist = User.objects.filter(username = data['username'])
-
-    if len(checkUsernameExist) > 0:
-        return base.error('Username taken')
+    if (RegisterValidator.validate(data) != None):
+        return RegisterValidator.validate(data)
     
-    user = User.objects.create(
-        first_name=data['name'],
-        username=data['username'],
-        email=data['email'],
-        password=make_password(data['password'])
-    )
-
-    serializer = UserSerializer(user, many=False)
-    return base.response('User registered', serializer.data)
+    return RegisterUserAction.register(data)
 
 @api_view(['GET'])
 # @permission_classes([IsAdminUser])
