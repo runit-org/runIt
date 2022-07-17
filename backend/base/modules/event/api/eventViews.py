@@ -13,7 +13,7 @@ from ....views import baseViews as base
 
 
 from base.modules.event.api.validators import CreateEventValidator
-from base.modules.event.api.actions import CreateEventAction
+from base.modules.event.api.actions import CreateEventAction, ViewEventAction
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -26,12 +26,8 @@ def createEvent(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def viewEvent(request, pk):
-    if not base.checkEventId(pk):
-        return base.error('Event ID not found')
 
-    event = Event.objects.get(id=pk)
-    serializer = EventSerializer(event, many=False)
-    return base.response('Event retrieved', serializer.data)
+    return ViewEventAction.view(request, pk)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
