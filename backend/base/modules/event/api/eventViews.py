@@ -8,29 +8,20 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from ....views import baseViews as base
 
+
+
+
+
+from base.modules.event.api.validators import CreateEventValidator
+from base.modules.event.api.actions import CreateEventAction
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def createEvent(request):
-    data = request.data
-
-    validator = base.eventValidator(data)
-
-    if validator != '':
-        return base.error(validator)
+    if (CreateEventValidator.validate(request) != None):
+        return CreateEventValidator.validate(request)
     
-    user = request.user
-
-    event = Event.objects.create(
-        user = user,
-        title = data['title'],
-        maxMember = data['maxMember'],
-        userName = user.username,
-        details = data['details']
-    )
-    
-    serializer = EventSerializer(event, many=False)
-
-    return base.response('Event created', serializer.data)
+    return CreateEventAction.create(request)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

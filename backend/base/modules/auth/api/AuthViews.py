@@ -9,11 +9,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 @api_view(['POST'])
 def registerUser(request):
-    data = request.data
-    if (RegisterUserValidator.validate(data) != None):
-        return RegisterUserValidator.validate(data)
+    if (RegisterUserValidator.validate(request) != None):
+        return RegisterUserValidator.validate(request)
     
-    return RegisterUserAction.register(data)
+    return RegisterUserAction.register(request)
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):

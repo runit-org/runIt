@@ -1,6 +1,7 @@
 from base.views.baseViews import validationError
 
-def validate(data):
+def validate(request):
+    data = request.data
     if data.get('name') == None or data.get('email') == None or data.get('username') == None or data.get('password') == None or data.get('c_password') == None:
         return validationError('Required fields not met')
     

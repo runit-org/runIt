@@ -3,8 +3,8 @@ from base.views.baseViews import response, error
 from django.contrib.auth.hashers import make_password
 from base.serializers import UserSerializer
 
-
-def register(data):
+def register(request):
+    data = request.data
     if len(User.objects.filter(email = data['email'])) > 0:
         return error('Email taken')
 
