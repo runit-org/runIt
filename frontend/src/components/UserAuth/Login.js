@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
-import Footer from "../SiteElements/Footer";
+import Footer from "../SiteElements/footer";
 import { useDispatch } from "react-redux";
 import { login } from "../../actions/securityActions";
 import { useNavigate } from "react-router-dom";
-import Loading from "../SiteElements/Loading";
-import ErrorToast from "../SiteElements/ErrorToast";
+import Loading from "../SiteElements/loading";
+import ErrorToast from "../SiteElements/error-toast";
 import { useLocation } from "react-router-dom";
 
 function Login() {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import CreateEvent from "./CreateEvent";
+import CreateEvent from "./create-event";
 
 function CreateEventModal(props) {
   const [modalShow, setModalShow] = useState(false);

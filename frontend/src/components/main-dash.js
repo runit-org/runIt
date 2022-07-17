@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Card, Container } from "react-bootstrap";
-import EventItem from "./Event/EventItem";
-import SideNav from "./SiteElements/SideNav";
+import EventItem from "./Event/event-item";
+import SideNav from "./SiteElements/side-nav";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEvents, affiliatedEvents } from "../actions/eventActions";
-import CreatePostModal from "./Event/CreatEventModal";
-import CreatePost from "./Event/CreateEvent";
+import CreatePostModal from "./Event/creat-event-modal";
+import CreatePost from "./Event/create-event";
 
 function MainDash() {
   const dispatch = useDispatch();

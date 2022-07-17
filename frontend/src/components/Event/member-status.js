@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { memberStatus } from "../../actions/eventActions";
-import Loading from "../SiteElements/Loading";
+import Loading from "../SiteElements/loading";
 
 function MemberStatus(props) {
   const dispatch = useDispatch();
