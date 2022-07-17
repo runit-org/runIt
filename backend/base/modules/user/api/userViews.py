@@ -36,14 +36,3 @@ def getAllUsers(request):
     # many=True means we are serializing multiple products, not just one. if one then false
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
-
-@csrf_exempt
-@api_view(['POST'])
-def logout (request):
-    data = request.data
-    if data.get('refresh') == None:
-        return base.error('Please provide the refresh token :)') 
-
-    token = RefreshToken(request.data.get('refresh'))
-    token.blacklist()
-    return base.response('Logout Successful')

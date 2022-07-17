@@ -14,7 +14,7 @@ urlpatterns = [
     path('auth/login/', AuthViews.MyTokenObtainPairView.as_view(), name='login'),
     path('auth/register/', AuthViews.registerUser, name='register'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('auth/logout/', UserViews.logout, name='token_refresh'),
+    path('auth/logout/', AuthViews.logout, name='logout'),
 
     path('user/all/', UserViews.getAllUsers, name='all_users'),
 
