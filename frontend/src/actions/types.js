@@ -8,6 +8,7 @@ export const CHECK_TOKEN = "CHECK_TOKEN"
 
 //event types
 export const GET_ALL_EVENTS = "GET_ALL_EVENTS";
+export const GET_AFFILIATED_EVENTS = "GET_AFFILIATED_EVENTS"
 
 //Notifications
 export const GET_ALL_NOTIFS = "GET_ALL_NOTIFS";

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Row, Form, Button, Container, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { requestToJoin } from "../../actions/eventActions";
-import Loading from "../SiteElements/Loading";
-import { RiAddBoxLine } from "react-icons/ri";
+import { removeEvent } from "../../actions/eventActions";
 import CTAButton from "../SiteElements/CTAButton";
+import Loading from "../SiteElements/Loading";
+import { RiDeleteBin2Line } from "react-icons/ri";
 
-function JoinEvent(props) {
+
+function RemoveEvent(props) {
   const dispatch = useDispatch();
   const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
@@ -15,11 +16,7 @@ function JoinEvent(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const postData = {
-      eventId: props.eventId,
-    };
-
-    dispatch(requestToJoin(postData, setLoad, setError));
+    dispatch(removeEvent(props.eventId, setLoad, setError));
   };
 
   return (
@@ -29,7 +26,7 @@ function JoinEvent(props) {
         btnStyle={"postBtn-placements"}
         variant={"primary"}
         onClick={() => setModalShow(true)}
-        placeholder={<RiAddBoxLine />}
+        placeholder={<RiDeleteBin2Line/>}
       />
 
       <Modal
@@ -39,7 +36,7 @@ function JoinEvent(props) {
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Request to join</Modal.Title>
+          <Modal.Title>Remove Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
@@ -49,20 +46,18 @@ function JoinEvent(props) {
           >
             <Row>
               {error ? <small className="mb-4">{error}</small> : ""}
-              <div>
-                <strong className="me-auto">
-                  Request to join - {props.eventTitle}.
-                </strong>
-                <Button type="submit" className="float-end">
+              <strong className="d-flex justify-content-between">
+                Remove the event - {props.eventTitle}.
+                <Button type="submit">
                   {(() => {
                     if (load) {
                       return <Loading />;
                     } else {
-                      return <>Join</>;
+                      return <>Remove</>;
                     }
                   })()}
                 </Button>
-              </div>
+              </strong>
             </Row>{" "}
           </Form>
         </Modal.Body>
@@ -71,4 +66,4 @@ function JoinEvent(props) {
   );
 }
 
-export default JoinEvent;
+export default RemoveEvent;

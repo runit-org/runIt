@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ALL_EVENTS, GET_ERRORS } from "./types";
+import { GET_ALL_EVENTS, GET_ERRORS, GET_AFFILIATED_EVENTS } from "./types";
 import { setToken, refreshToken } from "../securityUtils/setToken";
 
 /* const client = axios.create({
@@ -15,6 +15,20 @@ export const getAllEvents = () => async (dispatch) => {
       .then((res) => {
         dispatch({
           type: GET_ALL_EVENTS,
+          payload: res.data,
+        });
+      });
+  });
+};
+
+export const affiliatedEvents = () => async (dispatch) => {
+  const ref = await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+    const res = axios
+      .get(`http://localhost:8000/api/event/affiliated/`)
+      .then((res) => {
+        dispatch({
+          type: GET_AFFILIATED_EVENTS,
           payload: res.data,
         });
       });
@@ -54,6 +68,30 @@ export const createNewEvent =
     });
   };
 
+export const updateEvent = (id, postData) => async (dispatch) => {
+  const ref = await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+
+    const res = axios
+      .put(`http://localhost:8000/api/event/update/${id}/`, postData)
+      .then((res) => {
+        if (res.data.success == "true") {
+          window.location.reload();
+        }
+        dispatch({
+          type: GET_ERRORS,
+          payload: res.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
+      });
+  });
+};
+
 export const requestToJoin =
   (postData, setLoad, setError) => async (dispatch) => {
     const ref = await refreshToken().then((ref) => {
@@ -87,6 +125,36 @@ export const requestToJoin =
     });
   };
 
+export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
+  const ref = await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+
+    setLoad(true);
+    const res = axios
+      .delete(`http://localhost:8000/api/event/delete/${id}/`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.success == "true") {
+          setLoad(false);
+          setError(res.data.message);
+          window.location.reload();
+        }
+        dispatch({
+          type: GET_ERRORS,
+          payload: res.data,
+        });
+      })
+      .catch((error) => {
+        setLoad(false);
+        setError(error.response.data.message);
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response,
+        });
+      });
+  });
+};
+
 export const getEventMembers = (id, setMembers) => async (dispatch) => {
   const ref = await refreshToken().then((ref) => {
     setToken(ref.data.access);
@@ -105,7 +173,7 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
     const res = axios
       .post("http://localhost:8000/api/event/member/changeStatus/", postData)
       .then((res) => {
-        console.log(res)
+        console.log(res);
         if (res.data.success == "true") {
           setLoad(false);
         }
@@ -124,4 +192,3 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
       });
   });
 };
-

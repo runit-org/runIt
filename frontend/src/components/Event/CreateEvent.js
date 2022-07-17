@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Col,
   Row,
@@ -10,15 +10,25 @@ import {
 import { useDispatch } from "react-redux";
 import { createNewEvent } from "../../actions/eventActions";
 import ReactQuill from "react-quill";
-import Loading from "../SiteElements/Loading";
+import CTAButton from "../SiteElements/CTAButton";
+import { RiSendPlaneLine } from "react-icons/ri";
 
 function CreateEvent() {
   const dispatch = useDispatch();
   const [title, setTitle] = useState({});
   const [maxMembers, setMaxMembers] = useState({});
-  const [details, setDetails] = useState({});
+  const [details, setDetails] = useState("");
   const [load, setLoad] = useState(false);
+  const [validateFormEmpty, setValidateFormEmpty] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (details === "" || details === "<p><br></p>") {
+      setValidateFormEmpty(true);
+    } else {
+      setValidateFormEmpty(false);
+    }
+  }, [details]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +38,6 @@ function CreateEvent() {
       maxMember: maxMembers,
       details: details,
     };
-
     dispatch(createNewEvent(postData, setLoad, setError));
   };
 
@@ -67,6 +76,7 @@ function CreateEvent() {
                   type="number"
                   placeholder="Maximum Members"
                   onChange={(e) => setMaxMembers(parseInt(e.target.value))}
+                  min="2"
                   required
                 />
               </FloatingLabel>
@@ -75,19 +85,18 @@ function CreateEvent() {
         </Row>
 
         <ReactQuill theme="snow" value={details} onChange={setDetails} />
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-end">
           {/*  <Button type="submit" className="mb-2 mt-3 w-25">
               Add Friends
             </Button> */}
-          <Button type="submit" className="mb-2 mt-3 w-25">
-            {(() => {
-              if (load) {
-                return <Loading />;
-              } else {
-                return <>Confirm</>;
-              }
-            })()}
-          </Button>
+          <CTAButton
+            type={"submit"}
+            btnStyle={"btn-placements"}
+            variant={"primary"}
+            formValidation={validateFormEmpty}
+            isLoading={load}
+            placeholder={<RiSendPlaneLine />}
+          />
         </div>
       </Container>
     </Form>

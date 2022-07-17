@@ -1,32 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { Col, Row, Card } from "react-bootstrap";
+import { Col, Row, Card, Container } from "react-bootstrap";
 import EventItem from "./Event/EventItem";
 import SideNav from "./SiteElements/SideNav";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllEvents } from "../actions/eventActions";
+import { getAllEvents, affiliatedEvents } from "../actions/eventActions";
 import CreatePostModal from "./Event/CreatEventModal";
 import CreatePost from "./Event/CreateEvent";
 
 function MainDash() {
   const dispatch = useDispatch();
   const [eventData, setEventData] = useState([]);
+  const [affiliatedEv, setAffiliatedEv] = useState([]);
 
   useEffect(() => {
     dispatch(getAllEvents());
+    dispatch(affiliatedEvents());
   }, [dispatch]);
 
-  var allEventsData = useSelector((eventReducer) => eventReducer.events.data);
+
+
+  var allEventsData = useSelector((eventReducer) => eventReducer.events.events.data);
   useEffect(() => {
-    setEventData(allEventsData);
+    if(allEventsData){
+      setEventData(allEventsData);
+    }
   }, [allEventsData]);
+
+  var affiliatedEventData = useSelector((eventReducer) => eventReducer.events.affiliatedData);
+
+  useEffect(() => {
+   if(affiliatedEventData && affiliatedEventData.data){
+     setAffiliatedEv(affiliatedEventData.data);
+    }
+  }, [affiliatedEventData]); 
 
   return (
     <div className="content">
+      <Container>
       {/* <Row className="row justify-content-center">Event Data</Row> */}
 
       <Row>
         <Col className="post-cards">
-          {eventData.length > 0 ? (
+        <Card>
+              <CreatePost />
+            </Card>
+          {eventData? (
             eventData.map((event, index) => (
               <div key={index}>
                 <EventItem
@@ -36,18 +54,17 @@ function MainDash() {
                   createdTime={event.humanTimeDiffCreatedAt}
                   eventId={event.id}
                   userId={event.user}
+                  eventAffiliated={affiliatedEv}
                 />
               </div>
             )).reverse()
           ) : (
-            <Card>
-              <CreatePost />
-            </Card>
+           ""
           )}
         </Col>
 
         <Col sm={3} className="post-cards recents">
-          {eventData.length > 0 ? <CreatePostModal btnSize={"w-100"} /> : ""}
+          {/* {eventData.length > 0 ? <CreatePostModal btnSize={"w-100"} /> : ""} */}
 
           <Card>
             <Card.Body>
@@ -90,6 +107,7 @@ function MainDash() {
           </Card> */}
         </Col>
       </Row>
+      </Container>
     </div>
   );
 }

@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getEventMembers, memberStatus } from "../../actions/eventActions";
+import CTAButton from "../SiteElements/CTAButton";
 import Loading from "../SiteElements/Loading";
 import MemberStatus from "./MemberStatus";
+import { RiUserStarLine } from "react-icons/ri";
+
 
 function EventMembers(props) {
   const dispatch = useDispatch();
@@ -20,7 +23,13 @@ function EventMembers(props) {
 
   return (
     <div className="mb-4">
-      <Button onClick={() => setModalShow(true)}>Members</Button>
+      <CTAButton
+        type={""}
+        btnStyle={"postBtn-placements"}
+        variant={"primary"}
+        onClick={() => setModalShow(true)}
+        placeholder={<RiUserStarLine />}
+      />
 
       <Modal
         size="md"
