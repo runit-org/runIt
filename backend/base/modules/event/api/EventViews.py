@@ -13,7 +13,7 @@ from ....views import baseViews as base
 
 
 from base.modules.event.api.validators import CreateEventValidator, UpdateEventValidator
-from base.modules.event.api.actions import CreateEventAction, ViewEventAction, UpdateEventAction
+from base.modules.event.api.actions import CreateEventAction, ViewEventAction, UpdateEventAction, DeleteEventAction
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -40,20 +40,7 @@ def updateEvent(request, pk):
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def deleteEvent(request, pk):
-    data = request.data
-    user = request.user
-
-    if not base.checkEventId(pk):
-        return base.error('Event ID not found')
-
-    event = Event.objects.get(id=pk)
-
-    if user.id != event.user.id:
-        return base.error('Can only delete your own events')
-
-    event.delete()
-
-    return base.response('Event deleted.')
+    return DeleteEventAction.delete(request, pk)
 
 @api_view(['GET'])
 def allEvent(request):
