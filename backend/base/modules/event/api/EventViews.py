@@ -12,8 +12,8 @@ from ....views import baseViews as base
 
 
 
-from base.modules.event.api.validators import CreateEventValidator
-from base.modules.event.api.actions import CreateEventAction, ViewEventAction
+from base.modules.event.api.validators import CreateEventValidator, UpdateEventValidator
+from base.modules.event.api.actions import CreateEventAction, ViewEventAction, UpdateEventAction
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -32,25 +32,10 @@ def viewEvent(request, pk):
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def updateEvent(request, pk):
-    data = request.data
+    if (UpdateEventValidator.validate(request) != None):
+        return UpdateEventValidator.validate(request)
 
-    if not base.checkEventId(pk):
-        return base.error('Event ID not found')
-
-    validator = base.eventValidator(data)
-
-    if validator != '':
-        return base.error(validator)
-
-    event = Event.objects.get(id=pk)
-
-    event.title = data['title']
-    event.maxMember = data['maxMember']
-
-    event.save()
-
-    serializer = EventSerializer(event, many=False)
-    return base.response('Event updated', serializer.data)
+    return UpdateEventAction.update(request, pk)
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
