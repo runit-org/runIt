@@ -4,7 +4,6 @@ import {
   Row,
   Form,
   FloatingLabel,
-  Button,
   Container,
 } from "react-bootstrap";
 import { useDispatch } from "react-redux";
@@ -12,6 +11,7 @@ import { createNewEvent } from "../../actions/eventActions";
 import ReactQuill from "react-quill";
 import CTAButton from "../SiteElements/cta-button";
 import { RiSendPlaneLine } from "react-icons/ri";
+import {QuillFormatting} from "../SiteElements/quill-format";
 
 function CreateEvent() {
   const dispatch = useDispatch();
@@ -21,6 +21,8 @@ function CreateEvent() {
   const [load, setLoad] = useState(false);
   const [validateFormEmpty, setValidateFormEmpty] = useState(false);
   const [error, setError] = useState("");
+  var quillSetting = QuillFormatting();
+
 
   useEffect(() => {
     if (details === "" || details === "<p><br></p>") {
@@ -40,6 +42,7 @@ function CreateEvent() {
     };
     dispatch(createNewEvent(postData, setLoad, setError));
   };
+
 
   return (
     <Form
@@ -84,7 +87,14 @@ function CreateEvent() {
           </Col>
         </Row>
 
-        <ReactQuill theme="snow" value={details} onChange={setDetails} />
+        <ReactQuill
+          modules={quillSetting[1]}
+          formats={quillSetting[0]}
+          theme="snow"
+          value={details}
+          onChange={setDetails}
+        />
+
         <div className="d-flex justify-content-end">
           {/*  <Button type="submit" className="mb-2 mt-3 w-25">
               Add Friends

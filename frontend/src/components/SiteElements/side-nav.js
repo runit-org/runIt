@@ -4,7 +4,7 @@ import img from "../../logo192.png";
 
 function SideNav(props) {
   return (
-    <div className="sidebar">
+    <div className="recents-div">
       {/* <Card.Text className="fw-bold">
         <img src={img} className="recents-Logo"></img> {props.eventTitle}
       </Card.Text> */}

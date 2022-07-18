@@ -10,6 +10,7 @@ import { updateEvent } from "../../actions/eventActions";
 import { useDispatch } from "react-redux";
 import CTAButton from "../SiteElements/cta-button";
 import { RiEditLine, RiCloseFill, RiSendPlaneLine } from "react-icons/ri";
+import { QuillFormatting } from "../SiteElements/quill-format";
 
 function EventItem(props) {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function EventItem(props) {
   const [title, setTitle] = useState({});
   const [maxMembers, setMaxMembers] = useState({});
   const [details, setDetails] = useState("");
+  var quillSetting = QuillFormatting();
 
   var getCurrentUser = useSelector(
     (securityReducer) => securityReducer.security.user
@@ -45,7 +47,7 @@ function EventItem(props) {
     dispatch(updateEvent(props.eventId, postData));
   };
 
-  var userAff = !props.eventAffiliated.map((i) => i.id).includes(props.eventId);
+  var userAff = props.eventAffiliated.map((i) => i.id).includes(props.eventId);
 
   var userJoinedEv = props.eventAffiliated.filter((obj) => {
     return obj.id === props.eventId && obj.user !== currentUser;
@@ -116,7 +118,7 @@ function EventItem(props) {
                 )}
               </Col>
               <Col className="text-end d-flex justify-content-end">
-                {userAff /*  currentUser != props.userId */ ? (
+                {!userAff /*  currentUser != props.userId */ ? (
                   <JoinEvent
                     eventId={props.eventId}
                     eventTitle={props.eventTitle}
@@ -165,7 +167,13 @@ function EventItem(props) {
             />
           ) : (
             <>
-              <ReactQuill theme="snow" value={details} onChange={setDetails} />{" "}
+              <ReactQuill
+                modules={quillSetting[1]}
+                formats={quillSetting[0]}
+                theme="snow"
+                value={details}
+                onChange={setDetails}
+              />
               <div className="d-flex justify-content-end">
                 <CTAButton
                   type={"submit"}
