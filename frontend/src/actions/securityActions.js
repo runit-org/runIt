@@ -4,90 +4,96 @@ import { setToken, refreshToken } from "../securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 
 export const getUsers = () => async (dispatch) => {
-  const res = await axios.get(`http://localhost:8000/api/user/all/`);
-  dispatch({
-    type: GET_USERS,
-    payload: res.data,
-  });
+  await axios
+    .get(`http://localhost:8000/api/user/all/`)
+    .then((res) => {
+      dispatch({
+        type: GET_USERS,
+        payload: res.data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data,
+      });
+    });
 };
 
 export const createNewUser =
   (userData, setLoad, setShow, setError) => async (dispatch) => {
-    try {
-      setLoad(true);
-      const res = await axios.post(
-        "http://localhost:8000/api/auth/register/",
-        userData
-      );
+    setLoad(true);
+    await axios
+      .post("http://localhost:8000/api/auth/register/", userData)
+      .then((res) => {
+        if (res.data.success === "true") {
+          setShow(true);
+          setError(res.data);
+        }
+        dispatch({
+          type: GET_ERRORS,
+          payload: {},
+        });
+        dispatch({
+          type: SET_NEW_USER,
+          payload: res.data,
+        });
+      })
 
-      if (res.data.success === "true") {
+      .catch((error) => {
+        setLoad(false);
         setShow(true);
-        setError(res.data);
-      }
-      dispatch({
-        type: GET_ERRORS,
-        payload: {},
+        setError(error.response.data);
+        dispatch({
+          type: SET_NEW_USER,
+          payload: {},
+        });
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
       });
-      dispatch({
-        type: SET_NEW_USER,
-        payload: res.data,
-      });
-    } catch (error) {
-      setLoad(false);
-      setShow(true);
-      setError(error.response.data);
-      dispatch({
-        type: SET_NEW_USER,
-        payload: {},
-      });
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data,
-      });
-    }
   };
 
 export const login =
   (LoginRequest, navigate, setLoad, setShow, setError) => async (dispatch) => {
-    try {
-      //post => login request
-      setLoad(true);
-      const res = await axios.post(
-        "http://localhost:8000/api/auth/login/",
-        LoginRequest
-      );
+    //post => login request
+    setLoad(true);
+    await axios
+      .post("http://localhost:8000/api/auth/login/", LoginRequest)
+      .then((res) => {
+        //extract token from data
+        const refToken = res.data.refresh;
+        const accessToken = res.data.access;
+        //store token in local storage
+        localStorage.setItem("token", refToken);
+        localStorage.setItem("accessToken", accessToken);
+        //set token in header
+        setToken(accessToken);
+        //get data from response
+        const decoded_token = jwt_decode(res.data.access);
+        const decoded = {
+          username: res.data.username,
+        };
 
-      //extract token from data
-      const refToken = res.data.refresh;
-      const accessToken = res.data.access;
-      //store token in local storage
-      localStorage.setItem("token", refToken);
-      localStorage.setItem("accessToken", accessToken);
-      //set token in header
-      setToken(accessToken);
-      //get data from response
-      const decoded_token = jwt_decode(res.data.access);
-      const decoded = {
-        username: res.data.username,
-      };
-
-      localStorage.setItem("username", decoded.username);
-      if (localStorage.getItem("token")) {
-        navigate("/posts");
-      }
-      dispatch({
-        type: SET_CURRENT_USER,
-        payload: decoded_token,
+        localStorage.setItem("username", decoded.username);
+        if (localStorage.getItem("token")) {
+          navigate("/posts");
+        }
+        dispatch({
+          type: SET_CURRENT_USER,
+          payload: decoded_token,
+        });
+      })
+      .catch((error) => {
+        setLoad(false);
+        setShow(true);
+        setError(error.response.data.detail);
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
       });
-    } catch (error) {
-      setLoad(false);
-      setShow(true);
-      setError(error.response.data.detail);
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data,
-      });
-    }
   };
 
 export const logout = (refToken, navigate) => async (dispatch) => {

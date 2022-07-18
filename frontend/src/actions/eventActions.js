@@ -9,24 +9,40 @@ import { setToken, refreshToken } from "../securityUtils/setToken";
 export const getAllEvents = () => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
-    axios.get(`http://localhost:8000/api/event/all/`).then((res) => {
-      dispatch({
-        type: GET_ALL_EVENTS,
-        payload: res.data,
+    axios
+      .get(`http://localhost:8000/api/event/all/`)
+      .then((res) => {
+        dispatch({
+          type: GET_ALL_EVENTS,
+          payload: res.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
       });
-    });
   });
 };
 
 export const affiliatedEvents = () => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
-    axios.get(`http://localhost:8000/api/event/affiliated/`).then((res) => {
-      dispatch({
-        type: GET_AFFILIATED_EVENTS,
-        payload: res.data,
+    axios
+      .get(`http://localhost:8000/api/event/affiliated/`)
+      .then((res) => {
+        dispatch({
+          type: GET_AFFILIATED_EVENTS,
+          payload: res.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
       });
-    });
   });
 };
 
@@ -39,7 +55,7 @@ export const createNewEvent =
       axios
         .post("http://localhost:8000/api/event/create/", postData)
         .then((res) => {
-          if (res.data.success == "true") {
+          if (res.data.success === "true") {
             setLoad(false);
             setError(res.data.message);
             window.location.reload();
@@ -51,7 +67,6 @@ export const createNewEvent =
         })
         .catch((error) => {
           setLoad(false);
-
           setError(error.response.data.message);
           dispatch({
             type: GET_ERRORS,
@@ -68,7 +83,7 @@ export const updateEvent = (id, postData) => async (dispatch) => {
     axios
       .put(`http://localhost:8000/api/event/update/${id}/`, postData)
       .then((res) => {
-        if (res.data.success == "true") {
+        if (res.data.success === "true") {
           window.location.reload();
         }
         dispatch({

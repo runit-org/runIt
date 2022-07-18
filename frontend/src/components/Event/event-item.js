@@ -10,6 +10,7 @@ import { updateEvent } from "../../actions/eventActions";
 import { useDispatch } from "react-redux";
 import CTAButton from "../SiteElements/cta-button";
 import { RiEditLine, RiCloseFill, RiSendPlaneLine } from "react-icons/ri";
+import { QuillFormatting } from "../SiteElements/quill-format";
 
 function EventItem(props) {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function EventItem(props) {
   const [title, setTitle] = useState({});
   const [maxMembers, setMaxMembers] = useState({});
   const [details, setDetails] = useState("");
+  var quillSetting = QuillFormatting();
 
   var getCurrentUser = useSelector(
     (securityReducer) => securityReducer.security.user
@@ -165,7 +167,13 @@ function EventItem(props) {
             />
           ) : (
             <>
-              <ReactQuill theme="snow" value={details} onChange={setDetails} />{" "}
+              <ReactQuill
+                modules={quillSetting[1]}
+                formats={quillSetting[0]}
+                theme="snow"
+                value={details}
+                onChange={setDetails}
+              />
               <div className="d-flex justify-content-end">
                 <CTAButton
                   type={"submit"}
