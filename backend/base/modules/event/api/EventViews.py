@@ -12,8 +12,17 @@ from ....views import baseViews as base
 
 
 
-from base.modules.event.api.validators import CreateEventValidator, UpdateEventValidator
-from base.modules.event.api.actions import CreateEventAction, ViewEventAction, UpdateEventAction, DeleteEventAction
+from base.modules.event.api.validators import (
+    CreateEventValidator, 
+    UpdateEventValidator
+)
+from base.modules.event.api.actions import (
+    CreateEventAction, 
+    ViewEventAction, 
+    UpdateEventAction, 
+    DeleteEventAction, 
+    GetAllEventAction
+)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -44,10 +53,7 @@ def deleteEvent(request, pk):
 
 @api_view(['GET'])
 def allEvent(request):
-    events = Event.objects.all()
-    serializer = EventSerializer(events, many=True)
-    return base.response('All events retrieved', serializer.data)
-
+    return GetAllEventAction.all(request)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
