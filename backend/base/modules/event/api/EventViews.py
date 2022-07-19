@@ -1,17 +1,7 @@
 from tabnanny import check
 from django.shortcuts import render
-from django.http import JsonResponse
-from base.models import *
-from base.serializers import *
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-
-from ....views import baseViews as base
-
-
-
-
-
 from base.modules.event.api.validators import (
     CreateEventValidator, 
     UpdateEventValidator,
@@ -89,7 +79,7 @@ def changeEventMemberStatus(request):
 def ownedEvent(request):
     return GetOwnedEventsAction.get(request)
 
-# Get events participated and owned by auth user
+# Get events participated (ACCEPTED) and owned by auth user
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def participatedAndOwnedEvent(request):
