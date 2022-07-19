@@ -27,6 +27,7 @@ from base.modules.event.api.actions import (
     RequestJoinEventAction,
     GetEventMembersAction,
     ChangeEventMemberStatusAction,
+    GetOwnedEventsAction,
 )
 
 @api_view(['POST'])
@@ -85,12 +86,7 @@ def changeEventMemberStatus(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def ownedEvent(request):
-    user = request.user
-
-    user_events = Event.objects.filter(user = user)
-
-    serializer = EventSerializer(user_events, many=True)
-    return base.response('User owned events retrieved', serializer.data)
+    return GetOwnedEventsAction.owned(request)
 
 # Get events participated and owned by auth user
 @api_view(['GET'])
