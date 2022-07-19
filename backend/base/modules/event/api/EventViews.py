@@ -16,6 +16,7 @@ from base.modules.event.api.validators import (
     CreateEventValidator, 
     UpdateEventValidator,
     RequestJoinEventValidator,
+    ChangeEventMemberStatusValidator,
 )
 from base.modules.event.api.actions import (
     CreateEventAction, 
@@ -25,6 +26,7 @@ from base.modules.event.api.actions import (
     GetAllEventAction,
     RequestJoinEventAction,
     GetEventMembersAction,
+    ChangeEventMemberStatusAction,
 )
 
 @api_view(['POST'])
@@ -74,45 +76,10 @@ def getEventMembers(request, pk):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def changeEventMemberStatus(request):
-    user = request.user
-    data = request.data
- 
-    validator = base.changeEventMemberStatusValidator(data)
+    if (ChangeEventMemberStatusValidator.validate(request) != None):
+        return ChangeEventMemberStatusValidator.validate(request)
 
-    if validator != '':
-        return base.error(validator)
-
-    if not base.checkEventId:
-        return base.error('Event ID not found')
-
-    event = Event.objects.get(id=data['eventId'])
-
-    if user.id != event.user.id:
-        return base.error('You can only approve members as an event creator')
-    
-    if not base.checkUserId(data['userId']):
-        return base.error('User ID not found')
-    
-
-    checkMemberStatus = base.checkEventMemberStatus(data['eventId'], data['userId'])
-
-    if checkMemberStatus == -1:
-        return base.error('No existing join request record from this user')
-
-    if checkMemberStatus == 0 or checkMemberStatus == 2:
-        # If the user have a pending request or was rejected, event creator can approve/re-approve it
-        findEventMember = EventMember.objects.filter(eventId=data['eventId'], userId = data['userId'])
-
-        eventMember = findEventMember[0]
-        eventMember.status = data['status']
-        eventMember.save()
-
-        if (data['status']) == 1:
-            return base.response('Request approved')
-        else:
-            return base.response('Request rejected')
-    else:
-        return base.error('This user has already been accepted into the event')
+    return ChangeEventMemberStatusAction.updateStatus(request)
 
 # Get events owned by auth user
 @api_view(['GET'])

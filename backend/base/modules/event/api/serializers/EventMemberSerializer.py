@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import *
 from base.views.baseViews import getHumanTimeDifferenceToNow
-from base.views.utils.enums import NotificationStatus, EventMemberStatus
+from base.enums import EventMemberStatus
 
 class EventMemberSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField(read_only=True)
@@ -17,4 +17,4 @@ class EventMemberSerializer(serializers.ModelSerializer):
         return user
 
     def get_status(self, obj):
-        return EventMemberStatus(obj.status).name
+        return EventMemberStatus.EventMemberStatus(obj.status).name

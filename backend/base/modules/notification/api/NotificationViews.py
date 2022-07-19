@@ -5,7 +5,7 @@ from base.models import *
 from base.serializers import *
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from base.views.utils.enums import NotificationStatus
+from base.enums import NotificationStatus
 
 from ....views import baseViews as base
 
@@ -29,7 +29,7 @@ def read(request, pk):
         return base.error('Notification not found')
 
     notif = Notification.objects.get(id = pk)
-    notif.status = NotificationStatus.READ.value
+    notif.status = NotificationStatus.NotificationStatus.READ.value
     notif.save()
 
     return base.response('Notification read')
