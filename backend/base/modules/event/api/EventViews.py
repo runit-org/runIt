@@ -14,14 +14,17 @@ from ....views import baseViews as base
 
 from base.modules.event.api.validators import (
     CreateEventValidator, 
-    UpdateEventValidator
+    UpdateEventValidator,
+    RequestJoinEventValidator,
 )
 from base.modules.event.api.actions import (
     CreateEventAction, 
     ViewEventAction, 
     UpdateEventAction, 
     DeleteEventAction, 
-    GetAllEventAction
+    GetAllEventAction,
+    RequestJoinEventAction,
+    GetEventMembersAction,
 )
 
 @api_view(['POST'])
@@ -58,60 +61,15 @@ def allEvent(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def requestJoinEvent(request):
-    user = request.user
-    data = request.data
+    if (RequestJoinEventValidator.validate(request) != None):
+        return RequestJoinEventValidator.validate(request)
 
-    validator = base.requestJoinEventValidator(data)
-
-    if validator != '':
-        return base.error(validator)
-
-    if not base.checkEventId(data['eventId']):
-        return base.error('Event ID not found')
-
-    event = Event.objects.get(id = data['eventId'])
-
-    if user.id == event.user.id:
-        return base.error('You cannot request to join your own event')
-
-    checkMemberStatus = base.checkEventMemberStatus(data['eventId'], user.id)
-
-    if checkMemberStatus == -1:
-        # No record exist, then create a new event member record
-        eventMember = EventMember.objects.create (
-            userId = user.id,
-            eventId = data['eventId'],
-            user = user,
-            event = Event.objects.get(id = data['eventId']),
-            status = 0
-        )
-
-        print(event.user.id)
-        eventCreatorUserId = event.user.id
-        notificationMessage = 'User ' + user.username + ' has requested to join your event'
-        base.notifyUser(eventCreatorUserId, notificationMessage)
-
-        return base.response('Your request to join this event have been submitted. Please wait for approval from the event creator')
-    elif checkMemberStatus == 0:
-        return base.error('You already have a pending request to join this event')
-    elif checkMemberStatus == 1:
-        return base.error('You are already part of this event')
-    else:
-        return base.error('Your request to join this event have been denied by the event creator')
+    return RequestJoinEventAction.request(request)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getEventMembers(request, pk):
-    user = request.user
-
-    if not base.checkEventId(pk):
-        return base.error('Event ID not found')
-
-    event = Event.objects.get(id=pk)
-    eventMember = EventMember.objects.filter(eventId = pk)
-    serializer = EventMemberSerializer(eventMember, many=True)
-
-    return base.response('Members of event retrieved', serializer.data)
+    return GetEventMembersAction.getMembers(request, pk)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
