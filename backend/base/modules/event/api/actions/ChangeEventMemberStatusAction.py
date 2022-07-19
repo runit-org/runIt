@@ -2,6 +2,7 @@ from base.models import Event, User, EventMember
 from base.serializers import EventSerializer
 from base.views.baseViews import response, error
 from base.enums import EventMemberStatus
+from base.traits import NotifyUser
 
 def checkEventId(id):
     checkEventExist = Event.objects.filter(id = id)
@@ -59,8 +60,13 @@ def updateStatus(request):
         eventMember.save()
 
         if (data['status']) == EventMemberStatus.EventMemberStatus.ACCEPTED.value:
+            notifContent = 'Your request to join event [' + event.title + '] has been ' + EventMemberStatus.EventMemberStatus.ACCEPTED.name
+            NotifyUser.notifyUser(data['userId'], notifContent)
             return response('Request approved')
+
         else:
+            notifContent = 'Your request to join event [' + event.title + '] has been ' + EventMemberStatus.EventMemberStatus.REJECTED.name
+            NotifyUser.notifyUser(data['userId'], notifContent)
             return response('Request rejected')
     else:
         return error('This user has already been accepted into the event')
