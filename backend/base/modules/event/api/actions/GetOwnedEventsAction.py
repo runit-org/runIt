@@ -2,7 +2,7 @@ from base.models import Event
 from base.serializers import EventSerializer
 from base.views.baseViews import response, error
 
-def owned(request):
+def get(request):
     user = request.user
 
     user_events = Event.objects.filter(user = user)
