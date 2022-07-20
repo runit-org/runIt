@@ -1,7 +1,7 @@
 import datetime
 from django.utils.timezone import utc
 
-def getHumanTimeDifferenceToNow(targetTime):
+def get(targetTime):
     currentTime = datetime.datetime.utcnow().replace(tzinfo=utc)
     timeDiff = currentTime - targetTime
     timeDiffSeconds = timeDiff.total_seconds()

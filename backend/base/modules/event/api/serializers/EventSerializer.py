@@ -11,4 +11,4 @@ class EventSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_humanTimeDiffCreatedAt(self, obj):
-        return GetHumanTimeDifferenceToNow.getHumanTimeDifferenceToNow(obj.createdAt)
+        return GetHumanTimeDifferenceToNow.get(obj.createdAt)
