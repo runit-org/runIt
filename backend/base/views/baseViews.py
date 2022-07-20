@@ -14,6 +14,10 @@ def error(message):
     retVal = {'success' : 'false', 'message' : message}
     return Response(retVal, status = status.HTTP_400_BAD_REQUEST)
 
+def validationError(message='Required fields not met'):
+    retVal = {'success' : 'false', 'message' : message}
+    return Response(retVal, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
+
 def checkEventId(id):
     checkEventExist = Event.objects.filter(id = id)
 
@@ -79,38 +83,3 @@ def checkEventMemberStatus(eventId, userId):
         # return -1 if no event-member record exist
         return -1
     
-
-def getHumanTimeDifferenceToNow(targetTime):
-    currentTime = datetime.datetime.utcnow().replace(tzinfo=utc)
-    timeDiff = currentTime - targetTime
-    timeDiffSeconds = timeDiff.total_seconds()
-    humanTimeDifference = ""
-
-    # 60 (min), 3600 (hour), 86400 (day), 604800 (week), 2592000 (month), 31536000 (year)
-
-    if (timeDiffSeconds > 31536000):
-        humanTimeDifference = str(round(timeDiffSeconds/31536000)) + " year"
-    elif (timeDiffSeconds > 2592000):
-        humanTimeDifference = str(round(timeDiffSeconds/2592000)) + " month"
-    elif (timeDiffSeconds > 604800):
-        humanTimeDifference = str(round(timeDiffSeconds/604800)) + " week"
-    elif (timeDiffSeconds > 86400):
-        humanTimeDifference = str(round(timeDiffSeconds/86400)) + " day"
-    elif (timeDiffSeconds > 3600):
-        humanTimeDifference = str(round(timeDiffSeconds/3600)) + " hour"
-    elif (timeDiffSeconds > 60):
-        humanTimeDifference = str(round(timeDiffSeconds/60)) + " minute"
-    else:
-        humanTimeDifference = str(round(timeDiffSeconds)) + " second"
-
-    numDiff = int(humanTimeDifference.split(' ')[0])
-    if numDiff > 1:
-        humanTimeDifference+="s"
-
-    return humanTimeDifference
-
-def notifyUser(userId, details):
-    Notification.objects.create(
-        userId = userId,
-        details = details
-    )
