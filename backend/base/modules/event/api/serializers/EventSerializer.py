@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import *
-from base.views.baseViews import getHumanTimeDifferenceToNow
+from base.traits import GetHumanTimeDifferenceToNow
 
 class EventSerializer(serializers.ModelSerializer):
     humanTimeDiffCreatedAt = serializers.SerializerMethodField(read_only=True)
@@ -11,4 +11,4 @@ class EventSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_humanTimeDiffCreatedAt(self, obj):
-        return getHumanTimeDifferenceToNow(obj.createdAt)
+        return GetHumanTimeDifferenceToNow.getHumanTimeDifferenceToNow(obj.createdAt)
