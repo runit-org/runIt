@@ -1,5 +1,3 @@
-from tabnanny import check
-from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from base.modules.event.api.validators import (
@@ -84,15 +82,3 @@ def ownedEvent(request):
 @permission_classes([IsAuthenticated])
 def participatedAndOwnedEvent(request):
     return GetParticipatedAndOwnedEventsAction.get(request)
-    
-    
-
-
-
-    
-
-
-
-
-    
-
