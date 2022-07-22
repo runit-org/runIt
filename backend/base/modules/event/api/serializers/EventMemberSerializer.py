@@ -16,4 +16,4 @@ class EventMemberSerializer(serializers.ModelSerializer):
         return user
 
     def get_status(self, obj):
-        return EventMemberStatus.EventMemberStatus(obj.status).name
+        return EventMemberStatus.get(obj.status).name

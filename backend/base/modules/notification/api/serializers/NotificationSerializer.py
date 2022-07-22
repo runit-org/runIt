@@ -10,4 +10,4 @@ class NotificationSerializer(serializers.ModelSerializer):
         fields = ['id', 'details', 'statusName']
     
     def get_statusName(self, obj):
-        return NotificationStatus.NotificationStatus(obj.status).name
+        return NotificationStatus.get(obj.status).name
