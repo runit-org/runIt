@@ -58,7 +58,7 @@ export const createNewEvent =
           if (res.data.success === "true") {
             setLoad(false);
             setError(res.data.message);
-            window.location.reload();
+            dispatch(getAllEvents());
           }
           dispatch({
             type: GET_ERRORS,
@@ -84,7 +84,7 @@ export const updateEvent = (id, postData) => async (dispatch) => {
       .put(`http://localhost:8000/api/event/update/${id}/`, postData)
       .then((res) => {
         if (res.data.success === "true") {
-          window.location.reload();
+          dispatch(getAllEvents());
         }
         dispatch({
           type: GET_ERRORS,
@@ -145,7 +145,8 @@ export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
         if (res.data.success == "true") {
           setLoad(false);
           setError(res.data.message);
-          window.location.reload();
+          // window.location.reload();
+          dispatch(getAllEvents());
         }
         dispatch({
           type: GET_ERRORS,

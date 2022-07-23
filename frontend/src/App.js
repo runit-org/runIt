@@ -20,7 +20,7 @@ import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
 const token = localStorage.token;
 
 const getAccessToken = async (token) => {
-  const res = await refreshToken()
+  await refreshToken()
     .then((res) => {
       console.log(res);
       setToken(res.data.access);
@@ -64,7 +64,12 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<Navigate to="/" />} />
+
+          {localStorage.getItem("token") ? (
+            <Route path="*" element={<Navigate to="/posts" />} />
+          ) : (
+            <Route path="*" element={<Navigate to="/" />} />
+          )}
         </Routes>
       </Router>
     </Provider>
