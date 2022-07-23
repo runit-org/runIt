@@ -15,7 +15,6 @@ function ErrorToast(props) {
     <div xs={6}>
       <Toast
         className="toasts position-absolute"
-        // style={{ background: "#FFD2D2", color: "#D8000C", fontSize: "14px" }}
         style={props.variant}
         onClose={() => setShow(false)}
         show={show}
