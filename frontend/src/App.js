@@ -9,14 +9,14 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import Login from "./components/UserAuth/login";
-import SignUp from "./components/UserAuth/sign-up";
 import Header from "./components/SiteElements/header";
 import Posts from "./components/main-dash";
+import Main from "./components/UserAuth/main";
 import { setToken, refreshToken } from "./securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 // import { isExpired } from "react-jwt";
 import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
+import SignUp from "./components/UserAuth/sign-up";
 
 const token = localStorage.token;
 
@@ -54,8 +54,8 @@ function App() {
     <Provider store={store}>
       <Router>
         <Routes>
-          <Route path="/signin" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/" element={<Main />} />
+          <Route path="/signup" element={<Main />} />
           <Route
             path="/posts"
             element={
@@ -65,7 +65,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<Navigate to="/signin" />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
     </Provider>

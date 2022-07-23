@@ -9,22 +9,23 @@ $button-hover: #404eed;
 /*------Mixin------*/
 //Button
 @mixin btn-style($bgColor, $color, $border, $fw) {
-  background-color: $bgColor  !important;
+  background-color: $bgColor !important;
   color: $color !important;
-  border: $border  !important;
-  font-weight: $fw  !important;
+  border: $border !important;
+  font-weight: $fw !important;
 }
 
 @mixin title-text($color, $ltrspace, $fw) {
   color: $color !important;
-  letter-spacing: $ltrspace  !important;
-  font-weight: $fw  !important;
+  letter-spacing: $ltrspace !important;
+  font-weight: $fw !important;
 }
 
 /*------General Components------*/
 html,
 body {
-  background-color: $theme  !important;
+  background-color: $theme !important;
+  height: 100vh;
 }
 
 .titleText {
@@ -35,35 +36,13 @@ body {
   @include title-text($primary-light, normal, 600);
 }
 
-.fullPage {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-}
-
-.fullBody {
-  height: 80%;
-  display: -webkit-flexbox;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-  justify-content: center;
-}
-
 .btn-primary {
   @include btn-style($theme, $primary-light, none, 600);
-
 }
 
 .btn-primary:hover {
-  background-color: $button-hover  !important;
-  color: $primary-light  !important;
+  background-color: $button-hover !important;
+  color: $primary-light !important;
   border: none;
 }
 
@@ -91,19 +70,22 @@ body {
   @include btn-style(transparent, $theme, none, 600);
   padding: 2px 8px 4px 8px !important;
   margin: 0 0 0 0.5rem;
-
 }
-
+.divider {
+  color: $primary-light;
+  background-color: $primary-light;
+  height: 1;
+}
 .centerContent {
   display: flex;
   justify-content: center;
-  margin: 0 auto;
 }
 
 .toasts {
   width: fit-content !important;
   top: 10px;
   margin-left: 4px;
+  font-weight: 500;
 }
 
 div.content {
@@ -125,23 +107,26 @@ div.content {
 }
 
 /*------Footer------*/
-.footer-section {
-  height: 20%;
-}
-
-.footer-hr {
+.footer {
   color: $primary-light;
-  background-color: $primary-light;
-  height: 1;
+  background-color: #282c34;
+  /*  display: flex;
+  justify-content: center; */
+  width: 100%;
+  min-height: 20vh;
+  height: fit-content;
+}
+.footer .container {
+  padding: 20px;
 }
 
-.footer-links>div.col>small>a {
+.footer-links > div.col > small > a {
   color: $primary-light;
   text-decoration: none;
   font-weight: bold;
 }
 
-.footer-links>div.col>small>a:hover {
+.footer-links > div.col > small > a:hover {
   text-decoration: underline;
 }
 
@@ -151,11 +136,11 @@ div.content {
 }
 
 .navbar-nav .nav-link {
-  color: $primary-light  !important;
+  color: $primary-light !important;
 }
 
 .navbar-nav .nav-link:hover {
-  color: $theme  !important;
+  color: $theme !important;
 }
 
 .navbar .container {
@@ -164,52 +149,58 @@ div.content {
 }
 
 .dropdown-menu {
-  background-color: $secondary-dark  !important;
+  background-color: $secondary-dark !important;
 }
 
 a.dropdown-item:hover {
   background-color: transparent;
-  color: $theme  !important;
+  color: $theme !important;
 }
 
 /*------Login/Signup Forms------*/
-.login-card .form-floating>.form-control:-webkit-autofill {
-  transition: background-color 5000s ease-in-out 0s;
-  -webkit-text-fill-color: $primary-light  !important;
+.container#auth-container {
+  padding: 80px 12px;
+  min-height: 80vh;
 }
 
-.login-card .form-floating>.form-control:focus {
+.login-card .form-floating > .form-control:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: $primary-light !important;
+}
+
+.login-card .form-floating > .form-control:focus {
   border: 1px solid $theme;
   box-shadow: none !important;
   background-color: $secondary-dark;
   color: $primary-light;
 }
 
-.login-card .form-floating>.form-control {
+.login-card .form-floating > .form-control {
   border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: $secondary-dark;
   color: $primary-light;
 }
 
-.login-card .form-floating>.form-control:hover,
-.new-post-container .form-floating>.form-control:hover {
+.login-card .form-floating > .form-control:hover,
+.new-post-container .form-floating > .form-control:hover {
   border: 1px solid $theme;
 }
 
-.login-card .card {
+.login-card.card {
   background-color: $primary-dark;
   color: $primary-light;
   font-weight: 500;
   min-width: auto;
-  width: 400px;
+  width: 500px;
   height: fit-content;
+  bottom: 0;
 }
 
 .login-card .card-footer {
   border-top: 1px solid #777;
 }
 
-.login-card .form-floating>label {
+.login-card .form-floating > label {
   color: $primary-light;
 }
 
@@ -217,20 +208,20 @@ a.dropdown-item:hover {
 .new-post-container {
   background-color: rgba($secondary-light, 0.9);
   color: $primary-dark;
-  border-radius: 6px
+  border-radius: 6px;
 }
 
-.new-post-container .form-floating>.form-control {
+.new-post-container .form-floating > .form-control {
   color: $primary-dark;
 }
 
-.new-post-container .form-floating>.form-control:focus {
+.new-post-container .form-floating > .form-control:focus {
   border: 1px solid $theme;
   box-shadow: none !important;
   /* background-color: transparent; */
 }
 
-.new-post-container .form-floating>.form-control {
+.new-post-container .form-floating > .form-control {
   border: 1px solid rgba($primary-dark, 0.3);
   background-color: transparent !important;
 }
@@ -239,11 +230,13 @@ a.dropdown-item:hover {
   border: 1px solid rgba($primary-dark, 0.3);
 }
 
-.new-post-container :is(.ql-snow .ql-picker, .ql-toolbar .ql-stroke, .ql-picker-options) {
+.new-post-container
+  :is(.ql-snow .ql-picker, .ql-toolbar .ql-stroke, .ql-picker-options) {
   color: $primary-dark;
 }
 
-.new-post-container :is(.ql-toolbar .ql-stroke, .ql-toolbar .ql-fill, .ql-toolbar .ql-picker) {
+.new-post-container
+  :is(.ql-toolbar .ql-stroke, .ql-toolbar .ql-fill, .ql-toolbar .ql-picker) {
   fill: none;
   stroke: $primary-dark;
 }
@@ -271,7 +264,7 @@ a.dropdown-item:hover {
   display: inline;
 }
 
-.post-cards~.recents .card {
+.post-cards ~ .recents .card {
   background-color: $secondary-light;
   border: none;
   border-radius: 6px;
@@ -279,12 +272,12 @@ a.dropdown-item:hover {
 }
 
 .event-owned {
-  border: 1px solid $theme  !important;
+  border: 1px solid $theme !important;
 }
 
 /*------Modal------*/
 .modal-header {
-  background-color: $theme ;
+  background-color: $theme;
   color: $primary-light;
 }
 
