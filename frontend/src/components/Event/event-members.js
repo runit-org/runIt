@@ -3,7 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getEventMembers, memberStatus } from "../../actions/eventActions";
 import CTAButton from "../SiteElements/cta-button";
-import Loading from "../SiteElements/loading";
+import Loading from "../SiteElements/loader";
 import MemberStatus from "./member-status";
 import { RiUserStarLine } from "react-icons/ri";
 

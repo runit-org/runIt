@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Row, Form, Button, Container, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { requestToJoin } from "../../actions/eventActions";
-import Loading from "../SiteElements/loading";
+import Loading from "../SiteElements/loader";
 import { RiAddBoxLine } from "react-icons/ri";
 import CTAButton from "../SiteElements/cta-button";
 

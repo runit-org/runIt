@@ -16,7 +16,6 @@ import { setToken, refreshToken } from "./securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 // import { isExpired } from "react-jwt";
 import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
-import SignUp from "./components/UserAuth/sign-up";
 
 const token = localStorage.token;
 
