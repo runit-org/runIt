@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Form, Button, Container, Modal } from "react-bootstrap";
+import { Row, Form, Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { removeEvent } from "../../actions/eventActions";
 import CTAButton from "../SiteElements/cta-button";

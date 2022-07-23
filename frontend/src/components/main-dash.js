@@ -54,6 +54,7 @@ function MainDash() {
                   createdTime={event.humanTimeDiffCreatedAt}
                   eventId={event.id}
                   userId={event.user}
+                  maxMembers={event.maxMember}
                   eventAffiliated={affiliatedEv}
                 />
               </div>
@@ -69,7 +70,7 @@ function MainDash() {
           <Card>
             <Card.Body>
               <Card.Title className="text-muted mb-4">Recents</Card.Title>
-              {eventData.length == 0 ? "Recent 4 events will be displayed here." : 
+              {eventData.length == 0 ? <h6>No recent events</h6> : 
               eventData.length > 4
               ? eventData
                   .slice(Math.max(eventData.length - 4, 0)).reverse()

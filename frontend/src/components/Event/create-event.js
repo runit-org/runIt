@@ -15,8 +15,8 @@ import {QuillFormatting} from "../SiteElements/quill-format";
 
 function CreateEvent() {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState({});
-  const [maxMembers, setMaxMembers] = useState({});
+  const [title, setTitle] = useState("");
+  const [maxMembers, setMaxMembers] = useState("");
   const [details, setDetails] = useState("");
   const [load, setLoad] = useState(false);
   const [validateFormEmpty, setValidateFormEmpty] = useState(false);
