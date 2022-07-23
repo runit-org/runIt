@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import Loading from "./loading";
+import Loading from "./loader";
 
 function CTAButton(props) {
   return (
