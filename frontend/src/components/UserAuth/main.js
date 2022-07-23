@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import Footer from "../SiteElements/footer";
-import Login from "./login";
+import Login from "./log-in";
 import SignUp from "./sign-up";
 
 function Main() {

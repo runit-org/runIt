@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewUser } from "../../actions/securityActions";
-import Loading from "../SiteElements/loading";
+import Loading from "../SiteElements/loader";
 import ErrorToast from "../SiteElements/error-toast";
 import { useNavigate } from "react-router-dom";
 

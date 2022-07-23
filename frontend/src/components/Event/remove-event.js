@@ -3,7 +3,7 @@ import { Row, Form, Button, Container, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { removeEvent } from "../../actions/eventActions";
 import CTAButton from "../SiteElements/cta-button";
-import Loading from "../SiteElements/loading";
+import Loading from "../SiteElements/loader";
 import { RiDeleteBin2Line } from "react-icons/ri";
 
 

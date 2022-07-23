@@ -3,7 +3,7 @@ import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { login } from "../../actions/securityActions";
 import { useNavigate } from "react-router-dom";
-import Loading from "../SiteElements/loading";
+import Loading from "../SiteElements/loader";
 import ErrorToast from "../SiteElements/error-toast";
 import { useLocation } from "react-router-dom";
 
