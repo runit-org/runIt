@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Form, Row, Button, FloatingLabel } from "react-bootstrap";
-import Footer from "../SiteElements/footer";
+import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewUser } from "../../actions/securityActions";
 import Loading from "../SiteElements/loading";
@@ -14,6 +13,7 @@ function SignUp() {
   const [username, setUsername] = useState({});
   const [email, setEmail] = useState({});
   const [password, setPassword] = useState({});
+  const [c_password, setc_Password] = useState({});
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
@@ -37,6 +37,7 @@ function SignUp() {
       username: username,
       email: email,
       password: password,
+      c_password: c_password,
     };
 
     dispatch(createNewUser(userData, setLoad, setShow, setError));
@@ -46,7 +47,7 @@ function SignUp() {
     if (signUpStatus == "true") {
       setFormSwitch(true);
       setTimeout(() => {
-        navigate("/signin", { replace: true, state: { id: newUserStatus } });
+        navigate("/", { replace: true, state: { id: newUserStatus } });
       }, 3000);
     }
   }, [signUpStatus]);
@@ -60,25 +61,32 @@ function SignUp() {
     color: "#D8000C",
   };
   return (
-    <div className="fullPage">
+    <>
       <ErrorToast
         errors={error.message}
         showToast={show}
         variant={signUpStatus === "true" ? successVariant : errorVariant}
       />
 
-      <Row className="centerContent p-3 login-card fullBody">
-        <Card>
-          <h3 className="centerContent mt-3">Create an account</h3>
-          <fieldset disabled={formSwitch}>
-            <Form
-              className="p-4"
-              onSubmit={(e) => {
-                handleSubmit(e);
-              }}
-            >
-              <Form.Label className="text-muted">Name</Form.Label>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Card className="p-5 login-card">
+        <fieldset disabled={formSwitch}>
+          <Form
+            onSubmit={(e) => {
+              handleSubmit(e);
+            }}
+          >
+            {" "}
+            <h4 className="subTitle">Create an account</h4>
+            <hr className="divider"/>
+            <Row>
+              <Form.Group
+                as={Col}
+                md="6"
+                className="mb-3"
+                controlId="formBasicEmail"
+              >
+                <Form.Label className="text-muted">Name</Form.Label>
+
                 <FloatingLabel
                   controlId="floatingInput"
                   label="Name"
@@ -86,15 +94,21 @@ function SignUp() {
                 >
                   <Form.Control
                     type="text"
-                    placeholder="Mac"
+                    placeholder="Name"
                     onChange={(e) => setName(e.target.value)}
                     required
                   />
                 </FloatingLabel>
               </Form.Group>
 
-              <Form.Label className="text-muted">Username</Form.Label>
-              <Form.Group className="mb-3" controlId="formBasicEmail1">
+              <Form.Group
+                as={Col}
+                md="6"
+                className="mb-3"
+                controlId="formBasicEmail1"
+              >
+                <Form.Label className="text-muted">Username</Form.Label>
+
                 <FloatingLabel
                   controlId="floatingInput1"
                   label="Username"
@@ -102,7 +116,7 @@ function SignUp() {
                 >
                   <Form.Control
                     type="text"
-                    placeholder="mysticMac"
+                    placeholder="Username"
                     onChange={(e) => setUsername(e.target.value)}
                     required
                   />
@@ -118,20 +132,45 @@ function SignUp() {
                 >
                   <Form.Control
                     type="email"
-                    placeholder="mysticMac"
+                    placeholder="Email"
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </FloatingLabel>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group
+                as={Col}
+                md="6"
+                className="mb-3"
+                controlId="formBasicPassword"
+              >
                 <Form.Label className="text-muted">Password</Form.Label>
                 <FloatingLabel controlId="floatingPassword" label="Password">
                   <Form.Control
                     type="password"
                     placeholder="Password"
                     onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </FloatingLabel>
+              </Form.Group>
+
+              <Form.Group
+                as={Col}
+                md="6"
+                className="mb-3"
+                controlId="formBasicPassword"
+              >
+                <Form.Label className="text-muted">Confirm Password</Form.Label>
+                <FloatingLabel
+                  controlId="floating_c_Password"
+                  label="Confirm Password"
+                >
+                  <Form.Control
+                    type="password"
+                    placeholder="Confirm Password"
+                    onChange={(e) => setc_Password(e.target.value)}
                     required
                   />
                 </FloatingLabel>
@@ -148,19 +187,16 @@ function SignUp() {
                   })()}
                 </Button>
               </div>
-            </Form>
-          </fieldset>
-          <Card.Footer>
-            <small className="centerContent align-items-center">
-              <a href="/signin">Already have an account?</a>
-            </small>
-          </Card.Footer>
-        </Card>
-      </Row>
-      <Row className="footer-section">
-        <Footer />
-      </Row>
-    </div>
+            </Row>
+          </Form>
+        </fieldset>
+        <Card.Footer>
+          <small className="centerContent mt-3">
+            <a href="/">Already have an account?</a>
+          </small>
+        </Card.Footer>
+      </Card>
+    </>
   );
 }
 

@@ -32,7 +32,7 @@ export const createNewUser =
         }
         dispatch({
           type: GET_ERRORS,
-          payload: {},
+          payload: res.status
         });
         dispatch({
           type: SET_NEW_USER,
@@ -81,6 +81,10 @@ export const login =
           navigate("/posts");
         }
         dispatch({
+          type: GET_ERRORS,
+          payload: res.status
+        });
+        dispatch({
           type: SET_CURRENT_USER,
           payload: decoded_token,
         });
@@ -110,5 +114,9 @@ export const logout = (refToken, navigate) => async (dispatch) => {
   dispatch({
     type: SET_CURRENT_USER,
     payload: null,
+  });
+  dispatch({
+    type: GET_ERRORS,
+    payload: {}
   });
 };
