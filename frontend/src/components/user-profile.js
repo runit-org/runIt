@@ -9,19 +9,8 @@ function UserProfile(props) {
         placement={"end"}
         onHide={props.close}
       >
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title className="text-center mx-auto">
-            <Row>
-              <Col>
-                <h6 className="fw-bold">User Profile</h6>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <h6 className="text-muted titleInfo"> some info, info</h6>
-              </Col>
-            </Row>
-          </Offcanvas.Title>
+       <Offcanvas.Header closeButton>
+          <Offcanvas.Title className="fw-bold">Your profile</Offcanvas.Title>
         </Offcanvas.Header>
 
         <Offcanvas.Body>
