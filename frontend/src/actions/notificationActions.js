@@ -22,13 +22,13 @@ export const getNotifications = () => async (dispatch) => {
   });
 };
 
-export const notificationRead = (id, setReadStatus) => async (dispatch) => {
+export const notificationRead = (id) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
       .patch(`http://localhost:8000/api/notifications/read/${id}/`)
       .then((res) => {
-        setReadStatus(res.data.success);
+        dispatch(getNotifications());
       })
       .catch((error) => {
         dispatch({

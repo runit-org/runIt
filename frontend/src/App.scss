@@ -1,5 +1,6 @@
 /*------Color Pallet------*/
 $theme: #5865f2;
+$theme-light: #eaebfd;
 $primary-light: #ffffff;
 $secondary-light: #f6f6f6;
 $primary-dark: #2c2f33;
@@ -203,7 +204,18 @@ a.dropdown-item:hover {
 .login-card .form-floating > label {
   color: $primary-light;
 }
-
+/*------Off-Canvas------*/
+.offcanvas-backdrop.show{
+  opacity: 0.8;
+}
+.offcanvas-header{
+ background-color: $secondary-dark;
+ color: $primary-light;
+ padding: 20px 30px!important;
+}
+.offcanvas-body{
+ padding: 0 !important;
+}
 /*------Event posts------*/
 .new-post-container {
   background-color: rgba($secondary-light, 0.9);
@@ -251,10 +263,10 @@ a.dropdown-item:hover {
   margin: 20px;
 }
 
-.post-cards .card:hover {
+/* .post-cards .card:hover {
   background-color: $secondary-light;
   transition: 0.4s;
-}
+} */
 
 .post-cards .card-header {
   background-color: transparent;
@@ -286,6 +298,28 @@ a.dropdown-item:hover {
   width: 100% !important;
   // box-shadow: none !important;
   margin-bottom: 10px;
+}
+.notif-button-item{
+  padding: 15px 30px 0!important;
+  width: 100%;
+  text-align: left !important;
+  text-decoration: none !important;
+  color: $primary-dark !important;
+  border: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.notif-button-item:hover{
+  background-color: $theme-light;
+  color: $theme !important;
+}
+.notif-button-item hr{
+  margin-bottom: 0;
+  color: $theme;
+}
+.notif-subHeader{
+  padding: 20px 30px 0!important;
 }
 
 /*------Image/Logo------*/
