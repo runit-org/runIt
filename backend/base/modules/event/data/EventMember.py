@@ -8,7 +8,7 @@ class EventMember(models.Model):
     userId = models.IntegerField(null=True, blank=True, default=0)
     event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    status = models.IntegerField(null=True, blank=True, default=EventMemberStatus.EventMemberStatus.PENDING.value)
+    status = models.IntegerField(null=True, blank=True, default=EventMemberStatus.get.PENDING.value)
 
     def __str__(self):
         return self.id

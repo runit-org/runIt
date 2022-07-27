@@ -10,7 +10,7 @@ def read(request, pk):
         return error('Notification not found')
 
     notif = Notification.objects.get(id = pk)
-    notif.status = NotificationStatus.NotificationStatus.READ.value
+    notif.status = NotificationStatus.get.READ.value
     notif.save()
 
     return response('Notification read')

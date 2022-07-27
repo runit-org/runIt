@@ -51,7 +51,7 @@ def updateStatus(request):
     if checkMemberStatus == -1:
         return error('No existing join request record from this user')
 
-    if checkMemberStatus == EventMemberStatus.EventMemberStatus.PENDING.value or checkMemberStatus == EventMemberStatus.EventMemberStatus.REJECTED.value:
+    if checkMemberStatus == EventMemberStatus.get.PENDING.value or checkMemberStatus == EventMemberStatus.get.REJECTED.value:
         # If the user have a pending request or was rejected, event creator can approve/re-approve it
         findEventMember = EventMember.objects.filter(eventId=data['eventId'], userId = data['userId'])
 
@@ -59,13 +59,13 @@ def updateStatus(request):
         eventMember.status = data['status']
         eventMember.save()
 
-        if (data['status']) == EventMemberStatus.EventMemberStatus.ACCEPTED.value:
-            notifContent = 'Your request to join event [' + event.title + '] has been ' + EventMemberStatus.EventMemberStatus.ACCEPTED.name
+        if (data['status']) == EventMemberStatus.get.ACCEPTED.value:
+            notifContent = 'Your request to join event [' + event.title + '] has been ' + EventMemberStatus.get.ACCEPTED.name
             NotifyUser.notify(data['userId'], notifContent)
             return response('Request approved')
 
         else:
-            notifContent = 'Your request to join event [' + event.title + '] has been ' + EventMemberStatus.EventMemberStatus.REJECTED.name
+            notifContent = 'Your request to join event [' + event.title + '] has been ' + EventMemberStatus.get.REJECTED.name
             NotifyUser.notify(data['userId'], notifContent)
             return response('Request rejected')
     else:
