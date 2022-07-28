@@ -9,8 +9,10 @@ def validateFilter(filterField):
         return False
     return True
 
-def filterOrSort(request):
+def filter(request):
     # How to filter: filter=userName-test
+
+    user = request.user
 
     filterField = ''
     filterValue = ''
@@ -22,18 +24,16 @@ def filterOrSort(request):
         if not validateFilter(filterField):
             return 'Targeted filter field not found'
 
-    if filterField != '' and sortField != '':
-        filterFieldContains = filterField + '__icontains'
-        return Event.objects.filter(**{filterFieldContains: filterValue}).order_by(sortField)
-    elif filterField != '':
+    if filterField != '':
         filterFieldContains = filterField + '__icontains'
         return Event.objects.filter(**{filterFieldContains: filterValue})
-    elif sortField != '':
-        return Event.objects.all().order_by(sortField)
     else:
         return Event.objects.all()
 
 def get(request):
+
+    
+
     user = request.user
 
     events = Event.objects.filter(user = user)

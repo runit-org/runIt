@@ -9,15 +9,8 @@ def validateFilter(filterField):
         return False
     return True
 
-def validateSort(sortField):
-    allowedSorts = ['createdAt', 'maxMember']
-    if sortField not in allowedSorts:
-        return False
-    return True
-
-def filterOrSort(request):
+def filter(request):
     # How to filter: filter=title-test
-    # How to sort: sort=createdAt
 
     user = request.user
 
@@ -31,26 +24,14 @@ def filterOrSort(request):
         if not validateFilter(filterField):
             return 'Targeted filter field not found'
 
-    sortField = ''
-    if request.GET.get('sort') != None:
-        sortField = request.GET.get('sort', '')
-        
-        if not validateSort(sortField):
-            return 'Targeted sort field not found'
-
-    if filterField != '' and sortField != '':
-        filterFieldContains = filterField + '__icontains'
-        return Event.objects.filter(**{filterFieldContains: filterValue}, user = user).order_by(sortField)
-    elif filterField != '':
+    if filterField != '':
         filterFieldContains = filterField + '__icontains'
         return Event.objects.filter(**{filterFieldContains: filterValue}, user = user)
-    elif sortField != '':
-        return Event.objects.filter(user = user).order_by(sortField)
     else:
         return Event.objects.filter(user = user)
 
 def get(request):
-    events = filterOrSort(request)
+    events = filter(request)
     if type(events) == str:
         return error(events)
     

@@ -14,7 +14,7 @@ def validateStatus(status):
         return False
     return True
 
-def filterOrSort(request):
+def filter(request):
     # Filter: /?filter=status-UNREAD
 
     user = request.user
@@ -41,7 +41,7 @@ def filterOrSort(request):
         return Notification.objects.filter(userId = user.id)
 
 def get(request):
-    notifications = filterOrSort(request)
+    notifications = filter(request)
     if type(notifications) == str:
         return error(notifications)
     
