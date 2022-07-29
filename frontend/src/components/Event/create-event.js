@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from "react";
-import {
-  Col,
-  Row,
-  Form,
-  FloatingLabel,
-  Container,
-} from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import { Col, Row, Form, FloatingLabel, Container } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { createNewEvent } from "../../actions/eventActions";
 import ReactQuill from "react-quill";
 import CTAButton from "../SiteElements/cta-button";
 import { RiSendPlaneLine } from "react-icons/ri";
-import {QuillFormatting} from "../SiteElements/quill-format";
+import { QuillFormatting } from "../SiteElements/quill-format";
 
 function CreateEvent() {
   const dispatch = useDispatch();
+  const formRef = useRef(0);
   const [title, setTitle] = useState("");
   const [maxMembers, setMaxMembers] = useState("");
   const [details, setDetails] = useState("");
@@ -22,7 +17,6 @@ function CreateEvent() {
   const [validateFormEmpty, setValidateFormEmpty] = useState(false);
   const [error, setError] = useState("");
   var quillSetting = QuillFormatting();
-
 
   useEffect(() => {
     if (details === "" || details === "<p><br></p>") {
@@ -43,12 +37,20 @@ function CreateEvent() {
     dispatch(createNewEvent(postData, setLoad, setError));
   };
 
+  useEffect(() => {
+    if (error === 200) {
+      formRef.current.reset();
+      setDetails("");
+      setError("");
+    }
+  }, [error]);
 
   return (
     <Form
       onSubmit={(e) => {
         handleSubmit(e);
       }}
+      ref={formRef}
     >
       <Container className="new-post-container p-3">
         <Row>
