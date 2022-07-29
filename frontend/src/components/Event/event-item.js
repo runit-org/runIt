@@ -58,7 +58,7 @@ function EventItem(props) {
                   </small>
                 </Col>
                 <Col className="text-end d-flex justify-content-end">
-                  {!userAff /*  currentUser != props.userId */ ? (
+                  {!userAff ? (
                     <JoinEvent
                       eventId={props.eventId}
                       eventTitle={props.eventTitle}
