@@ -183,7 +183,9 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
+          console.log(postData.eventId);
           setLoad(false);
+          dispatch(getEventMembers(postData.eventId, null));
         }
 
         dispatch({

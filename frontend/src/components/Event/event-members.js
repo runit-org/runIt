@@ -7,7 +7,6 @@ import Loading from "../SiteElements/loader";
 import MemberStatus from "./member-status";
 import { RiUserStarLine } from "react-icons/ri";
 
-
 function EventMembers(props) {
   const dispatch = useDispatch();
   const [members, setMembers] = useState([]);
@@ -37,21 +36,26 @@ function EventMembers(props) {
         onHide={() => setModalShow(false)}
         aria-labelledby="example-modal-sizes-title-lg"
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-lg">
-            All members
+        <Modal.Header>
+          <Modal.Title>
+            <RiUserStarLine />
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <h4>Member List </h4>
+
           {members.length == 0 ? (
             <strong>Nobody here yet....</strong>
           ) : (
             members.map((member) => (
-              <div className="d-flex justify-content-between" key={member.id}>
-                {props.currentUser == member.userId
-                  ? `Your request (${member.username})`
-                  : member.username}
-
+              <div key={member.id}>
+                <strong>
+                  {" "}
+                  {props.currentUser == member.userId
+                    ? `Your request (${member.username})`
+                    : member.username}{" "}
+                </strong>
+                <p>A user has requested to join this event.</p>
                 <MemberStatus
                   eventId={props.eventId}
                   userId={member.userId}
@@ -59,9 +63,19 @@ function EventMembers(props) {
                   eventCreator={props.userId}
                   currentUser={props.currentUser}
                 />
+                <hr />
               </div>
             ))
           )}
+
+          {/* <div>
+            <Button
+              className="me-3 btn-cancel"
+              onClick={() => setModalShow(false)}
+            >
+              Cancel
+            </Button>
+          </div> */}
         </Modal.Body>
       </Modal>
     </div>

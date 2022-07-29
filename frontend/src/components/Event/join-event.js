@@ -38,8 +38,10 @@ function JoinEvent(props) {
         onHide={() => setModalShow(false)}
         aria-labelledby="example-modal-sizes-title-lg"
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Request to join</Modal.Title>
+        <Modal.Header>
+          <Modal.Title>
+            <RiAddBoxLine />
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
@@ -47,13 +49,24 @@ function JoinEvent(props) {
               handleSubmit(e);
             }}
           >
-            <Row>
-              {error ? <small className="mb-4">{error}</small> : ""}
+            {error ? <small className="mb-4">{error}</small> : ""}
+            <div>
+              <div className="d-flex justify-content-between">
+                <p>
+                  Request to join <strong>{props.eventTitle}</strong>? The
+                  creator of this event will be notified.
+                </p>
+              </div>
+
               <div>
-                <strong className="me-auto">
-                  Request to join - {props.eventTitle}.
-                </strong>
-                <Button type="submit" className="float-end">
+                <hr />
+                <Button
+                  className="me-3 btn-cancel"
+                  onClick={() => setModalShow(false)}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit">
                   {(() => {
                     if (load) {
                       return <Loading />;
@@ -63,7 +76,7 @@ function JoinEvent(props) {
                   })()}
                 </Button>
               </div>
-            </Row>{" "}
+            </div>
           </Form>
         </Modal.Body>
       </Modal>

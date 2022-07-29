@@ -47,6 +47,13 @@ body {
   border: none;
 }
 
+.btn-cancel {
+  @include btn-style(transparent, $primary-dark, none, 600);
+}
+.btn-cancel:hover {
+  @include btn-style(transparent, $theme, none, 600);
+}
+
 /*.btn-primary:hover {
   background-color: $theme !important;
   color: $button-hover !important;
@@ -205,16 +212,16 @@ a.dropdown-item:hover {
   color: $primary-light;
 }
 /*------Off-Canvas------*/
-.offcanvas-backdrop.show{
+.offcanvas-backdrop.show {
   opacity: 0.8;
 }
-.offcanvas-header{
- background-color: $secondary-dark;
- color: $primary-light;
- padding: 20px 30px!important;
+.offcanvas-header {
+  background-color: $secondary-dark;
+  color: $primary-light;
+  padding: 20px 30px !important;
 }
-.offcanvas-body{
- padding: 0 !important;
+.offcanvas-body {
+  padding: 0 !important;
 }
 /*------Event posts------*/
 .new-post-container {
@@ -289,8 +296,28 @@ a.dropdown-item:hover {
 
 /*------Modal------*/
 .modal-header {
-  background-color: $theme;
-  color: $primary-light;
+  border-top-right-radius: 20px !important;
+  border-top-left-radius: 20px !important;
+  border-color: transparent !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.modal-title {
+  color: red;
+  font-size: 2.5rem !important;
+}
+.modal-body h4 {
+  color: $primary-dark;
+  font-weight: bold !important;
+}
+.modal-content {
+  border-radius: 20px !important;
+}
+
+.modal-body {
+  font-size: 1rem;
+  color: rgb(107 114 128);
 }
 
 /*------Notification Toasts------*/
@@ -299,8 +326,8 @@ a.dropdown-item:hover {
   // box-shadow: none !important;
   margin-bottom: 10px;
 }
-.notif-button-item{
-  padding: 15px 30px 0!important;
+.notif-button-item {
+  padding: 15px 30px 0 !important;
   width: 100%;
   text-align: left !important;
   text-decoration: none !important;
@@ -310,16 +337,16 @@ a.dropdown-item:hover {
   outline: none !important;
   box-shadow: none !important;
 }
-.notif-button-item:hover{
+.notif-button-item:hover {
   background-color: $theme-light;
   color: $theme !important;
 }
-.notif-button-item hr{
+.notif-button-item hr {
   margin-bottom: 0;
   color: $theme;
 }
-.notif-subHeader{
-  padding: 20px 30px 0!important;
+.notif-subHeader {
+  padding: 20px 30px 0 !important;
 }
 
 /*------Image/Logo------*/

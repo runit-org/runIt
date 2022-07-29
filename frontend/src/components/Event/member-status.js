@@ -29,21 +29,25 @@ function MemberStatus(props) {
       {props.memberStatus === "PENDING" &&
       props.eventCreator == props.currentUser ? (
         <>
-          <Button type="submit" className="me-2" onClick={(e) => setStatus(1)}>
-            {(() => {
-              if (load) {
-                return <Loading />;
-              } else {
-                return <>Accept</>;
-              }
-            })()}
-          </Button>
-          <Button type="submit" onClick={(e) => setStatus(2)}>
+          <Button
+            type="submit"
+            className="me-2 btn-cancel"
+            onClick={(e) => setStatus(2)}
+          >
             {(() => {
               if (load) {
                 return <Loading />;
               } else {
                 return <>Reject</>;
+              }
+            })()}
+          </Button>
+          <Button type="submit" onClick={(e) => setStatus(1)}>
+            {(() => {
+              if (load) {
+                return <Loading />;
+              } else {
+                return <>Accept</>;
               }
             })()}
           </Button>
