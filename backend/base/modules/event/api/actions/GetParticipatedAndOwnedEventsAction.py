@@ -1,16 +1,55 @@
+from asyncio import events
 from base.models import Event, EventMember
-from base.serializers import EventSerializer
-from base.views.baseViews import response, error
-from base.enums import EventMemberStatus
+from base.serializers import EventSerializer, AffiliatedEventSerializer
+from base.views.baseViews import response, error, paginate
+from base.enums import EventMemberStatus, PaginationSizes
 
-def get(request):
+def validateFilter(filterField):
+    allowedFilters = ['title', 'userName', 'maxMember']
+    if filterField not in allowedFilters:
+        return False
+    return True
+
+def filter(request):
+    # How to filter: filter=userName-test
+
     user = request.user
 
-    events = Event.objects.filter(user = user)
-    participated_event_datas = EventMember.objects.filter(userId = user.id, status = EventMemberStatus.EventMemberStatus.ACCEPTED.value)
+    filterField = ''
+    filterValue = ''
+    if request.GET.get('filter') != None:
+        filterString = request.GET.get('filter', '')
+        filterField  = filterString.split('-')[0]
+        filterValue  = filterString.split('-')[1]
 
-    for event_member in participated_event_datas:
-        events = events | Event.objects.filter(id = event_member.eventId)
+        if not validateFilter(filterField):
+            return 'Targeted filter field not found'
+    
+    participatedEventDatas = EventMember.objects.filter(userId = user.id, status = EventMemberStatus.get.ACCEPTED.value)
 
-    serializer = EventSerializer(events, many=True)
-    return response('User owned and participated events retrieved', serializer.data)
+    if filterField != '':
+        affiliatedEventsFiltered = Event.objects.none()
+
+        filterFieldContains = filterField + '__icontains'
+        eventsFiltered = Event.objects.filter(**{filterFieldContains: filterValue})
+        print(eventsFiltered)
+        for eachEvent in eventsFiltered:
+            if (eachEvent in participatedEventDatas) or (eachEvent.user == user):
+                affiliatedEventsFiltered = affiliatedEventsFiltered | Event.objects.filter(id = eachEvent.id)
+
+        return affiliatedEventsFiltered
+
+    else:
+        ownedEvents = Event.objects.filter(user = user)
+        for eachEvent in participatedEventDatas:
+            ownedEvents = ownedEvents | Event.objects.filter(id = eachEvent.eventId)
+
+        return ownedEvents
+
+def get(request):
+    events = filter(request)
+    if type(events) == str:
+        return error(events)
+    
+    return paginate(request, events, AffiliatedEventSerializer, PaginationSizes.get.S.value)
+    

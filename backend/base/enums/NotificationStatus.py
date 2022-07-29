@@ -1,5 +1,5 @@
 from enum import Enum
 
-class NotificationStatus(Enum):
+class get(Enum):
     UNREAD = 0
     READ   = 1
