@@ -46,7 +46,7 @@ def request(request):
         )
 
         eventCreatorUserId = event.user.id
-        notificationMessage = 'User <b>' + user.username + '</b> has requested to join your event'
+        notificationMessage = 'User <b>' + user.username + '</b> has requested to join your event ' + '<b>' + event.title + '</b>'
         NotifyUser.notify(eventCreatorUserId, notificationMessage)
 
         return response('Your request to join this event have been submitted. Please wait for approval from the event creator')
