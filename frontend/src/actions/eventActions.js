@@ -1,5 +1,10 @@
 import axios from "axios";
-import { GET_ALL_EVENTS, GET_ERRORS, GET_AFFILIATED_EVENTS } from "./types";
+import {
+  GET_ALL_EVENTS,
+  GET_ERRORS,
+  GET_AFFILIATED_EVENTS,
+  GET_EVENT_MEMBERS,
+} from "./types";
 import { setToken, refreshToken } from "../securityUtils/setToken";
 
 /* const client = axios.create({
@@ -164,14 +169,24 @@ export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
 };
 
 export const getEventMembers = (id, setMembers) => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    axios
-      .get(`http://localhost:8000/api/event/member/getMembers/${id}/`)
-      .then((res) => {
-        setMembers(res.data.data);
+  await refreshToken()
+    .then((ref) => {
+      setToken(ref.data.access);
+      axios
+        .get(`http://localhost:8000/api/event/member/getMembers/${id}/`)
+        .then((res) => {
+          dispatch({
+            type: GET_EVENT_MEMBERS,
+            payload: res.data,
+          });
+        });
+    })
+    .catch((error) => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data,
       });
-  });
+    });
 };
 
 export const memberStatus = (postData, setLoad) => async (dispatch) => {
@@ -181,9 +196,9 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
     axios
       .post("http://localhost:8000/api/event/member/changeStatus/", postData)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           setLoad(false);
+          dispatch(getEventMembers(postData.eventId));
         }
 
         dispatch({
