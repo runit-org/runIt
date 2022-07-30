@@ -48,7 +48,7 @@ const ModalItem = React.forwardRef(
             >
               <h4>{title}</h4>
               {error ? <small className="mb-4">{error}</small> : ""}
-              <div className="d-flex justify-content-between">
+              <div>
                 <div> {content}</div>
               </div>
               {subBtn}

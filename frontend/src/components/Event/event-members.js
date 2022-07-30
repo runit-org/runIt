@@ -1,15 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { Modal } from "react-bootstrap";
+import React, { useState, useEffect, useCallback } from "react";
+import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getEventMembers } from "../../actions/eventActions";
-import CTAButton from "../SiteElements/cta-button";
-import MemberStatus from "./member-status";
+import { getEventMembers, memberStatus } from "../../actions/eventActions";
 import { RiUserStarLine } from "react-icons/ri";
+import Loading from "../SiteElements/loader";
+import ModalItem from "./modal-item";
 
 function EventMembers(props) {
   const dispatch = useDispatch();
+  const ref = React.createRef();
+
+  const [memberId, setMemberId] = useState();
   const [modalShow, setModalShow] = useState(false);
   const [eventMbs, setEventMbs] = useState([]);
+  const [load, setLoad] = useState(false);
+  const [status, setStatus] = useState();
+
+  const handler = useCallback((modalShow) => {
+    setModalShow(modalShow);
+  }, []);
 
   useEffect(() => {
     if (modalShow) {
@@ -26,55 +35,86 @@ function EventMembers(props) {
     }
   }, [allEventMembers]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const postData = {
+      eventId: props.eventId,
+      userId: memberId,
+      status: status,
+    };
+
+    dispatch(memberStatus(postData, setLoad));
+  };
+
+  const permitUser = (status, id) => {
+    setStatus(status);
+    setMemberId(id);
+  };
+
   return (
     <div className="mb-4">
-      <CTAButton
-        type={""}
-        btnStyle={"postBtn-placements"}
-        variant={"primary"}
-        onClick={() => setModalShow(true)}
-        placeholder={<RiUserStarLine />}
+      <ModalItem
+        parentCallback={handler}
+        ref={ref}
+        btnIcon={<RiUserStarLine />}
+        error={""}
+        title={"Member"}
+        content={
+          <>
+            {eventMbs.length == 0 ? (
+              <strong>Nobody here yet....</strong>
+            ) : (
+              eventMbs.map((member) => (
+                <div key={member.id}>
+                  <strong>
+                    {" "}
+                    {props.currentUser == member.userId
+                      ? `Your request (${member.username})`
+                      : member.username}{" "}
+                  </strong>
+                  <p>A user has requested to join this event.</p>
+
+                  {member.status === "PENDING" &&
+                  props.userId == props.currentUser ? (
+                    <>
+                      <Button
+                        type="submit"
+                        className="me-2 btn-cancel"
+                        onClick={() => permitUser(2, member.userId)}
+                      >
+                        {(() => {
+                          if (load) {
+                            return <Loading />;
+                          } else {
+                            return <>Reject</>;
+                          }
+                        })()}
+                      </Button>
+                      <Button
+                        type="submit"
+                        onClick={() => permitUser(1, member.userId)}
+                      >
+                        {(() => {
+                          if (load) {
+                            return <Loading />;
+                          } else {
+                            return <>Accept</>;
+                          }
+                        })()}
+                      </Button>
+                    </>
+                  ) : (
+                    member.status
+                  )}
+                  <hr />
+                </div>
+              ))
+            )}
+          </>
+        }
+        subBtn={""}
+        subHandler={handleSubmit}
       />
-
-      <Modal
-        size="md"
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        aria-labelledby="example-modal-sizes-title-lg"
-      >
-        <Modal.Header>
-          <Modal.Title>
-            <RiUserStarLine />
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h4>Member List </h4>
-
-          {eventMbs.length == 0 ? (
-            <strong>Nobody here yet....</strong>
-          ) : (
-            eventMbs.map((member) => (
-              <div key={member.id}>
-                <strong>
-                  {" "}
-                  {props.currentUser == member.userId
-                    ? `Your request (${member.username})`
-                    : member.username}{" "}
-                </strong>
-                <p>A user has requested to join this event.</p>
-                <MemberStatus
-                  eventId={props.eventId}
-                  userId={member.userId}
-                  memberStatus={member.status}
-                  eventCreator={props.userId}
-                  currentUser={props.currentUser}
-                />
-                <hr />
-              </div>
-            ))
-          )}
-        </Modal.Body>
-      </Modal>
     </div>
   );
 }
