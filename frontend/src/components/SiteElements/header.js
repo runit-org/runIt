@@ -4,16 +4,16 @@ import img from "../../logo192.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../actions/securityActions";
-import UserProfile from "../user-profile";
+// import UserProfile from "../user-profile";
 import Notifications from "../notification";
 
 function Header() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  const [show, setShow] = useState(false);
+  /* const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => setShow(true); */
 
   const [showNotif, setShowNotif] = useState(false);
 
@@ -21,8 +21,6 @@ function Header() {
   const handleNotifClose = () => setShowNotif(false);
 
   const handleLogout = (e) => {
-    /* localStorage.clear();
-    window.location.reload() */
     e.preventDefault();
     const token = localStorage.token;
 
@@ -35,7 +33,6 @@ function Header() {
 
   return (
     <div>
-      <UserProfile accountShow={show} close={handleClose} />
       <Notifications notifShow={showNotif} close={handleNotifClose} />
       <Navbar collapseOnSelect expand="xl" variant="dark" fixed="top">
         <Container>
@@ -56,9 +53,7 @@ function Header() {
                 <Nav.Link href="#" onClick={handleNotifShow}>
                   Notifications
                 </Nav.Link>
-                <Nav.Link href="#" onClick={handleShow}>
-                  Account
-                </Nav.Link>
+                <Nav.Link href="#">Activity</Nav.Link>
 
                 <Nav.Link
                   href="#"

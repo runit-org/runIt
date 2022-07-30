@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllEvents, affiliatedEvents } from "../actions/eventActions";
 import CreatePostModal from "./Event/creat-event-modal";
 import CreatePost from "./Event/create-event";
+import UserProfile from "./user-profile";
 
 function MainDash() {
   const dispatch = useDispatch();
@@ -70,10 +71,14 @@ function MainDash() {
 
           <Col sm={3} className="post-cards recents">
             {/* {eventData.length > 0 ? <CreatePostModal btnSize={"w-100"} /> : ""} */}
-
+            <Card className="mt-4">
+              <Card.Body>
+                <UserProfile />
+              </Card.Body>
+            </Card>
             <Card>
               <Card.Body>
-                <Card.Title className="text-muted mb-4">Recents</Card.Title>
+                <h6 className="mb-4">Latest Activity</h6>
                 {eventData.length == 0 ? (
                   <h6>No recent events</h6>
                 ) : eventData.length > 4 ? (
@@ -102,27 +107,8 @@ function MainDash() {
                     ))
                     .reverse()
                 )}
-                {/* {eventData.map((event) => (
-                <div className="mb-3" key={event.id}>
-                  <SideNav eventTitle={event.title} />
-                </div>
-              ))} */}
               </Card.Body>
             </Card>
-            {/*  <Card className="mt-4">
-            <Card.Body>
-              <Card.Title className="text-muted mb-4">Your Events</Card.Title>
-              {eventData
-                .filter(
-                  (eventData) => eventData.userName == localStorage.username
-                )
-                .map((event, index) => (
-                  <div className="mb-3" key={index}>
-                    <SideNav eventTitle={event.title} time={event.humanTimeDiffCreatedAt} detail={event.details} />
-                  </div>
-                )).reverse()}
-            </Card.Body>
-          </Card> */}
           </Col>
         </Row>
       </Container>

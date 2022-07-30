@@ -27,6 +27,7 @@ html,
 body {
   background-color: $theme !important;
   height: 100vh;
+  font-size: 1rem;
 }
 
 .titleText {
@@ -99,7 +100,7 @@ body {
 div.content {
   padding: 80px 12px;
   /* background-color: #e1e5ee;  */
-  background-color: $primary-light;
+  background-color: $secondary-light;
   min-height: 100vh;
 }
 
@@ -225,9 +226,9 @@ a.dropdown-item:hover {
 }
 /*------Event posts------*/
 .new-post-container {
-  background-color: rgba($secondary-light, 0.9);
+  background-color: rgba($primary-light, 0.9);
   color: $primary-dark;
-  border-radius: 6px;
+  border-radius: 15px;
 }
 
 .new-post-container .form-floating > .form-control {
@@ -263,10 +264,15 @@ a.dropdown-item:hover {
 /* .post-cards:first-of-type{
   border-right: 1px solid #d7d8d9;
 } */
+.post-cards.col,
+.post-cards.col-sm-3 {
+  padding: 0.2rem;
+}
+
 .post-cards .card {
   background-color: $primary-light;
-  // border: none;
-  border-radius: 6px;
+  border: none;
+  border-radius: 15px;
   margin: 20px;
 }
 
@@ -278,21 +284,22 @@ a.dropdown-item:hover {
 .post-cards .card-header {
   background-color: transparent;
   border: none;
-  border-radius: 0;
+  border-radius: 15px;
   padding: 0;
   display: inline;
 }
 
 .post-cards ~ .recents .card {
-  background-color: $secondary-light;
+  background-color: $primary-light;
   border: none;
   border-radius: 6px;
   margin: 20px 0px 20px 0px;
+  border-radius: 15px;
 }
 
-.event-owned {
+/* .event-owned {
   border: 1px solid $theme !important;
-}
+} */
 
 /*------Modal------*/
 .modal-header {
@@ -320,12 +327,7 @@ a.dropdown-item:hover {
   color: rgb(107 114 128);
 }
 
-/*------Notification Toasts------*/
-.notif-Toasts {
-  width: 100% !important;
-  // box-shadow: none !important;
-  margin-bottom: 10px;
-}
+/*------Notification------*/
 .notif-button-item {
   padding: 15px 30px 0 !important;
   width: 100%;
@@ -352,7 +354,7 @@ a.dropdown-item:hover {
 /*------Image/Logo------*/
 .userProf-img {
   width: 50px;
-  border-radius: 12px;
+  border-radius: 12px !important;
   padding: 5px;
   background-color: $secondary-dark;
 }
