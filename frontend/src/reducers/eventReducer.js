@@ -1,8 +1,13 @@
-import { GET_ALL_EVENTS, GET_AFFILIATED_EVENTS } from "../actions/types";
+import {
+  GET_ALL_EVENTS,
+  GET_AFFILIATED_EVENTS,
+  GET_EVENT_MEMBERS,
+} from "../actions/types";
 
 const initialState = {
   events: {},
   affiliatedData: {},
+  eventMembers: {},
 };
 
 export default function setEvents(state = initialState, action) {
@@ -16,6 +21,11 @@ export default function setEvents(state = initialState, action) {
       return {
         ...state,
         affiliatedData: action.payload,
+      };
+    case GET_EVENT_MEMBERS:
+      return {
+        ...state,
+        eventMembers: action.payload,
       };
     default:
       return state;

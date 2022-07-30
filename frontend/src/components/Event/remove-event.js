@@ -1,27 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { removeEvent } from "../../actions/eventActions";
 import CTAButton from "../SiteElements/cta-button";
 import Loading from "../SiteElements/loader";
 import { AiOutlineDelete } from "react-icons/ai";
+import ModalItem from "./modal-item";
 
 function RemoveEvent(props) {
   const dispatch = useDispatch();
+  const ref = React.createRef();
+  const btnRef = useRef();
   const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
   const [modalShow, setModalShow] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     dispatch(removeEvent(props.eventId, setLoad, setError));
     setModalShow(false);
   };
 
   return (
     <div className="mb-4">
-      <CTAButton
+      <ModalItem
+        ref={(ref, btnRef)}
+        btnIcon={<AiOutlineDelete />}
+        error={error}
+        title={"Delete Event"}
+        content={
+          <>
+            {" "}
+            Are you sure you want to delete <strong>{props.eventTitle}</strong>?
+            Any affiliations to this event will also be nullified.
+          </>
+        }
+        subBtn={
+          <>
+            <hr />
+            <Button
+              className="me-3 btn-cancel"
+              onClick={() => btnRef.current.setModalShow(false)}
+            >
+              Cancel
+            </Button>
+            <Button type="submit">
+              {(() => {
+                if (load) {
+                  return <Loading />;
+                } else {
+                  return <>Remove</>;
+                }
+              })()}
+            </Button>
+          </>
+        }
+        subHandler={handleSubmit}
+      />
+
+      {/*   <CTAButton
         type={""}
         btnStyle={"postBtn-placements"}
         variant={"primary"}
@@ -35,7 +72,7 @@ function RemoveEvent(props) {
         onHide={() => setModalShow(false)}
         aria-labelledby="example-modal-sizes-title-lg"
       >
-        <Modal.Header /* closeButton */>
+        <Modal.Header >
           <Modal.Title>
             <AiOutlineDelete />
           </Modal.Title>
@@ -76,7 +113,7 @@ function RemoveEvent(props) {
             </div>
           </Form>
         </Modal.Body>
-      </Modal>
+      </Modal> */}
     </div>
   );
 }

@@ -1,24 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { getEventMembers, memberStatus } from "../../actions/eventActions";
+import { Modal } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getEventMembers } from "../../actions/eventActions";
 import CTAButton from "../SiteElements/cta-button";
-import Loading from "../SiteElements/loader";
 import MemberStatus from "./member-status";
 import { RiUserStarLine } from "react-icons/ri";
 
 function EventMembers(props) {
   const dispatch = useDispatch();
-  const [members, setMembers] = useState([]);
-  const [load, setLoad] = useState(false);
   const [modalShow, setModalShow] = useState(false);
-  const [postData, setPostData] = useState({});
+  const [eventMbs, setEventMbs] = useState([]);
 
   useEffect(() => {
     if (modalShow) {
-      dispatch(getEventMembers(props.eventId, setMembers));
+      dispatch(getEventMembers(props.eventId));
     }
   }, [modalShow]);
+
+  var allEventMembers = useSelector(
+    (eventReducer) => eventReducer.events.eventMembers.data
+  );
+  useEffect(() => {
+    if (allEventMembers) {
+      setEventMbs(allEventMembers);
+    }
+  }, [allEventMembers]);
 
   return (
     <div className="mb-4">
@@ -44,10 +50,10 @@ function EventMembers(props) {
         <Modal.Body>
           <h4>Member List </h4>
 
-          {members.length == 0 ? (
+          {eventMbs.length == 0 ? (
             <strong>Nobody here yet....</strong>
           ) : (
-            members.map((member) => (
+            eventMbs.map((member) => (
               <div key={member.id}>
                 <strong>
                   {" "}
@@ -67,15 +73,6 @@ function EventMembers(props) {
               </div>
             ))
           )}
-
-          {/* <div>
-            <Button
-              className="me-3 btn-cancel"
-              onClick={() => setModalShow(false)}
-            >
-              Cancel
-            </Button>
-          </div> */}
         </Modal.Body>
       </Modal>
     </div>

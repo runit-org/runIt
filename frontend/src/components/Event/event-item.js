@@ -4,6 +4,8 @@ import { Col, Row, Card, Badge } from "react-bootstrap";
 import img from "../../logo192.png";
 import JoinEvent from "./join-event";
 import EventMembers from "./event-members";
+import EventMembers2 from "./eventMembs2";
+
 import RemoveEvent from "./remove-event";
 import CTAButton from "../SiteElements/cta-button";
 import { RiEditLine } from "react-icons/ri";
@@ -89,7 +91,7 @@ function EventItem(props) {
                   ) : (
                     ""
                   )}
-                  <EventMembers
+                  <EventMembers2
                     eventId={props.eventId}
                     userId={props.userId}
                     currentUser={currentUser}
