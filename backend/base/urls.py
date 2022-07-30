@@ -32,4 +32,5 @@ urlpatterns = [
 
     path('notifications/all/', NotificationViews.index, name="user_notification"),
     path('notifications/read/<str:pk>/', NotificationViews.read, name="read_notification"),
+    path('notifications/readAll/', NotificationViews.readAll, name="user_read_all_notification"),
 ]

@@ -3,6 +3,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from base.modules.notification.api.actions import (
     GetCurrentUserNotificationsAction,
     ReadNotificationAction,
+    ReadAllNotificationAction,
 )
 
 @api_view(['GET'])
@@ -14,3 +15,8 @@ def index(request):
 @permission_classes([IsAuthenticated])
 def read(request, pk):
     return ReadNotificationAction.read(request, pk)
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def readAll(request):
+    return ReadAllNotificationAction.read(request)
