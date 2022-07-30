@@ -18,13 +18,13 @@ function Login() {
   const [signupData, setSignupData] = useState("... Join Us");
   const [formSwitch, setFormSwitch] = useState(false);
 
-
   const { state } = useLocation();
 
   useEffect(() => {
     if (state) {
       const { id } = state;
       setSignupData(id.userData.data.username);
+      setUsername(id.userData.data.username);
     }
   }, [state]);
 
@@ -39,7 +39,7 @@ function Login() {
   };
 
   useEffect(() => {
-  setFormSwitch(load)
+    setFormSwitch(load);
   }, [load]);
 
   let errorVariant = {
@@ -72,6 +72,7 @@ function Login() {
                 <Form.Control
                   type="username"
                   placeholder="mysticMac"
+                  value={Object.keys(username).length !== 0 ? username : ""}
                   onChange={(e) => setUsername(e.target.value)}
                   required
                 />

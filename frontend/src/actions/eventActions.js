@@ -55,10 +55,11 @@ export const createNewEvent =
       axios
         .post("http://localhost:8000/api/event/create/", postData)
         .then((res) => {
-          if (res.data.success === "true") {
+          if (res.status === 200) {
             setLoad(false);
-            setError(res.data.message);
+            setError(res.status);
             dispatch(getAllEvents());
+            dispatch(affiliatedEvents());
           }
           dispatch({
             type: GET_ERRORS,
@@ -83,7 +84,7 @@ export const updateEvent = (id, postData) => async (dispatch) => {
     axios
       .put(`http://localhost:8000/api/event/update/${id}/`, postData)
       .then((res) => {
-        if (res.data.success === "true") {
+        if (res.status === 200) {
           dispatch(getAllEvents());
         }
         dispatch({
@@ -103,7 +104,6 @@ export const updateEvent = (id, postData) => async (dispatch) => {
 export const requestToJoin =
   (postData, setLoad, setError) => async (dispatch) => {
     await refreshToken().then((ref) => {
-      console.log(ref.data.access);
       setToken(ref.data.access);
 
       setLoad(true);
@@ -111,10 +111,10 @@ export const requestToJoin =
         .post("http://localhost:8000/api/event/member/requestJoin/", postData)
         .then((res) => {
           console.log(res);
-          if (res.data.success == "true") {
+          if (res.status === 200) {
             setLoad(false);
             setError(res.data.message);
-            // window.location.reload();
+            // dispatch(getAllEvents());
           }
           dispatch({
             type: GET_ERRORS,
@@ -142,10 +142,9 @@ export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
       .delete(`http://localhost:8000/api/event/delete/${id}/`)
       .then((res) => {
         console.log(res);
-        if (res.data.success == "true") {
+        if (res.status === 200) {
           setLoad(false);
           setError(res.data.message);
-          // window.location.reload();
           dispatch(getAllEvents());
         }
         dispatch({
@@ -183,7 +182,7 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
       .post("http://localhost:8000/api/event/member/changeStatus/", postData)
       .then((res) => {
         console.log(res);
-        if (res.data.success == "true") {
+        if (res.status === 200) {
           setLoad(false);
         }
 

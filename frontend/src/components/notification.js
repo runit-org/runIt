@@ -24,10 +24,12 @@ function Notifications(props) {
   }, [read, dispatch]);
 
   var notifications = useSelector(
-    (notificationReducer) => notificationReducer.notifications.notifs
+    (notificationReducer) => notificationReducer.notifications.notifs.results
   );
   useEffect(() => {
-    setNotifData(notifications);
+    if (notifications) {
+      setNotifData(notifications);
+    }
   }, [notifications]);
 
   return (
@@ -38,45 +40,51 @@ function Notifications(props) {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div className="notif-subHeader">
-            <small className="me-auto text-muted">{notifs.data ? notifs.data.length  : "No"} new notifications</small>
+            <small className="me-auto text-muted">
+              {notifs.filter((notif) => notif.statusName === "UNREAD").length >
+              0
+                ? notifs.filter((notif) => notif.statusName === "UNREAD").length
+                : "No"}{" "}
+              new notifications
+            </small>
             <small className="float-end">
               <a href="#">Mark all as read</a>
             </small>
             <hr />
           </div>
 
-          {notifs.data && notifs.data.length !== 0 ? (
-            notifs.data
-              .map((notif, index) => {
-                return (
-                  <div key={index}>
-                    <Button
-                      variant="link"
-                      className="notif-button-item"
-                      onClick={() => {
-                        setRead(notif.id);
-                      }}
-                    >
-                      <small className="text-muted float-end">
-                        {notif.statusName === "UNREAD" ? (
-                          <VscCircleFilled />
-                        ) : (
-                          ""
-                        )}
-                      </small>
-                      <div>
-                        <small>{notif.details}</small>
-                      </div>
-                      <small className="text-muted">11 mins ago - Event</small>
-                      <hr />
-                    </Button>
-                  </div>
-                );
-              })
-              .reverse()
-          ) : (
-            <Offcanvas.Body>No new notifications for now</Offcanvas.Body>
-          )}
+          {notifs && notifs.length > 0
+            ? notifs
+                .map((notif, index) => {
+                  return (
+                    <div key={index}>
+                      <Button
+                        variant="link"
+                        className="notif-button-item"
+                        onClick={() => {
+                          setRead(notif.id);
+                        }}
+                      >
+                        <small className="text-muted float-end">
+                          {notif.statusName === "UNREAD" ? (
+                            <VscCircleFilled />
+                          ) : (
+                            ""
+                          )}
+                        </small>
+                        <div>
+                          <small>{notif.details}</small>
+                        </div>
+                        <small className="text-muted">
+                          11 mins ago - Event
+                        </small>
+                        <hr />
+                      </Button>
+                    </div>
+                  );
+                })
+                .reverse()
+            : ""}
         </Offcanvas.Body>
       </Offcanvas>
     </div>
