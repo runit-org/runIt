@@ -6,7 +6,7 @@ from base.traits import SendEmail
 
 import string
 import random
-from datetime import datetime
+from datetime import datetime, timezone
 
 def generateToken(userId, size=10):
     randomString = (string.ascii_lowercase + string.digits)
@@ -25,12 +25,12 @@ def send(request):
     token                     = generateToken(user.id)
     userExtend                = UserExtend.objects.get(userId = user.id)
     userExtend.resetToken     = token
-    userExtend.resetTokenTime = datetime.now()
+    userExtend.resetTokenTime = datetime.now(timezone.utc)
     userExtend.save()
 
     SendEmail.send(
         'Reset password',
-        'Token: ' + token,
+        'Token: ' + token + '. Note that token expires in 2 minutes.',
         user.email
     )
 

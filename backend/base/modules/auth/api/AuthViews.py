@@ -6,11 +6,13 @@ from base.modules.auth.api.validators import (
     RegisterUserValidator,
     LogoutValidator,
     SendResetPasswordEmailValidator,
+    ResetPasswordValidator,
 )
 from base.modules.auth.api.actions import (
     RegisterUserAction,
     LogoutAction,
     SendResetPasswordEmailAction,
+    ResetPasswordAction,
 )
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -45,3 +47,10 @@ def sendResetPasswordEmail(request):
         return SendResetPasswordEmailValidator.validate(request)
 
     return SendResetPasswordEmailAction.send(request)
+
+@api_view(['POST'])
+def resetPassword(request):
+    if (ResetPasswordValidator.validate(request) != None):
+        return ResetPasswordValidator.validate(request)
+
+    return ResetPasswordAction.reset(request)
