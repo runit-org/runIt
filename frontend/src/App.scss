@@ -22,11 +22,17 @@ $button-hover: #404eed;
   font-weight: $fw !important;
 }
 
+@mixin header-footer-font($fntSize, $fntFam, $fntW) {
+  font-size: $fntSize;
+  font-family: $fntFam;
+  font-weight: $fntW;
+}
 /*------General Components------*/
 html,
 body {
-  background-color: $theme !important;
+  background-color: rgba($theme, 0.4) !important;
   height: 100vh;
+  font-size: 1rem;
 }
 
 .titleText {
@@ -98,20 +104,21 @@ body {
 
 div.content {
   padding: 80px 12px;
-  /* background-color: #e1e5ee;  */
-  background-color: $primary-light;
+  background-color: $secondary-light;
   min-height: 100vh;
 }
 
-.recents-div .toast {
-  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
-}
-
-.recents-div .toast-body pre {
+.recents-div p {
   white-space: nowrap;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.recents-div hr {
+  background-color: $primary-dark;
+  border-bottom: 1px solid $primary-dark;
+  border-top: 1px solid $primary-dark;
 }
 
 /*------Footer------*/
@@ -140,11 +147,17 @@ div.content {
 
 /*------Header Nav------*/
 .navbar {
-  background-color: $primary-dark;
+  @include header-footer-font(0.875rem, sans-serif, 600);
+  // background-color: $primary-dark;
+  border-bottom: 2px solid rgba($secondary-dark, 0.1);
+}
+
+.navbar-brand {
+  color: $theme !important;
 }
 
 .navbar-nav .nav-link {
-  color: $primary-light !important;
+  color: $primary-dark !important;
 }
 
 .navbar-nav .nav-link:hover {
@@ -163,6 +176,12 @@ div.content {
 a.dropdown-item:hover {
   background-color: transparent;
   color: $theme !important;
+}
+
+.header-blur {
+  background-color: rgba($theme-light, 0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 /*------Login/Signup Forms------*/
@@ -213,7 +232,7 @@ a.dropdown-item:hover {
 }
 /*------Off-Canvas------*/
 .offcanvas-backdrop.show {
-  opacity: 0.8;
+  opacity: 0.3 !important;
 }
 .offcanvas-header {
   background-color: $secondary-dark;
@@ -221,13 +240,14 @@ a.dropdown-item:hover {
   padding: 20px 30px !important;
 }
 .offcanvas-body {
+  background-color: $secondary-light;
   padding: 0 !important;
 }
 /*------Event posts------*/
 .new-post-container {
-  background-color: rgba($secondary-light, 0.9);
+  background-color: rgba($primary-light, 0.9);
   color: $primary-dark;
-  border-radius: 6px;
+  border-radius: 15px;
 }
 
 .new-post-container .form-floating > .form-control {
@@ -263,10 +283,15 @@ a.dropdown-item:hover {
 /* .post-cards:first-of-type{
   border-right: 1px solid #d7d8d9;
 } */
+.post-cards.col,
+.post-cards.col-sm-3 {
+  padding: 0.2rem;
+}
+
 .post-cards .card {
   background-color: $primary-light;
-  // border: none;
-  border-radius: 6px;
+  border: none;
+  border-radius: 15px;
   margin: 20px;
 }
 
@@ -278,21 +303,22 @@ a.dropdown-item:hover {
 .post-cards .card-header {
   background-color: transparent;
   border: none;
-  border-radius: 0;
+  border-radius: 15px;
   padding: 0;
   display: inline;
 }
 
 .post-cards ~ .recents .card {
-  background-color: $secondary-light;
+  background-color: $primary-light;
   border: none;
   border-radius: 6px;
   margin: 20px 0px 20px 0px;
+  border-radius: 15px;
 }
 
-.event-owned {
+/* .event-owned {
   border: 1px solid $theme !important;
-}
+} */
 
 /*------Modal------*/
 .modal-header {
@@ -320,12 +346,7 @@ a.dropdown-item:hover {
   color: rgb(107 114 128);
 }
 
-/*------Notification Toasts------*/
-.notif-Toasts {
-  width: 100% !important;
-  // box-shadow: none !important;
-  margin-bottom: 10px;
-}
+/*------Notification------*/
 .notif-button-item {
   padding: 15px 30px 0 !important;
   width: 100%;
@@ -348,11 +369,14 @@ a.dropdown-item:hover {
 .notif-subHeader {
   padding: 20px 30px 0 !important;
 }
+.notif-mark {
+  color: $theme;
+}
 
 /*------Image/Logo------*/
 .userProf-img {
   width: 50px;
-  border-radius: 12px;
+  border-radius: 12px !important;
   padding: 5px;
   background-color: $secondary-dark;
 }

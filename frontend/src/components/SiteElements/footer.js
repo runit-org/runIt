@@ -10,7 +10,7 @@ function Footer() {
           <p>
             <small>
               <span>
-                <strong style={{ color: "#5865f2" }}>Event Matcher</strong>{" "}
+                <strong style={{ color: "#5865f2" }}>eventmatcher</strong>{" "}
                 {/* by Julian &#38; Manan */} projek
               </span>
             </small>
