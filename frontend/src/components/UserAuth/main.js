@@ -8,9 +8,9 @@ function Main() {
   return (
     <>
       <Container id="auth-container">
-        <Row> 
-          <Col sm={6} className="centerContent" >
-            <h1 className="titleText my-auto">Event Matcher</h1>
+        <Row>
+          <Col sm={6} className="centerContent">
+            <h1 className="titleText my-auto">eventmatcher</h1>
           </Col>
           <Col sm={6} className="centerContent">
             {window.location.pathname === "/signup" ? <SignUp /> : <Login />}
@@ -18,9 +18,9 @@ function Main() {
         </Row>
       </Container>
 
-    <div  className="footer">
-    <Footer /> 
-    </div>
+      <div className="footer">
+        <Footer />
+      </div>
     </>
   );
 }

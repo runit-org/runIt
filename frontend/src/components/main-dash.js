@@ -4,7 +4,6 @@ import EventItem from "./Event/event-item";
 import SideNav from "./SiteElements/side-nav";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEvents, affiliatedEvents } from "../actions/eventActions";
-import CreatePostModal from "./Event/creat-event-modal";
 import CreatePost from "./Event/create-event";
 import UserProfile from "./user-profile";
 
@@ -37,13 +36,9 @@ function MainDash() {
     }
   }, [affiliatedEventData]);
 
-  // console.log(eventId)eventId
-
   return (
     <div className="content">
       <Container>
-        {/* <Row className="row justify-content-center">Event Data</Row> */}
-
         <Row>
           <Col className="post-cards">
             <Card>
@@ -70,7 +65,6 @@ function MainDash() {
           </Col>
 
           <Col sm={3} className="post-cards recents">
-            {/* {eventData.length > 0 ? <CreatePostModal btnSize={"w-100"} /> : ""} */}
             <Card className="mt-4">
               <Card.Body>
                 <UserProfile />

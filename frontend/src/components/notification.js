@@ -65,7 +65,7 @@ function Notifications(props) {
                           setRead(notif.id);
                         }}
                       >
-                        <small className="text-muted float-end">
+                        <small className="notif-mark float-end">
                           {notif.statusName === "UNREAD" ? (
                             <VscCircleFilled />
                           ) : (

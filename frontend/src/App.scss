@@ -22,10 +22,15 @@ $button-hover: #404eed;
   font-weight: $fw !important;
 }
 
+@mixin header-footer-font($fntSize, $fntFam, $fntW) {
+  font-size: $fntSize;
+  font-family: $fntFam;
+  font-weight: $fntW;
+}
 /*------General Components------*/
 html,
 body {
-  background-color: $theme !important;
+  background-color: rgba($theme, 0.4) !important;
   height: 100vh;
   font-size: 1rem;
 }
@@ -99,20 +104,21 @@ body {
 
 div.content {
   padding: 80px 12px;
-  /* background-color: #e1e5ee;  */
   background-color: $secondary-light;
   min-height: 100vh;
 }
 
-.recents-div .toast {
-  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
-}
-
-.recents-div .toast-body pre {
+.recents-div p {
   white-space: nowrap;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.recents-div hr {
+  background-color: $primary-dark;
+  border-bottom: 1px solid $primary-dark;
+  border-top: 1px solid $primary-dark;
 }
 
 /*------Footer------*/
@@ -141,11 +147,17 @@ div.content {
 
 /*------Header Nav------*/
 .navbar {
-  background-color: $primary-dark;
+  @include header-footer-font(0.875rem, sans-serif, 600);
+  // background-color: $primary-dark;
+  border-bottom: 2px solid rgba($secondary-dark, 0.1);
+}
+
+.navbar-brand {
+  color: $theme !important;
 }
 
 .navbar-nav .nav-link {
-  color: $primary-light !important;
+  color: $primary-dark !important;
 }
 
 .navbar-nav .nav-link:hover {
@@ -164,6 +176,12 @@ div.content {
 a.dropdown-item:hover {
   background-color: transparent;
   color: $theme !important;
+}
+
+.header-blur {
+  background-color: rgba($theme-light, 0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 /*------Login/Signup Forms------*/
@@ -214,7 +232,7 @@ a.dropdown-item:hover {
 }
 /*------Off-Canvas------*/
 .offcanvas-backdrop.show {
-  opacity: 0.8;
+  opacity: 0.3 !important;
 }
 .offcanvas-header {
   background-color: $secondary-dark;
@@ -222,6 +240,7 @@ a.dropdown-item:hover {
   padding: 20px 30px !important;
 }
 .offcanvas-body {
+  background-color: $secondary-light;
   padding: 0 !important;
 }
 /*------Event posts------*/
@@ -349,6 +368,9 @@ a.dropdown-item:hover {
 }
 .notif-subHeader {
   padding: 20px 30px 0 !important;
+}
+.notif-mark {
+  color: $theme;
 }
 
 /*------Image/Logo------*/

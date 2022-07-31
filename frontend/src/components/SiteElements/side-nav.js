@@ -7,7 +7,11 @@ function SideNav(props) {
         <strong className="me-auto">{props.eventTitle}</strong>
         <small className="float-end">{props.time}</small>
       </div>
-      <p dangerouslySetInnerHTML={{ __html: props.detail }} />
+      <p
+        dangerouslySetInnerHTML={{
+          __html: props.detail,
+        }}
+      />
       <hr />
     </div>
   );
