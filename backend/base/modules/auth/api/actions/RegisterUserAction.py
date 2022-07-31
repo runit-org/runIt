@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from base.views.baseViews import response, error
 from django.contrib.auth.hashers import make_password
 from base.serializers import UserSerializer
+from base.traits import SendEmail
 
 def register(request):
     data = request.data
@@ -17,6 +18,8 @@ def register(request):
         email=data['email'],
         password=make_password(data['password'])
     )
+
+    SendEmail.send()
 
     serializer = UserSerializer(user, many=False)
     return response('User registered', serializer.data)
