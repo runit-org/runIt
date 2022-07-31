@@ -5,10 +5,14 @@ from django.views.decorators.csrf import csrf_exempt
 from base.modules.auth.api.validators import (
     RegisterUserValidator,
     LogoutValidator,
+    SendResetPasswordEmailValidator,
+    ResetPasswordValidator,
 )
 from base.modules.auth.api.actions import (
     RegisterUserAction,
     LogoutAction,
+    SendResetPasswordEmailAction,
+    ResetPasswordAction,
 )
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -31,8 +35,22 @@ def registerUser(request):
 
 @csrf_exempt
 @api_view(['POST'])
-def logout (request):
+def logout(request):
     if (LogoutValidator.validate(request) != None):
         return LogoutValidator.validate(request)
 
     return LogoutAction.logout(request)
+
+@api_view(['POST'])
+def sendResetPasswordEmail(request):
+    if (SendResetPasswordEmailValidator.validate(request) != None):
+        return SendResetPasswordEmailValidator.validate(request)
+
+    return SendResetPasswordEmailAction.send(request)
+
+@api_view(['POST'])
+def resetPassword(request):
+    if (ResetPasswordValidator.validate(request) != None):
+        return ResetPasswordValidator.validate(request)
+
+    return ResetPasswordAction.reset(request)

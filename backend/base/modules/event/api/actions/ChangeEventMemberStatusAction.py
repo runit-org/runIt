@@ -60,12 +60,12 @@ def updateStatus(request):
         eventMember.save()
 
         if (data['status']) == EventMemberStatus.get.ACCEPTED.value:
-            notifContent = 'Your request to join event [' + event.title + '] has been ' + EventMemberStatus.get.ACCEPTED.name
+            notifContent = 'Your request to join event <b>' + event.title + '</b> has been ' + EventMemberStatus.get.ACCEPTED.name
             NotifyUser.notify(data['userId'], notifContent)
             return response('Request approved')
 
         else:
-            notifContent = 'Your request to join event [' + event.title + '] has been ' + EventMemberStatus.get.REJECTED.name
+            notifContent = 'Your request to join event <b>' + event.title + '</b> has been ' + EventMemberStatus.get.REJECTED.name
             NotifyUser.notify(data['userId'], notifContent)
             return response('Request rejected')
     else:

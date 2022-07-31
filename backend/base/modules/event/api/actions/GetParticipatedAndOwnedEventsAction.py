@@ -5,7 +5,7 @@ from base.views.baseViews import response, error, paginate
 from base.enums import EventMemberStatus, PaginationSizes
 
 def validateFilter(filterField):
-    allowedFilters = ['title', 'userName', 'maxMember']
+    allowedFilters = ['title', 'userName', 'maxMember', 'createdAt']
     if filterField not in allowedFilters:
         return False
     return True
