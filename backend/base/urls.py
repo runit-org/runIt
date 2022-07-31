@@ -15,6 +15,8 @@ urlpatterns = [
     path('auth/register/', AuthViews.registerUser, name='register'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth/logout/', AuthViews.logout, name='logout'),
+    path('auth/sendResetPasswordEmail/', AuthViews.sendResetPasswordEmail, name='send_reset_password_email'),
+    path('auth/resetPassword/', AuthViews.resetPassword, name='reset_password'),
 
     path('user/all/', UserViews.getAllUsers, name='all_users'),
 
