@@ -6,23 +6,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllEvents, affiliatedEvents } from "../actions/eventActions";
 import CreatePost from "./Event/create-event";
 import UserProfile from "./user-profile";
+import Pagination from "./SiteElements/pagination";
 
 function MainDash() {
   const dispatch = useDispatch();
   const [eventData, setEventData] = useState([]);
   const [affiliatedEv, setAffiliatedEv] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage] = useState(10);
 
   useEffect(() => {
-    dispatch(getAllEvents());
+    dispatch(getAllEvents(currentPage));
     dispatch(affiliatedEvents());
-  }, [dispatch]);
+  }, [dispatch, currentPage]);
 
-  var allEventsData = useSelector(
-    (eventReducer) => eventReducer.events.events.results
-  );
+  var allEventsData = useSelector((eventReducer) => eventReducer.events.events);
   useEffect(() => {
-    if (allEventsData) {
-      setEventData(allEventsData);
+    if (allEventsData.results) {
+      setEventData(allEventsData.results);
     }
   }, [allEventsData]);
 
@@ -36,6 +37,11 @@ function MainDash() {
     }
   }, [affiliatedEventData]);
 
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPost = eventData.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <div className="content">
       <Container>
@@ -105,6 +111,12 @@ function MainDash() {
             </Card>
           </Col>
         </Row>
+        <Pagination
+          postsPerPage={postPerPage}
+          totalPosts={allEventsData.count}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
       </Container>
     </div>
   );

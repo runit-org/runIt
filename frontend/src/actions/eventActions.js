@@ -11,11 +11,11 @@ import { setToken, refreshToken } from "../securityUtils/setToken";
   baseURL: "http://localhost:8000/api/event",
 }); */
 
-export const getAllEvents = () => async (dispatch) => {
+export const getAllEvents = (page) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`http://localhost:8000/api/event/all/`)
+      .get(`http://localhost:8000/api/event/all/?page=${page}`)
       .then((res) => {
         dispatch({
           type: GET_ALL_EVENTS,
