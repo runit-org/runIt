@@ -68,6 +68,7 @@ function EventItem(props) {
                       <RemoveEvent
                         eventId={props.eventId}
                         eventTitle={props.eventTitle}
+                        eventCounts={props.eventCount}
                       />
                       <div>
                         <CTAButton

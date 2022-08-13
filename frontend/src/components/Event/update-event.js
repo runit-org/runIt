@@ -7,13 +7,16 @@ import { useDispatch } from "react-redux";
 import CTAButton from "../SiteElements/cta-button";
 import { RiCloseFill, RiSendPlaneLine } from "react-icons/ri";
 import { QuillFormatting } from "../SiteElements/quill-format";
+import { SearchParam } from "../search-param";
 
 function UpdateEvent(props, { handleUpate }) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState(props.title);
   const [maxMembers, setMaxMembers] = useState(props.maxMembers);
   const [details, setDetails] = useState(props.details);
+
   var quillSetting = QuillFormatting();
+  let pageId = SearchParam();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +27,7 @@ function UpdateEvent(props, { handleUpate }) {
       details: details,
     };
 
-    dispatch(updateEvent(props.eventId, postData));
+    dispatch(updateEvent(props.eventId, postData, pageId));
     props.handleUpate();
   };
 
@@ -53,7 +56,7 @@ function UpdateEvent(props, { handleUpate }) {
                     <Form.Control
                       type="title"
                       placeholder="Event Title"
-                    value={title}
+                      value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       required
                     />

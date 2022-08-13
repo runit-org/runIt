@@ -6,6 +6,7 @@ import ReactQuill from "react-quill";
 import CTAButton from "../SiteElements/cta-button";
 import { RiSendPlaneLine } from "react-icons/ri";
 import { QuillFormatting } from "../SiteElements/quill-format";
+import { SearchParam } from "../search-param";
 
 function CreateEvent() {
   const dispatch = useDispatch();
@@ -16,7 +17,9 @@ function CreateEvent() {
   const [load, setLoad] = useState(false);
   const [validateFormEmpty, setValidateFormEmpty] = useState(false);
   const [error, setError] = useState("");
+
   var quillSetting = QuillFormatting();
+  let pageId = SearchParam();
 
   useEffect(() => {
     if (details === "" || details === "<p><br></p>") {
@@ -34,7 +37,7 @@ function CreateEvent() {
       maxMember: maxMembers,
       details: details,
     };
-    dispatch(createNewEvent(postData, setLoad, setError));
+    dispatch(createNewEvent(postData, setLoad, setError, pageId));
   };
 
   useEffect(() => {

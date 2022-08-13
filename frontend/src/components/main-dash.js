@@ -7,6 +7,7 @@ import { getAllEvents, affiliatedEvents } from "../actions/eventActions";
 import CreatePost from "./Event/create-event";
 import UserProfile from "./user-profile";
 import Pagination from "./SiteElements/pagination";
+import { useSearchParams } from "react-router-dom";
 
 function MainDash() {
   const dispatch = useDispatch();
@@ -14,11 +15,16 @@ function MainDash() {
   const [affiliatedEv, setAffiliatedEv] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(10);
+  const [searchParams, setSearchParams] = useSearchParams({});
 
   useEffect(() => {
     dispatch(getAllEvents(currentPage));
     dispatch(affiliatedEvents());
   }, [dispatch, currentPage]);
+
+  useEffect(() => {
+    setSearchParams({ page: currentPage });
+  }, [setSearchParams, currentPage]);
 
   var allEventsData = useSelector((eventReducer) => eventReducer.events.events);
   useEffect(() => {
@@ -37,11 +43,8 @@ function MainDash() {
     }
   }, [affiliatedEventData]);
 
-  const indexOfLastPost = currentPage * postPerPage;
-  const indexOfFirstPost = indexOfLastPost - postPerPage;
-  const currentPost = eventData.slice(indexOfFirstPost, indexOfLastPost);
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="content">
       <Container>
@@ -63,6 +66,7 @@ function MainDash() {
                         userId={event.user}
                         maxMembers={event.maxMember}
                         eventAffiliated={affiliatedEv}
+                        eventCount={allEventsData.count}
                       />
                     </div>
                   ))

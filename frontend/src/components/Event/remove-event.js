@@ -1,22 +1,33 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { removeEvent } from "../../actions/eventActions";
 import Loading from "../SiteElements/loader";
 import { AiOutlineDelete } from "react-icons/ai";
 import ModalItem from "./modal-item";
+import { SearchParam } from "../search-param";
+import { useNavigate } from "react-router-dom";
 
 function RemoveEvent(props) {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
   const ref = React.createRef();
   const btnRef = useRef();
   const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
   const [modalShow, setModalShow] = useState(false);
 
+  let pageId = SearchParam(props.eventCounts);
+
+  useEffect(() => {
+    if (props.eventCounts <= pageId * 10 - 10) {
+      navigate("/posts?page=1", { replace: true });
+    }
+  }, [navigate, pageId, props.eventCounts]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(removeEvent(props.eventId, setLoad, setError));
+    dispatch(removeEvent(props.eventId, setLoad, setError, pageId));
     setModalShow(false);
   };
 
