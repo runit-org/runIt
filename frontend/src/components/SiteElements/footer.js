@@ -11,7 +11,7 @@ function Footer() {
             <small>
               <span>
                 <strong style={{ color: "#5865f2" }}>eventmatcher</strong>{" "}
-                {/* by Julian &#38; Manan */} projek
+                {/* by Julian &#38; Manan  projek*/}
               </span>
             </small>
           </p>

@@ -32,6 +32,7 @@ function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setFormSwitch(true);
     const userData = {
       name: name,
       username: username,
@@ -44,13 +45,14 @@ function SignUp() {
   };
 
   useEffect(() => {
-    if (signUpStatus == "true") {
-      setFormSwitch(true);
+    if (signUpStatus === "true" && signUpStatus !== undefined) {
       setTimeout(() => {
         navigate("/", { replace: true, state: { id: newUserStatus } });
-      }, 3000);
+      }, 1000);
+    } else {
+      setFormSwitch(false);
     }
-  }, [signUpStatus]);
+  }, [signUpStatus, navigate, newUserStatus]);
 
   let successVariant = {
     background: "#DFF2BF",
@@ -77,7 +79,7 @@ function SignUp() {
           >
             {" "}
             <h4 className="subTitle">Create an account</h4>
-            <hr className="divider"/>
+            <hr className="divider" />
             <Row>
               <Form.Group
                 as={Col}
