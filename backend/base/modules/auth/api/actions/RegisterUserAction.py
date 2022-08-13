@@ -2,7 +2,7 @@ from base.models import User, UserExtend
 from base.views.baseViews import response, error
 from django.contrib.auth.hashers import make_password
 from base.serializers import UserSerializer
-from base.traits import SendEmail
+from base.mail.AuthMail import userRegistered
 
 def register(request):
     data = request.data
@@ -23,9 +23,8 @@ def register(request):
         userId = user.id,
     )
 
-    SendEmail.send(
-        'Account created',
-        'Hello ' + user.username + '! Your Event Matcher account has been created.',
+    userRegistered(
+        user.username,
         user.email
     )
 

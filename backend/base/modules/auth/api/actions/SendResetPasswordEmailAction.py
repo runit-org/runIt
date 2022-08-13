@@ -2,7 +2,7 @@ from base.models import User, UserExtend
 from base.views.baseViews import response, error
 from django.contrib.auth.hashers import make_password
 from base.serializers import UserSerializer
-from base.traits import SendEmail
+from base.mail.AuthMail import resetPasswordEmailSent
 
 import string
 import random
@@ -28,9 +28,8 @@ def send(request):
     userExtend.resetTokenTime = datetime.now(timezone.utc)
     userExtend.save()
 
-    SendEmail.send(
-        'Reset password',
-        'Token: ' + token + '. Note that token expires in 2 minutes.',
+    resetPasswordEmailSent(
+        token,
         user.email
     )
 
