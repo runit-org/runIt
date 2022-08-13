@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getNotifications,
   notificationRead,
+  notificationRead_all,
 } from "../actions/notificationActions";
 import { VscCircleFilled } from "react-icons/vsc";
 
@@ -32,6 +33,10 @@ function Notifications(props) {
     }
   }, [notifications]);
 
+  const handleReadall = () => {
+    dispatch(notificationRead_all());
+  };
+
   return (
     <div>
       <Offcanvas show={props.notifShow} placement={"end"} onHide={props.close}>
@@ -48,7 +53,15 @@ function Notifications(props) {
               new notifications
             </small>
             <small className="float-end">
-              <a href="#">Mark all as read</a>
+              <Button
+                size="sm"
+                variant="link p-0"
+                onClick={() => {
+                  handleReadall();
+                }}
+              >
+                Mark all as read
+              </Button>
             </small>
             <hr />
           </div>
@@ -73,7 +86,9 @@ function Notifications(props) {
                           )}
                         </small>
                         <div>
-                          <small>{notif.details}</small>
+                          <small
+                            dangerouslySetInnerHTML={{ __html: notif.details }}
+                          />
                         </div>
                         <small className="text-muted">
                           11 mins ago - Event

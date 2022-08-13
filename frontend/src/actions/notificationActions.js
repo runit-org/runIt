@@ -38,3 +38,20 @@ export const notificationRead = (id) => async (dispatch) => {
       });
   });
 };
+
+export const notificationRead_all = () => async (dispatch) => {
+  await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+    axios
+      .patch(`http://localhost:8000/api/notifications/readAll/`)
+      .then((res) => {
+        dispatch(getNotifications());
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
+      });
+  });
+};
