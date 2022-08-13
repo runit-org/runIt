@@ -3,7 +3,6 @@ from base.views.baseViews import response, error
 from django.contrib.auth.hashers import make_password
 from base.serializers import UserSerializer
 from base.mail.AuthMail import userRegistered
-from base.traits import SendEmail
 
 def register(request):
     data = request.data

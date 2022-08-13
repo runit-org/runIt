@@ -14,3 +14,15 @@ def userRegistered(username, to):
         fail_silently=False,
         html_message=html_message
     )
+
+def resetPasswordEmailSent(token, to):
+    html_message = render_to_string('reset-password-email-template.html', {'token': token})
+    text_content = strip_tags(html_message)
+    send_mail(
+        'Reset Password',
+        text_content,
+        Utils.get.DEFAULT_EMAIL_SENDER.value,
+        [to],
+        fail_silently=False,
+        html_message=html_message
+    )
