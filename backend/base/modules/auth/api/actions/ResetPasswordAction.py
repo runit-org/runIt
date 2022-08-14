@@ -32,11 +32,11 @@ def reset(request):
 
     if userExtend.resetToken != data['token']:
         return error('Invalid token')
-    print('5')
+
     timeNow = datetime.now(timezone.utc)
     timeTokenWasCreated = userExtend.resetTokenTime
     timeDifference = (timeNow - timeTokenWasCreated).seconds
-    print(timeDifference)
+
     if timeDifference > 60:
         return error('Token expired')
 

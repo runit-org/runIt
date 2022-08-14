@@ -6,11 +6,11 @@ from base.mail.AuthMail import userRegistered
 
 def register(request):
     data = request.data
-    if len(User.objects.filter(email = data['email'])) > 0:
-        return error('Email taken')
+    # if len(User.objects.filter(email = data['email'])) > 0:
+    #     return error('Email taken')
 
-    if len(User.objects.filter(username = data['username'])) > 0:
-        return error('Username taken')
+    # if len(User.objects.filter(username = data['username'])) > 0:
+    #     return error('Username taken')
 
     user = User.objects.create(
         first_name=data['name'],
