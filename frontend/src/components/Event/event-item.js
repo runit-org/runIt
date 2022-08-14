@@ -69,6 +69,7 @@ function EventItem(props) {
                         eventId={props.eventId}
                         eventTitle={props.eventTitle}
                         eventCounts={props.eventCount}
+                        prev={props.prev}
                       />
                       <div>
                         <CTAButton

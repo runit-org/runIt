@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Col, Row, Form, FloatingLabel, Container } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { createNewEvent } from "../../actions/eventActions";
+import {
+  createNewEvent,
+  getAllEvents,
+  affiliatedEvents,
+} from "../../actions/eventActions";
 import ReactQuill from "react-quill";
 import CTAButton from "../SiteElements/cta-button";
 import { RiSendPlaneLine } from "react-icons/ri";
@@ -37,7 +41,10 @@ function CreateEvent() {
       maxMember: maxMembers,
       details: details,
     };
-    dispatch(createNewEvent(postData, setLoad, setError, pageId));
+    dispatch(createNewEvent(postData, setLoad, setError)).then(() => {
+      dispatch(getAllEvents(pageId));
+      dispatch(affiliatedEvents(pageId));
+    });
   };
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Col, Row, Card, Form, FloatingLabel } from "react-bootstrap";
 import img from "../../logo192.png";
 import ReactQuill from "react-quill";
-import { updateEvent } from "../../actions/eventActions";
+import { updateEvent, getAllEvents } from "../../actions/eventActions";
 import { useDispatch } from "react-redux";
 import CTAButton from "../SiteElements/cta-button";
 import { RiCloseFill, RiSendPlaneLine } from "react-icons/ri";
@@ -27,7 +27,9 @@ function UpdateEvent(props, { handleUpate }) {
       details: details,
     };
 
-    dispatch(updateEvent(props.eventId, postData, pageId));
+    dispatch(updateEvent(props.eventId, postData)).then(() => {
+      dispatch(getAllEvents(pageId));
+    });
     props.handleUpate();
   };
 

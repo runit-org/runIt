@@ -7,7 +7,8 @@ import { getAllEvents, affiliatedEvents } from "../actions/eventActions";
 import CreatePost from "./Event/create-event";
 import UserProfile from "./user-profile";
 import Pagination from "./SiteElements/pagination";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
+import { SearchParam } from "./search-param";
 
 function MainDash() {
   const dispatch = useDispatch();
@@ -16,11 +17,31 @@ function MainDash() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(10);
   const [searchParams, setSearchParams] = useSearchParams({});
+  const { state } = useLocation();
+
+  let pageId = SearchParam();
 
   useEffect(() => {
-    dispatch(getAllEvents(currentPage));
-    dispatch(affiliatedEvents());
-  }, [dispatch, currentPage]);
+    let isMounted = true;
+    if (pageId) {
+      dispatch(getAllEvents(pageId)).then(() => {
+        if (isMounted) {
+          dispatch(affiliatedEvents(pageId));
+        }
+      });
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [dispatch, pageId]);
+
+  useEffect(() => {
+    if (state) {
+      const { id } = state;
+      setCurrentPage(id);
+    }
+  }, [state]);
 
   useEffect(() => {
     setSearchParams({ page: currentPage });
@@ -67,6 +88,7 @@ function MainDash() {
                         maxMembers={event.maxMember}
                         eventAffiliated={affiliatedEv}
                         eventCount={allEventsData.count}
+                        prev={allEventsData.previous}
                       />
                     </div>
                   ))
