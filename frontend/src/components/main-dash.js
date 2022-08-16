@@ -30,7 +30,6 @@ function MainDash() {
         }
       });
     }
-
     return () => {
       isMounted = false;
     };
@@ -55,12 +54,12 @@ function MainDash() {
   }, [allEventsData]);
 
   var affiliatedEventData = useSelector(
-    (eventReducer) => eventReducer.events.affiliatedData.results
+    (eventReducer) => eventReducer.events.affiliatedData
   );
 
   useEffect(() => {
-    if (affiliatedEventData) {
-      setAffiliatedEv(affiliatedEventData);
+    if (affiliatedEventData.results) {
+      setAffiliatedEv(affiliatedEventData.results);
     }
   }, [affiliatedEventData]);
 
@@ -88,7 +87,6 @@ function MainDash() {
                         maxMembers={event.maxMember}
                         eventAffiliated={affiliatedEv}
                         eventCount={allEventsData.count}
-                        prev={allEventsData.previous}
                       />
                     </div>
                   ))
