@@ -7,17 +7,25 @@ import SignUp from "./sign-up";
 function Main() {
   return (
     <>
-      <Container id="auth-container">
-        <Row>
-          <Col sm={6} className="centerContent">
-            <h1 className="titleText my-auto">eventmatcher</h1>
-          </Col>
-          <Col sm={6} className="centerContent">
+      <div id="auth-container">
+        <div className="auth-content">
+          <div>
+            <h1 className="titleText text-center">eventmatcher</h1>
             {window.location.pathname === "/signup" ? <SignUp /> : <Login />}
-          </Col>
-        </Row>
-      </Container>
-
+          </div>
+        </div>
+        <div className="auth-footer">
+          {window.location.pathname === "/signup" ? (
+            <h6>
+              Already have an account? <a href="/">Log in</a>
+            </h6>
+          ) : (
+            <h6>
+              Don't have an account? <a href="/signup">Sign Up</a>
+            </h6>
+          )}
+        </div>
+      </div>
       <div className="footer">
         <Footer />
       </div>

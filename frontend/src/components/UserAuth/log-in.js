@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../../actions/securityActions";
 import { useNavigate } from "react-router-dom";
 import Loading from "../SiteElements/loader";
@@ -15,7 +15,7 @@ function Login() {
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
-  const [signupData, setSignupData] = useState("... Join Us");
+  const [signupData, setSignupData] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
 
   const { state } = useLocation();
@@ -50,7 +50,7 @@ function Login() {
     <>
       <ErrorToast errors={error} showToast={show} variant={errorVariant} />
 
-      <Card className="p-5  login-card">
+      <Card className="p-5 login-card" style={{ width: "28rem" }}>
         <fieldset disabled={formSwitch}>
           <Form
             onSubmit={(e) => {
@@ -58,8 +58,14 @@ function Login() {
             }}
           >
             <h4 className="subTitle">
-              Hello&nbsp;
-              <span style={{ color: "#5865f2" }}>{signupData}!</span>
+              {signupData !== "" ? (
+                <span>
+                  welcome{" "}
+                  <span style={{ color: "#5865f2" }}>{signupData}!</span>
+                </span>
+              ) : (
+                <span>Log in</span>
+              )}
             </h4>
             <hr className="divider" />
             <Form.Label className="text-muted">Username</Form.Label>
@@ -90,19 +96,7 @@ function Login() {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Row className="mb-2">
-              <Col>
-                <Form.Check
-                  type="checkbox"
-                  id="autoSizingCheck"
-                  className="text-muted"
-                  label="Remember me"
-                />
-              </Col>
-              <Col className="text-end">
-                <a href="#">Forgot Password</a>
-              </Col>
-            </Row>
+
             <div className="centerContent align-items-center">
               <Button type="submit" className="mb-2 mt-3 w-100">
                 {(() => {
@@ -114,13 +108,13 @@ function Login() {
                 })()}
               </Button>
             </div>
+            <Row className="mt-3">
+              <Col className="text-center">
+                <a href="#">Forgot Password</a>
+              </Col>
+            </Row>
           </Form>
         </fieldset>
-        <Card.Footer>
-          <small className="centerContent mt-3">
-            New to the platform?&nbsp;<a href="/signup">Sign Up</a>
-          </small>
-        </Card.Footer>
       </Card>
     </>
   );

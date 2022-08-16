@@ -1,40 +1,31 @@
 import React from "react";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 function Footer() {
   return (
     <>
-      <Container>
+      <div className="footer-container d-flex justify-content-between">
         <div>
-          <hr className="divider" />
-          <p>
-            <small>
-              <span>
-                <strong style={{ color: "#5865f2" }}>eventmatcher</strong>{" "}
-                {/* by Julian &#38; Manan  projek*/}
-              </span>
-            </small>
-          </p>
+          <small>
+            <span>
+              <strong style={{ color: "#5865f2" }}>eventmatcher</strong>{" "}
+              <small className="text-muter">- v1.0.0</small>
+            </span>
+          </small>
         </div>
 
-        <Row xs="auto" className=" footer-links">
+        <Row xs="auto" className="footer-links">
           <Col>
-            <small>
-              <a href="#">Terms of Service</a>
-            </small>
+            <a href="#">Support</a>
           </Col>
           <Col>
-            <small>
-              <a href="#">Privacy</a>
-            </small>
+            <a href="#">About</a>
           </Col>
           <Col>
-            <small>
-              <a href="#">Cookies</a>
-            </small>
+            <a href="#">Changelog</a>
           </Col>
         </Row>
-      </Container>
+      </div>
     </>
   );
 }
