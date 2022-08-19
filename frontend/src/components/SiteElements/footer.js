@@ -1,41 +1,30 @@
 import React from "react";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 function Footer() {
   return (
-    <>
-      <Container>
-        <div>
-          <hr className="divider" />
-          <p>
-            <small>
-              <span>
-                <strong style={{ color: "#5865f2" }}>eventmatcher</strong>{" "}
-                {/* by Julian &#38; Manan  projek*/}
-              </span>
-            </small>
-          </p>
-        </div>
+    <div className="footer-container">
+      <Row>
+        <Col sm={6} className="footer-logo">
+          <small>
+            <strong style={{ color: "#5865f2" }}>eventmatcher</strong>{" "}
+            <small className="text-muter">- v1.0.0</small>
+          </small>
+        </Col>
 
-        <Row xs="auto" className=" footer-links">
-          <Col>
-            <small>
-              <a href="#">Terms of Service</a>
-            </small>
-          </Col>
-          <Col>
-            <small>
-              <a href="#">Privacy</a>
-            </small>
-          </Col>
-          <Col>
-            <small>
-              <a href="#">Cookies</a>
-            </small>
-          </Col>
-        </Row>
-      </Container>
-    </>
+        <Col sm={6} className="footer-links">
+          <span>
+            <a href="#">Support</a>
+          </span>
+          <span>
+            <a href="#">About</a>
+          </span>
+          <span>
+            <a href="#">Changelog</a>
+          </span>
+        </Col>
+      </Row>
+    </div>
   );
 }
 

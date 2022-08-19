@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
+import { Card, Form, Button, FloatingLabel, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { login } from "../../actions/securityActions";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import Loading from "../SiteElements/loader";
 import ErrorToast from "../SiteElements/error-toast";
 import { useLocation } from "react-router-dom";
 
-function Login() {
+function ResetPassword() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const [username, setUsername] = useState({});
@@ -58,26 +58,19 @@ function Login() {
             }}
           >
             <h4 className="subTitle">
-              {signupData !== "" ? (
-                <span>
-                  welcome{" "}
-                  <span style={{ color: "#5865f2" }}>{signupData}!</span>
-                </span>
-              ) : (
-                <span>Log in</span>
-              )}
+              <span>Reset Password</span>
             </h4>
             <hr className="divider" />
-            <Form.Label className="text-muted">Username</Form.Label>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label className="text-muted">Password</Form.Label>
+            <Form.Group className="mb-3" controlId="password">
               <FloatingLabel
                 controlId="floatingInput"
-                label="Username"
+                label="Password"
                 className="mb-3"
               >
                 <Form.Control
-                  type="username"
-                  placeholder="Username"
+                  type="password"
+                  placeholder="Password"
                   value={Object.keys(username).length !== 0 ? username : ""}
                   onChange={(e) => setUsername(e.target.value)}
                   required
@@ -86,11 +79,14 @@ function Login() {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label className="text-muted">Password</Form.Label>
-              <FloatingLabel controlId="floatingPassword" label="Password">
+              <Form.Label className="text-muted">Confirm Password</Form.Label>
+              <FloatingLabel
+                controlId="confirmPassword"
+                label="Confirm Password"
+              >
                 <Form.Control
                   type="password"
-                  placeholder="Password"
+                  placeholder="Confirm Password"
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
@@ -103,14 +99,14 @@ function Login() {
                   if (load) {
                     return <Loading />;
                   } else {
-                    return <>Login</>;
+                    return <>Confirm</>;
                   }
                 })()}
               </Button>
             </div>
             <Row className="mt-3">
               <Col className="text-center">
-                <Link to="/reset-password">Forgot Password?</Link>
+                <Link to="/">Log in</Link>
               </Col>
             </Row>
           </Form>
@@ -120,4 +116,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ResetPassword;
