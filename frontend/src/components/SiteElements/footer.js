@@ -3,30 +3,28 @@ import { Row, Col } from "react-bootstrap";
 
 function Footer() {
   return (
-    <>
-      <div className="footer-container d-flex justify-content-between">
-        <div>
+    <div className="footer-container">
+      <Row>
+        <Col sm={6} className="footer-logo">
           <small>
-            <span>
-              <strong style={{ color: "#5865f2" }}>eventmatcher</strong>{" "}
-              <small className="text-muter">- v1.0.0</small>
-            </span>
+            <strong style={{ color: "#5865f2" }}>eventmatcher</strong>{" "}
+            <small className="text-muter">- v1.0.0</small>
           </small>
-        </div>
+        </Col>
 
-        <Row xs="auto" className="footer-links">
-          <Col>
+        <Col sm={6} className="footer-links">
+          <span>
             <a href="#">Support</a>
-          </Col>
-          <Col>
+          </span>
+          <span>
             <a href="#">About</a>
-          </Col>
-          <Col>
+          </span>
+          <span>
             <a href="#">Changelog</a>
-          </Col>
-        </Row>
-      </div>
-    </>
+          </span>
+        </Col>
+      </Row>
+    </div>
   );
 }
 

@@ -128,16 +128,23 @@ div.content {
 .footer-container {
   padding: 20px;
 }
-
-.footer-links > div.col > a {
+.footer-logo {
+  text-align: start;
+}
+.footer-links {
+  text-align: end;
+}
+.footer-links > span > a {
   color: $primary-dark;
   text-decoration: none;
   font-size: 0.8rem;
   font-weight: 600;
   transition: all 0.2s;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-.footer-links > div.col > a:hover {
+.footer-links > span > a:hover {
   color: $theme;
   text-decoration: underline;
 }
@@ -410,5 +417,9 @@ div#auth-container {
 @media only screen and (max-width: 640px) {
   .login-card.card {
     width: 100% !important;
+  }
+  .footer-links,
+  .footer-logo {
+    text-align: center;
   }
 }
