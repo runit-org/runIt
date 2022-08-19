@@ -192,11 +192,6 @@ function SignUp() {
             </Row>
           </Form>
         </fieldset>
-        <Card.Footer>
-          <small className="centerContent mt-3">
-            <a href="/">Already have an account?</a>
-          </small>
-        </Card.Footer>
       </Card>
     </>
   );

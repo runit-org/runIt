@@ -30,17 +30,20 @@ $button-hover: #404eed;
 /*------General Components------*/
 html,
 body {
-  background-color: rgba($theme, 0.4) !important;
-  height: 100vh;
+  background-color: $secondary-light !important;
   font-size: 1rem;
 }
 
+:any-link {
+  text-decoration: none;
+}
+
 .titleText {
-  @include title-text($primary-light, 2px, 800);
+  @include title-text($theme, 2px, 800);
 }
 
 .subTitle {
-  @include title-text($primary-light, normal, 600);
+  @include title-text($primary-dark, normal, 600);
 }
 
 .btn-primary {
@@ -86,8 +89,8 @@ body {
   margin: 0 0 0 0.5rem;
 }
 .divider {
-  color: $primary-light;
-  background-color: $primary-light;
+  color: $primary-dark;
+  background-color: $primary-dark;
   height: 1;
 }
 .centerContent {
@@ -123,25 +126,30 @@ div.content {
 
 /*------Footer------*/
 .footer {
-  color: $primary-light;
-  background-color: #282c34;
-  /*  display: flex;
-  justify-content: center; */
+  background-color: $theme-light;
   width: 100%;
-  min-height: 20vh;
-  height: fit-content;
 }
-.footer .container {
+.footer-container {
   padding: 20px;
 }
-
-.footer-links > div.col > small > a {
-  color: $primary-light;
+.footer-logo {
+  text-align: start;
+}
+.footer-links {
+  text-align: end;
+}
+.footer-links > span > a {
+  color: $primary-dark;
   text-decoration: none;
-  font-weight: bold;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-.footer-links > div.col > small > a:hover {
+.footer-links > span > a:hover {
+  color: $theme;
   text-decoration: underline;
 }
 
@@ -185,27 +193,47 @@ a.dropdown-item:hover {
 }
 
 /*------Login/Signup Forms------*/
-.container#auth-container {
-  padding: 80px 12px;
-  min-height: 80vh;
+div#auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.auth-content {
+  display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 24px;
+  flex: 1 1;
+}
+.auth-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  border-top: 1px solid #e0e0e0;
 }
 
 .login-card .form-floating > .form-control:-webkit-autofill {
   transition: background-color 5000s ease-in-out 0s;
-  -webkit-text-fill-color: $primary-light !important;
+  // -webkit-text-fill-color: $primary-light !important;
 }
 
 .login-card .form-floating > .form-control:focus {
   border: 1px solid $theme;
   box-shadow: none !important;
-  background-color: $secondary-dark;
-  color: $primary-light;
+  // background-color: $secondary-dark;
+  // color: $primary-light;
 }
 
 .login-card .form-floating > .form-control {
   border: 1px solid rgba(0, 0, 0, 0.3);
-  background-color: $secondary-dark;
-  color: $primary-light;
+  // background-color: $secondary-dark;
+  // color: $primary-light;
 }
 
 .login-card .form-floating > .form-control:hover,
@@ -214,21 +242,22 @@ a.dropdown-item:hover {
 }
 
 .login-card.card {
-  background-color: $primary-dark;
-  color: $primary-light;
+  background-color: $primary-light;
+  color: $primary-dark;
   font-weight: 500;
-  min-width: auto;
-  width: 500px;
-  height: fit-content;
-  bottom: 0;
+  width: 100%;
+  max-width: 500px !important;
+  /* width: 500px;
+  height: fit-content; */
+  // bottom: 0;
 }
 
-.login-card .card-footer {
+/* .login-card .card-footer {
   border-top: 1px solid #777;
-}
+} */
 
 .login-card .form-floating > label {
-  color: $primary-light;
+  color: $primary-dark;
 }
 /*------Off-Canvas------*/
 .offcanvas-backdrop.show {
@@ -421,4 +450,15 @@ a.dropdown-item:hover {
 .pagination .page-link:hover {
   background-color: $theme !important;
   color: $primary-light !important;
+}
+/*------Resposive------*/
+
+@media only screen and (max-width: 640px) {
+  .login-card.card {
+    width: 100% !important;
+  }
+  .footer-links,
+  .footer-logo {
+    text-align: center;
+  }
 }
