@@ -59,8 +59,6 @@ export const createNewEvent =
           if (res.status === 200) {
             setLoad(false);
             setError(res.status);
-            // dispatch(getAllEvents(pageId));
-            // dispatch(affiliatedEvents());
           }
           dispatch({
             type: GET_ERRORS,
@@ -85,9 +83,6 @@ export const updateEvent = (id, postData) => async (dispatch) => {
     axios
       .put(`http://localhost:8000/api/event/update/${id}/`, postData)
       .then((res) => {
-        if (res.status === 200) {
-          // dispatch(getAllEvents(pageId));
-        }
         dispatch({
           type: GET_ERRORS,
           payload: res.data,
@@ -115,7 +110,6 @@ export const requestToJoin =
           if (res.status === 200) {
             setLoad(false);
             setError(res.data.message);
-            // dispatch(getAllEvents());
           }
           dispatch({
             type: GET_ERRORS,
@@ -145,7 +139,6 @@ export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
         if (res.status === 200) {
           setLoad(false);
           setError(res.data.message);
-          // dispatch(getAllEvents(pageId));
         }
         dispatch({
           type: GET_ERRORS,
@@ -163,7 +156,7 @@ export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
   });
 };
 
-export const getEventMembers = (id, setMembers) => async (dispatch) => {
+export const getEventMembers = (id) => async (dispatch) => {
   await refreshToken()
     .then((ref) => {
       setToken(ref.data.access);

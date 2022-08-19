@@ -15,7 +15,6 @@ function RemoveEvent(props) {
   const btnRef = useRef();
   const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
-  const [modalShow, setModalShow] = useState(false);
 
   let pageId = SearchParam(props.eventCounts);
 
@@ -28,7 +27,6 @@ function RemoveEvent(props) {
         state: { id: pageId },
       });
     });
-    setModalShow(false);
   };
 
   return (
@@ -54,7 +52,10 @@ function RemoveEvent(props) {
             >
               Cancel
             </Button>
-            <Button type="submit">
+            <Button
+              type="submit"
+              onClick={() => btnRef.current.setModalShow(false)}
+            >
               {(() => {
                 if (load) {
                   return <Loading />;

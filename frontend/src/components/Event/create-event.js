@@ -1,11 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Col, Row, Form, FloatingLabel, Container } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import {
-  createNewEvent,
-  getAllEvents,
-  affiliatedEvents,
-} from "../../actions/eventActions";
+import { createNewEvent, getAllEvents } from "../../actions/eventActions";
 import ReactQuill from "react-quill";
 import CTAButton from "../SiteElements/cta-button";
 import { RiSendPlaneLine } from "react-icons/ri";
@@ -43,7 +39,6 @@ function CreateEvent() {
     };
     dispatch(createNewEvent(postData, setLoad, setError)).then(() => {
       dispatch(getAllEvents(pageId));
-      dispatch(affiliatedEvents(pageId));
     });
   };
 
