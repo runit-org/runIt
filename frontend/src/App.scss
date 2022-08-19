@@ -34,6 +34,10 @@ body {
   font-size: 1rem;
 }
 
+:any-link {
+  text-decoration: none;
+}
+
 .titleText {
   @include title-text($theme, 2px, 800);
 }
