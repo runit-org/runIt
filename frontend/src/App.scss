@@ -111,17 +111,16 @@ div.content {
   min-height: 100vh;
 }
 
+.recents-div {
+  border: 1px solid $secondary-light;
+  border-radius: 15px;
+  padding: 0.5rem 1rem;
+}
 .recents-div p {
   white-space: nowrap;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.recents-div hr {
-  background-color: $primary-dark;
-  border-bottom: 1px solid $primary-dark;
-  border-top: 1px solid $primary-dark;
 }
 
 /*------Footer------*/

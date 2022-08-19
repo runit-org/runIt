@@ -12,7 +12,6 @@ function SideNav(props) {
           __html: props.detail,
         }}
       />
-      <hr />
     </div>
   );
 }
