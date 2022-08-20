@@ -15,8 +15,8 @@ def userRegistered(username, to):
         html_message=html_message
     )
 
-def resetPasswordEmailSent(token, to):
-    html_message = render_to_string('reset-password-email-template.html', {'token': token})
+def resetPasswordEmailSent(url, to):
+    html_message = render_to_string('reset-password-email-template.html', {'url': url})
     text_content = strip_tags(html_message)
     send_mail(
         'Reset Password',
