@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import { Col, Row, Card, Form, FloatingLabel } from "react-bootstrap";
 import img from "../../logo192.png";
 import ReactQuill from "react-quill";
-import { updateEvent } from "../../actions/eventActions";
+import { updateEvent, getAllEvents } from "../../actions/eventActions";
 import { useDispatch } from "react-redux";
 import CTAButton from "../SiteElements/cta-button";
 import { RiCloseFill, RiSendPlaneLine } from "react-icons/ri";
 import { QuillFormatting } from "../SiteElements/quill-format";
+import { SearchParam } from "../search-param";
 
 function UpdateEvent(props, { handleUpate }) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState(props.title);
   const [maxMembers, setMaxMembers] = useState(props.maxMembers);
   const [details, setDetails] = useState(props.details);
+
   var quillSetting = QuillFormatting();
+  let pageId = SearchParam();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +27,9 @@ function UpdateEvent(props, { handleUpate }) {
       details: details,
     };
 
-    dispatch(updateEvent(props.eventId, postData));
+    dispatch(updateEvent(props.eventId, postData)).then(() => {
+      dispatch(getAllEvents(pageId));
+    });
     props.handleUpate();
   };
 
@@ -53,7 +58,7 @@ function UpdateEvent(props, { handleUpate }) {
                     <Form.Control
                       type="title"
                       placeholder="Event Title"
-                    value={title}
+                      value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       required
                     />

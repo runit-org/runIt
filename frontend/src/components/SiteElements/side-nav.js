@@ -5,14 +5,13 @@ function SideNav(props) {
     <div className="recents-div">
       <div>
         <strong className="me-auto">{props.eventTitle}</strong>
-        <small className="float-end">{props.time}</small>
+        <small className="float-end text-muted">{props.time} ago</small>
       </div>
       <p
         dangerouslySetInnerHTML={{
           __html: props.detail,
         }}
       />
-      <hr />
     </div>
   );
 }

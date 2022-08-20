@@ -7,15 +7,11 @@ import {
 } from "./types";
 import { setToken, refreshToken } from "../securityUtils/setToken";
 
-/* const client = axios.create({
-  baseURL: "http://localhost:8000/api/event",
-}); */
-
-export const getAllEvents = () => async (dispatch) => {
+export const getAllEvents = (id) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`http://localhost:8000/api/event/all/`)
+      .get(`http://localhost:8000/api/event/all/?page=${id}`)
       .then((res) => {
         dispatch({
           type: GET_ALL_EVENTS,
@@ -31,11 +27,11 @@ export const getAllEvents = () => async (dispatch) => {
   });
 };
 
-export const affiliatedEvents = () => async (dispatch) => {
+export const affiliatedEvents = (id) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`http://localhost:8000/api/event/affiliated/`)
+      .get(`http://localhost:8000/api/event/affiliated/?page=${id}`)
       .then((res) => {
         dispatch({
           type: GET_AFFILIATED_EVENTS,
@@ -63,8 +59,6 @@ export const createNewEvent =
           if (res.status === 200) {
             setLoad(false);
             setError(res.status);
-            dispatch(getAllEvents());
-            dispatch(affiliatedEvents());
           }
           dispatch({
             type: GET_ERRORS,
@@ -89,9 +83,6 @@ export const updateEvent = (id, postData) => async (dispatch) => {
     axios
       .put(`http://localhost:8000/api/event/update/${id}/`, postData)
       .then((res) => {
-        if (res.status === 200) {
-          dispatch(getAllEvents());
-        }
         dispatch({
           type: GET_ERRORS,
           payload: res.data,
@@ -119,7 +110,6 @@ export const requestToJoin =
           if (res.status === 200) {
             setLoad(false);
             setError(res.data.message);
-            // dispatch(getAllEvents());
           }
           dispatch({
             type: GET_ERRORS,
@@ -146,11 +136,9 @@ export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
     axios
       .delete(`http://localhost:8000/api/event/delete/${id}/`)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           setLoad(false);
           setError(res.data.message);
-          dispatch(getAllEvents());
         }
         dispatch({
           type: GET_ERRORS,
@@ -168,7 +156,7 @@ export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
   });
 };
 
-export const getEventMembers = (id, setMembers) => async (dispatch) => {
+export const getEventMembers = (id) => async (dispatch) => {
   await refreshToken()
     .then((ref) => {
       setToken(ref.data.access);
