@@ -1,5 +1,5 @@
 from base.models import Event
-from base.serializers import EventSerializer
+from base.serializers import AllEventSerializer
 from base.views.baseViews import response, error, paginate
 from base.enums import PaginationSizes
 
@@ -33,4 +33,4 @@ def all(request):
     if type(events) == str:
         return error(events)
     context = {'userId' : request.user.id}
-    return paginate(request, events, EventSerializer, PaginationSizes.get.S.value, context)
+    return paginate(request, events, AllEventSerializer, PaginationSizes.get.S.value, context)
