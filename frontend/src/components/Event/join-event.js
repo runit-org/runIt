@@ -12,7 +12,6 @@ function JoinEvent(props) {
   const btnRef = useRef();
   const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
-  // const [modalShow, setModalShow] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

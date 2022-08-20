@@ -24,7 +24,7 @@ function UserProfile(props) {
           <small className="d-block">Following</small>
         </Col>
       </Row>
-      <Row className="mt-4">
+      {/*  <Row className="mt-4">
         <Form>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Control
@@ -35,7 +35,7 @@ function UserProfile(props) {
             />
           </Form.Group>
         </Form>
-      </Row>
+      </Row> */}
     </div>
   );
 }

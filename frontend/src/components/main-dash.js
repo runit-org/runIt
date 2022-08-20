@@ -1,71 +1,87 @@
 import React, { useState, useEffect } from "react";
-import { Col, Row, Card, Container } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
 import EventItem from "./Event/event-item";
 import SideNav from "./SiteElements/side-nav";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllEvents, affiliatedEvents } from "../actions/eventActions";
+import { getAllEvents } from "../actions/eventActions";
 import CreatePost from "./Event/create-event";
 import UserProfile from "./user-profile";
+import Pagination from "./SiteElements/pagination";
+import { useSearchParams, useLocation } from "react-router-dom";
+import { SearchParam } from "./search-param";
 
 function MainDash() {
   const dispatch = useDispatch();
   const [eventData, setEventData] = useState([]);
-  const [affiliatedEv, setAffiliatedEv] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage] = useState(10);
+  const [searchParams, setSearchParams] = useSearchParams({});
+  const { state } = useLocation();
+
+  let pageId = SearchParam();
 
   useEffect(() => {
-    dispatch(getAllEvents());
-    dispatch(affiliatedEvents());
-  }, [dispatch]);
+    dispatch(getAllEvents(pageId));
+  }, [dispatch, pageId]);
 
-  var allEventsData = useSelector(
-    (eventReducer) => eventReducer.events.events.results
-  );
   useEffect(() => {
-    if (allEventsData) {
-      setEventData(allEventsData);
+    if (state) {
+      const { id } = state;
+      setCurrentPage(id);
+    }
+  }, [state]);
+
+  useEffect(() => {
+    setSearchParams({ page: currentPage });
+  }, [setSearchParams, currentPage]);
+
+  var allEventsData = useSelector((eventReducer) => eventReducer.events.events);
+  useEffect(() => {
+    if (allEventsData.results) {
+      setEventData(allEventsData.results);
     }
   }, [allEventsData]);
 
-  var affiliatedEventData = useSelector(
-    (eventReducer) => eventReducer.events.affiliatedData.results
-  );
-
-  useEffect(() => {
-    if (affiliatedEventData) {
-      setAffiliatedEv(affiliatedEventData);
-    }
-  }, [affiliatedEventData]);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="content">
-      <Container>
-        <Row>
-          <Col className="post-cards">
-            <Card>
-              <CreatePost />
-            </Card>
-            {eventData
-              ? eventData
-                  .map((event, index) => (
-                    <div key={index}>
-                      <EventItem
-                        eventTitle={event.title}
-                        eventDetails={event.details}
-                        postedBy={event.userName}
-                        createdTime={event.humanTimeDiffCreatedAt}
-                        eventId={event.id}
-                        userId={event.user}
-                        maxMembers={event.maxMember}
-                        eventAffiliated={affiliatedEv}
-                      />
-                    </div>
-                  ))
-                  .reverse()
-              : ""}
-          </Col>
+    <div style={{ position: "relative" }}>
+      <div className="dash-container">
+        <div className="content">
+          <Container>
+            <div className="post-cards">
+              <Card className="create-post-card">
+                <CreatePost />
+              </Card>
+              {eventData
+                ? eventData
+                    .map((event, index) => (
+                      <div key={index}>
+                        <EventItem
+                          eventData={event}
+                          eventCount={allEventsData.count}
+                        />
+                      </div>
+                    ))
+                    .reverse()
+                : ""}
+            </div>
+            {allEventsData.count > 0 ? (
+              <Pagination
+                postsPerPage={postPerPage}
+                totalPosts={allEventsData.count}
+                paginate={paginate}
+                currentPage={currentPage}
+              />
+            ) : (
+              ""
+            )}
+          </Container>
+        </div>
 
-          <Col sm={3} className="post-cards recents">
-            <Card className="mt-4">
+        <div className="post-cards sidebar">
+          <div className="sidebar-wrapper">
+            <Card>
               <Card.Body>
                 <UserProfile />
               </Card.Body>
@@ -73,7 +89,7 @@ function MainDash() {
             <Card>
               <Card.Body>
                 <h6 className="mb-4">Latest Activity</h6>
-                {eventData.length == 0 ? (
+                {eventData.length === 0 ? (
                   <h6>No recent events</h6>
                 ) : eventData.length > 4 ? (
                   eventData
@@ -103,9 +119,9 @@ function MainDash() {
                 )}
               </Card.Body>
             </Card>
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
