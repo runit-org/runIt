@@ -3,6 +3,7 @@ from base.views.baseViews import response, error
 from django.contrib.auth.hashers import make_password
 from base.serializers import UserSerializer
 from base.mail.AuthMail import resetPasswordEmailSent
+from base.enums import URLs
 
 import string
 import random
@@ -23,13 +24,14 @@ def send(request):
     
     user                      = User.objects.get(email = data['email'])
     token                     = generateToken(user.id)
+    resetTokenUrl             = URLs.get.FRONTEND_URL.value + '/reset-password/' + token
     userExtend                = UserExtend.objects.get(userId = user.id)
     userExtend.resetToken     = token
     userExtend.resetTokenTime = datetime.now(timezone.utc)
     userExtend.save()
 
     resetPasswordEmailSent(
-        token,
+        resetTokenUrl,
         user.email
     )
 
