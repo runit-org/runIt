@@ -18,9 +18,9 @@ def validationError(message='Required fields not met'):
     retVal = {'success' : 'false', 'message' : message}
     return Response(retVal, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
 
-def paginate(request, objects, objectSerializer, paginationSize):
+def paginate(request, objects, objectSerializer, paginationSize, context=None):
     paginator = PageNumberPagination()
     paginator.page_size = paginationSize
     resultpage = paginator.paginate_queryset(objects, request)
-    serializer = objectSerializer(resultpage, many=True)
+    serializer = objectSerializer(resultpage, context=context, many=True)
     return paginator.get_paginated_response(serializer.data)

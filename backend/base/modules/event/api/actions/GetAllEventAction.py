@@ -32,5 +32,5 @@ def all(request):
     events = filter(request)
     if type(events) == str:
         return error(events)
-    
-    return paginate(request, events, EventSerializer, PaginationSizes.get.S.value)
+    context = {'userId' : request.user.id}
+    return paginate(request, events, EventSerializer, PaginationSizes.get.S.value, context)
