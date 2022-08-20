@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Row, Card, Container } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
 import EventItem from "./Event/event-item";
 import SideNav from "./SiteElements/side-nav";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,29 +45,43 @@ function MainDash() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="content">
-      <Container>
-        <Row>
-          <Col className="post-cards">
-            <Card>
-              <CreatePost />
-            </Card>
-            {eventData
-              ? eventData
-                  .map((event, index) => (
-                    <div key={index}>
-                      <EventItem
-                        eventData={event}
-                        eventCount={allEventsData.count}
-                      />
-                    </div>
-                  ))
-                  .reverse()
-              : ""}
-          </Col>
+    <div style={{ position: "relative" }}>
+      <div className="dash-container">
+        <div className="content">
+          <Container>
+            <div className="post-cards">
+              <Card className="create-post-card">
+                <CreatePost />
+              </Card>
+              {eventData
+                ? eventData
+                    .map((event, index) => (
+                      <div key={index}>
+                        <EventItem
+                          eventData={event}
+                          eventCount={allEventsData.count}
+                        />
+                      </div>
+                    ))
+                    .reverse()
+                : ""}
+            </div>
+            {allEventsData.count > 0 ? (
+              <Pagination
+                postsPerPage={postPerPage}
+                totalPosts={allEventsData.count}
+                paginate={paginate}
+                currentPage={currentPage}
+              />
+            ) : (
+              ""
+            )}
+          </Container>
+        </div>
 
-          <Col sm={3} className="post-cards recents">
-            <Card className="mt-4">
+        <div className="post-cards sidebar">
+          <div className="sidebar-wrapper">
+            <Card>
               <Card.Body>
                 <UserProfile />
               </Card.Body>
@@ -105,19 +119,9 @@ function MainDash() {
                 )}
               </Card.Body>
             </Card>
-          </Col>
-        </Row>
-        {allEventsData.count > 0 ? (
-          <Pagination
-            postsPerPage={postPerPage}
-            totalPosts={allEventsData.count}
-            paginate={paginate}
-            currentPage={currentPage}
-          />
-        ) : (
-          ""
-        )}
-      </Container>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

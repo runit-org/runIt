@@ -9,8 +9,8 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
   }
 
   return (
-    <Row className="p-4">
-      <PaginateStyle className="col-12 col-md-8 col-lg-8 col-xl-8">
+    <div>
+      <PaginateStyle>
         <Container
           className="d-flex justify-content-center"
           id="pagi-container"
@@ -66,7 +66,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
           />
         </Container>
       </PaginateStyle>
-    </Row>
+    </div>
   );
 };
 export default Pagination;

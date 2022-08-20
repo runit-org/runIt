@@ -90,8 +90,9 @@ function Notifications(props) {
                             dangerouslySetInnerHTML={{ __html: notif.details }}
                           />
                         </div>
+
                         <small className="text-muted">
-                          11 mins ago - Event
+                          {notif.humanTimeDiffCreatedAt} ago
                         </small>
                         <hr />
                       </Button>

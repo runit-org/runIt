@@ -40,7 +40,7 @@ function EventItem(props) {
                 <Col lg={1}>
                   <img src={img} className="userProf-img" alt="Img"></img>
                 </Col>
-                <Col md="auto">
+                <Col md="auto" className="ps-0">
                   <h6 className="fw-bold">{props.eventData.title}</h6>
 
                   <small
@@ -124,7 +124,6 @@ function EventItem(props) {
             </Card.Header>
 
             <Card.Text
-              className="mt-4"
               dangerouslySetInnerHTML={{ __html: props.eventData.details }}
             />
           </Card.Body>
