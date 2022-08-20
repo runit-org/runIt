@@ -6,7 +6,7 @@ import ReactQuill from "react-quill";
 import CTAButton from "../SiteElements/cta-button";
 import { RiSendPlaneLine } from "react-icons/ri";
 import { QuillFormatting } from "../SiteElements/quill-format";
-import { SearchParam } from "../search-param";
+import { SearchParam } from "../Utilities/search-param";
 
 function CreateEvent() {
   const dispatch = useDispatch();

@@ -8,7 +8,7 @@ import CreatePost from "./Event/create-event";
 import UserProfile from "./user-profile";
 import Pagination from "./SiteElements/pagination";
 import { useSearchParams, useLocation } from "react-router-dom";
-import { SearchParam } from "./search-param";
+import { SearchParam } from "./Utilities/search-param";
 
 function MainDash() {
   const dispatch = useDispatch();
