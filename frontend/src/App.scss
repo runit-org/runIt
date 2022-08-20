@@ -108,20 +108,18 @@ body {
 div.content {
   padding: 80px 12px;
   background-color: $secondary-light;
-  min-height: 100vh;
+  height: 100%;
 }
-
+.recents-div {
+  background-color: $primary-light;
+  padding: 10px 15px 0px 15px;
+  border-radius: 5px;
+}
 .recents-div p {
   white-space: nowrap;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.recents-div hr {
-  background-color: $primary-dark;
-  border-bottom: 1px solid $primary-dark;
-  border-top: 1px solid $primary-dark;
 }
 
 /*------Footer------*/
@@ -156,7 +154,6 @@ div.content {
 /*------Header Nav------*/
 .navbar {
   @include header-footer-font(0.875rem, sans-serif, 600);
-  // background-color: $primary-dark;
   border-bottom: 2px solid rgba($secondary-dark, 0.1);
 }
 
@@ -202,7 +199,6 @@ div#auth-container {
 
 .auth-content {
   display: flex;
-  // flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -220,20 +216,15 @@ div#auth-container {
 
 .login-card .form-floating > .form-control:-webkit-autofill {
   transition: background-color 5000s ease-in-out 0s;
-  // -webkit-text-fill-color: $primary-light !important;
 }
 
 .login-card .form-floating > .form-control:focus {
   border: 1px solid $theme;
   box-shadow: none !important;
-  // background-color: $secondary-dark;
-  // color: $primary-light;
 }
 
 .login-card .form-floating > .form-control {
   border: 1px solid rgba(0, 0, 0, 0.3);
-  // background-color: $secondary-dark;
-  // color: $primary-light;
 }
 
 .login-card .form-floating > .form-control:hover,
@@ -247,14 +238,7 @@ div#auth-container {
   font-weight: 500;
   width: 100%;
   max-width: 500px !important;
-  /* width: 500px;
-  height: fit-content; */
-  // bottom: 0;
 }
-
-/* .login-card .card-footer {
-  border-top: 1px solid #777;
-} */
 
 .login-card .form-floating > label {
   color: $primary-dark;
@@ -264,19 +248,32 @@ div#auth-container {
   opacity: 0.3 !important;
 }
 .offcanvas-header {
-  background-color: $secondary-dark;
-  color: $primary-light;
+  background-color: $primary-light;
+  color: $theme;
   padding: 20px 30px !important;
 }
 .offcanvas-body {
-  background-color: $secondary-light;
+  background-color: $primary-light;
   padding: 0 !important;
 }
-/*------Event posts------*/
+/*------Main Dash------*/
+
+.dash-container {
+  display: flex;
+  flex-direction: row;
+  flex: 0 1 auto;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.dash-container .content {
+  flex: 1 1 auto;
+  width: 100%;
+}
+/*------Dash Cards------*/
 .new-post-container {
-  background-color: rgba($primary-light, 0.9);
   color: $primary-dark;
-  border-radius: 15px;
+  border-radius: 5px;
 }
 
 .new-post-container .form-floating > .form-control {
@@ -290,12 +287,13 @@ div#auth-container {
 }
 
 .new-post-container .form-floating > .form-control {
-  border: 1px solid rgba($primary-dark, 0.3);
-  background-color: transparent !important;
+  border: 1px solid rgba($primary-dark, 0.1);
+  background-color: rgb(240, 240, 240) !important;
 }
 
 .new-post-container :is(.ql-container.ql-snow, .ql-toolbar.ql-snow) {
-  border: 1px solid rgba($primary-dark, 0.3);
+  border: 1px solid rgba($primary-dark, 0.1);
+  background-color: rgb(240, 240, 240) !important;
 }
 
 .new-post-container
@@ -309,40 +307,45 @@ div#auth-container {
   stroke: $primary-dark;
 }
 
-/* .post-cards:first-of-type{
-  border-right: 1px solid #d7d8d9;
-} */
-.post-cards.col,
-.post-cards.col-sm-3 {
-  padding: 0.2rem;
+.post-cards .create-post-card {
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+  border-radius: 0 !important;
 }
-
 .post-cards .card {
   background-color: $primary-light;
-  border: none;
-  border-radius: 15px;
+  border-radius: 5px;
   margin: 20px;
 }
-
-/* .post-cards .card:hover {
-  background-color: $secondary-light;
-  transition: 0.4s;
-} */
 
 .post-cards .card-header {
   background-color: transparent;
   border: none;
-  border-radius: 15px;
+  border-radius: 5px;
   padding: 0;
   display: inline;
 }
 
-.post-cards ~ .recents .card {
+.sidebar {
+  border-left: 1px solid #e0e0e0;
+  width: 33.33%;
+}
+.sidebar-wrapper {
+  width: 100%;
+  overflow: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding-top: 80px !important;
+}
+.post-cards.sidebar .card:first-child {
   background-color: $primary-light;
+  border-radius: 5px;
+}
+.post-cards.sidebar .card:last-child {
+  background-color: transparent;
   border: none;
-  border-radius: 6px;
-  margin: 20px 0px 20px 0px;
-  border-radius: 15px;
 }
 
 /* .event-owned {
@@ -404,8 +407,8 @@ div#auth-container {
 
 /*------Image/Logo------*/
 .userProf-img {
-  width: 50px;
-  border-radius: 12px !important;
+  width: 45px;
+  border-radius: 5px !important;
   padding: 5px;
   background-color: $secondary-dark;
 }
@@ -416,6 +419,41 @@ div#auth-container {
   padding: 5px;
   background-color: $secondary-dark;
 }
+
+/*------pagination------*/
+.pagination #pagi-container {
+  width: fit-content;
+  background-color: $theme-light;
+  border-radius: 10px;
+  padding: 0;
+}
+
+.pagination .page-link {
+  color: $secondary-dark !important;
+  background-color: transparent !important;
+  border: none;
+  font-weight: 500;
+  border-radius: 0 !important;
+}
+
+.pagination #prev {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+.pagination #next {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: $theme !important;
+  color: $primary-light !important;
+}
+
+.pagination .page-link:hover {
+  background-color: $theme !important;
+  color: $primary-light !important;
+}
 /*------Resposive------*/
 
 @media only screen and (max-width: 640px) {
@@ -425,5 +463,11 @@ div#auth-container {
   .footer-links,
   .footer-logo {
     text-align: center;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .sidebar {
+    display: none;
   }
 }

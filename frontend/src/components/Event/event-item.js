@@ -27,16 +27,12 @@ function EventItem(props) {
     setEditorMode(!editorMode);
   }
 
-  var userAff = props.eventAffiliated.map((i) => i.id).includes(props.eventId);
-
-  var userJoinedEv = props.eventAffiliated.filter((obj) => {
-    return obj.id === props.eventId && obj.user !== currentUser;
-  });
-
   return (
     <>
       {editorMode === false ? (
-        <Card className={currentUser === props.userId ? "event-owned" : ""}>
+        <Card
+          className={currentUser === props.eventData.user ? "event-owned" : ""}
+        >
           <Card.Body>
             <Card.Header>
               {" "}
@@ -44,30 +40,57 @@ function EventItem(props) {
                 <Col lg={1}>
                   <img src={img} className="userProf-img" alt="Img"></img>
                 </Col>
-                <Col md="auto">
-                  <h6 className="fw-bold">{props.eventTitle}</h6>
+                <Col md="auto" className="ps-0">
+                  <h6 className="fw-bold">{props.eventData.title}</h6>
 
                   <small
                     className="text-muted"
                     style={{ fontSize: "12px", display: "block" }}
                   >
                     <a href="#" className="text-decoration-none">
-                      @{props.postedBy}
+                      @{props.eventData.userName}
                     </a>{" "}
-                    <strong> {props.createdTime} ago</strong>
+                    <strong>
+                      {" "}
+                      {props.eventData.humanTimeDiffCreatedAt} ago
+                    </strong>
                   </small>
                 </Col>
                 <Col className="text-end d-flex justify-content-end">
-                  {!userAff ? (
-                    <JoinEvent
-                      eventId={props.eventId}
-                      eventTitle={props.eventTitle}
-                    />
-                  ) : currentUser == props.userId ? (
+                  {currentUser === props.eventData.user ? (
                     <>
                       <RemoveEvent
-                        eventId={props.eventId}
-                        eventTitle={props.eventTitle}
+                        eventId={props.eventData.id}
+                        eventTitle={props.eventData.title}
+                        eventCounts={props.eventCount}
+                      />
+                      <div>
+                        <CTAButton
+                          type={""}
+                          btnStyle={"postBtn-placements"}
+                          variant={"primary"}
+                          onClick={handleClick}
+                          placeholder={<RiEditLine />}
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <JoinEvent
+                      eventId={props.eventData.id}
+                      eventTitle={props.eventData.title}
+                    />
+                  )}
+                  {/*    {!userAff ? (
+                    <JoinEvent
+                      eventId={props.eventData.id}
+                      eventTitle={props.eventData.title}
+                    />
+                  ) : currentUser === props.eventData.user ? (
+                    <>
+                      <RemoveEvent
+                        eventId={props.eventData.id}
+                        eventTitle={props.eventData.title}
+                        eventCounts={props.eventCount}
                       />
                       <div>
                         <CTAButton
@@ -81,17 +104,19 @@ function EventItem(props) {
                     </>
                   ) : (
                     ""
-                  )}
-                  {userJoinedEv.map((i) => i.id).includes(props.eventId) ? (
+                  )} */}
+                  {/* {userJoinedEv
+                    .map((i) => i.id)
+                    .includes(props.eventData.id) ? (
                     <div>
                       <Badge bg="primary">Joined</Badge>
                     </div>
                   ) : (
                     ""
-                  )}
+                  )} */}
                   <EventMembers
-                    eventId={props.eventId}
-                    userId={props.userId}
+                    eventId={props.eventData.id}
+                    userId={props.eventData.user}
                     currentUser={currentUser}
                   />{" "}
                 </Col>
@@ -99,18 +124,17 @@ function EventItem(props) {
             </Card.Header>
 
             <Card.Text
-              className="mt-4"
-              dangerouslySetInnerHTML={{ __html: props.eventDetails }}
+              dangerouslySetInnerHTML={{ __html: props.eventData.details }}
             />
           </Card.Body>
         </Card>
       ) : (
         <UpdateEvent
-          eventId={props.eventId}
-          title={props.eventTitle}
-          details={props.eventDetails}
-          maxMembers={props.maxMembers}
-          cardStyle={currentUser === props.userId ? "event-owned" : ""}
+          eventId={props.eventData.id}
+          title={props.eventData.title}
+          details={props.eventData.details}
+          maxMembers={props.eventData.maxMember}
+          cardStyle={currentUser === props.eventData.user ? "event-owned" : ""}
           handleUpate={handleClick}
         />
       )}
