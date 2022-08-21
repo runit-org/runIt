@@ -106,7 +106,6 @@ export const requestToJoin =
       axios
         .post("http://localhost:8000/api/event/member/requestJoin/", postData)
         .then((res) => {
-          console.log(res);
           if (res.status === 200) {
             setLoad(false);
             setError(res.data.message);

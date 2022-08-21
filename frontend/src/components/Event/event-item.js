@@ -12,6 +12,9 @@ import UpdateEvent from "./update-event";
 function EventItem(props) {
   const [currentUser, setCurrentUser] = useState();
   const [editorMode, setEditorMode] = useState(false);
+  const joined = props.eventData.joinedStatus === "ACCEPTED";
+  const requested = props.eventData.joinedStatus === "PENDING";
+  const rejected = props.eventData.joinedStatus === "REJECTED";
 
   var getCurrentUser = useSelector(
     (securityReducer) => securityReducer.security.user
@@ -74,46 +77,29 @@ function EventItem(props) {
                         />
                       </div>
                     </>
-                  ) : (
+                  ) : !joined && !requested && !rejected ? (
                     <JoinEvent
                       eventId={props.eventData.id}
                       eventTitle={props.eventData.title}
                     />
-                  )}
-                  {/*    {!userAff ? (
-                    <JoinEvent
-                      eventId={props.eventData.id}
-                      eventTitle={props.eventData.title}
-                    />
-                  ) : currentUser === props.eventData.user ? (
-                    <>
-                      <RemoveEvent
-                        eventId={props.eventData.id}
-                        eventTitle={props.eventData.title}
-                        eventCounts={props.eventCount}
-                      />
-                      <div>
-                        <CTAButton
-                          type={""}
-                          btnStyle={"postBtn-placements"}
-                          variant={"primary"}
-                          onClick={handleClick}
-                          placeholder={<RiEditLine />}
-                        />
-                      </div>
-                    </>
                   ) : (
                     ""
-                  )} */}
-                  {/* {userJoinedEv
-                    .map((i) => i.id)
-                    .includes(props.eventData.id) ? (
+                  )}
+                  {joined ? (
                     <div>
-                      <Badge bg="primary">Joined</Badge>
+                      <Badge bg="success">Joined</Badge>
+                    </div>
+                  ) : requested ? (
+                    <div>
+                      <Badge bg="primary">Requested</Badge>
+                    </div>
+                  ) : rejected ? (
+                    <div>
+                      <Badge bg="danger">Unapproved</Badge>
                     </div>
                   ) : (
                     ""
-                  )} */}
+                  )}
                   <EventMembers
                     eventId={props.eventData.id}
                     userId={props.eventData.user}

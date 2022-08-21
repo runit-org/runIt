@@ -1,6 +1,6 @@
 import React from "react";
 
-function SideNav(props) {
+function RecentsCard(props) {
   return (
     <div className="recents-div">
       <div>
@@ -16,4 +16,4 @@ function SideNav(props) {
   );
 }
 
-export default SideNav;
+export default RecentsCard;
