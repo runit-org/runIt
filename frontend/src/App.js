@@ -16,7 +16,6 @@ import { setToken, refreshToken } from "./securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 // import { isExpired } from "react-jwt";
 import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
-import ResetPassword from "./components/UserAuth/reset-pw";
 
 const token = localStorage.token;
 
@@ -56,7 +55,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/signup" element={<Main />} />
-          <Route path="/reset-password" element={<Main />} />
+          <Route path="/reset-password/:token" element={<Main />} />
+          <Route path="/reset-password-auth" element={<Main />} />
+
           <Route
             path="/posts"
             element={

@@ -32,7 +32,7 @@ export const createNewUser =
         }
         dispatch({
           type: GET_ERRORS,
-          payload: res.status
+          payload: res.status,
         });
         dispatch({
           type: SET_NEW_USER,
@@ -82,7 +82,7 @@ export const login =
         }
         dispatch({
           type: GET_ERRORS,
-          payload: res.status
+          payload: res.status,
         });
         dispatch({
           type: SET_CURRENT_USER,
@@ -117,6 +117,64 @@ export const logout = (refToken, navigate) => async (dispatch) => {
   });
   dispatch({
     type: GET_ERRORS,
-    payload: {}
+    payload: {},
   });
 };
+
+export const resetPwEmail =
+  (userData, setLoad, setShow, setError) => async (dispatch) => {
+    setLoad(true);
+    await axios
+      .post("http://localhost:8000/api/auth/sendResetPasswordEmail/", userData)
+      .then((res) => {
+        if (res.status === 200) {
+          setLoad(false);
+          setShow(true);
+          setError(res.data.message);
+        }
+        dispatch({
+          type: GET_ERRORS,
+          payload: res.status,
+        });
+      })
+
+      .catch((error) => {
+        setLoad(false);
+        setShow(true);
+        setError(error.response.data);
+
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
+      });
+  };
+
+export const resetPw =
+  (userData, setLoad, setShow, setError) => async (dispatch) => {
+    setLoad(true);
+    await axios
+      .post(`http://localhost:8000/api/auth/resetPassword/`, userData)
+      .then((res) => {
+        if (res.status === 200) {
+          setLoad(false);
+          setShow(true);
+          setError(res.data.message);
+        }
+        dispatch({
+          type: GET_ERRORS,
+          payload: res.status,
+        });
+      })
+
+      .catch((error) => {
+        setLoad(false);
+        setShow(true);
+        setError(error.response.data.message);
+
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
+      });
+  };
