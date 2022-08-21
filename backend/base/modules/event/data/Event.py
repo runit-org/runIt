@@ -14,5 +14,6 @@ class Event(models.Model):
     details = models.TextField(null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
 
+
     def __str__(self):
         return self.title
