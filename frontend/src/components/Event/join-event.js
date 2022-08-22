@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { requestToJoin } from "../../actions/eventActions";
+import { requestToJoin, getAllEvents } from "../../actions/eventActions";
 import Loading from "../SiteElements/loader";
 import { RiAddBoxLine } from "react-icons/ri";
 import ModalItem from "./modal-item";
+import { SearchParam } from "../Utilities/search-param";
 
 function JoinEvent(props) {
   const dispatch = useDispatch();
@@ -13,6 +14,8 @@ function JoinEvent(props) {
   const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
 
+  let pageId = SearchParam();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -20,7 +23,9 @@ function JoinEvent(props) {
       eventId: props.eventId,
     };
 
-    dispatch(requestToJoin(postData, setLoad, setError));
+    dispatch(requestToJoin(postData, setLoad, setError)).then(() => {
+      dispatch(getAllEvents(pageId));
+    });
   };
 
   return (

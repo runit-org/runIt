@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Card, Container } from "react-bootstrap";
 import EventItem from "./Event/event-item";
-import SideNav from "./SiteElements/side-nav";
+import RecentsCard from "./SiteElements/recents-card";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEvents } from "../actions/eventActions";
 import CreatePost from "./Event/create-event";
 import UserProfile from "./user-profile";
 import Pagination from "./SiteElements/pagination";
 import { useSearchParams, useLocation } from "react-router-dom";
-import { SearchParam } from "./search-param";
+import { SearchParam } from "./Utilities/search-param";
 
 function MainDash() {
   const dispatch = useDispatch();
@@ -97,7 +97,7 @@ function MainDash() {
                     .reverse()
                     .map((event) => (
                       <div className="mb-3" key={event.id}>
-                        <SideNav
+                        <RecentsCard
                           eventTitle={event.title}
                           time={event.humanTimeDiffCreatedAt}
                           detail={event.details}
@@ -108,7 +108,7 @@ function MainDash() {
                   eventData
                     .map((event) => (
                       <div className="mb-3" key={event.id}>
-                        <SideNav
+                        <RecentsCard
                           eventTitle={event.title}
                           time={event.humanTimeDiffCreatedAt}
                           detail={event.details}
