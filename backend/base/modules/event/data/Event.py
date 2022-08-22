@@ -14,6 +14,11 @@ class Event(models.Model):
     details = models.TextField(null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
 
+    year = models.IntegerField(null=True, blank=True)
+    month = models.IntegerField(null=True, blank=True)
+    day = models.IntegerField(null=True, blank=True)
+    hour = models.IntegerField(null=True, blank=True)
+    minute = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.title

@@ -11,7 +11,12 @@ def create(request):
         title       = data['title'],
         maxMember   = data['maxMember'],
         userName    = user.username,
-        details     = data['details']
+        details     = data['details'],
+        year        = data['year'],
+        month       = data['month'],
+        day         = data['day'],
+        hour        = data['hour'],
+        minute      = data['minute'],
     )
     serializer = EventSerializer(event, many=False)
 
