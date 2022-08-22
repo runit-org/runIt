@@ -15,7 +15,7 @@ def generateToken(userId, size=10):
     for i in range(0, size): 
         token += random.choice(randomString)
     
-    return str(userId) + '|' + token
+    return str(userId) + '%' + token
 
 def send(request):
     data = request.data
@@ -34,6 +34,8 @@ def send(request):
         resetTokenUrl,
         user.email
     )
+
+    print(token)
 
     return response('Reset password has been sent if email is available on our system')
 
