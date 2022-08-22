@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 function Main() {
   let { token } = useParams();
 
+  console.log(`/reset-password/${encodeURIComponent(token)}`);
   return (
     <>
       <div id="auth-container">

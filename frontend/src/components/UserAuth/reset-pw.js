@@ -21,7 +21,7 @@ function ResetPassword(props) {
     const userData = {
       password: password,
       c_password: c_password,
-      resetToken: props.token,
+      token: props.token,
     };
 
     dispatch(resetPw(userData, setLoad, setShow, setError));
