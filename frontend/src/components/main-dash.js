@@ -49,7 +49,7 @@ function MainDash() {
       <div className="dash-container">
         <div className="content">
           <Container>
-            <div className="post-cards">
+            <div>
               <Card className="create-post-card">
                 <CreatePost />
               </Card>
@@ -79,7 +79,7 @@ function MainDash() {
           </Container>
         </div>
 
-        <div className="post-cards sidebar">
+        <div className=" sidebar">
           <div className="sidebar-wrapper">
             <Card>
               <Card.Body>

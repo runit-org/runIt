@@ -30,7 +30,7 @@ function RemoveEvent(props) {
   };
 
   return (
-    <div className="mb-4">
+    <div>
       <ModalItem
         ref={(ref, btnRef)}
         btnIcon={<AiOutlineDelete />}
