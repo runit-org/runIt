@@ -1,4 +1,4 @@
-import "./App.scss";
+import "./styles/App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-quill/dist/quill.snow.css";
 import store from "./store";

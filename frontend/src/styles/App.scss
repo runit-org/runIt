@@ -1,0 +1,228 @@
+@import "App-pallet.scss";
+@import "Footer.scss";
+@import "Header.scss";
+@import "Auth-forms.scss";
+@import "Dash-cards.scss";
+@import "Responsive.scss";
+
+/*------General Components------*/
+html,
+body {
+  background-color: $secondary-light !important;
+  font-size: 1rem;
+}
+
+:any-link {
+  text-decoration: none;
+}
+
+.titleText {
+  @include title-text($theme, 2px, 800);
+}
+
+.subTitle {
+  @include title-text($primary-dark, normal, 600);
+}
+
+.btn-primary {
+  @include btn-style($theme, $primary-light, none, 600);
+}
+
+.btn-primary:hover {
+  background-color: $button-hover !important;
+  color: $primary-light !important;
+  border: none;
+}
+
+.btn-cancel {
+  @include btn-style(transparent, $primary-dark, none, 600);
+}
+.btn-cancel:hover {
+  @include btn-style(transparent, $theme, none, 600);
+}
+
+/*.btn-primary:hover {
+  background-color: $theme !important;
+  color: $button-hover !important;
+  border: none;
+}*/
+.btn-primary:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-placements {
+  @include btn-style(transparent, $theme, none, 600);
+  padding: 2px 8px 4px 8px !important;
+  margin: 1rem 0 0 0;
+}
+
+.btn-placements:not(:first-child) {
+  margin: 1rem 0 0 1rem;
+}
+
+.postBtn-placements {
+  @include btn-style(transparent, $theme, none, 600);
+  padding: 2px 8px 4px 8px !important;
+  margin: 0 0 0 0.5rem;
+}
+.divider {
+  color: $primary-dark;
+  background-color: $primary-dark;
+  height: 1;
+}
+.centerContent {
+  display: flex;
+  justify-content: center;
+}
+
+.toasts {
+  width: fit-content !important;
+  top: 10px;
+  margin-left: 4px;
+  font-weight: 500;
+}
+
+div.content {
+  padding: 80px 12px;
+  background-color: $secondary-light;
+  height: 100%;
+}
+.recents-div {
+  background-color: $primary-light;
+  padding: 10px 15px 0px 15px;
+  border-radius: 5px;
+  max-width: 18rem;
+}
+.recents-div p {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*------Main Dash------*/
+
+.dash-container {
+  display: flex;
+  flex-direction: row;
+  flex: 0 1 auto;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.dash-container .content {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.sidebar {
+  border-left: 1px solid #e0e0e0;
+  width: 33.33%;
+}
+.sidebar-wrapper {
+  width: 100%;
+  overflow: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding-top: 80px !important;
+}
+.post-cards.sidebar .card:first-child {
+  background-color: $primary-light;
+  border-radius: 5px;
+}
+.post-cards.sidebar .card:last-child {
+  background-color: transparent;
+  border: none;
+}
+
+/*------Off-Canvas------*/
+.offcanvas-backdrop.show {
+  opacity: 0.3 !important;
+}
+.offcanvas-header {
+  background-color: $primary-light;
+  color: $theme;
+  padding: 20px 30px !important;
+}
+.offcanvas-body {
+  background-color: $primary-light;
+  padding: 0 !important;
+}
+
+/*------Modal------*/
+.modal-header {
+  border-top-right-radius: 20px !important;
+  border-top-left-radius: 20px !important;
+  border-color: transparent !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.modal-title {
+  color: red;
+  font-size: 2.5rem !important;
+}
+.modal-body h4 {
+  color: $primary-dark;
+  font-weight: bold !important;
+}
+.modal-content {
+  border-radius: 20px !important;
+}
+
+.modal-body {
+  font-size: 1rem;
+  color: rgb(107 114 128);
+}
+
+/*------Image/Logo------*/
+.userProf-img {
+  width: 45px;
+  border-radius: 5px !important;
+  padding: 5px;
+  background-color: $secondary-dark;
+}
+
+.recents-Logo {
+  width: 30px;
+  border-radius: 12px;
+  padding: 5px;
+  background-color: $secondary-dark;
+}
+
+/*------pagination------*/
+.pagination #pagi-container {
+  width: fit-content;
+  background-color: $theme-light;
+  border-radius: 10px;
+  padding: 0;
+}
+
+.pagination .page-link {
+  color: $secondary-dark !important;
+  background-color: transparent !important;
+  border: none;
+  font-weight: 500;
+  border-radius: 0 !important;
+}
+
+.pagination #prev {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+.pagination #next {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: $theme !important;
+  color: $primary-light !important;
+}
+
+.pagination .page-link:hover {
+  background-color: $theme !important;
+  color: $primary-light !important;
+}

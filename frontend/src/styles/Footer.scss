@@ -1,0 +1,30 @@
+@import "App-pallet.scss";
+
+/*------Footer------*/
+.footer {
+  background-color: $theme-light;
+  width: 100%;
+}
+.footer-container {
+  padding: 20px;
+}
+.footer-logo {
+  text-align: start;
+}
+.footer-links {
+  text-align: end;
+}
+.footer-links > span > a {
+  color: $primary-dark;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.footer-links > span > a:hover {
+  color: $theme;
+  text-decoration: underline;
+}
