@@ -1,0 +1,38 @@
+/*------Header Nav------*/
+.navbar {
+  @include header-footer-font(0.875rem, sans-serif, 600);
+  border-bottom: 2px solid rgba($secondary-dark, 0.1);
+}
+
+.navbar-brand {
+  color: $theme !important;
+}
+@import "App-pallet.scss";
+
+.navbar-nav .nav-link {
+  color: $primary-dark !important;
+}
+
+.navbar-nav .nav-link:hover {
+  color: $theme !important;
+}
+
+.navbar .container {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.dropdown-menu {
+  background-color: $secondary-dark !important;
+}
+
+a.dropdown-item:hover {
+  background-color: transparent;
+  color: $theme !important;
+}
+
+.header-blur {
+  background-color: rgba($theme-light, 0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}

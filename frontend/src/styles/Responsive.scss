@@ -1,0 +1,19 @@
+@import "App-pallet.scss";
+
+/*------Resposive------*/
+
+@media only screen and (max-width: 640px) {
+  .login-card.card {
+    width: 100% !important;
+  }
+  .footer-links,
+  .footer-logo {
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+}

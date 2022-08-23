@@ -1,0 +1,29 @@
+/*------Color Pallet------*/
+$theme: #5865f2;
+$theme-light: #eaebfd;
+$primary-light: #ffffff;
+$secondary-light: #f6f6f6;
+$primary-dark: #2c2f33;
+$secondary-dark: #23272a;
+$button-hover: #404eed;
+
+/*------Mixin------*/
+//Button
+@mixin btn-style($bgColor, $color, $border, $fw) {
+  background-color: $bgColor !important;
+  color: $color !important;
+  border: $border !important;
+  font-weight: $fw !important;
+}
+
+@mixin title-text($color, $ltrspace, $fw) {
+  color: $color !important;
+  letter-spacing: $ltrspace !important;
+  font-weight: $fw !important;
+}
+
+@mixin header-footer-font($fntSize, $fntFam, $fntW) {
+  font-size: $fntSize;
+  font-family: $fntFam;
+  font-weight: $fntW;
+}

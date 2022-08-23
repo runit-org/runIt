@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Card, Form, Button, FloatingLabel, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { resetPw } from "../../actions/securityActions";
+import { resetPwEmail } from "../../actions/securityActions";
 import { Link } from "react-router-dom";
 import Loading from "../SiteElements/loader";
 import ErrorToast from "../SiteElements/error-toast";
 
-function ResetPassword(props) {
+function ResetPasswordEmail() {
   const dispatch = useDispatch();
-  const [c_password, set_c_Password] = useState({});
-  const [password, setPassword] = useState({});
+  const [email, setEmail] = useState({});
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
@@ -17,27 +16,24 @@ function ResetPassword(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const userData = {
-      password: password,
-      c_password: c_password,
-      token: props.token,
+      email: email,
     };
 
-    dispatch(resetPw(userData, setLoad, setShow, setError));
+    dispatch(resetPwEmail(userData, setLoad, setShow, setError));
   };
 
   useEffect(() => {
     setFormSwitch(load);
   }, [load]);
 
-  let errorVariant = {
-    background: "#FFD2D2",
-    color: "#D8000C",
+  let successVariant = {
+    background: "#DFF2BF",
+    color: "#4F8A10",
   };
   return (
     <>
-      <ErrorToast errors={error} showToast={show} variant={errorVariant} />
+      <ErrorToast errors={error} showToast={show} variant={successVariant} />
 
       <Card className="p-5 login-card" style={{ width: "28rem" }}>
         <fieldset disabled={formSwitch}>
@@ -50,28 +46,18 @@ function ResetPassword(props) {
               <span>Reset Password</span>
             </h4>
             <hr className="divider" />
-            <Form.Label className="text-muted">Password</Form.Label>
-            <Form.Group className="mb-3" controlId="password">
-              <FloatingLabel controlId="password" label="Password">
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </FloatingLabel>
-            </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label className="text-muted">Confirm Password</Form.Label>
+            <Form.Label className="text-muted">Email</Form.Label>
+            <Form.Group className="mb-3" controlId="formBasicEmail2">
               <FloatingLabel
-                controlId="confirmPassword"
-                label="Confirm Password"
+                controlId="floatingInput2"
+                label="Email"
+                className="mb-3"
               >
                 <Form.Control
-                  type="password"
-                  placeholder="Confirm Password"
-                  onChange={(e) => set_c_Password(e.target.value)}
+                  type="email"
+                  placeholder="Email"
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </FloatingLabel>
@@ -100,4 +86,4 @@ function ResetPassword(props) {
   );
 }
 
-export default ResetPassword;
+export default ResetPasswordEmail;

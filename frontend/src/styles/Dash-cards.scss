@@ -1,0 +1,62 @@
+@import "App-pallet.scss";
+
+/*------Dash Cards------*/
+.new-post-container {
+  color: $primary-dark;
+  border-radius: 5px;
+}
+
+.new-post-container .form-floating > .form-control {
+  color: $primary-dark;
+}
+
+.new-post-container .form-floating > .form-control:focus {
+  border: 1px solid $theme;
+  box-shadow: none !important;
+  /* background-color: transparent; */
+}
+
+.new-post-container .form-floating > .form-control {
+  border: 1px solid rgba($primary-dark, 0.1);
+  background-color: rgb(240, 240, 240) !important;
+}
+
+.new-post-container :is(.ql-container.ql-snow, .ql-toolbar.ql-snow) {
+  border: 1px solid rgba($primary-dark, 0.1);
+  background-color: rgb(240, 240, 240) !important;
+}
+
+.new-post-container
+  :is(.ql-snow .ql-picker, .ql-toolbar .ql-stroke, .ql-picker-options) {
+  color: $primary-dark;
+}
+
+.new-post-container
+  :is(.ql-toolbar .ql-stroke, .ql-toolbar .ql-fill, .ql-toolbar .ql-picker) {
+  fill: none;
+  stroke: $primary-dark;
+}
+
+.post-cards .create-post-card {
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+  border-radius: 0 !important;
+}
+.post-cards .card {
+  background-color: $primary-light;
+  border-radius: 5px;
+  margin: 20px;
+}
+
+.post-cards .card-header {
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  padding: 0;
+  display: inline;
+}
+
+/* .event-owned {
+  border: 1px solid $theme !important;
+} */

@@ -110,7 +110,7 @@ function Login() {
             </div>
             <Row className="mt-3">
               <Col className="text-center">
-                <Link to="/reset-password">Forgot Password?</Link>
+                <Link to="/reset-password-auth">Forgot Password?</Link>
               </Col>
             </Row>
           </Form>

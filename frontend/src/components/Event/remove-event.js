@@ -5,7 +5,7 @@ import { removeEvent, getAllEvents } from "../../actions/eventActions";
 import Loading from "../SiteElements/loader";
 import { AiOutlineDelete } from "react-icons/ai";
 import ModalItem from "./modal-item";
-import { SearchParam } from "../search-param";
+import { SearchParam } from "../Utilities/search-param";
 import { useNavigate } from "react-router-dom";
 
 function RemoveEvent(props) {
