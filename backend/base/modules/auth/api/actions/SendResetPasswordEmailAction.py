@@ -15,7 +15,7 @@ def generateToken(userId, size=10):
     for i in range(0, size): 
         token += random.choice(randomString)
     
-    return str(userId) + '%' + token
+    return str(userId) + 'Z' + token
 
 def send(request):
     data = request.data
