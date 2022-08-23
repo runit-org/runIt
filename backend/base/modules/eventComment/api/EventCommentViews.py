@@ -2,10 +2,12 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from base.modules.eventComment.api.validators import (
     CreateEventCommentValidator,
+    UpdateEventCommentValidator,
 )
 from base.modules.eventComment.api.actions import (
     ViewCommentFromEventAction, 
     CreateEventCommentAction,
+    UpdateEventCommentAction,
 )
 
 @api_view(['POST'])
@@ -21,3 +23,10 @@ def createComment(request, eventId):
 def viewEventComments(request, eventId):
     return ViewCommentFromEventAction.view(request, eventId)
 
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateComment(request, commentId):
+    if (UpdateEventCommentValidator.validate(request) != None):
+        return UpdateEventCommentValidator.validate(request)
+
+    return UpdateEventCommentAction.update(request, commentId)

@@ -35,6 +35,7 @@ urlpatterns = [
 
     path('event/comment/show/<str:eventId>/', EventCommentViews.viewEventComments, name="get_event_comments"),
     path('event/comment/create/<str:eventId>/', EventCommentViews.createComment, name="create_event_comment"),
+    path('event/comment/update/<str:commentId>/', EventCommentViews.updateComment, name="update_event_comment"),
 
     path('notifications/all/', NotificationViews.index, name="user_notification"),
     path('notifications/read/<str:pk>/', NotificationViews.read, name="read_notification"),
