@@ -1,7 +1,7 @@
 from base.models import Event, User, EventComment, EventMember
 from base.serializers import EventCommentSerializer
 from base.views.baseViews import response, error, paginate
-from base.enums import PaginationSizes, EventMemberStatus
+from base.enums import EventMemberStatus
 
 def checkEventId(id):
     checkEventExist = Event.objects.filter(id = id)
@@ -21,7 +21,7 @@ def checkEventMemberStatus(eventId, userId):
         # return -1 if no event-member record exist
         return -1
 
-def view(request, eventId):
+def create(request, eventId):
     data = request.data
     user = request.user
 
@@ -32,10 +32,15 @@ def view(request, eventId):
 
     if event.user != user:
         if checkEventMemberStatus(eventId, user.id) != EventMemberStatus.get.ACCEPTED.value:
-            return error('Can only view comments as an accepted member of an event')
+            return error('Can only create comments as an accepted member of an event')
     
-    eventComments = EventComment.objects.filter(event=event).order_by('-createdAt')
+    eventComment = EventComment.objects.create(
+        event = event,
+        user = user,
+        content = data['content'],
+    )
+    serializer = EventCommentSerializer(eventComment, many=False)
 
-    return paginate(request, eventComments, EventCommentSerializer, PaginationSizes.get.S.value)
+    return response('Comment created', serializer.data)
 
     

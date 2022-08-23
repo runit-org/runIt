@@ -7,5 +7,7 @@ class EventComment(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     content = models.CharField(max_length=200, null=True, blank=True)
 
+    createdAt = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.id

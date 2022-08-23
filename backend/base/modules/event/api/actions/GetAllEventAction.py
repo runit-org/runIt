@@ -24,9 +24,9 @@ def filter(request):
 
     if filterField != '':
         filterFieldContains = filterField + '__icontains'
-        return Event.objects.filter(**{filterFieldContains: filterValue})
+        return Event.objects.filter(**{filterFieldContains: filterValue}).order_by('-createdAt')
     else:
-        return Event.objects.all()
+        return Event.objects.order_by('-createdAt')
 
 def all(request):
     events = filter(request)
