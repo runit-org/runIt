@@ -8,6 +8,7 @@ from base.modules.eventComment.api.actions import (
     ViewCommentFromEventAction, 
     CreateEventCommentAction,
     UpdateEventCommentAction,
+    DeleteEventCommentAction,
 )
 
 @api_view(['POST'])
@@ -30,3 +31,8 @@ def updateComment(request, commentId):
         return UpdateEventCommentValidator.validate(request)
 
     return UpdateEventCommentAction.update(request, commentId)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteComment(request, commentId):
+    return DeleteEventCommentAction.delete(request, commentId)
