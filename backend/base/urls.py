@@ -1,5 +1,6 @@
 from django.urls import path
 from base.modules.event.api import EventViews
+from base.modules.eventComment.api import EventCommentViews
 from base.modules.notification.api import NotificationViews
 from base.modules.user.api import UserViews
 from base.modules.auth.api import AuthViews
@@ -31,6 +32,8 @@ urlpatterns = [
     path('event/member/requestJoin/', EventViews.requestJoinEvent, name="request_join_event"),
     path('event/member/getMembers/<str:pk>/', EventViews.getEventMembers, name="get_event_members"),
     path('event/member/changeStatus/', EventViews.changeEventMemberStatus, name="approve_member_request"),
+
+    path('event/comment/<str:eventId>/', EventCommentViews.viewEventComments, name="get_event_comments"),
 
     path('notifications/all/', NotificationViews.index, name="user_notification"),
     path('notifications/read/<str:pk>/', NotificationViews.read, name="read_notification"),
