@@ -36,6 +36,7 @@ def view(request, eventId):
     
     eventComments = EventComment.objects.filter(event=event).order_by('-createdAt')
 
-    return paginate(request, eventComments, EventCommentSerializer, PaginationSizes.get.S.value)
+    context = {'userId' : request.user.id}
+    return paginate(request, eventComments, EventCommentSerializer, PaginationSizes.get.S.value, context)
 
     
