@@ -9,6 +9,7 @@ from base.modules.eventComment.api.actions import (
     CreateEventCommentAction,
     UpdateEventCommentAction,
     DeleteEventCommentAction,
+    LikeUnlikeEventCommentAction,
 )
 
 @api_view(['POST'])
@@ -36,3 +37,8 @@ def updateComment(request, commentId):
 @permission_classes([IsAuthenticated])
 def deleteComment(request, commentId):
     return DeleteEventCommentAction.delete(request, commentId)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def likeOrUnlike(request, commentId):
+    return LikeUnlikeEventCommentAction.update(request, commentId)
