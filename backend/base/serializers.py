@@ -9,3 +9,5 @@ from base.modules.event.api.serializers.AllEventSerializer import AllEventSerial
 from base.modules.notification.api.serializers.NotificationSerializer import NotificationSerializer
 
 from base.modules.user.api.serializers.UserSerializer import UserSerializer
+
+from base.modules.eventComment.api.serializers.EventCommentSerializer import EventCommentSerializer

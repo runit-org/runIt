@@ -11,10 +11,10 @@ from datetime import datetime, timezone
 def reset(request):
     data = request.data
 
-    if '%' not in data['token']:
+    if 'Z' not in data['token']:
         return error('Invalid token')
 
-    tokenString = data['token'].split('%')
+    tokenString = data['token'].split('Z')
     userId = tokenString[0]
     token = tokenString[1]
 
