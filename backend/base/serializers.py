@@ -11,3 +11,4 @@ from base.modules.notification.api.serializers.NotificationSerializer import Not
 from base.modules.user.api.serializers.UserSerializer import UserSerializer
 
 from base.modules.eventComment.api.serializers.EventCommentSerializer import EventCommentSerializer
+from base.modules.eventComment.api.serializers.AllEventCommentSerializer import AllEventCommentSerializer
