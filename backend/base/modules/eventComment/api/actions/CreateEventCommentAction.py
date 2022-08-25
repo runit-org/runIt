@@ -2,6 +2,7 @@ from base.models import Event, User, EventComment, EventMember
 from base.serializers import EventCommentSerializer
 from base.views.baseViews import response, error, paginate
 from base.enums import EventMemberStatus
+from base.traits import NotifyUser
 
 def checkEventId(id):
     checkEventExist = Event.objects.filter(id = id)
@@ -40,6 +41,10 @@ def create(request, eventId):
         content = data['content'],
     )
     serializer = EventCommentSerializer(eventComment, many=False)
+
+    eventCreatorUserId = event.user.id
+    notificationMessage = 'User <b>' + user.username + '</b> commented on your event ' + '<b>' + event.title + '</b>'
+    NotifyUser.notify(eventCreatorUserId, notificationMessage)
 
     return response('Comment created', serializer.data)
 

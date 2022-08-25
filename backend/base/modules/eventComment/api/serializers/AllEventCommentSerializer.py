@@ -5,8 +5,14 @@ from base.traits import GetHumanTimeDifferenceToNow
 
 from datetime import datetime
 
-class EventCommentSerializer(serializers.ModelSerializer):
+def checkCommentLikeExist(comment, user):
+    if len(EventCommentLike.objects.filter(eventComment=comment, user=user)) > 0:
+        return True
+    return False
+
+class AllEventCommentSerializer(serializers.ModelSerializer):
     humanTimeDiffCreatedAt = serializers.SerializerMethodField(read_only=True)
+    likeStatus = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = EventComment
@@ -14,3 +20,8 @@ class EventCommentSerializer(serializers.ModelSerializer):
 
     def get_humanTimeDiffCreatedAt(self, obj):
         return GetHumanTimeDifferenceToNow.get(obj.createdAt)
+
+    def get_likeStatus(self, obj):
+        authUserId = self.context.get('userId')
+        user = User.objects.get(id=authUserId)
+        return checkCommentLikeExist(obj, user)
