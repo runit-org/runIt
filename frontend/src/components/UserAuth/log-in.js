@@ -22,9 +22,13 @@ function Login() {
 
   useEffect(() => {
     if (state) {
-      const { id } = state;
-      setSignupData(id.userData.data.username);
-      setUsername(id.userData.data.username);
+      const { id, status } = state;
+      if (id) {
+        setSignupData(id.userData.data.username);
+        setUsername(id.userData.data.username);
+      } else if (status) {
+        console.log(status);
+      }
     }
   }, [state]);
 

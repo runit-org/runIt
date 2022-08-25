@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Card, Form, Button, FloatingLabel, Row, Col } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { resetPw } from "../../actions/securityActions";
 import { Link } from "react-router-dom";
 import Loading from "../SiteElements/loader";
 import ErrorToast from "../SiteElements/error-toast";
+import { useNavigate } from "react-router-dom";
 
 function ResetPassword(props) {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
+
   const [c_password, set_c_Password] = useState({});
   const [password, setPassword] = useState({});
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
+
+  var errorStatus = useSelector((errorReducer) => errorReducer.errors);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +33,15 @@ function ResetPassword(props) {
   };
 
   useEffect(() => {
+    if (errorStatus && errorStatus.status === 200) {
+      navigate("/", {
+        replace: true,
+        state: { status: errorStatus.data.message },
+      });
+    }
+  }, [navigate, errorStatus]);
+
+  useEffect(() => {
     setFormSwitch(load);
   }, [load]);
 
@@ -35,6 +49,7 @@ function ResetPassword(props) {
     background: "#FFD2D2",
     color: "#D8000C",
   };
+
   return (
     <>
       <ErrorToast errors={error} showToast={show} variant={errorVariant} />

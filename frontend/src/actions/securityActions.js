@@ -163,7 +163,7 @@ export const resetPw =
         }
         dispatch({
           type: GET_ERRORS,
-          payload: res.status,
+          payload: res,
         });
       })
 
