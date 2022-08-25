@@ -2,6 +2,7 @@ from base.models import Event, User, EventComment, EventMember
 from base.serializers import EventCommentSerializer
 from base.views.baseViews import response, error, paginate
 from base.enums import EventMemberStatus
+from base.traits import NotifyUser
 
 def checkEventId(id):
     checkEventExist = Event.objects.filter(id = id)
@@ -20,6 +21,24 @@ def checkEventMemberStatus(eventId, userId):
     else:
         # return -1 if no event-member record exist
         return -1
+
+def mention(event, content, user):
+    characters = content.split(' ')
+    for i in characters:
+        targetUsername = ''
+        if i[0] == '@':
+            targetUsername = i[1:]
+
+        # Check if the mentioned user exist in the database first
+        if len(User.objects.filter(username = targetUsername)) > 0:
+            targetUser = User.objects.get(username = targetUsername)
+
+            checkIfTargetUserIsMember = EventMember.objects.filter(eventId = event.id, userId = targetUser.id, status = EventMemberStatus.get.ACCEPTED.value)
+            # Then check if the mentioned user is an ACCEPTED member of the current event OR is the event's creator
+            if len(checkIfTargetUserIsMember) > 0 or targetUser == event.user:
+                notificationMessage = 'User <b>' + user.username + '</b> mentioned you in a comment on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
+                NotifyUser.notify(targetUser.id, notificationMessage)
+
 
 def create(request, eventId):
     data = request.data
@@ -40,6 +59,12 @@ def create(request, eventId):
         content = data['content'],
     )
     serializer = EventCommentSerializer(eventComment, many=False)
+
+    eventCreatorUserId = event.user.id
+    notificationMessage = 'User <b>' + user.username + '</b> commented on your event ' + '<b>' + event.title + '</b>'
+    NotifyUser.notify(eventCreatorUserId, notificationMessage)
+
+    mention(event, data['content'], user)
 
     return response('Comment created', serializer.data)
 

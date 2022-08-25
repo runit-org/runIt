@@ -1,5 +1,5 @@
 from base.models import Event, User, EventComment, EventMember
-from base.serializers import EventCommentSerializer
+from base.serializers import AllEventCommentSerializer
 from base.views.baseViews import response, error, paginate
 from base.enums import PaginationSizes, EventMemberStatus
 
@@ -37,6 +37,6 @@ def view(request, eventId):
     eventComments = EventComment.objects.filter(event=event).order_by('-createdAt')
 
     context = {'userId' : request.user.id}
-    return paginate(request, eventComments, EventCommentSerializer, PaginationSizes.get.S.value, context)
+    return paginate(request, eventComments, AllEventCommentSerializer, PaginationSizes.get.S.value, context)
 
     
