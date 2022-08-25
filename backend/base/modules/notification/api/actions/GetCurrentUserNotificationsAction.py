@@ -36,9 +36,9 @@ def filter(request):
 
     if filterField != '':
         filterFieldContains = filterField + '__icontains'
-        return Notification.objects.filter(**{filterFieldContains: enumValue}, userId = user.id)
+        return Notification.objects.filter(**{filterFieldContains: enumValue}, userId = user.id).order_by('-createdAt')
     else:
-        return Notification.objects.filter(userId = user.id)
+        return Notification.objects.filter(userId = user.id).order_by('-createdAt')
 
 def get(request):
     notifications = filter(request)
