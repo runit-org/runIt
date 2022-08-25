@@ -52,7 +52,7 @@ function EventMembers(props) {
   };
 
   return (
-    <div className="mb-4">
+    <div>
       <ModalItem
         parentCallback={handler}
         ref={ref}

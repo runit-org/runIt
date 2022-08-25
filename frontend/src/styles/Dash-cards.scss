@@ -13,7 +13,6 @@
 .new-post-container .form-floating > .form-control:focus {
   border: 1px solid $theme;
   box-shadow: none !important;
-  /* background-color: transparent; */
 }
 
 .new-post-container .form-floating > .form-control {
@@ -37,26 +36,55 @@
   stroke: $primary-dark;
 }
 
-.post-cards .create-post-card {
+.create-post-card.card {
   background-color: transparent !important;
   border: none !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
   border-radius: 0 !important;
 }
-.post-cards .card {
+.event-card {
   background-color: $primary-light;
   border-radius: 5px;
   margin: 20px;
 }
 
-.post-cards .card-header {
+.event-card .card-header {
   background-color: transparent;
   border: none;
   border-radius: 5px;
-  padding: 0;
-  display: inline;
+  padding: 1rem 1rem;
+  // display: inline;
 }
 
-/* .event-owned {
-  border: 1px solid $theme !important;
+.event-card .card-body {
+  padding-top: 0;
+}
+
+.editor-card {
+  margin: 20px;
+}
+.editor-card .card-header {
+  background-color: transparent !important;
+  padding: 1rem 1rem;
+  border: none;
+}
+
+.editor-card .card-body {
+  padding-top: 0;
+}
+
+.dropdown-toggle.btn {
+  padding: 0;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+}
+
+.dropdown-toggle::after {
+  border: none !important;
+  vertical-align: 0;
+}
+
+/* .dropdown-menu.show {
+  transform: translate3d(-100px, 27px, 0px) !important;
 } */

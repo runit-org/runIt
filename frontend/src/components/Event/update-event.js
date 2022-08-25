@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Col, Row, Card, Form, FloatingLabel } from "react-bootstrap";
+import { Card, Form } from "react-bootstrap";
 import img from "../../logo192.png";
 import ReactQuill from "react-quill";
 import { updateEvent, getAllEvents } from "../../actions/eventActions";
@@ -39,61 +39,43 @@ function UpdateEvent(props, { handleUpate }) {
         handleSubmit(e);
       }}
     >
-      {" "}
       <Card className={props.cardStyle}>
+        <Card.Header>
+          <div className="d-flex">
+            <img src={img} className="userProf-img me-2" alt="Img" />
+            <div className="me-auto">
+              <Form.Group className="d-flex">
+                <Form.Control
+                  className="me-2"
+                  type="title"
+                  placeholder="Event Title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                />
+
+                <Form.Control
+                  type="number"
+                  placeholder="Maximum Members"
+                  value={maxMembers || ""}
+                  onChange={(e) => setMaxMembers(parseInt(e.target.value))}
+                  min="2"
+                  required
+                />
+              </Form.Group>
+            </div>
+            <div>
+              <CTAButton
+                type={""}
+                btnStyle={"postBtn-placements"}
+                variant={"primary"}
+                onClick={props.handleUpate}
+                placeholder={<RiCloseFill />}
+              />
+            </div>
+          </div>
+        </Card.Header>
         <Card.Body>
-          <Card.Header>
-            {" "}
-            <Row>
-              <Col lg={1}>
-                <img src={img} className="userProf-img" alt="Img"></img>
-              </Col>
-              <Col md="auto">
-                <Form.Group className="mb d-inline-flex">
-                  <FloatingLabel
-                    controlId="floatingInput"
-                    label="Event Title"
-                    className="mb-3"
-                  >
-                    <Form.Control
-                      type="title"
-                      placeholder="Event Title"
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                      required
-                    />
-                  </FloatingLabel>
-
-                  <FloatingLabel
-                    controlId="floatingInput2"
-                    label="Maximum Members"
-                    className="mb-3"
-                  >
-                    <Form.Control
-                      type="number"
-                      placeholder="Maximum Members"
-                      value={maxMembers || ""}
-                      onChange={(e) => setMaxMembers(parseInt(e.target.value))}
-                      min="2"
-                      required
-                    />
-                  </FloatingLabel>
-                </Form.Group>
-              </Col>
-              <Col className="text-end d-flex justify-content-end">
-                <div>
-                  <CTAButton
-                    type={""}
-                    btnStyle={"postBtn-placements"}
-                    variant={"primary"}
-                    onClick={props.handleUpate}
-                    placeholder={<RiCloseFill />}
-                  />
-                </div>
-              </Col>
-            </Row>
-          </Card.Header>
-
           <ReactQuill
             modules={quillSetting[1]}
             formats={quillSetting[0]}

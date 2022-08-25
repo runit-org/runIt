@@ -22,7 +22,7 @@ const ModalItem = React.forwardRef(
     });
 
     return (
-      <div className="mb-4" ref={r}>
+      <div ref={r}>
         <CTAButton
           type={""}
           btnStyle={"postBtn-placements"}
