@@ -50,8 +50,7 @@ function EventItem(props) {
                   <strong> {props.eventData.humanTimeDiffCreatedAt} ago</strong>
                 </small>
               </div>
-
-              {joined ? (
+              {/*  {joined ? (
                 <div className="me-2">
                   <Badge bg="success">Joined</Badge>
                 </div>
@@ -65,8 +64,8 @@ function EventItem(props) {
                 </div>
               ) : (
                 ""
-              )}
-              <Dropdown>
+              )} */}
+              {/* <Dropdown>
                 <Dropdown.Toggle variant="light" size="sm" id="dropdown-basic">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -109,8 +108,8 @@ function EventItem(props) {
                     })}
                   </Dropdown.Menu>
                 )}
-              </Dropdown>
-              {/* {currentUser === props.eventData.user ? (
+              </Dropdown> */}
+              {currentUser === props.eventData.user ? (
                 <>
                   <RemoveEvent
                     eventId={props.eventData.id}
@@ -134,12 +133,12 @@ function EventItem(props) {
                 />
               ) : (
                 ""
-              )} */}
-              {/*  <EventMembers
+              )}
+              <EventMembers
                 eventId={props.eventData.id}
                 userId={props.eventData.user}
                 currentUser={currentUser}
-              />{" "} */}
+              />{" "}
             </div>
           </Card.Header>
           <Card.Body>
