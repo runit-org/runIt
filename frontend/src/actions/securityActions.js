@@ -21,18 +21,17 @@ export const getUsers = () => async (dispatch) => {
 };
 
 export const createNewUser =
-  (userData, setLoad, setShow, setError) => async (dispatch) => {
+  (userData, setLoad, setShow) => async (dispatch) => {
     setLoad(true);
     await axios
       .post("http://localhost:8000/api/auth/register/", userData)
       .then((res) => {
-        if (res.data.success === "true") {
+        if (res.status === 200) {
           setShow(true);
-          setError(res.data);
         }
         dispatch({
           type: GET_ERRORS,
-          payload: res.status,
+          payload: res,
         });
         dispatch({
           type: SET_NEW_USER,
@@ -43,20 +42,19 @@ export const createNewUser =
       .catch((error) => {
         setLoad(false);
         setShow(true);
-        setError(error.response.data);
         dispatch({
           type: SET_NEW_USER,
           payload: {},
         });
         dispatch({
           type: GET_ERRORS,
-          payload: error.response.data,
+          payload: error.response,
         });
       });
   };
 
 export const login =
-  (LoginRequest, navigate, setLoad, setShow, setError) => async (dispatch) => {
+  (LoginRequest, navigate, setLoad, setShow) => async (dispatch) => {
     //post => login request
     setLoad(true);
     await axios
@@ -82,7 +80,7 @@ export const login =
         }
         dispatch({
           type: GET_ERRORS,
-          payload: res.status,
+          payload: res,
         });
         dispatch({
           type: SET_CURRENT_USER,
@@ -92,10 +90,9 @@ export const login =
       .catch((error) => {
         setLoad(false);
         setShow(true);
-        setError(error.response.data.detail);
         dispatch({
           type: GET_ERRORS,
-          payload: error.response.data,
+          payload: error.response,
         });
       });
   };
@@ -122,7 +119,7 @@ export const logout = (refToken, navigate) => async (dispatch) => {
 };
 
 export const resetPwEmail =
-  (userData, setLoad, setShow, setError) => async (dispatch) => {
+  (userData, setLoad, setShow) => async (dispatch) => {
     setLoad(true);
     await axios
       .post("http://localhost:8000/api/auth/sendResetPasswordEmail/", userData)
@@ -130,36 +127,6 @@ export const resetPwEmail =
         if (res.status === 200) {
           setLoad(false);
           setShow(true);
-          setError(res.data.message);
-        }
-        dispatch({
-          type: GET_ERRORS,
-          payload: res.status,
-        });
-      })
-
-      .catch((error) => {
-        setLoad(false);
-        setShow(true);
-        setError(error.response.data);
-
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-      });
-  };
-
-export const resetPw =
-  (userData, setLoad, setShow, setError) => async (dispatch) => {
-    setLoad(true);
-    await axios
-      .post(`http://localhost:8000/api/auth/resetPassword/`, userData)
-      .then((res) => {
-        if (res.status === 200) {
-          setLoad(false);
-          setShow(true);
-          setError(res.data.message);
         }
         dispatch({
           type: GET_ERRORS,
@@ -170,11 +137,36 @@ export const resetPw =
       .catch((error) => {
         setLoad(false);
         setShow(true);
-        setError(error.response.data.message);
 
         dispatch({
           type: GET_ERRORS,
-          payload: error.response.data,
+          payload: error.response,
         });
       });
   };
+
+export const resetPw = (userData, setLoad, setShow) => async (dispatch) => {
+  setLoad(true);
+  await axios
+    .post(`http://localhost:8000/api/auth/resetPassword/`, userData)
+    .then((res) => {
+      if (res.status === 200) {
+        setLoad(false);
+        setShow(true);
+      }
+      dispatch({
+        type: GET_ERRORS,
+        payload: res,
+      });
+    })
+
+    .catch((error) => {
+      setLoad(false);
+      setShow(true);
+
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response,
+      });
+    });
+};

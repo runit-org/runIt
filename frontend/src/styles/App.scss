@@ -81,6 +81,13 @@ body {
   top: 10px;
   margin-left: 4px;
   font-weight: 500;
+  background-color: $primary-light !important;
+  border: none !important;
+}
+
+.toasts-icon {
+  padding: 2px;
+  border-radius: 0.25rem;
 }
 
 div.content {

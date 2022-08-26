@@ -5,6 +5,7 @@ import { createNewUser } from "../../actions/securityActions";
 import Loading from "../SiteElements/loader";
 import ErrorToast from "../SiteElements/error-toast";
 import { useNavigate } from "react-router-dom";
+import { MsgToast } from "../SiteElements/msg-toast";
 
 function SignUp() {
   let navigate = useNavigate();
@@ -16,19 +17,18 @@ function SignUp() {
   const [c_password, setc_Password] = useState({});
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
-  const [error, setError] = useState("");
   const [signUpStatus, setSignUpStatus] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
 
-  var newUserStatus = useSelector(
-    (securityReducer) => securityReducer.security
-  );
+  var apiStatus = useSelector((securityReducer) => securityReducer.security);
+
+  console.log(apiStatus);
 
   useEffect(() => {
-    if (newUserStatus.userData) {
-      setSignUpStatus(newUserStatus.userData.success);
+    if (apiStatus.userData) {
+      setSignUpStatus(apiStatus.userData.success);
     }
-  }, [newUserStatus]);
+  }, [apiStatus]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,33 +41,28 @@ function SignUp() {
       c_password: c_password,
     };
 
-    dispatch(createNewUser(userData, setLoad, setShow, setError));
+    dispatch(createNewUser(userData, setLoad, setShow));
   };
 
   useEffect(() => {
     if (signUpStatus === "true" && signUpStatus !== undefined) {
       setTimeout(() => {
-        navigate("/", { replace: true, state: { id: newUserStatus } });
+        navigate("/", { replace: true, state: { id: apiStatus } });
       }, 1000);
     } else {
       setFormSwitch(false);
     }
-  }, [signUpStatus, navigate, newUserStatus]);
+  }, [signUpStatus, navigate, apiStatus]);
 
-  let successVariant = {
-    background: "#DFF2BF",
-    color: "#4F8A10",
-  };
-  let errorVariant = {
-    background: "#FFD2D2",
-    color: "#D8000C",
-  };
   return (
     <>
       <ErrorToast
-        errors={error.message}
         showToast={show}
-        variant={signUpStatus === "true" ? successVariant : errorVariant}
+        variant={
+          signUpStatus === "true"
+            ? MsgToast().successVariant
+            : MsgToast().errorVariant
+        }
       />
 
       <Card className="p-5 login-card">

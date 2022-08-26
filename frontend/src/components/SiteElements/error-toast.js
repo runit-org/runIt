@@ -4,24 +4,41 @@ import { useSelector } from "react-redux";
 
 function ErrorToast(props) {
   const [show, setShow] = useState(props.showToast);
+  const [msg, setMsg] = useState("");
 
-  const reducer = useSelector((securityReducer) => securityReducer)
+  const reducer = useSelector((securityReducer) => securityReducer);
 
   useEffect(() => {
     setShow(props.showToast);
-  }, [props.showToast,reducer ]);
+    if (reducer.errors.data) {
+      if (reducer.errors.data.detail) {
+        setMsg(reducer.errors.data.detail);
+      } else if (reducer.errors.data.message) {
+        setMsg(reducer.errors.data.message);
+      }
+    }
+  }, [props.showToast, reducer]);
 
   return (
     <div xs={6}>
       <Toast
         className="toasts position-absolute"
-        style={props.variant}
         onClose={() => setShow(false)}
         show={show}
         delay={3000}
         autohide
       >
-        <Toast.Body>{props.errors}</Toast.Body>
+        <Toast.Body>
+          <div className="d-flex align-items-center">
+            <div
+              style={props.variant}
+              className="d-inline-flex align-items-center justify-content-center toasts-icon"
+            >
+              {props.variant.icon}
+            </div>
+            <div className="ms-2">{msg}</div>
+          </div>
+        </Toast.Body>
       </Toast>
     </div>
   );

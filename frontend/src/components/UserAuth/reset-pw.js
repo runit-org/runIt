@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Loading from "../SiteElements/loader";
 import ErrorToast from "../SiteElements/error-toast";
 import { useNavigate } from "react-router-dom";
+import { MsgToast } from "../SiteElements/msg-toast";
 
 function ResetPassword(props) {
   const dispatch = useDispatch();
@@ -15,7 +16,6 @@ function ResetPassword(props) {
   const [password, setPassword] = useState({});
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
-  const [error, setError] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
 
   var errorStatus = useSelector((errorReducer) => errorReducer.errors);
@@ -29,15 +29,16 @@ function ResetPassword(props) {
       token: props.token,
     };
 
-    dispatch(resetPw(userData, setLoad, setShow, setError));
+    dispatch(resetPw(userData, setLoad, setShow));
   };
 
   useEffect(() => {
     if (errorStatus && errorStatus.status === 200) {
-      navigate("/", {
-        replace: true,
-        state: { status: errorStatus.data.message },
-      });
+      setTimeout(() => {
+        navigate("/", {
+          replace: true,
+        });
+      }, 1000);
     }
   }, [navigate, errorStatus]);
 
@@ -45,14 +46,16 @@ function ResetPassword(props) {
     setFormSwitch(load);
   }, [load]);
 
-  let errorVariant = {
-    background: "#FFD2D2",
-    color: "#D8000C",
-  };
-
   return (
     <>
-      <ErrorToast errors={error} showToast={show} variant={errorVariant} />
+      <ErrorToast
+        showToast={show}
+        variant={
+          errorStatus.status === 200
+            ? MsgToast().successVariant
+            : MsgToast().errorVariant
+        }
+      />
 
       <Card className="p-5 login-card" style={{ width: "28rem" }}>
         <fieldset disabled={formSwitch}>

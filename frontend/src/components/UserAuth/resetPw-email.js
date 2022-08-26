@@ -5,13 +5,13 @@ import { resetPwEmail } from "../../actions/securityActions";
 import { Link } from "react-router-dom";
 import Loading from "../SiteElements/loader";
 import ErrorToast from "../SiteElements/error-toast";
+import { MsgToast } from "../SiteElements/msg-toast";
 
 function ResetPasswordEmail() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState({});
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
-  const [error, setError] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -20,20 +20,16 @@ function ResetPasswordEmail() {
       email: email,
     };
 
-    dispatch(resetPwEmail(userData, setLoad, setShow, setError));
+    dispatch(resetPwEmail(userData, setLoad, setShow));
   };
 
   useEffect(() => {
     setFormSwitch(load);
   }, [load]);
 
-  let successVariant = {
-    background: "#DFF2BF",
-    color: "#4F8A10",
-  };
   return (
     <>
-      <ErrorToast errors={error} showToast={show} variant={successVariant} />
+      <ErrorToast showToast={show} variant={MsgToast().successVariant} />
 
       <Card className="p-5 login-card" style={{ width: "28rem" }}>
         <fieldset disabled={formSwitch}>
