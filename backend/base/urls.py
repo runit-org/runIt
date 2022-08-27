@@ -21,6 +21,8 @@ urlpatterns = [
     path('auth/resetPassword/', AuthViews.resetPassword, name='reset_password'),
 
     path('user/all/', UserViews.getAllUsers, name='all_users'),
+    path('user/vote/<str:userId>/', UserVoteViews.vote, name="vote_user"),
+    path('user/profile/<str:username>/', UserViews.userProfile, name="get_user_profile"),
 
     path('event/all/', EventViews.allEvent, name="all_event"),
     path('event/create/', EventViews.createEvent, name="create_event"),
@@ -43,6 +45,4 @@ urlpatterns = [
     path('notifications/all/', NotificationViews.index, name="user_notification"),
     path('notifications/read/<str:pk>/', NotificationViews.read, name="read_notification"),
     path('notifications/readAll/', NotificationViews.readAll, name="user_read_all_notification"),
-
-    path('user/vote/<str:userId>/', UserVoteViews.vote, name="vote_user"),
 ]
