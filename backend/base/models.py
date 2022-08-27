@@ -7,4 +7,5 @@ from base.modules.event.data.EventMember import EventMember
 from base.modules.eventComment.data.EventComment import EventComment
 from base.modules.eventComment.data.EventCommentLike import EventCommentLike
 from base.modules.notification.data.Notification import Notification
+from base.modules.userVote.data.UserVote import UserVote
 
