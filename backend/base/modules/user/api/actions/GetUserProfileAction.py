@@ -18,7 +18,8 @@ def get(request, username):
     if not checkUsername(username):
         return error('Username not found')
 
-    serializer = UserProfileSerializer(user, many=False)
+    context = {'userId' : request.user.id}
+    serializer = UserProfileSerializer(user, context=context, many=False)
 
     return response('User profile retrieved', serializer.data)
     
