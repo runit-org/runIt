@@ -9,8 +9,8 @@ from base.modules.userVote.api.actions import (
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def vote(request):
+def vote(request, userId):
     if (VoteUserValidator.validate(request) != None):
         return VoteUserValidator.validate(request)
     
-    return VoteUserAction.vote(request)
+    return VoteUserAction.vote(request, userId)

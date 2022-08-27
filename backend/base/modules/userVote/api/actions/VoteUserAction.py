@@ -10,15 +10,15 @@ def checkUserId(userId):
     else:
         return False
 
-def checkHaveVoted(votedUser, voter):
-    checkUserVoteExist = UserVote.objects.filter(votedUser = votedUser, voter = voter)
+def checkHaveVoted(votedUserId, voterId):
+    checkUserVoteExist = UserVote.objects.filter(votedUserId = votedUserId, voterId = voterId)
 
     if len(checkUserVoteExist) > 0:
         return True
     else:
         return False
 
-def delete(request, userId):
+def vote(request, userId):
     data = request.data
     user = request.user
 
@@ -27,25 +27,25 @@ def delete(request, userId):
 
     targetUser = User.objects.get(id = userId)
 
-    if checkHaveVoted(targetUser, user):
-        vote = UserVote.objects.get(votedUser = targetUser, voter = user)
+    if checkHaveVoted(targetUser.id, user.id):
+        vote = UserVote.objects.get(votedUserId = targetUser.id, voterId = user.id)
 
-        if data['vote'] == vote.status:
+        if data['status'] == vote.status:
             vote.delete()
 
             return response('Vote removed')
 
         else:
-            vote.vote = data['vote']
+            vote.status = data['status']
             vote.save()
 
             return response('Vote updated')
 
     else:
         vote = UserVote.objects.create(
-            votedUser = targetUser,
-            voter     = user,
-            status    = data['status']
+            votedUserId = targetUser.id,
+            voterId     = user.id,
+            status      = data['status'],
         )
 
         return response('Vote created')
