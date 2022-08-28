@@ -5,6 +5,7 @@ from base.modules.event.api.validators import (
     UpdateEventValidator,
     RequestJoinEventValidator,
     ChangeEventMemberStatusValidator,
+    AnnounceMembersValidator,
 )
 from base.modules.event.api.actions import (
     CreateEventAction, 
@@ -17,6 +18,7 @@ from base.modules.event.api.actions import (
     ChangeEventMemberStatusAction,
     GetOwnedEventsAction,
     GetParticipatedAndOwnedEventsAction,
+    AnnounceMembersAction,
 )
 
 @api_view(['POST'])
@@ -82,3 +84,11 @@ def ownedEvent(request):
 @permission_classes([IsAuthenticated])
 def participatedAndOwnedEvent(request):
     return GetParticipatedAndOwnedEventsAction.get(request)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def announce(request, eventId):
+    if (AnnounceMembersValidator.validate(request) != None):
+        return AnnounceMembersValidator.validate(request)
+
+    return AnnounceMembersAction.send(request, eventId)

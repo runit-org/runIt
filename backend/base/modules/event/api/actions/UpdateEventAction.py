@@ -12,11 +12,15 @@ def checkEventId(pk):
 
 def update(request, pk):
     data = request.data
+    user = request.user
 
     if not checkEventId(pk):
         return error('Event ID not found')
 
     event = Event.objects.get(id=pk)
+
+    if user.id != event.user.id:
+        return error('Can only delete your own events')
 
     event.title = data['title']
     event.maxMember = data['maxMember']
