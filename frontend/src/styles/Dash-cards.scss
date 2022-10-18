@@ -6,16 +6,17 @@
   border-radius: 5px;
 }
 
-.new-post-container .form-floating > .form-control {
+.new-post-container :is(.form-floating > .form-control, .form-control) {
   color: $primary-dark;
 }
 
-.new-post-container .form-floating > .form-control:focus {
+.new-post-container
+  :is(.form-floating > .form-control:focus, .form-control:focus) {
   border: 1px solid $theme;
   box-shadow: none !important;
 }
 
-.new-post-container .form-floating > .form-control {
+.new-post-container :is(.form-floating > .form-control, .form-control) {
   border: 1px solid rgba($primary-dark, 0.1);
   background-color: rgb(240, 240, 240) !important;
 }

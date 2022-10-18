@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Loading from "../SiteElements/loader";
 import ErrorToast from "../SiteElements/error-toast";
 import { useLocation } from "react-router-dom";
+import { MsgToast } from "../SiteElements/msg-toast";
 
 function Login() {
   let navigate = useNavigate();
@@ -14,7 +15,6 @@ function Login() {
   const [password, setPassword] = useState({});
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
-  const [error, setError] = useState("");
   const [signupData, setSignupData] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
 
@@ -35,20 +35,16 @@ function Login() {
       username: username,
       password: password,
     };
-    dispatch(login(LoginRequest, navigate, setLoad, setShow, setError));
+    dispatch(login(LoginRequest, navigate, setLoad, setShow));
   };
 
   useEffect(() => {
     setFormSwitch(load);
   }, [load]);
 
-  let errorVariant = {
-    background: "#FFD2D2",
-    color: "#D8000C",
-  };
   return (
     <>
-      <ErrorToast errors={error} showToast={show} variant={errorVariant} />
+      <ErrorToast showToast={show} variant={MsgToast().errorVariant} />
 
       <Card className="p-5 login-card" style={{ width: "28rem" }}>
         <fieldset disabled={formSwitch}>

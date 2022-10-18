@@ -76,13 +76,22 @@ function UpdateEvent(props, { handleUpate }) {
           </div>
         </Card.Header>
         <Card.Body>
-          <ReactQuill
+          {/* <ReactQuill
             modules={quillSetting[1]}
             formats={quillSetting[0]}
             theme="snow"
             value={details}
             onChange={setDetails}
-          />
+          /> */}
+          <Form.Group>
+            <Form.Control
+              placeholder="What's on your mind?"
+              as="textarea"
+              value={details || ""}
+              onChange={(e) => setDetails(e.target.value)}
+              required
+            />
+          </Form.Group>
           <div className="d-flex justify-content-end">
             <CTAButton
               type={"submit"}
