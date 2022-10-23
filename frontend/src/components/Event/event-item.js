@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Card, Badge, Dropdown } from "react-bootstrap";
+import { Card  } from "react-bootstrap";
 import img from "../../logo192.png";
 import JoinEvent from "./join-event";
 import EventMembers from "./event-members";
@@ -9,6 +9,7 @@ import CTAButton from "../SiteElements/cta-button";
 import { RiEditLine } from "react-icons/ri";
 import UpdateEvent from "./update-event";
 import { eventOptions } from "../Utilities/event-options";
+import { Mention } from "../Utilities/mention";
 
 function EventItem(props) {
   const [currentUser, setCurrentUser] = useState();
@@ -30,6 +31,7 @@ function EventItem(props) {
   function handleClick() {
     setEditorMode(!editorMode);
   }
+
 
   return (
     <>
@@ -143,7 +145,10 @@ function EventItem(props) {
           </Card.Header>
           <Card.Body>
             <Card.Text
-              dangerouslySetInnerHTML={{ __html: props.eventData.details }}
+            className="details_textarea"
+            dangerouslySetInnerHTML={{__html: Mention(props.eventData.details)}}
+            /*   dangerouslySetInnerHTML={{ __html: props.eventData.details }} */
+              
             />
           </Card.Body>
         </Card>

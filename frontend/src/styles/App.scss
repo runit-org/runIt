@@ -109,6 +109,12 @@ div.content {
   text-overflow: ellipsis;
 }
 
+.details_textarea a{
+  color: $theme;
+  font-weight: bold !important;
+
+}
+
 /*------Main Dash------*/
 
 .dash-container {
@@ -236,3 +242,5 @@ div.content {
   background-color: $theme !important;
   color: $primary-light !important;
 }
+
+

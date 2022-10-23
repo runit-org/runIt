@@ -9,6 +9,7 @@ import { QuillFormatting } from "../SiteElements/quill-format";
 import { SearchParam } from "../Utilities/search-param";
 import { DateFormat } from "../Utilities/date-format";
 
+
 function CreateEvent() {
   const dispatch = useDispatch();
   const formRef = useRef(0);
@@ -59,6 +60,7 @@ function CreateEvent() {
       setError("");
     }
   }, [error]);
+
 
   return (
     <Form
@@ -151,6 +153,8 @@ function CreateEvent() {
           onChange={setDetails}
         /> */}
 
+
+
         <Form.Group>
           <Form.Control
             placeholder="What's on your mind?"
@@ -158,6 +162,7 @@ function CreateEvent() {
             onChange={(e) => setDetails(e.target.value)}
             rows={4}
             required
+            
           />
         </Form.Group>
 
