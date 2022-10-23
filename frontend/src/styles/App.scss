@@ -3,6 +3,7 @@
 @import "Header.scss";
 @import "Auth-forms.scss";
 @import "Dash-cards.scss";
+@import "Notification.scss";
 @import "Responsive.scss";
 
 /*------General Components------*/
@@ -147,9 +148,9 @@ div.content {
 }
 
 /*------Off-Canvas------*/
-.offcanvas-backdrop.show {
+/* .offcanvas-backdrop.show {
   opacity: 0.3 !important;
-}
+} */
 .offcanvas-header {
   background-color: $primary-light;
   color: $theme;

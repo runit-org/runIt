@@ -115,10 +115,10 @@ function CreateEvent() {
                   type="time"
                   placeholder="Time"
                   onChange={(e) => setTime(e.target.value)}
-                  min={new Date().toLocaleTimeString(navigator.language, {
+                 /*  min={new Date().toLocaleTimeString(navigator.language, {
                     hour: "2-digit",
                     minute: "2-digit",
-                  })}
+                  })} */
                   required
                 />
               </FloatingLabel>
