@@ -1,9 +1,10 @@
 export const DateFormat = () => {
   let d = new Date();
   //one month offset atleast
-  let month = (d.getMonth() + 2).toString();
+  let month = d.getMonth().toString();
   let day = d.getDate().toString();
   let year = d.getFullYear();
+
   if (month.length < 2) {
     month = "0" + month;
   }
