@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "../actions/securityActions";
 import img from "../logo192.png";
 
-function UserProfile(props) {
+function UserProfile() {
   const dispatch = useDispatch();
   const [userProfile, setUserProfile] = useState();
 
@@ -23,10 +24,10 @@ function UserProfile(props) {
   return (
     <>
       {userProfile ? (
-        <div className="d-flex align-items-center">
-          <img src={img} className="userProf-img" alt="use prof" />
+        <div className="d-flex align-items-center userInfo-div">
+          <img src={img} className="userProf-img" alt="use profile" />
           <div className="ms-4">
-            <strong>@{userProfile.username}</strong>
+            <Button variant="link">@{userProfile.username}</Button>
             <small className="d-block text-muted">{userProfile.email}</small>
           </div>
         </div>

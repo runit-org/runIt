@@ -54,16 +54,14 @@ function MainDash() {
                 <CreatePost />
               </Card>
               {eventData
-                ? eventData
-                    .map((event, index) => (
-                      <div key={index}>
-                        <EventItem
-                          eventData={event}
-                          eventCount={allEventsData.count}
-                        />
-                      </div>
-                    ))
-                    .reverse()
+                ? eventData.map((event, index) => (
+                    <div key={index}>
+                      <EventItem
+                        eventData={event}
+                        eventCount={allEventsData.count}
+                      />
+                    </div>
+                  ))
                 : ""}
             </div>
             {allEventsData.count > 0 ? (
@@ -79,9 +77,9 @@ function MainDash() {
           </Container>
         </div>
 
-        <div className=" sidebar">
+        <div className="sidebar">
           <div className="sidebar-wrapper">
-            <Card>
+            <Card style={{ maxWidth: "20rem" }}>
               <Card.Body>
                 <UserProfile />
               </Card.Body>
@@ -94,28 +92,23 @@ function MainDash() {
                 ) : eventData.length > 4 ? (
                   eventData
                     .slice(Math.max(eventData.length - 4, 0))
-                    .reverse()
                     .map((event) => (
                       <div className="mb-3" key={event.id}>
                         <RecentsCard
                           eventTitle={event.title}
                           time={event.humanTimeDiffCreatedAt}
-                          detail={event.details}
                         />
                       </div>
                     ))
                 ) : (
-                  eventData
-                    .map((event) => (
-                      <div className="mb-3" key={event.id}>
-                        <RecentsCard
-                          eventTitle={event.title}
-                          time={event.humanTimeDiffCreatedAt}
-                          detail={event.details}
-                        />
-                      </div>
-                    ))
-                    .reverse()
+                  eventData.map((event) => (
+                    <div className="mb-3" key={event.id}>
+                      <RecentsCard
+                        eventTitle={event.title}
+                        time={event.humanTimeDiffCreatedAt}
+                      />
+                    </div>
+                  ))
                 )}
               </Card.Body>
             </Card>
