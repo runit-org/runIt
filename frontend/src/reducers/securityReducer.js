@@ -1,8 +1,15 @@
-import { SET_CURRENT_USER, GET_USERS, GET_USER, SET_NEW_USER } from "../actions/types";
+import {
+  SET_CURRENT_USER,
+  GET_USERS,
+  GET_USER,
+  SET_NEW_USER,
+  GET_USER_PROFILE,
+} from "../actions/types";
 
 const initialState = {
   user: {},
   users: {},
+  userProfile: [],
   data: [],
   validToken: false,
 };
@@ -24,9 +31,9 @@ export default function setUser(state = initialState, action) {
         user: action.payload,
       };
     case SET_NEW_USER:
-        return {
-          userData: action.payload,
-        };  
+      return {
+        userData: action.payload,
+      };
     case GET_USERS:
       return {
         ...state,
@@ -38,6 +45,11 @@ export default function setUser(state = initialState, action) {
         ...state,
         singleUser: action.payload,
         userData: action.payload.data,
+      };
+    case GET_USER_PROFILE:
+      return {
+        ...state,
+        userProfile: action.payload,
       };
 
     default:

@@ -1,42 +1,39 @@
-import React from "react";
-import { Card, Row, Col, Form } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserProfile } from "../actions/securityActions";
 import img from "../logo192.png";
 
 function UserProfile(props) {
+  const dispatch = useDispatch();
+  const [userProfile, setUserProfile] = useState();
+
+  useEffect(() => {
+    dispatch(getUserProfile(localStorage.getItem("username")));
+  }, [dispatch]);
+
+  var profile = useSelector(
+    (securityReducer) => securityReducer.security.userProfile
+  );
+
+  useEffect(() => {
+    if (profile) {
+      setUserProfile(profile.data);
+    }
+  }, [profile]);
   return (
-    <div>
-      <Row>
-        <Col sm={3} md={4}>
-          <Card.Img src={img} className="userProf-img" alt="Img" />
-        </Col>
-        <Col sm={5} md={5}>
-          <strong>UserName</strong>
-          <small className="d-block text-muted">User status</small>
-        </Col>
-      </Row>
-      <Row className="mt-4">
-        <Col className="text-center">
-          <strong>11k</strong>
-          <small className="d-block">Followers</small>
-        </Col>
-        <Col className="text-center">
-          <strong>11k</strong>
-          <small className="d-block">Following</small>
-        </Col>
-      </Row>
-      {/*  <Row className="mt-4">
-        <Form>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            <Form.Control
-              style={{ borderRadius: "15px" }}
-              as="textarea"
-              rows={3}
-              placeholder="Share your thoughts..."
-            />
-          </Form.Group>
-        </Form>
-      </Row> */}
-    </div>
+    <>
+      {userProfile ? (
+        <div className="d-flex align-items-center">
+          <img src={img} className="userProf-img" alt="use prof" />
+          <div className="ms-4">
+            <strong>@{userProfile.username}</strong>
+            <small className="d-block text-muted">{userProfile.email}</small>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+    </>
   );
 }
 
