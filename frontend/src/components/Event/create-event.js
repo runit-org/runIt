@@ -7,7 +7,6 @@ import CTAButton from "../SiteElements/cta-button";
 import { RiSendPlaneLine } from "react-icons/ri";
 import { QuillFormatting } from "../SiteElements/quill-format";
 import { SearchParam } from "../Utilities/search-param";
-import { DateFormat } from "../Utilities/date-format";
 
 function CreateEvent() {
   const dispatch = useDispatch();
@@ -42,7 +41,7 @@ function CreateEvent() {
       maxMember: maxMembers,
       details: details,
       year: eventDate.getFullYear(),
-      month: eventDate.getMonth(),
+      month: eventDate.getMonth() + 1,
       day: eventDate.getDate(),
       hour: time !== "" ? parseInt(time.split(":")[0]) : "",
       minute: time !== "" ? parseInt(time.split(":")[1]) : "",
@@ -115,7 +114,7 @@ function CreateEvent() {
                   type="time"
                   placeholder="Time"
                   onChange={(e) => setTime(e.target.value)}
-                 /*  min={new Date().toLocaleTimeString(navigator.language, {
+                  /*  min={new Date().toLocaleTimeString(navigator.language, {
                     hour: "2-digit",
                     minute: "2-digit",
                   })} */
@@ -135,7 +134,7 @@ function CreateEvent() {
                   type="date"
                   placeholder="Date"
                   onChange={(e) => setDate(e.target.value)}
-                  min={DateFormat()}
+                  min={new Date().toISOString().split("T")[0]}
                   required
                 />
               </FloatingLabel>
