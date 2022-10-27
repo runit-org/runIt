@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "../actions/securityActions";
 import img from "../logo192.png";
+import PopoverProf from "./SiteElements/popover";
 
 function UserProfile() {
   const dispatch = useDispatch();
@@ -21,13 +22,17 @@ function UserProfile() {
       setUserProfile(profile.data);
     }
   }, [profile]);
+
   return (
     <>
       {userProfile ? (
         <div className="d-flex align-items-center userInfo-div">
           <img src={img} className="userProf-img" alt="use profile" />
           <div className="ms-4">
-            <Button variant="link">@{userProfile.username}</Button>
+            <PopoverProf data={userProfile}>
+              <Button variant="link">@{userProfile.username}</Button>
+            </PopoverProf>
+
             <small className="d-block text-muted">{userProfile.email}</small>
           </div>
         </div>
