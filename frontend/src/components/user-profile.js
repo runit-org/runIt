@@ -5,13 +5,13 @@ import { getUserProfile } from "../actions/securityActions";
 import img from "../logo192.png";
 import PopoverProf from "./SiteElements/popover";
 
-function UserProfile() {
+function UserProfile(props) {
   const dispatch = useDispatch();
   const [userProfile, setUserProfile] = useState();
 
   useEffect(() => {
-    dispatch(getUserProfile(localStorage.getItem("username")));
-  }, [dispatch]);
+    dispatch(getUserProfile(props.username));
+  }, [dispatch, props.username]);
 
   var profile = useSelector(
     (securityReducer) => securityReducer.security.userProfile

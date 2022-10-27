@@ -81,7 +81,7 @@ function MainDash() {
           <div className="sidebar-wrapper">
             <Card style={{ maxWidth: "20rem" }}>
               <Card.Body>
-                <UserProfile />
+                <UserProfile username={localStorage.getItem("username")} />
               </Card.Body>
             </Card>
             <Card>
