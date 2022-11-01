@@ -5,7 +5,7 @@ import RecentsCard from "./SiteElements/recents-card";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEvents } from "../actions/eventActions";
 import CreatePost from "./Event/create-event";
-import UserProfile from "./user-profile";
+import UserProfile from "./Profile/user-profile";
 import Pagination from "./SiteElements/pagination";
 import { useSearchParams, useLocation } from "react-router-dom";
 import { SearchParam } from "./Utilities/search-param";

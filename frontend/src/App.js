@@ -16,6 +16,7 @@ import { setToken, refreshToken } from "./securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 // import { isExpired } from "react-jwt";
 import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
+import ProfileDash from "./components/Profile/profile-dash";
 
 const token = localStorage.token;
 
@@ -64,6 +65,15 @@ function App() {
               <ProtectedRoute>
                 <Header />
                 <Posts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Header />
+                <ProfileDash />
               </ProtectedRoute>
             }
           />
