@@ -27,20 +27,23 @@ export const getUsers = () => async (dispatch) => {
 };
 
 export const getUserProfile = (userName) => async (dispatch) => {
-  await axios
-    .get(`http://localhost:8000/api/user/profile/${userName}/`)
-    .then((res) => {
-      dispatch({
-        type: GET_USER_PROFILE,
-        payload: res.data,
+  await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+    axios
+      .get(`http://localhost:8000/api/user/profile/${userName}/`)
+      .then((res) => {
+        dispatch({
+          type: GET_USER_PROFILE,
+          payload: res.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
       });
-    })
-    .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data,
-      });
-    });
+  });
 };
 
 export const createNewUser =
