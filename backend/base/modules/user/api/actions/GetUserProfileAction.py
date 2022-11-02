@@ -13,13 +13,13 @@ def checkUsername(username):
 
 def get(request, username):
     data = request.data
-    user = request.user
 
     if not checkUsername(username):
         return error('Username not found')
 
+    targetUser = User.objects.get(username=username)
     context = {'userId' : request.user.id}
-    serializer = UserProfileSerializer(user, context=context, many=False)
+    serializer = UserProfileSerializer(targetUser, context=context, many=False)
 
     return response('User profile retrieved', serializer.data)
     
