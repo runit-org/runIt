@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Card  } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import img from "../../logo192.png";
 import JoinEvent from "./join-event";
 import EventMembers from "./event-members";
@@ -31,7 +31,6 @@ function EventItem(props) {
   function handleClick() {
     setEditorMode(!editorMode);
   }
-
 
   return (
     <>
@@ -145,10 +144,11 @@ function EventItem(props) {
           </Card.Header>
           <Card.Body>
             <Card.Text
-            className="details_textarea"
-            dangerouslySetInnerHTML={{__html: Mention(props.eventData.details)}}
-            /*   dangerouslySetInnerHTML={{ __html: props.eventData.details }} */
-              
+              className="details_textarea"
+              dangerouslySetInnerHTML={{
+                __html: Mention(props.eventData.details),
+              }}
+              /*   dangerouslySetInnerHTML={{ __html: props.eventData.details }} */
             />
           </Card.Body>
         </Card>
