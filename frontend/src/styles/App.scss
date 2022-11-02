@@ -98,15 +98,18 @@ div.content {
 }
 .recents-div {
   background-color: $primary-light;
-  padding: 10px 15px 0px 15px;
+  padding: 10px 15px 10px 15px;
   border-radius: 5px;
   max-width: 18rem;
 }
-.recents-div p {
+/* .recents-div p {
   white-space: nowrap;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+} */
+.userInfo-div button {
+  padding: 0;
 }
 
 /*------Main Dash------*/
@@ -125,7 +128,7 @@ div.content {
 }
 
 .sidebar {
-  border-left: 1px solid #e0e0e0;
+  // border-left: 1px solid #e0e0e0;
   width: 33.33%;
 }
 .sidebar-wrapper {

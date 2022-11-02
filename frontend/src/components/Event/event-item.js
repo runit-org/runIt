@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Card, Badge, Dropdown } from "react-bootstrap";
+import { Card, Badge, Dropdown, Button } from "react-bootstrap";
 import img from "../../logo192.png";
 import JoinEvent from "./join-event";
 import EventMembers from "./event-members";

@@ -4,6 +4,7 @@ export const SET_NEW_USER = "SET_NEW_USER";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const GET_USERS = "GET_USERS";
 export const GET_USER = "GET_USER";
+export const GET_USER_PROFILE = "GET_USER_PROFILE";
 export const CHECK_TOKEN = "CHECK_TOKEN";
 
 //event types
