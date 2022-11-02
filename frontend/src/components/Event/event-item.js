@@ -45,7 +45,10 @@ function EventItem(props) {
                   className="text-muted"
                   style={{ fontSize: "12px", display: "block" }}
                 >
-                  <a href="#" className="text-decoration-none">
+                  <a
+                    href={`profile?user=${props.eventData.userName}`}
+                    className="text-decoration-none"
+                  >
                     @{props.eventData.userName}
                   </a>{" "}
                   <strong> {props.eventData.humanTimeDiffCreatedAt} ago</strong>
