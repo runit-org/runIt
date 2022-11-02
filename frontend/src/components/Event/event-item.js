@@ -9,6 +9,7 @@ import CTAButton from "../SiteElements/cta-button";
 import { RiEditLine } from "react-icons/ri";
 import UpdateEvent from "./update-event";
 import { eventOptions } from "../Utilities/event-options";
+import { Mention } from "../Utilities/mention";
 
 function EventItem(props) {
   const [currentUser, setCurrentUser] = useState();
@@ -143,7 +144,11 @@ function EventItem(props) {
           </Card.Header>
           <Card.Body>
             <Card.Text
-              dangerouslySetInnerHTML={{ __html: props.eventData.details }}
+              className="details_textarea"
+              dangerouslySetInnerHTML={{
+                __html: Mention(props.eventData.details),
+              }}
+              /*   dangerouslySetInnerHTML={{ __html: props.eventData.details }} */
             />
           </Card.Body>
         </Card>
