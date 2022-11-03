@@ -22,7 +22,10 @@ function UserProfile(props) {
     if (profile) {
       setUserProfile(profile.data);
     }
-  }, [profile]);
+    if (props.userData && userProfile) {
+      props.userData(userProfile);
+    }
+  }, [profile, userProfile, props]);
 
   return (
     <>
