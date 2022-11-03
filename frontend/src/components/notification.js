@@ -14,8 +14,10 @@ function Notifications(props) {
   const [read, setRead] = useState("");
 
   useEffect(() => {
-    dispatch(getNotifications());
-  }, [dispatch]);
+    if (props.notifShow) {
+      dispatch(getNotifications());
+    }
+  }, [dispatch, props.notifShow]);
 
   useEffect(() => {
     if (read !== "") {
