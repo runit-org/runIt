@@ -1,11 +1,5 @@
 import axios from "axios";
-import {
-  GET_USERS,
-  GET_ERRORS,
-  SET_CURRENT_USER,
-  SET_NEW_USER,
-  GET_USER_PROFILE,
-} from "./types";
+import { GET_USERS, GET_ERRORS, SET_CURRENT_USER, SET_NEW_USER } from "./types";
 import { setToken, refreshToken } from "../securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 
@@ -24,26 +18,6 @@ export const getUsers = () => async (dispatch) => {
         payload: error.response.data,
       });
     });
-};
-
-export const getUserProfile = (userName) => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    axios
-      .get(`http://localhost:8000/api/user/profile/${userName}/`)
-      .then((res) => {
-        dispatch({
-          type: GET_USER_PROFILE,
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-      });
-  });
 };
 
 export const createNewUser =

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Badge } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
-import { getUserProfile } from "../../actions/securityActions";
+import { getUserProfile } from "../../actions/userActions";
 import img from "../../logo192.png";
 
 function UserProfile(props) {
@@ -15,14 +16,17 @@ function UserProfile(props) {
   }, [dispatch, props.username, param]);
 
   var profile = useSelector(
-    (securityReducer) => securityReducer.security.userProfile
+    (securityReducer) => securityReducer.users.userProfile
   );
 
   useEffect(() => {
     if (profile) {
       setUserProfile(profile.data);
     }
-  }, [profile]);
+    if (props.userData && userProfile) {
+      props.userData(userProfile);
+    }
+  }, [profile, userProfile, props]);
 
   return (
     <>
@@ -41,12 +45,12 @@ function UserProfile(props) {
               </Link>
 
               <small className="d-block text-muted">{userProfile.email}</small>
+              {userProfile.username === localStorage.getItem("username") ? (
+                <Badge id="vote_badge"> votes: {userProfile.totalVote}</Badge>
+              ) : (
+                ""
+              )}
             </div>
-          </div>
-          <div className="mt-4">
-            <hr />
-            <p>Total Votes: {userProfile.totalVote}</p>{" "}
-            <p>Vote Status: {userProfile.voteStatus}</p>{" "}
           </div>
         </>
       ) : (
