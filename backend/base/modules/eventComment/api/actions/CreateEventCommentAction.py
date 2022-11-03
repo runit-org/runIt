@@ -34,10 +34,14 @@ def mention(event, content, user):
             targetUser = User.objects.get(username = targetUsername)
 
             checkIfTargetUserIsMember = EventMember.objects.filter(eventId = event.id, userId = targetUser.id, status = EventMemberStatus.get.ACCEPTED.value)
-            # Then check if the mentioned user is an ACCEPTED member of the current event OR is the event's creator
-            if len(checkIfTargetUserIsMember) > 0 or targetUser == event.user:
-                notificationMessage = 'User <b>' + user.username + '</b> mentioned you in a comment on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
-                NotifyUser.notify(targetUser.id, notificationMessage)
+
+            # Tagging yourself wouldn't notify
+            if targetUser != user:
+
+                # Then check if the mentioned user is an ACCEPTED member of the current event OR is the event's creator
+                if len(checkIfTargetUserIsMember) > 0 or targetUser == event.user:
+                    notificationMessage = 'User <b>' + user.username + '</b> mentioned you in a comment on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
+                    NotifyUser.notify(targetUser.id, notificationMessage)
 
 
 def create(request, eventId):
