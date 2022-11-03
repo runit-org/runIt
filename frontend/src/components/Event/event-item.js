@@ -54,7 +54,7 @@ function EventItem(props) {
                   <strong> {props.eventData.humanTimeDiffCreatedAt} ago</strong>
                 </small>
               </div>
-              {/*  {joined ? (
+              {/* {joined ? (
                 <div className="me-2">
                   <Badge bg="success">Joined</Badge>
                 </div>
@@ -68,7 +68,7 @@ function EventItem(props) {
                 </div>
               ) : (
                 ""
-              )} */}
+              )}  */}
               {/* <Dropdown>
                 <Dropdown.Toggle variant="light" size="sm" id="dropdown-basic">
                   <svg
