@@ -3,13 +3,11 @@ import {
   GET_USERS,
   GET_USER,
   SET_NEW_USER,
-  GET_USER_PROFILE,
 } from "../actions/types";
 
 const initialState = {
   user: {},
   users: {},
-  userProfile: [],
   data: [],
   validToken: false,
 };
@@ -46,12 +44,6 @@ export default function setUser(state = initialState, action) {
         singleUser: action.payload,
         userData: action.payload.data,
       };
-    case GET_USER_PROFILE:
-      return {
-        ...state,
-        userProfile: action.payload,
-      };
-
     default:
       return state;
   }

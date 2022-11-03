@@ -117,23 +117,22 @@ div.content {
   font-weight: bold !important;
 }
 
-.vote_btnGroup {
-  display: flex;
-  justify-content: space-between !important;
-  width: 100% !important;
-}
 .vote_btnGroup button {
-  margin: 0 50px 0 50px;
-  display: inline-flex !important;
   color: #57606a !important;
   background-color: transparent !important;
   padding: 0.4rem;
-  justify-content: center;
 
   &:hover {
     color: $theme !important;
     background-color: transparent !important;
   }
+}
+.user_vote {
+  color: $theme;
+}
+#vote_badge {
+  background-color: #e5edff !important;
+  color: #5850ec !important;
 }
 
 /*------Main Dash------*/

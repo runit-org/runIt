@@ -5,7 +5,7 @@ import Vote from "./vote";
 
 function ProfileDash() {
   const [owner, setOwner] = useState(false);
-  const [currUserData, setCurrUserData] = useState("");
+  const [currUserData, setCurrUserData] = useState([]);
 
   const child_data = (data) => {
     if (data) {
@@ -28,15 +28,24 @@ function ProfileDash() {
           <div className="sidebar-wrapper">
             <Card style={{ maxWidth: "20rem" }}>
               <Card.Body>
-                <UserProfile userData={child_data} />
+                <div className="d-flex justify-content-between">
+                  <span>
+                    <UserProfile userData={child_data} />
+                  </span>
+                  {!owner ? (
+                    <span>
+                      <Vote
+                        userId={currUserData.id}
+                        username={currUserData.username}
+                        voteCount={currUserData.totalVote}
+                        voteStatus={currUserData.voteStatus}
+                      />
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </Card.Body>
-              {!owner ? (
-                <Card.Footer>
-                  <Vote userId={currUserData.id} />
-                </Card.Footer>
-              ) : (
-                ""
-              )}
             </Card>
             <Card>
               <Card.Body>
