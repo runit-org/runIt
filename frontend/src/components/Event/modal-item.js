@@ -1,5 +1,5 @@
 import React, { useState, useImperativeHandle, useEffect } from "react";
-import { Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import CTAButton from "../SiteElements/cta-button";
 
 const ModalItem = React.forwardRef(
@@ -22,16 +22,24 @@ const ModalItem = React.forwardRef(
     });
 
     return (
-      <div ref={r}>
-        <CTAButton
+      <>
+        {/*   <CTAButton
           type={""}
           btnStyle={"postBtn-placements"}
           variant={"primary"}
           onClick={() => setModalShow(true)}
           placeholder={btnIcon}
-        />
+        /> */}
+        <Button
+          variant="light"
+          className="w-100"
+          onClick={() => setModalShow(true)}
+        >
+          {title}
+        </Button>
 
         <Modal
+          ref={r}
           size="md"
           show={modalShow}
           onHide={() => setModalShow(false)}
@@ -55,7 +63,7 @@ const ModalItem = React.forwardRef(
             </Form>
           </Modal.Body>
         </Modal>
-      </div>
+      </>
     );
   }
 );

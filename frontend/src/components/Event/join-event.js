@@ -29,7 +29,7 @@ function JoinEvent(props) {
   };
 
   return (
-    <div className="mb-4">
+    <>
       <ModalItem
         ref={(ref, btnRef)}
         btnIcon={<RiAddBoxLine />}
@@ -63,7 +63,7 @@ function JoinEvent(props) {
         }
         subHandler={handleSubmit}
       />
-    </div>
+    </>
   );
 }
 

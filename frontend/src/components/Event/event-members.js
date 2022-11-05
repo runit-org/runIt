@@ -52,7 +52,7 @@ function EventMembers(props) {
   };
 
   return (
-    <div>
+    <>
       <ModalItem
         parentCallback={handler}
         ref={ref}
@@ -115,7 +115,7 @@ function EventMembers(props) {
         subBtn={""}
         subHandler={handleSubmit}
       />
-    </div>
+    </>
   );
 }
 
