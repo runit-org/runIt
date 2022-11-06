@@ -14,8 +14,10 @@ function Notifications(props) {
   const [read, setRead] = useState("");
 
   useEffect(() => {
-    dispatch(getNotifications());
-  }, [dispatch]);
+    if (props.notifShow) {
+      dispatch(getNotifications());
+    }
+  }, [dispatch, props.notifShow]);
 
   useEffect(() => {
     if (read !== "") {
@@ -67,39 +69,37 @@ function Notifications(props) {
           </div>
 
           {notifs && notifs.length > 0
-            ? notifs
-                .map((notif, index) => {
-                  return (
-                    <div key={index}>
-                      <Button
-                        variant="link"
-                        className="notif-button-item"
-                        onClick={() => {
-                          setRead(notif.id);
-                        }}
-                      >
-                        <small className="notif-mark float-end">
-                          {notif.statusName === "UNREAD" ? (
-                            <VscCircleFilled />
-                          ) : (
-                            ""
-                          )}
-                        </small>
-                        <div>
-                          <small
-                            dangerouslySetInnerHTML={{ __html: notif.details }}
-                          />
-                        </div>
+            ? notifs.map((notif, index) => {
+                return (
+                  <div key={index}>
+                    <Button
+                      variant="link"
+                      className="notif-button-item"
+                      onClick={() => {
+                        setRead(notif.id);
+                      }}
+                    >
+                      <small className="notif-mark float-end">
+                        {notif.statusName === "UNREAD" ? (
+                          <VscCircleFilled />
+                        ) : (
+                          ""
+                        )}
+                      </small>
+                      <div>
+                        <small
+                          dangerouslySetInnerHTML={{ __html: notif.details }}
+                        />
+                      </div>
 
-                        <small className="text-muted">
-                          {notif.humanTimeDiffCreatedAt} ago
-                        </small>
-                        <hr />
-                      </Button>
-                    </div>
-                  );
-                })
-                .reverse()
+                      <small className="text-muted">
+                        {notif.humanTimeDiffCreatedAt} ago
+                      </small>
+                      <hr />
+                    </Button>
+                  </div>
+                );
+              })
             : ""}
         </Offcanvas.Body>
       </Offcanvas>
