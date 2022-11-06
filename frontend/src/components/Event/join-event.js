@@ -3,7 +3,6 @@ import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { requestToJoin, getAllEvents } from "../../actions/eventActions";
 import Loading from "../SiteElements/loader";
-import { RiAddBoxLine } from "react-icons/ri";
 import ModalItem from "./modal-item";
 import { SearchParam } from "../Utilities/search-param";
 
@@ -32,7 +31,29 @@ function JoinEvent(props) {
     <>
       <ModalItem
         ref={(ref, btnRef)}
-        btnIcon={<RiAddBoxLine />}
+        customBtn={"cta_button"}
+        btnStyleFull={props.btnStyleFull}
+        btnIcon={
+          <div className="d-flex align-items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              width="20"
+              height="20"
+              className="me-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
+            Join
+          </div>
+        }
         error={error}
         title={"Join Event"}
         content={

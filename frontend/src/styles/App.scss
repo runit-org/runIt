@@ -63,9 +63,13 @@ body {
 }
 
 .postBtn-placements {
-  @include btn-style(transparent, $theme, none, 600);
+  @include btn-style(transparent, $primary-dark, none, 600);
   padding: 2px 8px 4px 8px !important;
-  margin: 0 0 0 0.5rem;
+  // margin: 0 0 0 0.5rem;
+  &:hover {
+    background-color: transparent !important;
+    color: $theme !important;
+  }
 }
 .divider {
   color: $primary-dark;
@@ -151,8 +155,10 @@ div.content {
 }
 
 .sidebar {
-  // border-left: 1px solid #e0e0e0;
   width: 33.33%;
+}
+.sidebar_eventDash {
+  width: 50%;
 }
 .sidebar-wrapper {
   width: 100%;
@@ -162,12 +168,12 @@ div.content {
   top: 0;
   padding-top: 80px !important;
 }
-.sidebar .card:first-child {
+:is(.sidebar, .sidebar_eventDash) .card:first-child {
   background-color: $primary-light;
   border-radius: 5px;
   margin: 20px;
 }
-.sidebar .card:last-child {
+:is(.sidebar, .sidebar_eventDash) .card:last-child {
   background-color: transparent;
   border: none;
   margin: 20px;
@@ -216,7 +222,7 @@ div.content {
 /*------Image/Logo------*/
 .userProf-img {
   width: 45px;
-  border-radius: 5px !important;
+  border-radius: 8px !important;
   padding: 5px;
   background-color: $secondary-dark;
 }

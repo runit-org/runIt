@@ -3,9 +3,11 @@ import { useSelector } from "react-redux";
 import { Badge, Button, ButtonGroup, Card } from "react-bootstrap";
 import img from "../../logo192.png";
 import JoinEvent from "./join-event";
+import { useNavigate } from "react-router-dom";
 
 function EventItemCard(props) {
   const [currentUser, setCurrentUser] = useState();
+  const navigate = useNavigate();
 
   const joined = props.eventData.joinedStatus === "ACCEPTED";
   const requested = props.eventData.joinedStatus === "PENDING";
@@ -73,7 +75,12 @@ function EventItemCard(props) {
             currentUser={currentUser}
           /> */}
         <ButtonGroup className="mt-3 w-100 gap-2" vertical>
-          <Button variant="primary">More Information</Button>
+          <Button
+            variant="primary"
+            onClick={() => navigate(`/event/${props.eventData.id}`)}
+          >
+            More Information
+          </Button>
           {currentUser !== props.eventData.user &&
           !joined &&
           !requested &&
@@ -81,6 +88,7 @@ function EventItemCard(props) {
             <JoinEvent
               eventId={props.eventData.id}
               eventTitle={props.eventData.title}
+              btnStyleFull={true}
             />
           ) : (
             ""

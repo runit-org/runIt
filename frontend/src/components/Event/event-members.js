@@ -56,6 +56,7 @@ function EventMembers(props) {
       <ModalItem
         parentCallback={handler}
         ref={ref}
+        customBtn={""}
         btnIcon={<RiUserStarLine />}
         error={""}
         title={"Member"}

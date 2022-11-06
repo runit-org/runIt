@@ -43,10 +43,13 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
   border-radius: 0 !important;
 }
+
 .event-card {
-  background-color: $primary-light;
-  border-radius: 5px;
+  background-color: $primary-light !important;
+  border-radius: 8px !important;
   margin: 20px;
+  border: none !important;
+  padding: 20px;
 }
 
 .event-card .card-header {
@@ -57,8 +60,18 @@
   // display: inline;
 }
 
-.event-card .card-body {
+/* .event-card .card-body {
   padding-top: 0;
+} */
+
+.event-card .details_textarea {
+  background-color: $secondary-light;
+  border-radius: 8px;
+  padding: 25px;
+}
+
+.event-card .cta_button {
+  max-width: fit-content !important;
 }
 
 .editor-card {
@@ -82,8 +95,11 @@
 }
 
 .dropdown-toggle::after {
-  border: none !important;
-  vertical-align: 0;
+  display: none !important;
+}
+
+.event-card div[aria-labelledby="dropdown-basic"] {
+  min-width: 100px !important;
 }
 
 /* .dropdown-menu.show {

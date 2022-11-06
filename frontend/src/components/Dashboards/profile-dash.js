@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-import UserProfile from "./user-profile";
-import Vote from "./vote";
+import UserProfile from "../Profile/user-profile";
+import Vote from "../Profile/vote";
 
 function ProfileDash() {
   const [owner, setOwner] = useState(false);

@@ -1,10 +1,20 @@
 import React, { useState, useImperativeHandle, useEffect } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import CTAButton from "../SiteElements/cta-button";
 
 const ModalItem = React.forwardRef(
   (
-    { btnIcon, error, title, content, subBtn, subHandler, parentCallback },
+    {
+      btnIcon,
+      error,
+      customBtn,
+      btnStyleFull,
+      title,
+      content,
+      subBtn,
+      subHandler,
+      parentCallback,
+    },
     r
   ) => {
     const [modalShow, setModalShow] = useState(false);
@@ -23,20 +33,15 @@ const ModalItem = React.forwardRef(
 
     return (
       <>
-        {/*   <CTAButton
+        <CTAButton
           type={""}
-          btnStyle={"postBtn-placements"}
+          btnStyle={`postBtn-placements ${customBtn}`}
+          btnStyleFull={btnStyleFull}
           variant={"primary"}
           onClick={() => setModalShow(true)}
           placeholder={btnIcon}
-        /> */}
-        <Button
-          variant="light"
-          className="w-100"
-          onClick={() => setModalShow(true)}
-        >
-          {title}
-        </Button>
+          title={title}
+        />
 
         <Modal
           ref={r}
@@ -45,9 +50,6 @@ const ModalItem = React.forwardRef(
           onHide={() => setModalShow(false)}
           aria-labelledby="example-modal-sizes-title-lg"
         >
-          <Modal.Header /* closeButton */>
-            <Modal.Title>{btnIcon}</Modal.Title>
-          </Modal.Header>
           <Modal.Body>
             <Form
               onSubmit={(e) => {
