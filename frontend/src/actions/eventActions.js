@@ -4,8 +4,29 @@ import {
   GET_ERRORS,
   GET_AFFILIATED_EVENTS,
   GET_EVENT_MEMBERS,
+  GET_SINGLE_EVENT,
 } from "./types";
 import { setToken, refreshToken } from "../securityUtils/setToken";
+
+export const getSingleEvent = (id) => async (dispatch) => {
+  await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+    axios
+      .get(`http://localhost:8000/api/event/view/${id}/`)
+      .then((res) => {
+        dispatch({
+          type: GET_SINGLE_EVENT,
+          payload: res.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
+      });
+  });
+};
 
 export const getAllEvents = (id) => async (dispatch) => {
   await refreshToken().then((ref) => {

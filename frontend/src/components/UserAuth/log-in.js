@@ -64,7 +64,9 @@ function Login() {
               )}
             </h4>
             <hr className="divider" />
-            <Form.Label className="text-muted">Username</Form.Label>
+            <Form.Label className="text-muted visually-hidden">
+              Username
+            </Form.Label>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <FloatingLabel
                 controlId="floatingInput"
@@ -82,7 +84,9 @@ function Login() {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label className="text-muted">Password</Form.Label>
+              <Form.Label className="text-muted visually-hidden">
+                Password
+              </Form.Label>
               <FloatingLabel controlId="floatingPassword" label="Password">
                 <Form.Control
                   type="password"

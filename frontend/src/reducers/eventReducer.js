@@ -2,6 +2,7 @@ import {
   GET_ALL_EVENTS,
   GET_AFFILIATED_EVENTS,
   GET_EVENT_MEMBERS,
+  GET_SINGLE_EVENT,
 } from "../actions/types";
 
 const initialState = {
@@ -12,6 +13,11 @@ const initialState = {
 
 export default function setEvents(state = initialState, action) {
   switch (action.type) {
+    case GET_SINGLE_EVENT:
+      return {
+        ...state,
+        events: action.payload,
+      };
     case GET_ALL_EVENTS:
       return {
         ...state,

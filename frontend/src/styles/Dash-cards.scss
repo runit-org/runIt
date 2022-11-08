@@ -43,10 +43,13 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
   border-radius: 0 !important;
 }
+
 .event-card {
-  background-color: $primary-light;
-  border-radius: 5px;
+  background-color: $primary-light !important;
+  border-radius: 8px !important;
   margin: 20px;
+  border: none !important;
+  padding: 20px;
 }
 
 .event-card .card-header {
@@ -54,11 +57,19 @@
   border: none;
   border-radius: 5px;
   padding: 1rem 1rem;
-  // display: inline;
 }
 
-.event-card .card-body {
-  padding-top: 0;
+.event-card .details_textarea {
+  background-color: $secondary-light;
+  border-radius: 8px;
+  padding: 25px;
+  &:not(:first-child) {
+    background-color: $primary-light !important;
+  }
+}
+
+.event-card .cta_button {
+  max-width: fit-content !important;
 }
 
 .editor-card {
@@ -82,10 +93,39 @@
 }
 
 .dropdown-toggle::after {
-  border: none !important;
-  vertical-align: 0;
+  display: none !important;
 }
 
-/* .dropdown-menu.show {
-  transform: translate3d(-100px, 27px, 0px) !important;
-} */
+.event-card div[aria-labelledby="dropdown-basic"] {
+  min-width: 100px !important;
+}
+
+// new
+.event-card_dash {
+  background-color: $primary-light !important;
+  border-radius: 8px !important;
+  margin: 20px;
+  border: none !important;
+  min-height: 298px;
+}
+
+.event-card_dash .card-header {
+  background-color: transparent;
+  border: none;
+  padding: 1rem 1rem;
+}
+
+.event-card_dash .event-brief small {
+  font-size: 12px;
+}
+.event-card_dash .event-brief p {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.event-card_dash div[role="group"] {
+  min-height: 81px;
+}
+.event-card_dash div[role="group"] button {
+  max-height: 36px !important;
+}

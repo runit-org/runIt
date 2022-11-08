@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import img from "../../logo192.png";
 import ReactQuill from "react-quill";
-import { updateEvent, getAllEvents } from "../../actions/eventActions";
+import {
+  updateEvent,
+  getAllEvents,
+  getSingleEvent,
+} from "../../actions/eventActions";
 import { useDispatch } from "react-redux";
 import CTAButton from "../SiteElements/cta-button";
 import { RiCloseFill, RiSendPlaneLine } from "react-icons/ri";
 import { QuillFormatting } from "../SiteElements/quill-format";
 import { SearchParam } from "../Utilities/search-param";
+import { useParams } from "react-router-dom";
 
 function UpdateEvent(props, { handleUpate }) {
   const dispatch = useDispatch();
+  const params = useParams();
   const [title, setTitle] = useState(props.title);
   const [maxMembers, setMaxMembers] = useState(props.maxMembers);
   const [details, setDetails] = useState(props.details);
@@ -29,6 +35,7 @@ function UpdateEvent(props, { handleUpate }) {
 
     dispatch(updateEvent(props.eventId, postData)).then(() => {
       dispatch(getAllEvents(pageId));
+      dispatch(getSingleEvent(params.id));
     });
     props.handleUpate();
   };

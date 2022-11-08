@@ -10,13 +10,14 @@ import {
   Navigate,
 } from "react-router-dom";
 import Header from "./components/SiteElements/header";
-import Posts from "./components/main-dash";
+import Posts from "./components/Dashboards/main-dash";
 import Main from "./components/UserAuth/main";
 import { setToken, refreshToken } from "./securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 // import { isExpired } from "react-jwt";
 import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
-import ProfileDash from "./components/Profile/profile-dash";
+import ProfileDash from "./components/Dashboards/profile-dash";
+import EventDash from "./components/Dashboards/event-dash";
 
 const token = localStorage.token;
 
@@ -74,6 +75,16 @@ function App() {
               <ProtectedRoute>
                 <Header />
                 <ProfileDash />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/event/:id"
+            element={
+              <ProtectedRoute>
+                <Header />
+                <EventDash />
               </ProtectedRoute>
             }
           />

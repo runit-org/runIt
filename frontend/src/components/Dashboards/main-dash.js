@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Button, ButtonGroup, Card, Container } from "react-bootstrap";
-import EventItem from "./Event/event-item";
-import RecentsCard from "./SiteElements/recents-card";
+import {
+  Button,
+  ButtonGroup,
+  Card,
+  Col,
+  Container,
+  Row,
+} from "react-bootstrap";
+import EventItem from "../Event/event-item";
+import RecentsCard from "../SiteElements/recents-card";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllEvents } from "../actions/eventActions";
-import CreatePost from "./Event/create-event";
-import UserProfile from "./Profile/user-profile";
-import Pagination from "./SiteElements/pagination";
+import { getAllEvents } from "../../actions/eventActions";
+import CreatePost from "../Event/create-event";
+import UserProfile from "../Profile/user-profile";
+import Pagination from "../SiteElements/pagination";
 import { useSearchParams, useLocation } from "react-router-dom";
-import { SearchParam } from "./Utilities/search-param";
+import { SearchParam } from "../Utilities/search-param";
+import EventItemCard from "../Event/event-item-card";
 
 function MainDash() {
   const dispatch = useDispatch();
@@ -53,16 +61,22 @@ function MainDash() {
               <Card className="create-post-card">
                 <CreatePost />
               </Card>
-              {eventData
-                ? eventData.map((event, index) => (
-                    <div key={index}>
-                      <EventItem
+              <Row xs={1} sm={2} md={3}>
+                {eventData
+                  ? eventData.map((event, index) => (
+                      <Col key={index}>
+                        {/* <EventItem
                         eventData={event}
                         eventCount={allEventsData.count}
-                      />
-                    </div>
-                  ))
-                : ""}
+                      /> */}
+                        <EventItemCard
+                          eventData={event}
+                          eventCount={allEventsData.count}
+                        />
+                      </Col>
+                    ))
+                  : ""}
+              </Row>
             </div>
             {allEventsData.count > 0 ? (
               <Pagination

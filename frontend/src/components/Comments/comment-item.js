@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Badge, Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
-import JoinEvent from "./join-event";
-import UpdateEvent from "./update-event";
+import { Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
+import JoinEvent from "../Event/join-event";
+import UpdateEvent from "../Event/update-event";
 import { eventOptions } from "../Utilities/event-options";
 import { Mention } from "../Utilities/mention";
-import EventMembers from "./event-members";
+import EventMembers from "../Event/event-members";
 
-function EventItem(props) {
+function CommentItem(props) {
   const [currentUser, setCurrentUser] = useState();
   const [editorMode, setEditorMode] = useState(false);
   const joined = props.eventData.joinedStatus === "ACCEPTED";
   const requested = props.eventData.joinedStatus === "PENDING";
   const rejected = props.eventData.joinedStatus === "REJECTED";
-
-  console.log(props.eventData);
 
   let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
@@ -37,38 +35,40 @@ function EventItem(props) {
       {editorMode === false ? (
         <Card className="event-card">
           <Card.Header>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex">
               <img src={img} className="userProf-img me-3" alt="Img" />
-              {joined ? (
-                <div>
-                  <Badge
-                    bg=""
-                    style={{ backgroundColor: "#DFF2BF", color: "#4F8A10" }}
+
+              <div className="me-auto">
+                <h6 className="fw-bold m-0">{props.eventData.title}</h6>
+                <small
+                  className="text-muted"
+                  style={{ fontSize: "12px", display: "block" }}
+                >
+                  <a
+                    href={`profile?user=${props.eventData.userName}`}
+                    className="text-decoration-none"
                   >
-                    Joined
-                  </Badge>
+                    @{props.eventData.userName}
+                  </a>{" "}
+                  <strong> {props.eventData.humanTimeDiffCreatedAt} ago</strong>
+                </small>
+              </div>
+              {/* {joined ? (
+                <div className="me-2">
+                  <Badge bg="success">Joined</Badge>
                 </div>
               ) : requested ? (
-                <div>
-                  <Badge
-                    bg=""
-                    style={{ backgroundColor: "#e5edff", color: "#5850ec" }}
-                  >
-                    Requested
-                  </Badge>
+                <div className="me-2">
+                  <Badge bg="primary">Requested</Badge>
                 </div>
               ) : rejected ? (
-                <div>
-                  <Badge
-                    bg=""
-                    style={{ backgroundColor: "#FFD2D2", color: "#D8000C" }}
-                  >
-                    Unapproved
-                  </Badge>
+                <div className="me-2">
+                  <Badge bg="danger">Unapproved</Badge>
                 </div>
               ) : (
                 ""
-              )}
+              )} */}
+
               {currentUser === props.eventData.user ? (
                 <Dropdown>
                   <Dropdown.Toggle
@@ -115,49 +115,41 @@ function EventItem(props) {
             </div>
           </Card.Header>
           <Card.Body>
-            <div className="details_textarea">
-              <h4>{props.eventData.title}</h4>
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: props.eventData.details
-                    ? Mention(props.eventData.details)
-                    : props.eventData.details,
-                }}
-              />
-            </div>
-            <div className="details_textarea">
-              <h6>Details</h6>
-              <small className="text-muted">
-                Host:{" "}
-                <a
-                  href={`profile?user=${props.eventData.userName}`}
-                  className="text-decoration-none"
-                >
-                  @{props.eventData.userName}
-                </a>
-              </small>
-              <br />
-              <small className="text-muted">
-                Posted: {props.eventData.humanTimeDiffCreatedAt} ago
-              </small>
-              <br />
-              <small className="text-muted">
-                Date: {props.eventData.eventDateString}{" "}
-              </small>
+            <Card.Text
+              className="details_textarea"
+              dangerouslySetInnerHTML={{
+                __html: props.eventData.details
+                  ? Mention(props.eventData.details)
+                  : props.eventData.details,
+              }}
+            />
 
-              <div className="mt-4">
-                <EventMembers
-                  eventId={props.eventData.id}
-                  userId={props.eventData.user}
-                  currentUser={currentUser}
-                  img={img}
-                />
-              </div>
-            </div>
             <ButtonGroup
               aria-label="Basic example"
-              className="mt-3 w-100 justify-content-between"
+              className="mt-3 w-100 gap-2"
             >
+              <Button variant="light" className="postBtn-placements cta_button">
+                <span className="d-flex align-items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    width="20"
+                    height="20"
+                    className="me-2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                    />
+                  </svg>
+                  Likes
+                </span>
+              </Button>
+
               <Button variant="light" className="postBtn-placements cta_button">
                 <span className="d-flex align-items-center">
                   <svg
@@ -179,7 +171,7 @@ function EventItem(props) {
                   Comments
                 </span>
               </Button>
-              {currentUser !== props.eventData.user &&
+              {/*  {currentUser !== props.eventData.user &&
               !joined &&
               !requested &&
               !rejected ? (
@@ -189,7 +181,13 @@ function EventItem(props) {
                 />
               ) : (
                 ""
-              )}
+              )} */}
+              {/*  <EventMembers
+                eventId={props.eventData.id}
+                userId={props.eventData.user}
+                currentUser={currentUser}
+                img={img}
+              /> */}
             </ButtonGroup>
           </Card.Body>
         </Card>
@@ -207,4 +205,4 @@ function EventItem(props) {
   );
 }
 
-export default EventItem;
+export default CommentItem;

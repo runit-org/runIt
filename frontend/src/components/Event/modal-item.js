@@ -4,7 +4,17 @@ import CTAButton from "../SiteElements/cta-button";
 
 const ModalItem = React.forwardRef(
   (
-    { btnIcon, error, title, content, subBtn, subHandler, parentCallback },
+    {
+      btnIcon,
+      error,
+      customBtn,
+      btnStyleFull,
+      title,
+      content,
+      subBtn,
+      subHandler,
+      parentCallback,
+    },
     r
   ) => {
     const [modalShow, setModalShow] = useState(false);
@@ -22,24 +32,24 @@ const ModalItem = React.forwardRef(
     });
 
     return (
-      <div ref={r}>
+      <>
         <CTAButton
           type={""}
-          btnStyle={"postBtn-placements"}
+          btnStyle={`postBtn-placements ${customBtn}`}
+          btnStyleFull={btnStyleFull}
           variant={"primary"}
           onClick={() => setModalShow(true)}
           placeholder={btnIcon}
+          title={title}
         />
 
         <Modal
+          ref={r}
           size="md"
           show={modalShow}
           onHide={() => setModalShow(false)}
           aria-labelledby="example-modal-sizes-title-lg"
         >
-          <Modal.Header /* closeButton */>
-            <Modal.Title>{btnIcon}</Modal.Title>
-          </Modal.Header>
           <Modal.Body>
             <Form
               onSubmit={(e) => {
@@ -49,13 +59,13 @@ const ModalItem = React.forwardRef(
               <h4>{title}</h4>
               {error ? <small className="mb-4">{error}</small> : ""}
               <div>
-                <div> {content}</div>
+                <div className="mt-3"> {content}</div>
               </div>
               {subBtn}
             </Form>
           </Modal.Body>
         </Modal>
-      </div>
+      </>
     );
   }
 );
