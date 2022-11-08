@@ -1,20 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Button } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getEventMembers, memberStatus } from "../../actions/eventActions";
-import { RiUserStarLine } from "react-icons/ri";
-import Loading from "../SiteElements/loader";
+import { Link } from "react-router-dom";
+import { getEventMembers } from "../../actions/eventActions";
 import ModalItem from "./modal-item";
 
 function EventMembers(props) {
   const dispatch = useDispatch();
   const ref = React.createRef();
-
-  const [memberId, setMemberId] = useState();
   const [modalShow, setModalShow] = useState(false);
   const [eventMbs, setEventMbs] = useState([]);
-  const [load, setLoad] = useState(false);
-  const [status, setStatus] = useState();
+  let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
   const handler = useCallback((modalShow) => {
     setModalShow(modalShow);
@@ -24,7 +20,7 @@ function EventMembers(props) {
     if (modalShow) {
       dispatch(getEventMembers(props.eventId));
     }
-  }, [modalShow]);
+  }, [dispatch, modalShow, props.eventId]);
 
   var allEventMembers = useSelector(
     (eventReducer) => eventReducer.events.eventMembers.data
@@ -35,86 +31,73 @@ function EventMembers(props) {
     }
   }, [allEventMembers]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const postData = {
-      eventId: props.eventId,
-      userId: memberId,
-      status: status,
-    };
-
-    dispatch(memberStatus(postData, setLoad));
-  };
-
-  const permitUser = (status, id) => {
-    setStatus(status);
-    setMemberId(id);
-  };
-
   return (
     <>
       <ModalItem
         parentCallback={handler}
         ref={ref}
         customBtn={""}
-        btnIcon={<RiUserStarLine />}
+        btnIcon={
+          <div className="d-flex img-group">
+            {eventMbs
+              .filter((members) => members.status !== "")
+              .slice(0, 4)
+              .map((member) => {
+                return (
+                  <img
+                    key={member.id}
+                    src={img}
+                    className="members-img "
+                    alt="Img"
+                  />
+                );
+              })}
+            {eventMbs.length > 4 ? (
+              <span className="members-count">+{eventMbs.length - 4}</span>
+            ) : (
+              ""
+            )}
+          </div>
+        }
         error={""}
-        title={"Member"}
+        title={"Members"}
         content={
           <>
-            {eventMbs.length == 0 ? (
+            {eventMbs.length === 0 ? (
               <strong>Nobody here yet....</strong>
             ) : (
-              eventMbs.map((member) => (
-                <div key={member.id}>
-                  <strong>
-                    {" "}
-                    {props.currentUser == member.userId
-                      ? `Your request (${member.username})`
-                      : member.username}{" "}
-                  </strong>
-                  <p>A user has requested to join this event.</p>
+              <ListGroup className="members-list" variant="flush">
+                {eventMbs.map((member) => (
+                  <ListGroup.Item key={member.id}>
+                    <div className="d-flex align-items-center">
+                      <img
+                        src={props.img}
+                        className="userProf-img"
+                        alt="use profile"
+                      />
+                      <div className="ms-4">
+                        <Link
+                          to={{
+                            pathname: "/profile",
+                            search: `user=${member.username}`,
+                          }}
+                        >
+                          @{member.username}
+                        </Link>
 
-                  {member.status === "PENDING" &&
-                  props.userId == props.currentUser ? (
-                    <>
-                      <Button
-                        type="submit"
-                        className="me-2 btn-cancel"
-                        onClick={() => permitUser(2, member.userId)}
-                      >
-                        {(() => {
-                          if (load) {
-                            return <Loading />;
-                          } else {
-                            return <>Reject</>;
-                          }
-                        })()}
-                      </Button>
-                      <Button
-                        type="submit"
-                        onClick={() => permitUser(1, member.userId)}
-                      >
-                        {(() => {
-                          if (load) {
-                            return <Loading />;
-                          } else {
-                            return <>Accept</>;
-                          }
-                        })()}
-                      </Button>
-                    </>
-                  ) : (
-                    member.status
-                  )}
-                  <hr />
-                </div>
-              ))
+                        <small className="d-block text-muted">
+                          user@email.com
+                        </small>
+                      </div>
+                    </div>
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
             )}
           </>
         }
         subBtn={""}
-        subHandler={handleSubmit}
+        subHandler={null}
       />
     </>
   );

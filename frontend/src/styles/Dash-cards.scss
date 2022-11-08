@@ -57,17 +57,15 @@
   border: none;
   border-radius: 5px;
   padding: 1rem 1rem;
-  // display: inline;
 }
-
-/* .event-card .card-body {
-  padding-top: 0;
-} */
 
 .event-card .details_textarea {
   background-color: $secondary-light;
   border-radius: 8px;
   padding: 25px;
+  &:not(:first-child) {
+    background-color: $primary-light !important;
+  }
 }
 
 .event-card .cta_button {
@@ -101,10 +99,6 @@
 .event-card div[aria-labelledby="dropdown-basic"] {
   min-width: 100px !important;
 }
-
-/* .dropdown-menu.show {
-  transform: translate3d(-100px, 27px, 0px) !important;
-} */
 
 // new
 .event-card_dash {

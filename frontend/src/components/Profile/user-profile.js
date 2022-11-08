@@ -3,13 +3,14 @@ import { Badge } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
 import { getUserProfile } from "../../actions/userActions";
-import img from "../../logo192.png";
 
 function UserProfile(props) {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const param = searchParams.get("user");
   const [userProfile, setUserProfile] = useState({});
+
+  let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
   useEffect(() => {
     dispatch(getUserProfile(param ? param : props.username));

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Badge, Button, ButtonGroup, Card } from "react-bootstrap";
-import img from "../../logo192.png";
 import JoinEvent from "./join-event";
 import { useNavigate } from "react-router-dom";
 
 function EventItemCard(props) {
   const [currentUser, setCurrentUser] = useState();
   const navigate = useNavigate();
+  let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
   const joined = props.eventData.joinedStatus === "ACCEPTED";
   const requested = props.eventData.joinedStatus === "PENDING";
@@ -44,15 +44,30 @@ function EventItemCard(props) {
           </div>
           {joined ? (
             <div>
-              <Badge bg="success">Joined</Badge>
+              <Badge
+                bg=""
+                style={{ backgroundColor: "#DFF2BF", color: "#4F8A10" }}
+              >
+                Joined
+              </Badge>
             </div>
           ) : requested ? (
             <div>
-              <Badge bg="primary">Requested</Badge>
+              <Badge
+                bg=""
+                style={{ backgroundColor: "#e5edff", color: "#5850ec" }}
+              >
+                Requested
+              </Badge>
             </div>
           ) : rejected ? (
             <div>
-              <Badge bg="danger">Unapproved</Badge>
+              <Badge
+                bg=""
+                style={{ backgroundColor: "#FFD2D2", color: "#D8000C" }}
+              >
+                Unapproved
+              </Badge>
             </div>
           ) : (
             ""
@@ -69,11 +84,6 @@ function EventItemCard(props) {
 
         <small className="text-muted ">Party size: 4</small>
 
-        {/* <EventMembers
-            eventId={props.eventData.id}
-            userId={props.eventData.user}
-            currentUser={currentUser}
-          /> */}
         <ButtonGroup className="mt-3 w-100 gap-2" vertical>
           <Button
             variant="primary"

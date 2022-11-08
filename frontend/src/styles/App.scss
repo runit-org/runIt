@@ -168,12 +168,17 @@ div.content {
   top: 0;
   padding-top: 80px !important;
 }
-:is(.sidebar, .sidebar_eventDash) .card:first-child {
+.sidebar_eventDash .card {
+  background-color: $primary-light;
+  border-radius: 8px;
+  margin: 20px;
+}
+.sidebar .card:first-child {
   background-color: $primary-light;
   border-radius: 5px;
   margin: 20px;
 }
-:is(.sidebar, .sidebar_eventDash) .card:last-child {
+.sidebar .card:last-child {
   background-color: transparent;
   border: none;
   margin: 20px;
@@ -195,8 +200,8 @@ div.content {
 
 /*------Modal------*/
 .modal-header {
-  border-top-right-radius: 20px !important;
-  border-top-left-radius: 20px !important;
+  border-top-right-radius: 8px !important;
+  border-top-left-radius: 8px !important;
   border-color: transparent !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
@@ -211,7 +216,8 @@ div.content {
   font-weight: bold !important;
 }
 .modal-content {
-  border-radius: 20px !important;
+  border-radius: 8px !important;
+  padding: 20px;
 }
 
 .modal-body {
@@ -223,15 +229,34 @@ div.content {
 .userProf-img {
   width: 45px;
   border-radius: 8px !important;
-  padding: 5px;
   background-color: $secondary-dark;
 }
 
-.recents-Logo {
-  width: 30px;
-  border-radius: 12px;
-  padding: 5px;
+.members-img {
+  width: 1.5rem;
+  border-radius: 9999px;
   background-color: $secondary-dark;
+}
+
+.img-group img {
+  margin-left: -0.6rem;
+}
+
+.members-count {
+  display: inline-flex;
+  overflow: hidden;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background-color: $secondary-light;
+  color: $primary-dark;
+  font-size: small;
+}
+.img-group span {
+  margin-left: -0.6rem;
 }
 
 /*------pagination------*/
@@ -267,4 +292,9 @@ div.content {
 .pagination .page-link:hover {
   background-color: $theme !important;
   color: $primary-light !important;
+}
+
+/*------Listgroup------*/
+.members-list.list-group .list-group-item {
+  padding: 10px 0;
 }

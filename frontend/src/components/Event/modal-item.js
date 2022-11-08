@@ -59,7 +59,7 @@ const ModalItem = React.forwardRef(
               <h4>{title}</h4>
               {error ? <small className="mb-4">{error}</small> : ""}
               <div>
-                <div> {content}</div>
+                <div className="mt-3"> {content}</div>
               </div>
               {subBtn}
             </Form>
