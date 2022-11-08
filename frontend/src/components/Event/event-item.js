@@ -39,21 +39,6 @@ function EventItem(props) {
           <Card.Header>
             <div className="d-flex justify-content-between">
               <img src={img} className="userProf-img me-3" alt="Img" />
-              {/*  <div className="me-auto">
-                <h6 className="fw-bold m-0">{props.eventData.title}</h6>
-                <small
-                  className="text-muted"
-                  style={{ fontSize: "12px", display: "block" }}
-                >
-                  <a
-                    href={`profile?user=${props.eventData.userName}`}
-                    className="text-decoration-none"
-                  >
-                    @{props.eventData.userName}
-                  </a>{" "}
-                  <strong> {props.eventData.humanTimeDiffCreatedAt} ago</strong>
-                </small>
-              </div> */}
               {joined ? (
                 <div>
                   <Badge
