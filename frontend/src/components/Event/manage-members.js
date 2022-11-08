@@ -52,6 +52,7 @@ function ManageMembers(props) {
                 <div
                   key={member.id}
                   className="d-flex userInfo-div  justify-content-between"
+                  style={{ padding: " 20px 10px 10px 20px" }}
                 >
                   <div className="d-flex align-items-center">
                     <img

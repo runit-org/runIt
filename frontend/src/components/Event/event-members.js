@@ -10,6 +10,10 @@ function EventMembers(props) {
   const ref = React.createRef();
   const [modalShow, setModalShow] = useState(false);
   const [eventMbs, setEventMbs] = useState([]);
+  let acceptedMembers = eventMbs.filter(
+    (member) => member.status === "ACCEPTED"
+  );
+
   let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
   const handler = useCallback((modalShow) => {
@@ -39,20 +43,17 @@ function EventMembers(props) {
         customBtn={""}
         btnIcon={
           <div className="d-flex img-group">
-            {eventMbs
-              .filter((members) => members.status !== "")
-              .slice(0, 4)
-              .map((member) => {
-                return (
-                  <img
-                    key={member.id}
-                    src={img}
-                    className="members-img "
-                    alt="Img"
-                  />
-                );
-              })}
-            {eventMbs.length > 4 ? (
+            {acceptedMembers.slice(0, 4).map((member) => {
+              return (
+                <img
+                  key={member.id}
+                  src={img}
+                  className="members-img "
+                  alt="Img"
+                />
+              );
+            })}
+            {acceptedMembers.length > 4 ? (
               <span className="members-count">+{eventMbs.length - 4}</span>
             ) : (
               ""
@@ -67,7 +68,7 @@ function EventMembers(props) {
               <strong>Nobody here yet....</strong>
             ) : (
               <ListGroup className="members-list" variant="flush">
-                {eventMbs.map((member) => (
+                {acceptedMembers.map((member) => (
                   <ListGroup.Item key={member.id}>
                     <div className="d-flex align-items-center">
                       <img

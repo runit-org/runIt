@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  Col,
-  Container,
-  Row,
-} from "react-bootstrap";
-import EventItem from "../Event/event-item";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import RecentsCard from "../SiteElements/recents-card";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEvents } from "../../actions/eventActions";
@@ -65,10 +57,6 @@ function MainDash() {
                 {eventData
                   ? eventData.map((event, index) => (
                       <Col key={index}>
-                        {/* <EventItem
-                        eventData={event}
-                        eventCount={allEventsData.count}
-                      /> */}
                         <EventItemCard
                           eventData={event}
                           eventCount={allEventsData.count}
