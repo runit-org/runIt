@@ -16,4 +16,11 @@
   .sidebar {
     display: none;
   }
+  .dash-container {
+    margin: 0 auto !important;
+    flex-direction: column-reverse !important;
+  }
+  .sidebar_eventDash {
+    width: 100% !important;
+  }
 }

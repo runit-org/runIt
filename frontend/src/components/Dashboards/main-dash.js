@@ -53,7 +53,7 @@ function MainDash() {
               <Card className="create-post-card">
                 <CreatePost />
               </Card>
-              <Row xs={1} sm={2} md={3}>
+              <Row sm={1} md={2} xl={3}>
                 {eventData
                   ? eventData.map((event, index) => (
                       <Col key={index}>

@@ -49,12 +49,14 @@ function EventDash() {
 
             <div className="sidebar_eventDash">
               <div className="sidebar-wrapper">
-                <EventItem eventData={eventData} />
-                <ManageMembers
-                  eventData={eventData}
-                  currentUser={currentUser}
-                  img={img}
-                />
+                <Container>
+                  <EventItem eventData={eventData} />
+                  <ManageMembers
+                    eventData={eventData}
+                    currentUser={currentUser}
+                    img={img}
+                  />
+                </Container>
               </div>
             </div>
           </div>
