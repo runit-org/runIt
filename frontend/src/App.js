@@ -18,6 +18,7 @@ import jwt_decode from "jwt-decode";
 import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
 import ProfileDash from "./components/Dashboards/profile-dash";
 import EventDash from "./components/Dashboards/event-dash";
+import NewEventDash from "./components/Dashboards/new-event-dash";
 
 const token = localStorage.token;
 
@@ -59,7 +60,15 @@ function App() {
           <Route path="/signup" element={<Main />} />
           <Route path="/reset-password/:token" element={<Main />} />
           <Route path="/reset-password-auth" element={<Main />} />
-
+          <Route
+            path="/create-event"
+            element={
+              <ProtectedRoute>
+                <Header />
+                <NewEventDash />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/posts"
             element={
