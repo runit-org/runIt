@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  Col,
-  Row,
-  Form,
-  FloatingLabel,
-  Container,
-  Card,
-} from "react-bootstrap";
+import { Col, Row, Form, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { createNewEvent, getAllEvents } from "../../actions/eventActions";
 import ReactQuill from "react-quill";
@@ -29,7 +22,7 @@ function CreateEvent(props) {
 
   const eventDate = new Date(date);
 
-  useEffect(() => {
+  /*  useEffect(() => {
     props.postData_display({
       title: title,
       maxMember: maxMembers,
@@ -37,10 +30,10 @@ function CreateEvent(props) {
       date: date,
       time: time,
     });
-  }, [title, maxMembers, details, time, date]);
+  }, [title, maxMembers, details, time, date]); */
 
   var quillSetting = QuillFormatting();
-  let pageId = SearchParam();
+  // let pageId = SearchParam();
 
   useEffect(() => {
     if (details === "" || details === "<p><br></p>") {
@@ -63,7 +56,7 @@ function CreateEvent(props) {
       hour: time !== "" ? parseInt(time.split(":")[0]) : "",
       minute: time !== "" ? parseInt(time.split(":")[1]) : "",
     };
-    /* dispatch(createNewEvent(postData, setLoad, setError)).then(() => {
+    /*   dispatch(createNewEvent(postData, setLoad, setError)).then(() => {
       dispatch(getAllEvents(pageId));
     }); */
     dispatch(createNewEvent(postData, setLoad, setError));
@@ -80,7 +73,7 @@ function CreateEvent(props) {
   return (
     <Card className="event-card">
       <Card.Header>
-        <h3 className="fw-bold m-0">New event</h3>
+        <h3 className="fw-bold m-0">Create event</h3>
       </Card.Header>
       <Card.Body>
         <Form
@@ -89,82 +82,65 @@ function CreateEvent(props) {
           }}
           ref={formRef}
         >
-          <div className="details_textarea">
-            <Container className="new-post-container p-3">
-              <Row>
-                <Col>
-                  <Form.Group className="mb-3">
-                    <FloatingLabel
-                      controlId="floatingInput"
-                      label="Event Title"
-                      className="text-muted"
-                    >
-                      <Form.Control
-                        type="title"
-                        placeholder="Event Title"
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                      />
-                    </FloatingLabel>
-                  </Form.Group>
-                </Col>
-                <Col>
-                  <Form.Group className="mb-3">
-                    <FloatingLabel
-                      controlId="floatingInput2"
-                      label="Maximum Members"
-                      className="text-muted"
-                    >
-                      <Form.Control
-                        type="number"
-                        placeholder="Maximum Members"
-                        onChange={(e) =>
-                          setMaxMembers(parseInt(e.target.value))
-                        }
-                        min="2"
-                        required
-                      />
-                    </FloatingLabel>
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Group className="mb-3">
-                    <FloatingLabel
-                      controlId="floatingInput3"
-                      label="Time"
-                      className="text-muted"
-                    >
-                      <Form.Control
-                        type="time"
-                        placeholder="Time"
-                        onChange={(e) => setTime(e.target.value)}
-                        required
-                      />
-                    </FloatingLabel>
-                  </Form.Group>
-                </Col>
-                <Col>
-                  <Form.Group className="mb-3">
-                    <FloatingLabel
-                      controlId="floatingInput4"
-                      label="Date"
-                      className="text-muted"
-                    >
-                      <Form.Control
-                        type="date"
-                        placeholder="Date"
-                        onChange={(e) => setDate(e.target.value)}
-                        min={new Date().toISOString().split("T")[0]}
-                        required
-                      />
-                    </FloatingLabel>
-                  </Form.Group>
-                </Col>
-              </Row>
+          <div className="new-post-container">
+            <Row>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label className="text-muted p-1">
+                    Event Title
+                  </Form.Label>
+                  <Form.Control
+                    type="title"
+                    placeholder="Event Title"
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label className="text-muted p-1">size</Form.Label>
 
-              {/* <ReactQuill
+                  <Form.Control
+                    type="number"
+                    className="mb-3"
+                    placeholder="Maximum Members"
+                    onChange={(e) => setMaxMembers(parseInt(e.target.value))}
+                    min="2"
+                    required
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label className="text-muted  p-1">Time</Form.Label>
+
+                  <Form.Control
+                    type="time"
+                    placeholder="Time"
+                    onChange={(e) => setTime(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label className="text-muted p-1">Date</Form.Label>
+
+                  <Form.Control
+                    type="date"
+                    placeholder="Date"
+                    onChange={(e) => setDate(e.target.value)}
+                    min={new Date().toISOString().split("T")[0]}
+                    required
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+
+            {/* <ReactQuill
           modules={quillSetting[1]}
           formats={quillSetting[0]}
           theme="snow"
@@ -172,17 +148,17 @@ function CreateEvent(props) {
           onChange={setDetails}
         /> */}
 
-              <Form.Group>
-                <Form.Control
-                  placeholder="What's on your mind?"
-                  as="textarea"
-                  onChange={(e) => setDetails(e.target.value)}
-                  rows={4}
-                  required
-                />
-              </Form.Group>
+            <Form.Group>
+              <Form.Control
+                placeholder="What's on your mind?"
+                as="textarea"
+                onChange={(e) => setDetails(e.target.value)}
+                rows={4}
+                required
+              />
+            </Form.Group>
 
-              {/* <div className="d-flex justify-content-end">
+            {/* <div className="d-flex justify-content-end">
                 <CTAButton
                   type={"submit"}
                   btnStyle={"btn-placements"}
@@ -192,7 +168,6 @@ function CreateEvent(props) {
                   placeholder={<RiSendPlaneLine />}
                 />
               </div> */}
-            </Container>
           </div>
 
           <div className="d-flex justify-content-end mt-3">

@@ -8,6 +8,7 @@
 
 .new-post-container :is(.form-floating > .form-control, .form-control) {
   color: $primary-dark;
+  border-radius: 8px;
 }
 
 .new-post-container
@@ -18,7 +19,7 @@
 
 .new-post-container :is(.form-floating > .form-control, .form-control) {
   border: 1px solid rgba($primary-dark, 0.1);
-  background-color: rgb(240, 240, 240) !important;
+  // background-color: rgb(240, 240, 240) !important;
 }
 
 .new-post-container :is(.ql-container.ql-snow, .ql-toolbar.ql-snow) {
