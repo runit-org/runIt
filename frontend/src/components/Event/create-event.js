@@ -2,13 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { Col, Row, Form, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { createNewEvent, getAllEvents } from "../../actions/eventActions";
-import ReactQuill from "react-quill";
 import CTAButton from "../SiteElements/cta-button";
-import { RiSendPlaneLine } from "react-icons/ri";
-import { QuillFormatting } from "../SiteElements/quill-format";
 import { SearchParam } from "../Utilities/search-param";
 
-function CreateEvent(props) {
+function CreateEvent() {
   const dispatch = useDispatch();
   const formRef = useRef(0);
   const [title, setTitle] = useState("");
@@ -22,18 +19,7 @@ function CreateEvent(props) {
 
   const eventDate = new Date(date);
 
-  /*  useEffect(() => {
-    props.postData_display({
-      title: title,
-      maxMember: maxMembers,
-      details: details,
-      date: date,
-      time: time,
-    });
-  }, [title, maxMembers, details, time, date]); */
-
-  var quillSetting = QuillFormatting();
-  // let pageId = SearchParam();
+  let pageId = SearchParam();
 
   useEffect(() => {
     if (details === "" || details === "<p><br></p>") {
@@ -56,10 +42,9 @@ function CreateEvent(props) {
       hour: time !== "" ? parseInt(time.split(":")[0]) : "",
       minute: time !== "" ? parseInt(time.split(":")[1]) : "",
     };
-    /*   dispatch(createNewEvent(postData, setLoad, setError)).then(() => {
+    dispatch(createNewEvent(postData, setLoad, setError)).then(() => {
       dispatch(getAllEvents(pageId));
-    }); */
-    dispatch(createNewEvent(postData, setLoad, setError));
+    });
   };
 
   useEffect(() => {
@@ -101,7 +86,7 @@ function CreateEvent(props) {
             <Row>
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label className="text-muted p-1">size</Form.Label>
+                  <Form.Label className="text-muted p-1">Size</Form.Label>
 
                   <Form.Control
                     type="number"
@@ -140,14 +125,6 @@ function CreateEvent(props) {
               </Col>
             </Row>
 
-            {/* <ReactQuill
-          modules={quillSetting[1]}
-          formats={quillSetting[0]}
-          theme="snow"
-          value={details}
-          onChange={setDetails}
-        /> */}
-
             <Form.Group>
               <Form.Control
                 placeholder="What's on your mind?"
@@ -157,20 +134,10 @@ function CreateEvent(props) {
                 required
               />
             </Form.Group>
-
-            {/* <div className="d-flex justify-content-end">
-                <CTAButton
-                  type={"submit"}
-                  btnStyle={"btn-placements"}
-                  variant={"primary"}
-                  formValidation={validateFormEmpty}
-                  isLoading={load}
-                  placeholder={<RiSendPlaneLine />}
-                />
-              </div> */}
           </div>
 
-          <div className="d-flex justify-content-end mt-3">
+          <div className="d-flex justify-content-between mt-3">
+            <small className="text-danger">{error}</small>
             <CTAButton
               type={"submit"}
               btnStyle={"postBtn-placements cta_button"}
@@ -187,6 +154,7 @@ function CreateEvent(props) {
                     stroke="currentColor"
                     width="20"
                     height="20"
+                    className="me-2"
                   >
                     <path
                       strokeLinecap="round"
@@ -194,6 +162,7 @@ function CreateEvent(props) {
                       d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
                     />
                   </svg>
+                  Publish
                 </div>
               }
             />

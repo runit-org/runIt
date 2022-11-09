@@ -6,9 +6,6 @@ import CTAButton from "../SiteElements/cta-button";
 export const eventOptions = (id, title, count, user, currUser, handleClick) => {
   const options_owner = [
     {
-      item: <RemoveEvent eventId={id} eventTitle={title} eventCounts={count} />,
-    },
-    {
       item: (
         <div>
           <CTAButton
@@ -40,6 +37,9 @@ export const eventOptions = (id, title, count, user, currUser, handleClick) => {
           />
         </div>
       ),
+    },
+    {
+      item: <RemoveEvent eventId={id} eventTitle={title} eventCounts={count} />,
     },
     /* {
       item: <EventMembers eventId={id} userId={user} currentUser={currUser} />,
