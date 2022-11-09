@@ -50,10 +50,8 @@ function MainDash() {
         <div className="content">
           <Container>
             <div>
-              <Card className="create-post-card">
-                <CreatePost />
-              </Card>
-              <Row sm={1} md={2} xl={3}>
+              <CreatePost />
+              <Row xs={1} sm={1} md={2}>
                 {eventData
                   ? eventData.map((event, index) => (
                       <Col key={index}>

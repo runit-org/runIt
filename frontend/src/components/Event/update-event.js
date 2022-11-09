@@ -1,17 +1,8 @@
 import React, { useState } from "react";
 import { Card, Form } from "react-bootstrap";
-import img from "../../logo192.png";
-import ReactQuill from "react-quill";
-import {
-  updateEvent,
-  getAllEvents,
-  getSingleEvent,
-} from "../../actions/eventActions";
+import { updateEvent, getSingleEvent } from "../../actions/eventActions";
 import { useDispatch } from "react-redux";
 import CTAButton from "../SiteElements/cta-button";
-import { RiCloseFill, RiSendPlaneLine } from "react-icons/ri";
-import { QuillFormatting } from "../SiteElements/quill-format";
-import { SearchParam } from "../Utilities/search-param";
 import { useParams } from "react-router-dom";
 
 function UpdateEvent(props, { handleUpate }) {
@@ -20,9 +11,6 @@ function UpdateEvent(props, { handleUpate }) {
   const [title, setTitle] = useState(props.title);
   const [maxMembers, setMaxMembers] = useState(props.maxMembers);
   const [details, setDetails] = useState(props.details);
-
-  var quillSetting = QuillFormatting();
-  let pageId = SearchParam();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +22,7 @@ function UpdateEvent(props, { handleUpate }) {
     };
 
     dispatch(updateEvent(props.eventId, postData)).then(() => {
-      dispatch(getAllEvents(pageId));
+      // dispatch(getAllEvents(pageId));
       dispatch(getSingleEvent(params.id));
     });
     props.handleUpate();
@@ -48,48 +36,28 @@ function UpdateEvent(props, { handleUpate }) {
     >
       <Card className={props.cardStyle}>
         <Card.Header>
-          <div className="d-flex">
-            <img src={img} className="userProf-img me-2" alt="Img" />
-            <div className="me-auto">
-              <Form.Group className="d-flex">
-                <Form.Control
-                  className="me-2"
-                  type="title"
-                  placeholder="Event Title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  required
-                />
-
-                <Form.Control
-                  type="number"
-                  placeholder="Maximum Members"
-                  value={maxMembers || ""}
-                  onChange={(e) => setMaxMembers(parseInt(e.target.value))}
-                  min="2"
-                  required
-                />
-              </Form.Group>
-            </div>
-            <div>
-              <CTAButton
-                type={""}
-                btnStyle={"postBtn-placements"}
-                variant={"primary"}
-                onClick={props.handleUpate}
-                placeholder={<RiCloseFill />}
-              />
-            </div>
-          </div>
+          <h3 className="fw-bold m-0">Update event</h3>
         </Card.Header>
         <Card.Body>
-          {/* <ReactQuill
-            modules={quillSetting[1]}
-            formats={quillSetting[0]}
-            theme="snow"
-            value={details}
-            onChange={setDetails}
-          /> */}
+          <Form.Group className="d-flex mb-3">
+            <Form.Control
+              className="me-2"
+              type="title"
+              placeholder="Event Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+
+            <Form.Control
+              type="number"
+              placeholder="Maximum Members"
+              value={maxMembers || ""}
+              onChange={(e) => setMaxMembers(parseInt(e.target.value))}
+              min="2"
+              required
+            />
+          </Form.Group>
           <Form.Group>
             <Form.Control
               placeholder="What's on your mind?"
@@ -99,10 +67,37 @@ function UpdateEvent(props, { handleUpate }) {
               required
             />
           </Form.Group>
-          <div className="d-flex justify-content-end">
+          <div className="d-flex justify-content-between mt-3">
+            <CTAButton
+              type={""}
+              btnStyle={"postBtn-placements"}
+              variant={"primary"}
+              onClick={props.handleUpate}
+              placeholder={
+                <div className="d-flex align-items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    width="20"
+                    height="20"
+                    className="me-2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                  Cancel
+                </div>
+              }
+            />
             <CTAButton
               type={"submit"}
-              btnStyle={"btn-placements"}
+              btnStyle={"postBtn-placements cta_button"}
               variant={"primary"}
               formValidation={
                 title === "" ||
@@ -113,7 +108,27 @@ function UpdateEvent(props, { handleUpate }) {
                   : false
               }
               isLoading={""}
-              placeholder={<RiSendPlaneLine />}
+              placeholder={
+                <div className="d-flex align-items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    width="20"
+                    height="20"
+                    className="me-2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
+                    />
+                  </svg>
+                  Publish
+                </div>
+              }
             />
           </div>
         </Card.Body>

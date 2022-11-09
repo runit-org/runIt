@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Col, Row, Form, FloatingLabel, Container } from "react-bootstrap";
+import { Col, Row, Form, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { createNewEvent, getAllEvents } from "../../actions/eventActions";
-import ReactQuill from "react-quill";
 import CTAButton from "../SiteElements/cta-button";
-import { RiSendPlaneLine } from "react-icons/ri";
-import { QuillFormatting } from "../SiteElements/quill-format";
 import { SearchParam } from "../Utilities/search-param";
 
 function CreateEvent() {
@@ -22,7 +19,6 @@ function CreateEvent() {
 
   const eventDate = new Date(date);
 
-  var quillSetting = QuillFormatting();
   let pageId = SearchParam();
 
   useEffect(() => {
@@ -60,121 +56,120 @@ function CreateEvent() {
   }, [error]);
 
   return (
-    <Form
-      onSubmit={(e) => {
-        handleSubmit(e);
-      }}
-      ref={formRef}
-    >
-      <Container className="new-post-container p-3">
-        <Row>
-          <Col>
-            <Form.Group className="mb-3">
-              <FloatingLabel
-                controlId="floatingInput"
-                label="Event Title"
-                className="text-muted"
-              >
-                <Form.Control
-                  type="title"
-                  placeholder="Event Title"
-                  onChange={(e) => setTitle(e.target.value)}
-                  required
-                />
-              </FloatingLabel>
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3">
-              <FloatingLabel
-                controlId="floatingInput2"
-                label="Maximum Members"
-                className="text-muted"
-              >
-                <Form.Control
-                  type="number"
-                  placeholder="Maximum Members"
-                  onChange={(e) => setMaxMembers(parseInt(e.target.value))}
-                  min="2"
-                  required
-                />
-              </FloatingLabel>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3">
-              <FloatingLabel
-                controlId="floatingInput3"
-                label="Time"
-                className="text-muted"
-              >
-                <Form.Control
-                  type="time"
-                  placeholder="Time"
-                  onChange={(e) => setTime(e.target.value)}
-                  /*  min={new Date().toLocaleTimeString(navigator.language, {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })} */
-                  required
-                />
-              </FloatingLabel>
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3">
-              <FloatingLabel
-                controlId="floatingInput4"
-                label="Date"
-                className="text-muted"
-              >
-                <Form.Control
-                  type="date"
-                  placeholder="Date"
-                  onChange={(e) => setDate(e.target.value)}
-                  min={new Date().toISOString().split("T")[0]}
-                  required
-                />
-              </FloatingLabel>
-            </Form.Group>
-          </Col>
-        </Row>
+    <Card className="event-card">
+      <Card.Header>
+        <h3 className="fw-bold m-0">Create event</h3>
+      </Card.Header>
+      <Card.Body>
+        <Form
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+          ref={formRef}
+        >
+          <div className="new-post-container">
+            <Row>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label className="text-muted p-1">
+                    Event Title
+                  </Form.Label>
+                  <Form.Control
+                    type="title"
+                    placeholder="Event Title"
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label className="text-muted p-1">Size</Form.Label>
 
-        {/* <ReactQuill
-          modules={quillSetting[1]}
-          formats={quillSetting[0]}
-          theme="snow"
-          value={details}
-          onChange={setDetails}
-        /> */}
+                  <Form.Control
+                    type="number"
+                    className="mb-3"
+                    placeholder="Maximum Members"
+                    onChange={(e) => setMaxMembers(parseInt(e.target.value))}
+                    min="2"
+                    required
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label className="text-muted  p-1">Time</Form.Label>
 
-        <Form.Group>
-          <Form.Control
-            placeholder="What's on your mind?"
-            as="textarea"
-            onChange={(e) => setDetails(e.target.value)}
-            rows={4}
-            required
-          />
-        </Form.Group>
+                  <Form.Control
+                    type="time"
+                    placeholder="Time"
+                    onChange={(e) => setTime(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label className="text-muted p-1">Date</Form.Label>
 
-        <div className="d-flex justify-content-end">
-          {/*  <Button type="submit" className="mb-2 mt-3 w-25">
-              Add Friends
-            </Button> */}
-          <CTAButton
-            type={"submit"}
-            btnStyle={"btn-placements"}
-            variant={"primary"}
-            formValidation={validateFormEmpty}
-            isLoading={load}
-            placeholder={<RiSendPlaneLine />}
-          />
-        </div>
-      </Container>
-    </Form>
+                  <Form.Control
+                    type="date"
+                    placeholder="Date"
+                    onChange={(e) => setDate(e.target.value)}
+                    min={new Date().toISOString().split("T")[0]}
+                    required
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+
+            <Form.Group>
+              <Form.Control
+                placeholder="What's on your mind?"
+                as="textarea"
+                onChange={(e) => setDetails(e.target.value)}
+                rows={4}
+                required
+              />
+            </Form.Group>
+          </div>
+
+          <div className="d-flex justify-content-between mt-3">
+            <small className="text-danger">{error}</small>
+            <CTAButton
+              type={"submit"}
+              btnStyle={"postBtn-placements cta_button"}
+              variant={"primary"}
+              formValidation={validateFormEmpty}
+              isLoading={load}
+              placeholder={
+                <div className="d-flex align-items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    width="20"
+                    height="20"
+                    className="me-2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
+                    />
+                  </svg>
+                  Publish
+                </div>
+              }
+            />
+          </div>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 }
 
