@@ -14,8 +14,6 @@ function EventItem(props) {
   const requested = props.eventData.joinedStatus === "PENDING";
   const rejected = props.eventData.joinedStatus === "REJECTED";
 
-  console.log(props.eventData);
-
   let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
   var getCurrentUser = useSelector(

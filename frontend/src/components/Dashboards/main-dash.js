@@ -21,7 +21,7 @@ function MainDash() {
   let pageId = SearchParam();
 
   useEffect(() => {
-    dispatch(getAllEvents(pageId));
+    dispatch(getAllEvents(pageId ? pageId : 1));
   }, [dispatch, pageId]);
 
   useEffect(() => {
