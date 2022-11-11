@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { createComment } from "../../actions/commentActions";
+import { createComment, getAllComments } from "../../actions/commentActions";
 import CTAButton from "../SiteElements/cta-button";
 
 function CreateComment(props) {
@@ -27,7 +27,7 @@ function CreateComment(props) {
       content: content,
     };
     dispatch(createComment(props.id, postData, setLoad, setError)).then(() => {
-      //  dispatch(getAllEvents(pageId));
+      dispatch(getAllComments(props.id));
     });
   };
 
@@ -56,7 +56,7 @@ function CreateComment(props) {
               required
             />
             <div className="d-flex justify-content-end mt-3">
-              {/* <small className="text-danger">{error}</small> */}
+              <small className="text-danger">{error}</small>
               <CTAButton
                 type={"submit"}
                 btnStyle={"postBtn-placements cta_button"}

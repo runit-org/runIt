@@ -7,11 +7,13 @@ import EventItem from "../Event/event-item";
 import ManageMembers from "../Event/manage-members";
 import CommentItem from "../Comments/comment-item";
 import CreateComment from "../Comments/create-comment";
+import { getAllComments } from "../../actions/commentActions";
 
 function EventDash() {
   const dispatch = useDispatch();
   const params = useParams();
   const [eventData, setEventData] = useState([]);
+  const [commentData, setCommentData] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
@@ -27,15 +29,22 @@ function EventDash() {
 
   useEffect(() => {
     dispatch(getSingleEvent(params.id));
+    dispatch(getAllComments(params.id));
   }, [dispatch, params.id]);
 
   var event = useSelector((securityReducer) => securityReducer.events.events);
+  var comments = useSelector(
+    (commentReducer) => commentReducer.comments.events
+  );
 
   useEffect(() => {
     if (event) {
       setEventData(event.data);
     }
-  }, [event]);
+    if (comments) {
+      setCommentData(comments);
+    }
+  }, [event, comments]);
 
   return (
     <>
@@ -44,8 +53,19 @@ function EventDash() {
           <div className="dash-container">
             <div className="content">
               <Container>
-                <CreateComment id={eventData.id} />
-                <CommentItem eventData={eventData} />
+                <CreateComment id={params.id} />
+                {commentData.results
+                  ? commentData.results.map((comment, index) => {
+                      return (
+                        <div key={index}>
+                          <CommentItem
+                            eventData={eventData}
+                            commentData={comment}
+                          />
+                        </div>
+                      );
+                    })
+                  : ""}
               </Container>
             </div>
 
