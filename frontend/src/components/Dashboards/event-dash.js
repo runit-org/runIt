@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getSingleEvent } from "../../actions/eventActions";
 import EventItem from "../Event/event-item";
 import ManageMembers from "../Event/manage-members";
 import CommentItem from "../Comments/comment-item";
+import CreateComment from "../Comments/create-comment";
 
 function EventDash() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function EventDash() {
           <div className="dash-container">
             <div className="content">
               <Container>
+                <CreateComment id={eventData.id} />
                 <CommentItem eventData={eventData} />
               </Container>
             </div>
