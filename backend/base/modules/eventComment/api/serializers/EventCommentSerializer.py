@@ -7,6 +7,7 @@ from datetime import datetime
 
 class EventCommentSerializer(serializers.ModelSerializer):
     humanTimeDiffCreatedAt = serializers.SerializerMethodField(read_only=True)
+    username = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = EventComment
@@ -14,3 +15,6 @@ class EventCommentSerializer(serializers.ModelSerializer):
 
     def get_humanTimeDiffCreatedAt(self, obj):
         return GetHumanTimeDifferenceToNow.get(obj.createdAt)
+
+    def get_username(self, obj):
+        return obj.user.username

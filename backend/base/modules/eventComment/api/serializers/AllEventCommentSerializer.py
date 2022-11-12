@@ -13,6 +13,7 @@ def checkCommentLikeExist(comment, user):
 class AllEventCommentSerializer(serializers.ModelSerializer):
     humanTimeDiffCreatedAt = serializers.SerializerMethodField(read_only=True)
     likeStatus = serializers.SerializerMethodField(read_only=True)
+    username = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = EventComment
@@ -25,3 +26,6 @@ class AllEventCommentSerializer(serializers.ModelSerializer):
         authUserId = self.context.get('userId')
         user = User.objects.get(id=authUserId)
         return checkCommentLikeExist(obj, user)
+
+    def get_username(self, obj):
+        return obj.user.username
