@@ -45,7 +45,7 @@ function CommentItem(props) {
               <img src={img} className="userProf-img me-3" alt="Img" />
 
               <div className="me-auto">
-                <h6 className="fw-bold m-0">Username</h6>
+                <h6 className="fw-bold m-0"> {props.commentData.username}</h6>
                 <small
                   className="text-muted"
                   style={{ fontSize: "12px", display: "block" }}
