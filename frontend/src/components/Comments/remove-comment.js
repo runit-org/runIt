@@ -1,12 +1,13 @@
 import React, { useState, useRef } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { removeEvent } from "../../actions/eventActions";
 import Loading from "../SiteElements/loader";
-import ModalItem from "./modal-item";
+import ModalItem from "../Event/modal-item";
+import { SearchParam } from "../Utilities/search-param";
 import { useNavigate } from "react-router-dom";
+import { getAllComments, removeComment } from "../../actions/commentActions";
 
-function RemoveEvent(props) {
+function RemoveComment(props) {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const ref = React.createRef();
@@ -14,13 +15,21 @@ function RemoveEvent(props) {
   const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
 
+  let pageId = SearchParam(props.commentCount);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(removeEvent(props.eventId, setLoad, setError, navigate));
+    dispatch(removeComment(props.commentId, setLoad, setError)).then(() => {
+      dispatch(getAllComments(props.eventId, pageId));
+      navigate(`/event/${props.eventId}?page=${pageId}`, {
+        replace: true,
+        state: { id: pageId },
+      });
+    });
   };
 
   return (
-    <>
+    <div>
       <ModalItem
         ref={(ref, btnRef)}
         customBtn={""}
@@ -46,12 +55,11 @@ function RemoveEvent(props) {
           </div>
         }
         error={error}
-        title={"Delete Event"}
+        title={"Delete Comment"}
         content={
           <>
             {" "}
-            Are you sure you want to delete <strong>{props.eventTitle}</strong>?
-            Any affiliations to this event will also be nullified.
+            Are you sure you want to delete this comment? This can't be undone.
           </>
         }
         subBtn={
@@ -79,8 +87,8 @@ function RemoveEvent(props) {
         }
         subHandler={handleSubmit}
       />
-    </>
+    </div>
   );
 }
 
-export default RemoveEvent;
+export default RemoveComment;

@@ -1,9 +1,7 @@
-import EventMembers from "../Event/event-members";
-import JoinEvent from "../Event/join-event";
-import RemoveEvent from "../Event/remove-event";
+import RemoveComment from "../Comments/remove-comment";
 import CTAButton from "../SiteElements/cta-button";
 
-export const eventOptions = (id, title, user, currUser, handleClick) => {
+export const commentOptions = (commentId, eventId, count, handleClick) => {
   const options_owner = [
     {
       item: (
@@ -39,21 +37,15 @@ export const eventOptions = (id, title, user, currUser, handleClick) => {
       ),
     },
     {
-      item: <RemoveEvent eventId={id} eventTitle={title} />,
-    },
-    /* {
-      item: <EventMembers eventId={id} userId={user} currentUser={currUser} />,
-    }, */
-  ];
-
-  const options_user = [
-    {
-      item: <JoinEvent eventId={id} eventTitle={title} />,
-    },
-    {
-      item: <EventMembers eventId={id} userId={user} currentUser={currUser} />,
+      item: (
+        <RemoveComment
+          commentId={commentId}
+          eventId={eventId}
+          commentCount={count}
+        />
+      ),
     },
   ];
 
-  return { options_owner, options_user };
+  return { options_owner };
 };

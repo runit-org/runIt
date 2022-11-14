@@ -140,7 +140,7 @@ function CreateEvent() {
             <small className="text-danger">{error}</small>
             <CTAButton
               type={"submit"}
-              btnStyle={"postBtn-placements cta_button"}
+              btnStyle={"formBtn cta_button"}
               variant={"primary"}
               formValidation={validateFormEmpty}
               isLoading={load}

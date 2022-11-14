@@ -5,6 +5,7 @@
 @import "Dash-cards.scss";
 @import "Notification.scss";
 @import "Responsive.scss";
+@import "Comment.scss";
 
 /*------General Components------*/
 html,
@@ -26,7 +27,7 @@ body {
 }
 
 .btn-primary {
-  @include btn-style($theme, $primary-light, none, 600);
+  @include btn-style($button-bg, $button-text, none, 600);
 }
 
 .btn-primary:hover {
@@ -42,12 +43,7 @@ body {
   @include btn-style(transparent, $theme, none, 600);
 }
 
-/*.btn-primary:hover {
-  background-color: $theme !important;
-  color: $button-hover !important;
-  border: none;
-}*/
-.btn-primary:focus {
+:is(.btn-primary:focus, .btn:focus) {
   outline: none !important;
   box-shadow: none !important;
 }
@@ -60,6 +56,16 @@ body {
 
 .btn-placements:not(:first-child) {
   margin: 1rem 0 0 1rem;
+}
+
+.formBtn.btn-primary {
+  @include btn-style(transparent, $button-text, none, 600);
+  border-radius: 8px !important;
+  padding: 10px 20px !important;
+  &:hover {
+    background-color: $button-bg !important;
+    color: $theme !important;
+  }
 }
 
 .postBtn-placements {

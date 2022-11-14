@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
-import JoinEvent from "../Event/join-event";
-import UpdateEvent from "../Event/update-event";
-import { eventOptions } from "../Utilities/event-options";
 import { Mention } from "../Utilities/mention";
-import EventMembers from "../Event/event-members";
+import { commentOptions } from "../Utilities/comment-options";
+import UpdateComment from "./update-comment";
+import { getAllComments, likeUnlike } from "../../actions/commentActions";
+import { SearchParam } from "../Utilities/search-param";
 
 function CommentItem(props) {
+  const dispatch = useDispatch();
+
   const [currentUser, setCurrentUser] = useState();
   const [editorMode, setEditorMode] = useState(false);
-  const joined = props.eventData.joinedStatus === "ACCEPTED";
-  const requested = props.eventData.joinedStatus === "PENDING";
-  const rejected = props.eventData.joinedStatus === "REJECTED";
 
+  let pageId = SearchParam();
   let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
   var getCurrentUser = useSelector(
@@ -30,16 +30,22 @@ function CommentItem(props) {
     setEditorMode(!editorMode);
   }
 
+  const commentReact = () => {
+    dispatch(likeUnlike(props.commentData.id)).then(() => {
+      dispatch(getAllComments(props.eventData.id, pageId));
+    });
+  };
+
   return (
     <>
-      {editorMode === false ? (
+      {!editorMode ? (
         <Card className="event-card">
           <Card.Header>
             <div className="d-flex">
               <img src={img} className="userProf-img me-3" alt="Img" />
 
               <div className="me-auto">
-                <h6 className="fw-bold m-0">{props.eventData.title}</h6>
+                <h6 className="fw-bold m-0">Username</h6>
                 <small
                   className="text-muted"
                   style={{ fontSize: "12px", display: "block" }}
@@ -50,24 +56,12 @@ function CommentItem(props) {
                   >
                     @{props.eventData.userName}
                   </a>{" "}
-                  <strong> {props.eventData.humanTimeDiffCreatedAt} ago</strong>
+                  <strong>
+                    {" "}
+                    {props.commentData.humanTimeDiffCreatedAt} ago
+                  </strong>
                 </small>
               </div>
-              {/* {joined ? (
-                <div className="me-2">
-                  <Badge bg="success">Joined</Badge>
-                </div>
-              ) : requested ? (
-                <div className="me-2">
-                  <Badge bg="primary">Requested</Badge>
-                </div>
-              ) : rejected ? (
-                <div className="me-2">
-                  <Badge bg="danger">Unapproved</Badge>
-                </div>
-              ) : (
-                ""
-              )} */}
 
               {currentUser === props.eventData.user ? (
                 <Dropdown>
@@ -93,12 +87,10 @@ function CommentItem(props) {
                     </svg>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    {eventOptions(
+                    {commentOptions(
+                      props.commentData.id,
                       props.eventData.id,
-                      props.eventData.title,
-                      props.eventCount,
-                      props.eventData.user,
-                      currentUser,
+                      props.commentCount,
                       handleClick
                     ).options_owner.map((i, index) => {
                       return (
@@ -118,9 +110,9 @@ function CommentItem(props) {
             <Card.Text
               className="details_textarea"
               dangerouslySetInnerHTML={{
-                __html: props.eventData.details
-                  ? Mention(props.eventData.details)
-                  : props.eventData.details,
+                __html: props.commentData.content
+                  ? Mention(props.commentData.content)
+                  : props.commentData.content,
               }}
             />
 
@@ -128,14 +120,22 @@ function CommentItem(props) {
               aria-label="Basic example"
               className="mt-3 w-100 gap-2"
             >
-              <Button variant="light" className="postBtn-placements cta_button">
+              <Button
+                variant="light"
+                className="postBtn-placements cta_button"
+                onClick={() => {
+                  commentReact();
+                }}
+              >
                 <span className="d-flex align-items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
+                    fill={props.commentData.likeStatus ? "red" : "none"}
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
-                    stroke="currentColor"
+                    stroke={
+                      props.commentData.likeStatus ? "red" : "currentColor"
+                    }
                     width="20"
                     height="20"
                     className="me-2"
@@ -171,32 +171,14 @@ function CommentItem(props) {
                   Comments
                 </span>
               </Button>
-              {/*  {currentUser !== props.eventData.user &&
-              !joined &&
-              !requested &&
-              !rejected ? (
-                <JoinEvent
-                  eventId={props.eventData.id}
-                  eventTitle={props.eventData.title}
-                />
-              ) : (
-                ""
-              )} */}
-              {/*  <EventMembers
-                eventId={props.eventData.id}
-                userId={props.eventData.user}
-                currentUser={currentUser}
-                img={img}
-              /> */}
             </ButtonGroup>
           </Card.Body>
         </Card>
       ) : (
-        <UpdateEvent
+        <UpdateComment
           eventId={props.eventData.id}
-          title={props.eventData.title}
-          details={props.eventData.details}
-          maxMembers={props.eventData.maxMember}
+          commentId={props.commentData.id}
+          content={props.commentData.content}
           cardStyle={currentUser === props.eventData.user ? "editor-card" : ""}
           handleUpate={handleClick}
         />

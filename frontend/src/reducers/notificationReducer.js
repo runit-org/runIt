@@ -4,7 +4,7 @@ const initialState = {
   notifs: [],
 };
 
-export default function setEvents(state = initialState, action) {
+export default function setNotifications(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_NOTIFS:
       return {
