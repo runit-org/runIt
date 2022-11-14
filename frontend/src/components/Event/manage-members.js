@@ -42,7 +42,7 @@ function ManageMembers(props) {
   };
 
   return (
-    <Card>
+    <Card className="event-card">
       <Card.Header>New requests</Card.Header>
 
       <Card.Body>

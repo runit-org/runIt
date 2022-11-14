@@ -3,6 +3,7 @@ import { Card, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { createComment, getAllComments } from "../../actions/commentActions";
 import CTAButton from "../SiteElements/cta-button";
+import { SearchParam } from "../Utilities/search-param";
 
 function CreateComment(props) {
   const dispatch = useDispatch();
@@ -11,6 +12,8 @@ function CreateComment(props) {
   const [load, setLoad] = useState(false);
   const [validateFormEmpty, setValidateFormEmpty] = useState(false);
   const [error, setError] = useState("");
+
+  let pageId = SearchParam();
 
   useEffect(() => {
     if (content === "") {
@@ -27,7 +30,7 @@ function CreateComment(props) {
       content: content,
     };
     dispatch(createComment(props.id, postData, setLoad, setError)).then(() => {
-      dispatch(getAllComments(props.id));
+      dispatch(getAllComments(props.id, pageId));
     });
   };
 
@@ -40,7 +43,7 @@ function CreateComment(props) {
   }, [error]);
   return (
     <>
-      <Card className="event-card">
+      <Card className="comment-card">
         <Card.Body>
           <Form
             onSubmit={(e) => {
@@ -49,17 +52,19 @@ function CreateComment(props) {
             ref={formRef}
           >
             <Form.Control
-              placeholder="What's on your mind?"
+              placeholder="Add a comment..."
               as="textarea"
               onChange={(e) => setContent(e.target.value)}
-              rows={4}
+              rows={2}
               required
             />
-            <div className="d-flex justify-content-end mt-3">
+
+            <hr />
+            <div className="d-flex justify-content-between mt-3">
               <small className="text-danger">{error}</small>
               <CTAButton
                 type={"submit"}
-                btnStyle={"postBtn-placements cta_button"}
+                btnStyle={"formBtn cta_button"}
                 variant={"primary"}
                 formValidation={validateFormEmpty}
                 isLoading={load}
@@ -73,6 +78,7 @@ function CreateComment(props) {
                       stroke="currentColor"
                       width="20"
                       height="20"
+                      className="me-2"
                     >
                       <path
                         strokeLinecap="round"
@@ -80,6 +86,7 @@ function CreateComment(props) {
                         d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
                       />
                     </svg>
+                    Send
                   </div>
                 }
               />

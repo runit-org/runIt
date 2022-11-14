@@ -3,7 +3,7 @@ import JoinEvent from "../Event/join-event";
 import RemoveEvent from "../Event/remove-event";
 import CTAButton from "../SiteElements/cta-button";
 
-export const eventOptions = (id, title, count, user, currUser, handleClick) => {
+export const eventOptions = (id, title, user, currUser, handleClick) => {
   const options_owner = [
     {
       item: (
@@ -39,7 +39,7 @@ export const eventOptions = (id, title, count, user, currUser, handleClick) => {
       ),
     },
     {
-      item: <RemoveEvent eventId={id} eventTitle={title} eventCounts={count} />,
+      item: <RemoveEvent eventId={id} eventTitle={title} />,
     },
     /* {
       item: <EventMembers eventId={id} userId={user} currentUser={currUser} />,

@@ -9,22 +9,22 @@ import { getAllComments, removeComment } from "../../actions/commentActions";
 
 function RemoveComment(props) {
   const dispatch = useDispatch();
-  //   let navigate = useNavigate();
+  let navigate = useNavigate();
   const ref = React.createRef();
   const btnRef = useRef();
   const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
 
-  //   let pageId = SearchParam(props.eventCounts);
+  let pageId = SearchParam(props.commentCount);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(removeComment(props.commentId, setLoad, setError)).then(() => {
-      dispatch(getAllComments(props.eventId));
-      /*   navigate(`/posts?page=${pageId}`, {
+      dispatch(getAllComments(props.eventId, pageId));
+      navigate(`/event/${props.eventId}?page=${pageId}`, {
         replace: true,
         state: { id: pageId },
-      }); */
+      });
     });
   };
 

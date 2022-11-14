@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
 import { Mention } from "../Utilities/mention";
 import { commentOptions } from "../Utilities/comment-options";
 import UpdateComment from "./update-comment";
+import { getAllComments, likeUnlike } from "../../actions/commentActions";
+import { SearchParam } from "../Utilities/search-param";
 
 function CommentItem(props) {
+  const dispatch = useDispatch();
+
   const [currentUser, setCurrentUser] = useState();
   const [editorMode, setEditorMode] = useState(false);
 
+  let pageId = SearchParam();
   let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
   var getCurrentUser = useSelector(
@@ -24,6 +29,12 @@ function CommentItem(props) {
   function handleClick() {
     setEditorMode(!editorMode);
   }
+
+  const commentReact = () => {
+    dispatch(likeUnlike(props.commentData.id)).then(() => {
+      dispatch(getAllComments(props.eventData.id, pageId));
+    });
+  };
 
   return (
     <>
@@ -79,7 +90,7 @@ function CommentItem(props) {
                     {commentOptions(
                       props.commentData.id,
                       props.eventData.id,
-                      props.eventCount,
+                      props.commentCount,
                       handleClick
                     ).options_owner.map((i, index) => {
                       return (
@@ -109,14 +120,22 @@ function CommentItem(props) {
               aria-label="Basic example"
               className="mt-3 w-100 gap-2"
             >
-              <Button variant="light" className="postBtn-placements cta_button">
+              <Button
+                variant="light"
+                className="postBtn-placements cta_button"
+                onClick={() => {
+                  commentReact();
+                }}
+              >
                 <span className="d-flex align-items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
+                    fill={props.commentData.likeStatus ? "red" : "none"}
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
-                    stroke="currentColor"
+                    stroke={
+                      props.commentData.likeStatus ? "red" : "currentColor"
+                    }
                     width="20"
                     height="20"
                     className="me-2"

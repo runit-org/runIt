@@ -1,10 +1,9 @@
 import React, { useState, useRef } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { removeEvent, getAllEvents } from "../../actions/eventActions";
+import { removeEvent } from "../../actions/eventActions";
 import Loading from "../SiteElements/loader";
 import ModalItem from "./modal-item";
-import { SearchParam } from "../Utilities/search-param";
 import { useNavigate } from "react-router-dom";
 
 function RemoveEvent(props) {
@@ -15,21 +14,13 @@ function RemoveEvent(props) {
   const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
 
-  let pageId = SearchParam(props.eventCounts);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(removeEvent(props.eventId, setLoad, setError)).then(() => {
-      dispatch(getAllEvents(pageId));
-      navigate(`/posts?page=${pageId}`, {
-        replace: true,
-        state: { id: pageId },
-      });
-    });
+    dispatch(removeEvent(props.eventId, setLoad, setError, navigate));
   };
 
   return (
-    <div>
+    <>
       <ModalItem
         ref={(ref, btnRef)}
         customBtn={""}
@@ -88,7 +79,7 @@ function RemoveEvent(props) {
         }
         subHandler={handleSubmit}
       />
-    </div>
+    </>
   );
 }
 

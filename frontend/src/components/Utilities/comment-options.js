@@ -41,7 +41,7 @@ export const commentOptions = (commentId, eventId, count, handleClick) => {
         <RemoveComment
           commentId={commentId}
           eventId={eventId}
-          eventCounts={count}
+          commentCount={count}
         />
       ),
     },

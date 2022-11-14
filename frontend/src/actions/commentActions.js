@@ -80,16 +80,33 @@ export const updateComment = (id, postData) => async (dispatch) => {
   });
 };
 
-export const getAllComments = (id) => async (dispatch) => {
+export const getAllComments = (id, page) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`http://localhost:8000/api/event/comment/show/${id}/`)
+      .get(`http://localhost:8000/api/event/comment/show/${id}/?page=${page}`)
       .then((res) => {
         dispatch({
           type: GET_ALL_COMMENTS,
           payload: res.data,
         });
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
+      });
+  });
+};
+
+export const likeUnlike = (id) => async (dispatch) => {
+  await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+    axios
+      .post(`http://localhost:8000/api/event/comment/likeUnlike/${id}/`)
+      .then((res) => {
+        // console.log(res);
       })
       .catch((error) => {
         dispatch({

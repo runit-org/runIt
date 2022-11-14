@@ -28,7 +28,7 @@ a.dropdown-item:hover {
 }
 
 .header-blur {
-  background-color: rgba($theme-light, 0.3);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background-color: hsla(0, 0%, 100%, 0.8);
+  backdrop-filter: saturate(180%) blur(5px);
+  -webkit-backdrop-filter: saturate(180%) blur(5px);
 }

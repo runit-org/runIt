@@ -3,10 +3,13 @@ import { Card, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import CTAButton from "../SiteElements/cta-button";
 import { getAllComments, updateComment } from "../../actions/commentActions";
+import { SearchParam } from "../Utilities/search-param";
 
 function UpdateComment(props, { handleUpate }) {
   const dispatch = useDispatch();
   const [content, setContent] = useState(props.content);
+
+  let pageId = SearchParam();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +19,7 @@ function UpdateComment(props, { handleUpate }) {
     };
 
     dispatch(updateComment(props.commentId, postData)).then(() => {
-      dispatch(getAllComments(props.eventId));
+      dispatch(getAllComments(props.eventId, pageId));
     });
     props.handleUpate();
   };
