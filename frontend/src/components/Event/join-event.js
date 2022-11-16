@@ -1,10 +1,15 @@
 import React, { useState, useRef } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { requestToJoin, getAllEvents } from "../../actions/eventActions";
+import {
+  requestToJoin,
+  getAllEvents,
+  getSingleEvent,
+} from "../../actions/eventActions";
 import Loading from "../SiteElements/loader";
 import ModalItem from "./modal-item";
 import { SearchParam } from "../Utilities/search-param";
+import { useLocation, useParams } from "react-router-dom";
 
 function JoinEvent(props) {
   const dispatch = useDispatch();
@@ -14,6 +19,8 @@ function JoinEvent(props) {
   const [error, setError] = useState("");
 
   let pageId = SearchParam();
+  const params = useParams();
+  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,10 +30,11 @@ function JoinEvent(props) {
     };
 
     dispatch(requestToJoin(postData, setLoad, setError)).then(() => {
-      dispatch(getAllEvents(pageId));
+      location.pathname.includes("event")
+        ? dispatch(getSingleEvent(params.id))
+        : dispatch(getAllEvents(pageId));
     });
   };
-
   return (
     <>
       <ModalItem

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
-import RecentsCard from "../SiteElements/recents-card";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEvents } from "../../actions/eventActions";
 import CreatePost from "../Event/create-event";
@@ -64,7 +63,7 @@ function MainDash() {
                   : ""}
               </Row>
             </div>
-            {allEventsData.count > 0 ? (
+            {allEventsData.count > 10 ? (
               <Pagination
                 postsPerPage={postPerPage}
                 totalPosts={allEventsData.count}
@@ -82,34 +81,6 @@ function MainDash() {
             <Card style={{ maxWidth: "20rem" }}>
               <Card.Body>
                 <UserProfile username={localStorage.getItem("username")} />
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <h6 className="mb-4">Latest Activity</h6>
-                {eventData.length === 0 ? (
-                  <h6>No recent events</h6>
-                ) : eventData.length > 4 ? (
-                  eventData
-                    .slice(Math.max(eventData.length - 4, 0))
-                    .map((event) => (
-                      <div className="mb-3" key={event.id}>
-                        <RecentsCard
-                          eventTitle={event.title}
-                          time={event.humanTimeDiffCreatedAt}
-                        />
-                      </div>
-                    ))
-                ) : (
-                  eventData.map((event) => (
-                    <div className="mb-3" key={event.id}>
-                      <RecentsCard
-                        eventTitle={event.title}
-                        time={event.humanTimeDiffCreatedAt}
-                      />
-                    </div>
-                  ))
-                )}
               </Card.Body>
             </Card>
           </div>

@@ -63,7 +63,7 @@ function CommentItem(props) {
                 </small>
               </div>
 
-              {currentUser === props.eventData.user ? (
+              {currentUser === props.commentData.user ? (
                 <Dropdown>
                   <Dropdown.Toggle
                     variant="light"

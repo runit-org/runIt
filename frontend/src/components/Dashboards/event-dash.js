@@ -10,6 +10,7 @@ import CreateComment from "../Comments/create-comment";
 import { getAllComments } from "../../actions/commentActions";
 import { SearchParam } from "../Utilities/search-param";
 import Pagination from "../SiteElements/pagination";
+import Breadcrumbs from "../SiteElements/breadcrumbs";
 
 function EventDash() {
   const dispatch = useDispatch();
@@ -68,6 +69,16 @@ function EventDash() {
   }, [setSearchParams, currentPage]);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const breadcrumbItem = eventData
+    ? [
+        { title: "Dashboard", path: "/posts", current: false },
+        {
+          title: eventData.title,
+          path: `/event/${eventData.id}`,
+          current: true,
+        },
+      ]
+    : "";
 
   return (
     <>
@@ -76,6 +87,7 @@ function EventDash() {
           <div className="dash-container">
             <div className="content">
               <Container>
+                <Breadcrumbs items={breadcrumbItem} />
                 <CreateComment id={params.id} />
                 {commentData.results
                   ? commentData.results.map((comment, index) => {
@@ -90,7 +102,7 @@ function EventDash() {
                       );
                     })
                   : ""}
-                {commentData.count > 0 ? (
+                {commentData.count > 10 ? (
                   <Pagination
                     postsPerPage={postPerPage}
                     totalPosts={commentData.count}
@@ -108,6 +120,7 @@ function EventDash() {
                 <Container>
                   <EventItem
                     eventData={eventData}
+                    commentData={commentData}
                     commentCount={commentData.count}
                   />
                   <ManageMembers
