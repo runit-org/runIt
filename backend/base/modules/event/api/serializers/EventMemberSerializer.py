@@ -6,6 +6,7 @@ from base.enums import EventMemberStatus
 class EventMemberSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField(read_only=True)
     status   = serializers.SerializerMethodField(read_only=True)
+    email    = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = EventMember
@@ -17,3 +18,7 @@ class EventMemberSerializer(serializers.ModelSerializer):
 
     def get_status(self, obj):
         return EventMemberStatus.get(obj.status).name
+
+    def get_email(self, obj):
+        user = User.objects.get(id = obj.userId).email
+        return user

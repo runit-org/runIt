@@ -15,5 +15,6 @@ def view(request, pk):
         return error('Event ID not found')
 
     event = Event.objects.get(id=pk)
-    serializer = EventSerializer(event, many=False)
+    context = {'userId' : request.user.id}
+    serializer = EventSerializer(event, context=context, many=False)
     return response('Event retrieved', serializer.data)

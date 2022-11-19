@@ -14,6 +14,7 @@ class AllEventCommentSerializer(serializers.ModelSerializer):
     humanTimeDiffCreatedAt = serializers.SerializerMethodField(read_only=True)
     likeStatus = serializers.SerializerMethodField(read_only=True)
     username = serializers.SerializerMethodField(read_only=True)
+    totalLikes = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = EventComment
@@ -29,3 +30,6 @@ class AllEventCommentSerializer(serializers.ModelSerializer):
 
     def get_username(self, obj):
         return obj.user.username
+
+    def get_totalLikes(self, obj):
+        return len(EventCommentLike.objects.filter(eventComment=obj))
