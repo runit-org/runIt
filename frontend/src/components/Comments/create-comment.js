@@ -59,7 +59,6 @@ function CreateComment(props) {
               required
             />
 
-            <hr />
             <div className="d-flex justify-content-between mt-3">
               <small className="text-danger">{error}</small>
               <CTAButton

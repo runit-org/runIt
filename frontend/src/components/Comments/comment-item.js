@@ -51,7 +51,7 @@ function CommentItem(props) {
                   style={{ fontSize: "12px", display: "block" }}
                 >
                   <a
-                    href={`profile?user=${props.eventData.userName}`}
+                    href={`/profile?user=${props.eventData.userName}`}
                     className="text-decoration-none"
                   >
                     @{props.eventData.userName}

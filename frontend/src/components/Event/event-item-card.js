@@ -30,11 +30,12 @@ function EventItemCard(props) {
           <img src={img} className="userProf-img me-2" alt="Img" />
           <div className="me-auto">
             <a
-              href={`profile?user=${props.eventData.userName}`}
+              href={`/profile?user=${props.eventData.userName}`}
               className="text-decoration-none"
             >
               @{props.eventData.userName}
             </a>
+
             <small
               className="text-muted"
               style={{ fontSize: "12px", display: "block" }}
