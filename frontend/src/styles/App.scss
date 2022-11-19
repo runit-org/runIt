@@ -115,23 +115,25 @@ div.content {
   color: $theme;
   font-weight: bold !important;
 }
-
-.vote_btnGroup button {
-  color: #57606a !important;
-  background-color: transparent !important;
-  padding: 0.4rem;
-
-  &:hover {
-    color: $theme !important;
-    background-color: transparent !important;
-  }
+.vote_btnGroup {
+  display: flex !important;
+  justify-content: space-between !important;
 }
-.user_vote {
-  color: $theme;
+.vote_btnGroup button.user_vote {
+  background-color: $button-hover !important;
+  color: $primary-light !important;
 }
+
 #vote_badge {
   background-color: #e5edff !important;
   color: #5850ec !important;
+}
+
+.username_tags {
+  color: #0d6efd;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 /*------Main Dash------*/

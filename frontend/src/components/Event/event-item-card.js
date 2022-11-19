@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Badge, Button, ButtonGroup, Card } from "react-bootstrap";
 import JoinEvent from "./join-event";
 import { useNavigate } from "react-router-dom";
+import PopoverItem from "../Profile/popover-item";
 
 function EventItemCard(props) {
   const [currentUser, setCurrentUser] = useState();
@@ -29,12 +30,7 @@ function EventItemCard(props) {
         <div className="d-flex">
           <img src={img} className="userProf-img me-2" alt="Img" />
           <div className="me-auto">
-            <a
-              href={`/profile?user=${props.eventData.userName}`}
-              className="text-decoration-none"
-            >
-              @{props.eventData.userName}
-            </a>
+            <PopoverItem data={props.eventData.userName} />
 
             <small
               className="text-muted"

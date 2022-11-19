@@ -5,6 +5,7 @@ import { getUserProfile, vote } from "../../actions/userActions";
 
 function Vote(props) {
   const dispatch = useDispatch();
+  console.log(props.voteStatus);
 
   const voteUser = (status) => {
     const postData = { status: status };
@@ -13,35 +14,34 @@ function Vote(props) {
     });
   };
   return (
-    <ButtonGroup className="vote_btnGroup" vertical>
+    <ButtonGroup className="vote_btnGroup gap-3">
       <Button
         variant="primary"
         onClick={() => {
           voteUser(1);
         }}
-        className="user_vote"
+        className={props.voteStatus === "UPVOTE" ? "user_vote" : ""}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 92 92"
-          fill="currentColor"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
           width="24"
           height="24"
-          className={props.voteStatus === "UPVOTE" ? "user_vote" : ""}
         >
           <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M78.9,37.8l-30-30.6C48.1,6.4,47.1,6,46,6s-2.1,0.4-2.9,1.2l-30,30.6c-1.1,1.1-1.5,3.1-0.8,4.5 c0.6,1.5,2.1,2.6,3.7,2.6h13v37c0,2.2,2.3,4,4.5,4h25c2.2,0,4.5-1.8,4.5-4V45h13c1.6,0,3.1-1.2,3.7-2.6C80.3,40.9,80,39,78.9,37.8z  M58.5,37c-2.2,0-3.5,1.4-3.5,3.6V78H37V40.6c0-2.2-1.3-3.6-3.5-3.6h-8L46,16.1L66.5,37H58.5z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z"
           />
         </svg>
-
         <span className="visually-hidden">up vote</span>
       </Button>
-      <h6 className="m-0 w-100 d-flex justify-content-center">
-        {props.voteCount}
-      </h6>
+
       <Button
+        className={props.voteStatus === "DOWNVOTE" ? "user_vote" : ""}
         variant="primary"
         onClick={() => {
           voteUser(-1);
@@ -49,18 +49,20 @@ function Vote(props) {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 92 92"
-          fill="currentColor"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
           width="24"
           height="24"
-          className={props.voteStatus === "DOWNVOTE" ? "user_vote" : ""}
         >
           <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M79.7,49.6C79.1,48.2,77.6,47,76,47H63V10c0-2.2-2.3-4-4.5-4h-25C31.3,6,29,7.8,29,10v37H16 c-1.6,0-3.1,1.2-3.7,2.6c-0.6,1.5-0.3,3.3,0.8,4.4l30,30.7c0.8,0.8,1.8,1.2,2.9,1.2c1.1,0,2.1-0.4,2.9-1.2l30-30.7 C80,52.9,80.3,51.1,79.7,49.6z M46,75.9L25.5,55h8c2.2,0,3.5-1.4,3.5-3.6V14h18v37.4c0,2.2,1.3,3.6,3.5,3.6h8L46,75.9z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M7.5 15h2.25m8.024-9.75c.011.05.028.1.052.148.591 1.2.924 2.55.924 3.977a8.96 8.96 0 01-.999 4.125m.023-8.25c-.076-.365.183-.75.575-.75h.908c.889 0 1.713.518 1.972 1.368.339 1.11.521 2.287.521 3.507 0 1.553-.295 3.036-.831 4.398C20.613 14.547 19.833 15 19 15h-1.053c-.472 0-.745-.556-.5-.96a8.95 8.95 0 00.303-.54m.023-8.25H16.48a4.5 4.5 0 01-1.423-.23l-3.114-1.04a4.5 4.5 0 00-1.423-.23H6.504c-.618 0-1.217.247-1.605.729A11.95 11.95 0 002.25 12c0 .434.023.863.068 1.285C2.427 14.306 3.346 15 4.372 15h3.126c.618 0 .991.724.725 1.282A7.471 7.471 0 007.5 19.5a2.25 2.25 0 002.25 2.25.75.75 0 00.75-.75v-.633c0-.573.11-1.14.322-1.672.304-.76.93-1.33 1.653-1.715a9.04 9.04 0 002.86-2.4c.498-.634 1.226-1.08 2.032-1.08h.384"
           />
         </svg>
+
         <span className="visually-hidden">down vote</span>
       </Button>
     </ButtonGroup>

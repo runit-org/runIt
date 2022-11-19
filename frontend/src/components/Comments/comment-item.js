@@ -6,6 +6,7 @@ import { commentOptions } from "../Utilities/comment-options";
 import UpdateComment from "./update-comment";
 import { getAllComments, likeUnlike } from "../../actions/commentActions";
 import { SearchParam } from "../Utilities/search-param";
+import PopoverItem from "../Profile/popover-item";
 
 function CommentItem(props) {
   const dispatch = useDispatch();
@@ -50,12 +51,8 @@ function CommentItem(props) {
                   className="text-muted"
                   style={{ fontSize: "12px", display: "block" }}
                 >
-                  <a
-                    href={`/profile?user=${props.eventData.userName}`}
-                    className="text-decoration-none"
-                  >
-                    @{props.eventData.userName}
-                  </a>{" "}
+                  <PopoverItem data={props.eventData.userName} />
+
                   <strong>
                     {" "}
                     {props.commentData.humanTimeDiffCreatedAt} ago
