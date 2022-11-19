@@ -19,6 +19,14 @@ def mention(event, content, user):
         if i[0] == '@':
             targetUsername = i[1:]
 
+        # Check if user is tagging everyone
+        if targetUsername == 'everyone':
+            eventMembers = EventMember.objects.filter(event = event)    
+            for eventMemObject in eventMembers:
+                if eventMemObject.status == EventMemberStatus.get.ACCEPTED.value:
+                    notificationMessage = 'User <b>' + user.username + '</b> mentioned you in a comment on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
+                    NotifyUser.notify(eventMemObject.userId, notificationMessage)
+
         # Check if the mentioned user exist in the database first
         if len(User.objects.filter(username = targetUsername)) > 0:
             targetUser = User.objects.get(username = targetUsername)
