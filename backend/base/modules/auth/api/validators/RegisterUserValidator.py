@@ -7,5 +7,8 @@ def validate(request):
     
     if data.get('password') != data.get('c_password'):
         return validationError('Confirm password does not match')
+    
+    if data['username'] == 'everyone':
+        return validationError('Invalid username')
 
     return None
