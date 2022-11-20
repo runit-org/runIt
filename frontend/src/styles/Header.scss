@@ -1,16 +1,22 @@
+@import "App-pallet.scss";
+
 /*------Header Nav------*/
 .navbar {
   @include header-footer-font(0.875rem, sans-serif, 600);
-  // border-bottom: 2px solid rgba($secondary-dark, 0.1);
+}
+
+.nav_userProf {
+  width: 25px;
+  border-radius: 8px !important;
+  background-color: $secondary-dark;
 }
 
 .navbar-brand {
   color: $theme !important;
 }
-@import "App-pallet.scss";
 
 .navbar-nav .nav-link {
-  color: $primary-dark !important;
+  color: #6c757d !important;
 }
 
 .navbar-nav .nav-link:hover {
@@ -31,4 +37,16 @@ a.dropdown-item:hover {
   background-color: hsla(0, 0%, 100%, 0.8);
   backdrop-filter: saturate(180%) blur(5px);
   -webkit-backdrop-filter: saturate(180%) blur(5px);
+}
+
+.navbar .dropdown-menu a {
+  @include header-footer-font(0.875rem, sans-serif, 500);
+  color: #6c757d !important;
+  &:hover {
+    color: $theme !important;
+  }
+}
+.navbar .dropdown-menu.show {
+  right: 0;
+  left: auto;
 }

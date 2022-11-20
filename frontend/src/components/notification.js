@@ -21,7 +21,6 @@ function Notifications(props) {
 
   useEffect(() => {
     if (read !== "") {
-      console.log(read);
       dispatch(notificationRead(read));
     }
   }, [read, dispatch]);

@@ -9,8 +9,8 @@ function CurrentUserProfile(props) {
   const [currUserProfile, setCurrUserProfile] = useState({});
 
   useEffect(() => {
-    dispatch(getCurrentUserProfile(props.username));
-  }, [dispatch, props.username]);
+    dispatch(getCurrentUserProfile());
+  }, [dispatch]);
 
   var currProfile = useSelector(
     (securityReducer) => securityReducer.users.currProfile
