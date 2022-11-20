@@ -8,8 +8,6 @@ function CurrentUserProfile(props) {
   const dispatch = useDispatch();
   const [currUserProfile, setCurrUserProfile] = useState({});
 
-  let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
-
   useEffect(() => {
     dispatch(getCurrentUserProfile(props.username));
   }, [dispatch, props.username]);
@@ -29,7 +27,11 @@ function CurrentUserProfile(props) {
       {currUserProfile ? (
         <div className="w-100">
           <div className="d-flex align-items-center userInfo-div">
-            <img src={img} className="userProf-img" alt="use profile" />
+            <img
+              src={currUserProfile.gravatarImage}
+              className="userProf-img"
+              alt="use profile"
+            />
             <div className="ms-3">
               <Link
                 to={{

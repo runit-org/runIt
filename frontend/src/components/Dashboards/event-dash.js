@@ -26,7 +26,6 @@ function EventDash() {
   const { state } = useLocation();
 
   let pageId = SearchParam();
-  let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
   var getCurrentUser = useSelector(
     (securityReducer) => securityReducer.security.user
@@ -141,7 +140,6 @@ function EventDash() {
                     <ManageMembers
                       eventData={eventData}
                       currentUser={currentUser}
-                      img={img}
                     />
                   ) : (
                     ""

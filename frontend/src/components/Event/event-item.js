@@ -14,8 +14,6 @@ function EventItem(props) {
   const requested = props.eventData.joinedStatus === "PENDING";
   const rejected = props.eventData.joinedStatus === "REJECTED";
 
-  let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
-
   var getCurrentUser = useSelector(
     (securityReducer) => securityReducer.security.user
   );
@@ -36,7 +34,11 @@ function EventItem(props) {
         <Card className="event-card">
           <Card.Header>
             <div className="d-flex justify-content-between">
-              <img src={img} className="userProf-img me-3" alt="Img" />
+              <img
+                src={props.eventData.gravatarImage}
+                className="userProf-img me-3"
+                alt="Img"
+              />
               {joined ? (
                 <div>
                   <Badge
@@ -147,7 +149,7 @@ function EventItem(props) {
                   eventId={props.eventData.id}
                   userId={props.eventData.user}
                   currentUser={currentUser}
-                  img={img}
+                  img={props.eventData.gravatarImage}
                 />
               </div>
             </div>

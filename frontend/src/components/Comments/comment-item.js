@@ -15,7 +15,6 @@ function CommentItem(props) {
   const [editorMode, setEditorMode] = useState(false);
 
   let pageId = SearchParam();
-  let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
   var getCurrentUser = useSelector(
     (securityReducer) => securityReducer.security.user
@@ -43,7 +42,11 @@ function CommentItem(props) {
         <Card className="event-card">
           <Card.Header>
             <div className="d-flex">
-              <img src={img} className="userProf-img me-3" alt="Img" />
+              <img
+                src={props.commentData.gravatarImage}
+                className="userProf-img me-3"
+                alt="Img"
+              />
 
               <div className="me-auto">
                 <h6 className="fw-bold m-0"> {props.commentData.username}</h6>

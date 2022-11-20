@@ -56,7 +56,7 @@ function ManageMembers(props) {
                 >
                   <div className="d-flex align-items-center">
                     <img
-                      src={props.img}
+                      src={member.gravatarImage}
                       className="userProf-img"
                       alt="use profile"
                     />
@@ -72,7 +72,7 @@ function ManageMembers(props) {
                       </Link>
 
                       <small className="d-block text-muted">
-                        vodka@email.com{/* {props.eventData.email} */}
+                        {member.email}
                       </small>
                     </div>
                   </div>

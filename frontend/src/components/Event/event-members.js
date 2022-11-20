@@ -14,8 +14,6 @@ function EventMembers(props) {
     (member) => member.status === "ACCEPTED"
   );
 
-  let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
-
   const handler = useCallback((modalShow) => {
     setModalShow(modalShow);
   }, []);
@@ -47,7 +45,7 @@ function EventMembers(props) {
               return (
                 <img
                   key={member.id}
-                  src={img}
+                  src={member.gravatarImage}
                   className="members-img "
                   alt="Img"
                 />
@@ -72,7 +70,7 @@ function EventMembers(props) {
                   <ListGroup.Item key={member.id}>
                     <div className="d-flex align-items-center">
                       <img
-                        src={props.img}
+                        src={member.gravatarImage}
                         className="userProf-img"
                         alt="use profile"
                       />

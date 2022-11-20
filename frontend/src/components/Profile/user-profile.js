@@ -11,8 +11,6 @@ function UserProfile(props) {
   const param = searchParams.get("user");
   const [userProfile, setUserProfile] = useState({});
 
-  let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
-
   useEffect(() => {
     dispatch(getUserProfile(param ? param : props.username));
   }, [dispatch, props.username, param]);
@@ -35,7 +33,11 @@ function UserProfile(props) {
       {userProfile ? (
         <div className="w-100">
           <div className="d-flex align-items-center userInfo-div">
-            <img src={img} className="userProf-img" alt="use profile" />
+            <img
+              src={userProfile.gravatarImage}
+              className="userProf-img"
+              alt="use profile"
+            />
             <div className="ms-3">
               <Link
                 to={{
