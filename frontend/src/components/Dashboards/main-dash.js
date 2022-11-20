@@ -3,11 +3,11 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEvents } from "../../actions/eventActions";
 import CreatePost from "../Event/create-event";
-import UserProfile from "../Profile/user-profile";
 import Pagination from "../SiteElements/pagination";
 import { useSearchParams, useLocation } from "react-router-dom";
 import { SearchParam } from "../Utilities/search-param";
 import EventItemCard from "../Event/event-item-card";
+import CurrentUserProfile from "../Profile/current-user-profile";
 
 function MainDash() {
   const dispatch = useDispatch();
@@ -80,7 +80,9 @@ function MainDash() {
           <div className="sidebar-wrapper">
             <Card style={{ maxWidth: "20rem" }}>
               <Card.Body>
-                <UserProfile username={localStorage.getItem("username")} />
+                <CurrentUserProfile
+                  username={localStorage.getItem("username")}
+                />
               </Card.Body>
             </Card>
           </div>

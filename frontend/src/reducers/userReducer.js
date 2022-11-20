@@ -1,7 +1,8 @@
-import { GET_USER_PROFILE } from "../actions/types";
+import { GET_CURRENT_USER_PROFILE, GET_USER_PROFILE } from "../actions/types";
 
 const initialState = {
   userProfile: [],
+  currProfile: [],
 };
 
 export default function setUser(state = initialState, action) {
@@ -10,6 +11,11 @@ export default function setUser(state = initialState, action) {
       return {
         ...state,
         userProfile: action.payload,
+      };
+    case GET_CURRENT_USER_PROFILE:
+      return {
+        ...state,
+        currProfile: action.payload,
       };
 
     default:

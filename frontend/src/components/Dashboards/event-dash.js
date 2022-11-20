@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { getSingleEvent } from "../../actions/eventActions";
@@ -39,8 +39,9 @@ function EventDash() {
   }, [getCurrentUser]);
 
   useEffect(() => {
-    dispatch(getSingleEvent(params.id));
-    dispatch(getAllComments(params.id, pageId ? pageId : 1));
+    dispatch(getSingleEvent(params.id)).then(() => {
+      dispatch(getAllComments(params.id, pageId ? pageId : 1));
+    });
   }, [dispatch, params.id, pageId]);
 
   var event = useSelector((securityReducer) => securityReducer.events.events);
@@ -88,7 +89,20 @@ function EventDash() {
             <div className="content">
               <Container>
                 <Breadcrumbs items={breadcrumbItem} />
-                <CreateComment id={params.id} />
+                {eventData.joinedStatus === "OWNER" ||
+                eventData.joinedStatus === "ACCEPTED" ? (
+                  <CreateComment id={params.id} />
+                ) : (
+                  <Card className="event-card">
+                    <Card.Body>
+                      <Card.Text>
+                        You will be able collaborate with others via comments
+                        once you are accepted.
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                )}
+
                 {commentData.results
                   ? commentData.results.map((comment, index) => {
                       return (
@@ -123,11 +137,15 @@ function EventDash() {
                     commentData={commentData}
                     commentCount={commentData.count}
                   />
-                  <ManageMembers
-                    eventData={eventData}
-                    currentUser={currentUser}
-                    img={img}
-                  />
+                  {currentUser === eventData.user ? (
+                    <ManageMembers
+                      eventData={eventData}
+                      currentUser={currentUser}
+                      img={img}
+                    />
+                  ) : (
+                    ""
+                  )}
                 </Container>
               </div>
             </div>

@@ -5,7 +5,6 @@ import { getUserProfile, vote } from "../../actions/userActions";
 
 function Vote(props) {
   const dispatch = useDispatch();
-  console.log(props.voteStatus);
 
   const voteUser = (status) => {
     const postData = { status: status };
