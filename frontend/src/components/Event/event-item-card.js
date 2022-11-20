@@ -8,7 +8,6 @@ import PopoverItem from "../Profile/popover-item";
 function EventItemCard(props) {
   const [currentUser, setCurrentUser] = useState();
   const navigate = useNavigate();
-  let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
   const joined = props.eventData.joinedStatus === "ACCEPTED";
   const requested = props.eventData.joinedStatus === "PENDING";
@@ -28,7 +27,11 @@ function EventItemCard(props) {
     <Card className="event-card_dash">
       <Card.Header>
         <div className="d-flex">
-          <img src={img} className="userProf-img me-2" alt="Img" />
+          <img
+            src={props.eventData.gravatarImage}
+            className="userProf-img me-2"
+            alt="Img"
+          />
           <div className="me-auto">
             <PopoverItem data={props.eventData.userName} />
 

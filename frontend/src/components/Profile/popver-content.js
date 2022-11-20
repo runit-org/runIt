@@ -7,7 +7,6 @@ import Vote from "./vote";
 const UserPopoverContent = (props) => {
   const dispatch = useDispatch();
   const [userProfile, setUserProfile] = useState({});
-  let img = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
   useEffect(() => {
     if (props.data) {
@@ -28,7 +27,11 @@ const UserPopoverContent = (props) => {
       {userProfile ? (
         <div className="w-100">
           <div className="d-flex align-items-center userInfo-div">
-            <img src={img} className="userProf-img" alt="use profile" />
+            <img
+              src={userProfile.gravatarImage}
+              className="userProf-img"
+              alt="use profile"
+            />
             <div className="ms-3">
               <h6 className="m-0">{userProfile.username}</h6>
               <small className="d-block text-muted">{userProfile.email}</small>
