@@ -115,7 +115,7 @@
   font-weight: bold;
 }
 
-.event-card_dash div[role="group"] {
+.event-card_dash div[role="group"]:not(.vote_btnGroup) {
   min-height: 81px;
 }
 .event-card_dash div[role="group"] button {

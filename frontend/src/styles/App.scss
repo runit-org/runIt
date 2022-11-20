@@ -106,18 +106,7 @@ div.content {
   background-color: $secondary-light;
   height: 100%;
 }
-.recents-div {
-  background-color: $primary-light;
-  padding: 10px 15px 10px 15px;
-  border-radius: 5px;
-  max-width: 18rem;
-}
-/* .recents-div p {
-  white-space: nowrap;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-} */
+
 .userInfo-div button {
   padding: 0;
 }
@@ -126,23 +115,25 @@ div.content {
   color: $theme;
   font-weight: bold !important;
 }
-
-.vote_btnGroup button {
-  color: #57606a !important;
-  background-color: transparent !important;
-  padding: 0.4rem;
-
-  &:hover {
-    color: $theme !important;
-    background-color: transparent !important;
-  }
+.vote_btnGroup {
+  display: flex !important;
+  justify-content: space-between !important;
 }
-.user_vote {
-  color: $theme;
+.vote_btnGroup button.user_vote {
+  background-color: $button-hover !important;
+  color: $primary-light !important;
 }
+
 #vote_badge {
   background-color: #e5edff !important;
   color: #5850ec !important;
+}
+
+.username_tags {
+  color: #0d6efd;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 /*------Main Dash------*/
@@ -179,21 +170,13 @@ div.content {
   border-radius: 8px;
   margin: 20px;
 }
-.sidebar .card:first-child {
+.sidebar .card {
   background-color: $primary-light;
-  border-radius: 5px;
-  margin: 20px;
-}
-.sidebar .card:last-child {
-  background-color: transparent;
-  border: none;
+  border-radius: 8px !important;
   margin: 20px;
 }
 
 /*------Off-Canvas------*/
-/* .offcanvas-backdrop.show {
-  opacity: 0.3 !important;
-} */
 .offcanvas-header {
   background-color: $primary-light;
   color: $theme;
@@ -266,11 +249,21 @@ div.content {
 }
 
 /*------pagination------*/
+.paginate_div {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px;
+  padding: 10px 0;
+}
 .pagination #pagi-container {
   width: fit-content;
-  background-color: $theme-light;
+  background-color: transparent;
   border-radius: 10px;
   padding: 0;
+}
+
+#pagi-container li {
+  margin: 0 5px 0 5px;
 }
 
 .pagination .page-link {
@@ -278,29 +271,39 @@ div.content {
   background-color: transparent !important;
   border: none;
   font-weight: 500;
-  border-radius: 0 !important;
 }
 
 .pagination #prev {
-  border-top-left-radius: 10px !important;
-  border-bottom-left-radius: 10px !important;
+  border-radius: 0.25rem !important;
 }
 .pagination #next {
-  border-top-right-radius: 10px !important;
-  border-bottom-right-radius: 10px !important;
+  border-radius: 0.25rem !important;
 }
 
 .pagination .page-item.active .page-link {
-  background-color: $theme !important;
-  color: $primary-light !important;
+  background-color: $button-bg !important;
+  color: $button-text !important;
 }
 
 .pagination .page-link:hover {
-  background-color: $theme !important;
-  color: $primary-light !important;
+  background-color: $button-bg !important;
+  color: $button-text !important;
+}
+.pagination .page-item.disabled .page-link {
+  color: #6c757d !important;
+  font-weight: 400 !important;
 }
 
 /*------Listgroup------*/
 .members-list.list-group .list-group-item {
   padding: 10px 0;
+}
+
+/*------Breadcrumb------*/
+nav[aria-label="breadcrumb"] {
+  margin: 20px;
+}
+
+.breadcrumb :not(.breadcrumb-item.active) {
+  color: $theme !important;
 }

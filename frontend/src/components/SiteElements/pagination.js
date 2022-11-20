@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Pagination as PaginateStyle, Row } from "react-bootstrap";
+import { Container, Pagination as PaginateStyle } from "react-bootstrap";
 
 const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
   const pageNumbers = [];
@@ -9,8 +9,8 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
   }
 
   return (
-    <div>
-      <PaginateStyle>
+    <div className="paginate_div">
+      <PaginateStyle size="sm">
         <Container
           className="d-flex justify-content-center"
           id="pagi-container"
@@ -19,7 +19,9 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
             id="prev"
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
-          />
+          >
+            Prev
+          </PaginateStyle.Prev>
           {currentPage !== 1 && pageNumbers.length > 5 ? (
             <>
               <PaginateStyle.First
@@ -63,7 +65,9 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
             id="next"
             onClick={() => paginate(currentPage + 1)}
             disabled={currentPage === pageNumbers.length}
-          />
+          >
+            Next
+          </PaginateStyle.Next>
         </Container>
       </PaginateStyle>
     </div>
