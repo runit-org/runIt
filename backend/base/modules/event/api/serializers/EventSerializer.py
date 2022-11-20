@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import *
-from base.traits import GetHumanTimeDifferenceToNow, CheckUserMemberEvent, EventDateToStringTime
+from base.traits import GetHumanTimeDifferenceToNow, CheckUserMemberEvent, EventDateToStringTime, CreateGravatarProfile
 
 from datetime import datetime
 
@@ -10,10 +10,11 @@ class EventSerializer(serializers.ModelSerializer):
     eventDateString = serializers.SerializerMethodField(read_only=True)
     eventDate = serializers.SerializerMethodField(read_only=True)
     joinedStatus = serializers.SerializerMethodField(read_only=True)
+    gravatarImage = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Event
-        fields = ['id', 'userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 'eventDateString', 'eventDate', 'user', 'joinedStatus']
+        fields = ['id', 'userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 'eventDateString', 'eventDate', 'user', 'joinedStatus', 'gravatarImage']
 
     def get_humanTimeDiffCreatedAt(self, obj):
         return GetHumanTimeDifferenceToNow.get(obj.createdAt)
@@ -30,3 +31,6 @@ class EventSerializer(serializers.ModelSerializer):
             return CheckUserMemberEvent.get(obj.id, authUserId)
         else:
             return None
+
+    def get_gravatarImage(self, obj):
+        return CreateGravatarProfile.create(obj.user.email)

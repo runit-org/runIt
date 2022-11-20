@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from base.models import *
 from base.enums import UserVoteStatus
+from base.traits import CreateGravatarProfile
 
 def getUserTotalVotes(userId):
     findUserVotes = UserVote.objects.filter(votedUserId = userId)
@@ -23,10 +24,11 @@ def getAuthUserVoteOnThisUser(votedUserId, voterId):
 class UserProfileSerializer(serializers.ModelSerializer):
     totalVote = serializers.SerializerMethodField(read_only=True)
     voteStatus = serializers.SerializerMethodField(read_only=True)
+    gravatarImage = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'date_joined', 'totalVote', 'voteStatus']
+        fields = ['id', 'username', 'email', 'date_joined', 'totalVote', 'voteStatus', 'gravatarImage']
 
     def get_totalVote(self, obj):
         return getUserTotalVotes(obj.id)
@@ -34,5 +36,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
     def get_voteStatus(self, obj):
         authUserId = self.context.get('userId')
         return getAuthUserVoteOnThisUser(obj.id, authUserId)
+
+    def get_gravatarImage(self, obj):
+        return CreateGravatarProfile.create(obj.email)
         
 
