@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import EventComment, EventCommentLike
-from base.traits import GetHumanTimeDifferenceToNow
+from base.traits import GetHumanTimeDifferenceToNow, CreateGravatarProfile
 
 from datetime import datetime
 
@@ -15,6 +15,7 @@ class AllEventCommentSerializer(serializers.ModelSerializer):
     likeStatus = serializers.SerializerMethodField(read_only=True)
     username = serializers.SerializerMethodField(read_only=True)
     totalLikes = serializers.SerializerMethodField(read_only=True)
+    gravatarImage = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = EventComment
@@ -33,3 +34,6 @@ class AllEventCommentSerializer(serializers.ModelSerializer):
 
     def get_totalLikes(self, obj):
         return len(EventCommentLike.objects.filter(eventComment=obj))
+
+    def get_gravatarImage(self, obj):
+        return CreateGravatarProfile.create(obj.user.email)
