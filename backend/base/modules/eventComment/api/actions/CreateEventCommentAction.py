@@ -74,7 +74,9 @@ def create(request, eventId):
 
     eventCreatorUserId = event.user.id
     notificationMessage = 'User <b>' + user.username + '</b> commented on your event ' + '<b>' + event.title + '</b>'
-    NotifyUser.notify(eventCreatorUserId, notificationMessage)
+
+    if eventCreatorUserId != user.id:
+        NotifyUser.notify(eventCreatorUserId, notificationMessage)
 
     mention(event, data['content'], user)
 
