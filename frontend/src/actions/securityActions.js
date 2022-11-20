@@ -21,13 +21,17 @@ export const getUsers = () => async (dispatch) => {
 };
 
 export const createNewUser =
-  (userData, setLoad, setShow) => async (dispatch) => {
+  (userData, setLoad, setShow, navigate) => async (dispatch) => {
     setLoad(true);
     await axios
       .post("http://localhost:8000/api/auth/register/", userData)
       .then((res) => {
         if (res.status === 200) {
           setShow(true);
+          navigate("/", {
+            replace: true,
+            state: { id: res.data },
+          });
         }
         dispatch({
           type: GET_ERRORS,

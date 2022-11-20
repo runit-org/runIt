@@ -23,8 +23,8 @@ function Login() {
   useEffect(() => {
     if (state) {
       const { id } = state;
-      setSignupData(id.userData.data.username);
-      setUsername(id.userData.data.username);
+      setSignupData(id.data.username);
+      setUsername(id.data.username);
     }
   }, [state]);
 

@@ -22,8 +22,6 @@ function SignUp() {
 
   var apiStatus = useSelector((securityReducer) => securityReducer.security);
 
-  console.log(apiStatus);
-
   useEffect(() => {
     if (apiStatus.userData) {
       setSignUpStatus(apiStatus.userData.success);
@@ -41,15 +39,11 @@ function SignUp() {
       c_password: c_password,
     };
 
-    dispatch(createNewUser(userData, setLoad, setShow));
+    dispatch(createNewUser(userData, setLoad, setShow, navigate));
   };
 
   useEffect(() => {
-    if (signUpStatus === "true" && signUpStatus !== undefined) {
-      setTimeout(() => {
-        navigate("/", { replace: true, state: { id: apiStatus } });
-      }, 1000);
-    } else {
+    if (signUpStatus !== "true" && signUpStatus === undefined) {
       setFormSwitch(false);
     }
   }, [signUpStatus, navigate, apiStatus]);
