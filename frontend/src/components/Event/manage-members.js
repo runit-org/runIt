@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getEventMembers, memberStatus } from "../../actions/eventActions";
 import Loading from "../SiteElements/loader";
 import { Link } from "react-router-dom";
+import { io } from "socket.io-client";
 
 function ManageMembers(props) {
   const dispatch = useDispatch();
@@ -39,6 +40,11 @@ function ManageMembers(props) {
     };
 
     dispatch(memberStatus(postData, setLoad));
+    const socket = io("ws://localhost:5000");
+    socket.emit("clientId", {
+      res: postData,
+      token: pendingMembers.username,
+    });
   };
 
   return (

@@ -18,6 +18,7 @@ import jwt_decode from "jwt-decode";
 import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
 import ProfileDash from "./components/Dashboards/profile-dash";
 import EventDash from "./components/Dashboards/event-dash";
+import { io } from "socket.io-client";
 
 const token = localStorage.token;
 
@@ -49,6 +50,17 @@ function ProtectedRoute({ children }) {
 
   return isAuthenticated ? children : <Navigate to="/signin" />;
 }
+
+const socket = io("ws://localhost:5000");
+
+socket.on("connect", () => {
+  if (socket.connected) {
+    console.log(socket.connected);
+    socket.on("server", (arg) => {
+      console.log(arg);
+    });
+  }
+});
 
 function App() {
   return (
