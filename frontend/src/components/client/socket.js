@@ -23,6 +23,8 @@ export const receiver = (dispatch) => {
 export const emitter = (userToken) => {
   const ws = connection();
 
+  console.log(userToken);
+
   ws.emit("client", {
     userToken: userToken,
   });

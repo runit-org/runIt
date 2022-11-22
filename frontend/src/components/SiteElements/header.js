@@ -12,7 +12,7 @@ function Header() {
   const dispatch = useDispatch();
   const [showNotif, setShowNotif] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [notif, setNotif] = useState(null);
+  const [notifs, setNotifs] = useState(null);
 
   useEffect(() => {
     dispatch(getCurrentUserProfile());
@@ -52,11 +52,10 @@ function Header() {
 
   useEffect(() => {
     if (notifications) {
-      setNotif(notifications.length);
+      setNotifs(notifications);
     }
   }, [notifications]);
 
-  console.log(notif);
   return (
     <div>
       <Notifications notifShow={showNotif} close={handleNotifClose} />
@@ -77,7 +76,15 @@ function Header() {
                 <Nav.Link onClick={handleNotifShow}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
+                    fill={
+                      notifs
+                        ? notifs.filter(
+                            (notif) => notif.statusName === "UNREAD"
+                          ).length > 0
+                          ? "red"
+                          : "none"
+                        : "none"
+                    }
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
