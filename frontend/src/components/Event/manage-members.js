@@ -40,7 +40,7 @@ function ManageMembers(props) {
     };
 
     dispatch(memberStatus(postData, setLoad)).then(() => {
-      emitter("user");
+      emitter(pendingMembers.map((member) => member.username));
     });
   };
 

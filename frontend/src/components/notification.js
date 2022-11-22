@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Offcanvas, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-  getNotifications,
   notificationRead,
   notificationRead_all,
 } from "../actions/notificationActions";
@@ -10,29 +9,13 @@ import { VscCircleFilled } from "react-icons/vsc";
 
 function Notifications(props) {
   const dispatch = useDispatch();
-  const [notifs, setNotifData] = useState([]);
   const [read, setRead] = useState("");
-
-  useEffect(() => {
-    if (props.notifShow) {
-      dispatch(getNotifications());
-    }
-  }, [dispatch, props.notifShow]);
 
   useEffect(() => {
     if (read !== "") {
       dispatch(notificationRead(read));
     }
   }, [read, dispatch]);
-
-  var notifications = useSelector(
-    (notificationReducer) => notificationReducer.notifications.notifs.results
-  );
-  useEffect(() => {
-    if (notifications) {
-      setNotifData(notifications);
-    }
-  }, [notifications]);
 
   const handleReadall = () => {
     dispatch(notificationRead_all());
@@ -47,9 +30,10 @@ function Notifications(props) {
         <Offcanvas.Body>
           <div className="notif-subHeader">
             <small className="me-auto text-muted">
-              {notifs.filter((notif) => notif.statusName === "UNREAD").length >
-              0
-                ? notifs.filter((notif) => notif.statusName === "UNREAD").length
+              {props.notifs.filter((notif) => notif.statusName === "UNREAD")
+                .length > 0
+                ? props.notifs.filter((notif) => notif.statusName === "UNREAD")
+                    .length
                 : "No"}{" "}
               new notifications
             </small>
@@ -67,8 +51,8 @@ function Notifications(props) {
             <hr />
           </div>
 
-          {notifs && notifs.length > 0
-            ? notifs.map((notif, index) => {
+          {props.notifs && props.notifs.length > 0
+            ? props.notifs.map((notif, index) => {
                 return (
                   <div key={index}>
                     <Button

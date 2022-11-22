@@ -13,7 +13,7 @@ export const receiver = (dispatch) => {
 
   ws.on("data", (arg) => {
     if (arg) {
-      if (arg.userToken === localStorage.getItem("username")) {
+      if (arg.userToken.includes(localStorage.getItem("username"))) {
         dispatch(getNotifications());
       }
     }
@@ -22,8 +22,6 @@ export const receiver = (dispatch) => {
 
 export const emitter = (userToken) => {
   const ws = connection();
-
-  console.log(userToken);
 
   ws.emit("client", {
     userToken: userToken,

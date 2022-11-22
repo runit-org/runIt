@@ -6,3 +6,14 @@ export const Mention = (text) => {
     } >${match}</a>`;
   }));
 };
+
+export const MentionFilter = (text) => {
+  var matchingText = text.match(/\B@[a-zA-Z0-9_-]+/gm);
+  var parse = matchingText
+    ? matchingText.map((val) => {
+        return val.replace("@", "");
+      })
+    : "";
+
+  return parse;
+};

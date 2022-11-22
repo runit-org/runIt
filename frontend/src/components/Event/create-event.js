@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Col, Row, Form, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { createNewEvent, getAllEvents } from "../../actions/eventActions";
+import { emitter } from "../client/socket";
 import CTAButton from "../SiteElements/cta-button";
 import { SearchParam } from "../Utilities/search-param";
 
@@ -44,6 +45,7 @@ function CreateEvent() {
     };
     dispatch(createNewEvent(postData, setLoad, setError)).then(() => {
       dispatch(getAllEvents(pageId));
+      emitter(details);
     });
   };
 

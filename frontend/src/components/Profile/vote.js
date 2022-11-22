@@ -2,7 +2,6 @@ import React from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getUserProfile, vote } from "../../actions/userActions";
-import { emitter } from "../client/socket";
 
 function Vote(props) {
   const dispatch = useDispatch();
@@ -11,7 +10,6 @@ function Vote(props) {
     const postData = { status: status };
     dispatch(vote(props.userId, postData)).then(() => {
       dispatch(getUserProfile(props.username));
-      emitter(props.username);
     });
   };
 

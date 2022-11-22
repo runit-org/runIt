@@ -10,6 +10,7 @@ import Loading from "../SiteElements/loader";
 import ModalItem from "./modal-item";
 import { SearchParam } from "../Utilities/search-param";
 import { useLocation, useParams } from "react-router-dom";
+import { emitter } from "../client/socket";
 
 function JoinEvent(props) {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function JoinEvent(props) {
       location.pathname.includes("event")
         ? dispatch(getSingleEvent(params.id))
         : dispatch(getAllEvents(pageId));
+      emitter([props.userName]);
     });
   };
   return (
