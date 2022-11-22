@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/securityActions";
 import Notifications from "../notification";
 import { getCurrentUserProfile } from "../../actions/userActions";
-import { io } from "socket.io-client";
-import { getNotifications } from "../../actions/notificationActions";
+import { receiver } from "../client/socket";
 
 function Header() {
   let navigate = useNavigate();
@@ -14,7 +13,6 @@ function Header() {
   const [showNotif, setShowNotif] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [notif, setNotif] = useState(null);
-  const socket = io("ws://localhost:5000");
 
   useEffect(() => {
     dispatch(getCurrentUserProfile());
@@ -32,7 +30,6 @@ function Header() {
     };
 
     dispatch(logout(refToken, navigate));
-    socket.emit("remove", "removed");
   };
 
   var currProfile = useSelector(
@@ -46,15 +43,8 @@ function Header() {
   }, [currProfile]);
 
   useEffect(() => {
-    socket.on("data", (arg) => {
-      if (arg) {
-        if (arg[0].username.token === localStorage.getItem("username")) {
-          console.log(arg);
-          dispatch(getNotifications());
-        }
-      }
-    });
-  }, [dispatch, socket]);
+    receiver(dispatch);
+  }, [dispatch]);
 
   var notifications = useSelector(
     (notificationReducer) => notificationReducer.notifications.notifs.results

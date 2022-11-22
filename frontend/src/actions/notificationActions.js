@@ -8,7 +8,6 @@ export const getNotifications = () => async (dispatch) => {
     axios
       .get(`http://localhost:8000/api/notifications/all/`)
       .then((res) => {
-        console.log("success");
         dispatch({
           type: GET_ALL_NOTIFS,
           payload: res.data,

@@ -10,19 +10,6 @@ const io = new Server(server, {
   },
 });
 
-let onlineUsers = [];
-
-const addNewUser = (username, socketId) => {
-  console.log("a user connected");
-  !onlineUsers.some((user) => user.username === username) &&
-    onlineUsers.push({ username, socketId });
-};
-
-const removeUser = (socketId) => {
-  console.log("removed");
-  onlineUsers = onlineUsers.filter((user) => user.socketId !== socketId);
-};
-
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
@@ -30,16 +17,9 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   socket.emit("server", "hello client");
 
-  socket.on("clientId", (msg) => {
-    io.emit("data", onlineUsers);
+  socket.on("client", (msg) => {
+    io.emit("data", msg);
     console.log("id: " + msg);
-    addNewUser(msg, socket.id);
-  });
-
-  socket.on("remove", (msg) => {
-    removeUser(msg.id);
-    console.log(msg);
-    socket.disconnect();
   });
 });
 
