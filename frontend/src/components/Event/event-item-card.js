@@ -99,6 +99,7 @@ function EventItemCard(props) {
               eventId={props.eventData.id}
               eventTitle={props.eventData.title}
               btnStyleFull={true}
+              userName={props.eventData.userName}
             />
           ) : (
             ""

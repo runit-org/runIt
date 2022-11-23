@@ -10,14 +10,15 @@ import {
   Navigate,
 } from "react-router-dom";
 import Header from "./components/SiteElements/header";
-import Posts from "./components/Dashboards/main-dash";
 import Main from "./components/UserAuth/main";
 import { setToken, refreshToken } from "./securityUtils/setToken";
 import jwt_decode from "jwt-decode";
-// import { isExpired } from "react-jwt";
 import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
-import ProfileDash from "./components/Dashboards/profile-dash";
-import EventDash from "./components/Dashboards/event-dash";
+import { lazy, Suspense } from "react";
+
+const ProfileDash = lazy(() => import("./components/Dashboards/profile-dash"));
+const EventDash = lazy(() => import("./components/Dashboards/event-dash"));
+const Posts = lazy(() => import("./components/Dashboards/main-dash"));
 
 const token = localStorage.token;
 
@@ -54,47 +55,49 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/signup" element={<Main />} />
-          <Route path="/reset-password/:token" element={<Main />} />
-          <Route path="/reset-password-auth" element={<Main />} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/signup" element={<Main />} />
+            <Route path="/reset-password/:token" element={<Main />} />
+            <Route path="/reset-password-auth" element={<Main />} />
 
-          <Route
-            path="/posts"
-            element={
-              <ProtectedRoute>
-                <Header />
-                <Posts />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Header />
-                <ProfileDash />
-              </ProtectedRoute>
-            }
-          />
+            <Route
+              path="/posts"
+              element={
+                <ProtectedRoute>
+                  <Header />
+                  <Posts />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Header />
+                  <ProfileDash />
+                </ProtectedRoute>
+              }
+            />
 
-          <Route
-            path="/event/:id"
-            element={
-              <ProtectedRoute>
-                <Header />
-                <EventDash />
-              </ProtectedRoute>
-            }
-          />
+            <Route
+              path="/event/:id"
+              element={
+                <ProtectedRoute>
+                  <Header />
+                  <EventDash />
+                </ProtectedRoute>
+              }
+            />
 
-          {localStorage.getItem("token") ? (
-            <Route path="*" element={<Navigate to="/posts" />} />
-          ) : (
-            <Route path="*" element={<Navigate to="/" />} />
-          )}
-        </Routes>
+            {localStorage.getItem("token") ? (
+              <Route path="*" element={<Navigate to="/posts" />} />
+            ) : (
+              <Route path="*" element={<Navigate to="/" />} />
+            )}
+          </Routes>
+        </Suspense>
       </Router>
     </Provider>
   );

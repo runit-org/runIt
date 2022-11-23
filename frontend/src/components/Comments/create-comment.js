@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { createComment, getAllComments } from "../../actions/commentActions";
+import { emitter } from "../client/socket";
 import CTAButton from "../SiteElements/cta-button";
+import { MentionFilter } from "../Utilities/mention";
 import { SearchParam } from "../Utilities/search-param";
 
 function CreateComment(props) {
@@ -31,6 +33,7 @@ function CreateComment(props) {
     };
     dispatch(createComment(props.id, postData, setLoad, setError)).then(() => {
       dispatch(getAllComments(props.id, pageId));
+      emitter(MentionFilter(content, props.userName));
     });
   };
 

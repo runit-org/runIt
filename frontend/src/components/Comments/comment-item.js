@@ -54,7 +54,7 @@ function CommentItem(props) {
                   className="text-muted"
                   style={{ fontSize: "12px", display: "block" }}
                 >
-                  <PopoverItem data={props.eventData.userName} />
+                  <PopoverItem data={props.commentData.username} />
 
                   <strong>
                     {" "}

@@ -12,6 +12,7 @@ function Vote(props) {
       dispatch(getUserProfile(props.username));
     });
   };
+
   return (
     <ButtonGroup className="vote_btnGroup gap-3">
       <Button

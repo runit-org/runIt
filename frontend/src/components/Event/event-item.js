@@ -185,6 +185,7 @@ function EventItem(props) {
                 <JoinEvent
                   eventId={props.eventData.id}
                   eventTitle={props.eventData.title}
+                  userName={props.eventData.userName}
                 />
               ) : (
                 ""
