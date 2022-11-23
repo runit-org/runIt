@@ -90,7 +90,7 @@ function EventDash() {
                 <Breadcrumbs items={breadcrumbItem} />
                 {eventData.joinedStatus === "OWNER" ||
                 eventData.joinedStatus === "ACCEPTED" ? (
-                  <CreateComment id={params.id} />
+                  <CreateComment id={params.id} userName={eventData.userName} />
                 ) : (
                   <Card className="event-card">
                     <Card.Body>

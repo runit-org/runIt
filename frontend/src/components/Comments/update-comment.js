@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import CTAButton from "../SiteElements/cta-button";
 import { getAllComments, updateComment } from "../../actions/commentActions";
 import { SearchParam } from "../Utilities/search-param";
+import { emitter } from "../client/socket";
+import { MentionFilter } from "../Utilities/mention";
 
 function UpdateComment(props, { handleUpate }) {
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ function UpdateComment(props, { handleUpate }) {
 
     dispatch(updateComment(props.commentId, postData)).then(() => {
       dispatch(getAllComments(props.eventId, pageId));
+      emitter(MentionFilter(content));
     });
     props.handleUpate();
   };

@@ -4,6 +4,8 @@ import { updateEvent, getSingleEvent } from "../../actions/eventActions";
 import { useDispatch } from "react-redux";
 import CTAButton from "../SiteElements/cta-button";
 import { useParams } from "react-router-dom";
+import { emitter } from "../client/socket";
+import { MentionFilter } from "../Utilities/mention";
 
 function UpdateEvent(props, { handleUpate }) {
   const dispatch = useDispatch();
@@ -22,8 +24,8 @@ function UpdateEvent(props, { handleUpate }) {
     };
 
     dispatch(updateEvent(props.eventId, postData)).then(() => {
-      // dispatch(getAllEvents(pageId));
       dispatch(getSingleEvent(params.id));
+      emitter(MentionFilter(details));
     });
     props.handleUpate();
   };

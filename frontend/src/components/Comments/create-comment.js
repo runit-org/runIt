@@ -33,7 +33,7 @@ function CreateComment(props) {
     };
     dispatch(createComment(props.id, postData, setLoad, setError)).then(() => {
       dispatch(getAllComments(props.id, pageId));
-      emitter(content);
+      emitter(MentionFilter(content, props.userName));
     });
   };
 

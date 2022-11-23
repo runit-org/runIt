@@ -7,13 +7,15 @@ export const Mention = (text) => {
   }));
 };
 
-export const MentionFilter = (text) => {
+export const MentionFilter = (text, username) => {
   var matchingText = text.match(/\B@[a-zA-Z0-9_-]+/gm);
   var parse = matchingText
     ? matchingText.map((val) => {
         return val.replace("@", "");
       })
-    : "";
+    : [];
+
+  if (username) parse.push(username);
 
   return parse;
 };
