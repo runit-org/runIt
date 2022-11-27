@@ -28,9 +28,12 @@ class OwnedEventSerializer(serializers.ModelSerializer):
         return datetime(obj.year, obj.month, obj.day, obj.hour, obj.minute)
     
     def get_timeToEvent(self, obj):
-        currentTime = datetime.utcnow().replace(tzinfo=utc)
-        if currentTime < obj.startDate:
-            return GetHumanTimeDifferenceToNow.get(obj.startDate)
+        if obj.status == None:
+            currentTime = datetime.utcnow().replace(tzinfo=utc)
+            if currentTime < obj.startDate:
+                return GetHumanTimeDifferenceToNow.get(obj.startDate)
+            else:
+                return '-'
         else:
             return '-'
 

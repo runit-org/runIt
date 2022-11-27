@@ -40,7 +40,14 @@ class EventSerializer(serializers.ModelSerializer):
         return CreateGravatarProfile.create(obj.user.email)
 
     def get_timeToEvent(self, obj):
-        return GetHumanTimeDifferenceToNow(obj.startDate)
+        if obj.status == None:
+            currentTime = datetime.utcnow().replace(tzinfo=utc)
+            if currentTime < obj.startDate:
+                return GetHumanTimeDifferenceToNow.get(obj.startDate)
+            else:
+                return '-'
+        else:
+            return '-'
     
     def get_eventStatus(self, obj):
         if obj.status != None:
