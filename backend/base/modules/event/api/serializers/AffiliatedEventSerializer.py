@@ -16,7 +16,7 @@ class AffiliatedEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ['id', 'userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 'eventDateString', 'eventDate']
+        fields = ['id', 'userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 'eventDateString', 'eventDate', 'timeToEvent', 'eventStatus']
 
     def get_humanTimeDiffCreatedAt(self, obj):
         return GetHumanTimeDifferenceToNow.get(obj.createdAt)
@@ -39,7 +39,7 @@ class AffiliatedEventSerializer(serializers.ModelSerializer):
 
     def get_eventStatus(self, obj):
         if obj.status != None:
-            return obj.status
+            return EventStatus.get(obj.status).name
         else:
             currentTime = datetime.utcnow().replace(tzinfo=utc)
             if currentTime < obj.startDate:

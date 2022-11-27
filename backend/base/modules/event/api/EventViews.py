@@ -6,6 +6,7 @@ from base.modules.event.api.validators import (
     RequestJoinEventValidator,
     ChangeEventMemberStatusValidator,
     AnnounceMembersValidator,
+    UpdateEventStatusValidator,
 )
 from base.modules.event.api.actions import (
     CreateEventAction, 
@@ -19,6 +20,7 @@ from base.modules.event.api.actions import (
     GetOwnedEventsAction,
     GetParticipatedAndOwnedEventsAction,
     AnnounceMembersAction,
+    UpdateEventStatusAction,
 )
 
 @api_view(['POST'])
@@ -42,6 +44,15 @@ def updateEvent(request, pk):
         return UpdateEventValidator.validate(request)
 
     return UpdateEventAction.update(request, pk)
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def updateEventStatus(request, pk):
+    if (UpdateEventStatusValidator.validate(request) != None):
+        return UpdateEventStatusValidator.validate(request)
+
+    return UpdateEventStatusAction.update(request, pk)
+
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])

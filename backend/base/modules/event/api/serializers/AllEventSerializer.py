@@ -48,7 +48,7 @@ class AllEventSerializer(serializers.ModelSerializer):
 
     def get_eventStatus(self, obj):
         if obj.status != None:
-            return obj.status
+            return EventStatus.get(obj.status).name
         else:
             currentTime = datetime.utcnow().replace(tzinfo=utc)
             if currentTime < obj.startDate:
