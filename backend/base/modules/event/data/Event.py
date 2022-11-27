@@ -12,6 +12,7 @@ class Event(models.Model):
     title = models.CharField(max_length=200, null=True, blank=True)
     maxMember = models.IntegerField(null=True, blank=True, default=0)
     details = models.TextField(null=True, blank=True)
+    startDate = models.DateTimeField(null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
 
     year = models.IntegerField(null=True, blank=True)
@@ -19,6 +20,8 @@ class Event(models.Model):
     day = models.IntegerField(null=True, blank=True)
     hour = models.IntegerField(null=True, blank=True)
     minute = models.IntegerField(null=True, blank=True)
+
+    status = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.title
