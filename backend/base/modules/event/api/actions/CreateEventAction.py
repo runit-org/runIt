@@ -4,6 +4,8 @@ from base.enums import EventMemberStatus
 from base.traits import NotifyUser
 from base.views.baseViews import response, error
 
+from datetime import datetime
+
 def mention(event, content, user):
     characters = content.split(' ')
     for i in characters:
@@ -36,6 +38,8 @@ def create(request):
         day         = data['day'],
         hour        = data['hour'],
         minute      = data['minute'],
+
+        startDate   = datetime(data['year'], data['month'], data['day'], data['hour'], data['minute'])
     )
     serializer = EventSerializer(event, many=False)
 

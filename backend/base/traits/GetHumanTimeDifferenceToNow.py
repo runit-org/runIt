@@ -29,6 +29,9 @@ def calculateTime(seconds):
 
 def get(targetTime):
     currentTime = datetime.datetime.utcnow().replace(tzinfo=utc)
-    timeDiff = currentTime - targetTime
+    if currentTime > targetTime:
+        timeDiff = currentTime - targetTime
+    else:
+        timeDiff = targetTime - currentTime
     timeDiffSeconds = timeDiff.total_seconds()
     return calculateTime(timeDiffSeconds)

@@ -2,8 +2,10 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import *
 from base.traits import GetHumanTimeDifferenceToNow, CheckUserMemberEvent, EventDateToStringTime, CreateGravatarProfile
+from base.enums import EventStatus
 
 from datetime import datetime
+from django.utils.timezone import utc
 
 class EventSerializer(serializers.ModelSerializer):
     humanTimeDiffCreatedAt = serializers.SerializerMethodField(read_only=True)
@@ -11,10 +13,12 @@ class EventSerializer(serializers.ModelSerializer):
     eventDate = serializers.SerializerMethodField(read_only=True)
     joinedStatus = serializers.SerializerMethodField(read_only=True)
     gravatarImage = serializers.SerializerMethodField(read_only=True)
+    timeToEvent = serializers.SerializerMethodField(read_only=True)
+    eventStatus = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Event
-        fields = ['id', 'userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 'eventDateString', 'eventDate', 'user', 'joinedStatus', 'gravatarImage']
+        fields = ['id', 'userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 'eventDateString', 'eventDate', 'user', 'joinedStatus', 'gravatarImage', 'timeToEvent']
 
     def get_humanTimeDiffCreatedAt(self, obj):
         return GetHumanTimeDifferenceToNow.get(obj.createdAt)
@@ -34,3 +38,19 @@ class EventSerializer(serializers.ModelSerializer):
 
     def get_gravatarImage(self, obj):
         return CreateGravatarProfile.create(obj.user.email)
+
+    def get_timeToEvent(self, obj):
+        return GetHumanTimeDifferenceToNow(obj.startDate)
+    
+    def get_eventStatus(self, obj):
+        if obj.status != None:
+            return obj.status
+        else:
+            currentTime = datetime.utcnow().replace(tzinfo=utc)
+            if currentTime < obj.startDate:
+                return EventStatus.get.PENDING.name
+            else:
+                return EventStatus.get.ONGOING.name
+
+
+    
