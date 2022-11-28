@@ -19,6 +19,9 @@ def send(request, eventId):
 
     event = Event.objects.get(id=eventId)
 
+    if event.status != None:
+        return error('Event status is FINISHED/CANCELLED')
+
     if user.id != event.user.id:
         return error('Can only delete your own events')
 

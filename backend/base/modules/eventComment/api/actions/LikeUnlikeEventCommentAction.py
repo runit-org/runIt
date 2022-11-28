@@ -24,6 +24,9 @@ def update(request, commentId):
 
     comment = EventComment.objects.get(id=commentId)
 
+    if comment.event.status != None:
+        return error('Event status is FINISHED/CANCELLED')
+
     if checkCommentLikeExist(comment, user):
         eventCommentLike = EventCommentLike.objects.get(eventComment=comment, user=user)
         eventCommentLike.delete()

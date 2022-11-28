@@ -39,13 +39,15 @@ def updateStatus(request):
 
     event = Event.objects.get(id=data['eventId'])
 
+    if event.status != None:
+        return error('Event status is FINISHED/CANCELLED')
+
     if user.id != event.user.id:
         return error('Not event owner')
     
     if not checkUserId(data['userId']):
         return error('User ID not found')
     
-
     checkMemberStatus = checkEventMemberStatus(data['eventId'], data['userId'])
 
     if checkMemberStatus == -1:

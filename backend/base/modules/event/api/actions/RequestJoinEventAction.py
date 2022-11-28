@@ -30,6 +30,9 @@ def request(request):
 
     event = Event.objects.get(id = data['eventId'])
 
+    if event.status != None:
+        return error('Event status is FINISHED/CANCELLED')
+
     if user.id == event.user.id:
         return error('You cannot request to join your own event')
 
