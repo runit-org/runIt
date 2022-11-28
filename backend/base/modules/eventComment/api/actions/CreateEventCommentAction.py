@@ -61,6 +61,9 @@ def create(request, eventId):
 
     event = Event.objects.get(id=eventId)
 
+    if event.status != None:
+        return error('Event status is FINISHED/CANCELLED')
+
     if event.user != user:
         if checkEventMemberStatus(eventId, user.id) != EventMemberStatus.get.ACCEPTED.value:
             return error('Can only create comments as an accepted member of an event')

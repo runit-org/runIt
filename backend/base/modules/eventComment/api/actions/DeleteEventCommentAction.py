@@ -29,6 +29,10 @@ def delete(request, commentId):
         return error('Is not comment creator')
 
     comment = EventComment.objects.get(id=commentId)
+
+    if comment.event.status != None:
+        return error('Event status is FINISHED/CANCELLED')
+
     comment.delete()
 
     return response('Comment deleted', [])

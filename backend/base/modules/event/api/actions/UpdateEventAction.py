@@ -36,6 +36,9 @@ def update(request, pk):
 
     event = Event.objects.get(id=pk)
 
+    if event.status != None:
+        return error('Event status is FINISHED/CANCELLED')
+
     if user.id != event.user.id:
         return error('Can only delete your own events')
 
