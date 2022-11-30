@@ -29,7 +29,7 @@ def validate(request):
     if data['month'] < 1 or data['month'] > 12:
         return validationError('Invalid month')
 
-    if data['hour'] < 1 or data['hour'] > 24:
+    if data['hour'] < 0 or data['hour'] > 24:
         return validationError('Invalid hour')
 
     if data['minute'] < 1 or data['minute'] > 59:
