@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from base.models import *
+from datetime import datetime
 
 # Create your models here.
 
@@ -13,7 +14,7 @@ class Event(models.Model):
     maxMember = models.IntegerField(null=True, blank=True, default=0)
     details = models.TextField(null=True, blank=True)
     startDate = models.DateTimeField(null=True, blank=True)
-    createdAt = models.DateTimeField(auto_now_add=True)
+    createdAt = models.DateTimeField(default=datetime.now())
 
     year = models.IntegerField(null=True, blank=True)
     month = models.IntegerField(null=True, blank=True)

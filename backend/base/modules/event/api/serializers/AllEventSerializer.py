@@ -5,7 +5,7 @@ from base.traits import GetHumanTimeDifferenceToNow, CheckUserMemberEvent, Event
 from base.enums import EventStatus
 
 from datetime import datetime
-from django.utils.timezone import utc
+from django.utils import timezone
 
 class AllEventSerializer(serializers.ModelSerializer):
     humanTimeDiffCreatedAt = serializers.SerializerMethodField(read_only=True)
@@ -38,7 +38,7 @@ class AllEventSerializer(serializers.ModelSerializer):
 
     def get_timeToEvent(self, obj):
         if obj.status == None:
-            currentTime = datetime.utcnow().replace(tzinfo=utc)
+            currentTime = timezone.make_aware(datetime.now())
             if currentTime < obj.startDate:
                 return GetHumanTimeDifferenceToNow.get(obj.startDate)
             else:
@@ -50,7 +50,7 @@ class AllEventSerializer(serializers.ModelSerializer):
         if obj.status != None:
             return EventStatus.get(obj.status).name
         else:
-            currentTime = datetime.utcnow().replace(tzinfo=utc)
+            currentTime = timezone.make_aware(datetime.now())
             if currentTime < obj.startDate:
                 return EventStatus.get.PENDING.name
             else:

@@ -41,8 +41,8 @@ def create(request):
 
         startDate   = datetime(data['year'], data['month'], data['day'], data['hour'], data['minute'])
     )
-    serializer = EventSerializer(event, many=False)
+    # serializer = EventSerializer(event, many=False)
 
     mention(event, event.details, user)
 
-    return response('Event created', serializer.data)
+    return response('Event created', [])

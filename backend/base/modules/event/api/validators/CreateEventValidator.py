@@ -1,6 +1,6 @@
 from base.views.baseViews import validationError
 
-from datetime import datetime, timezone
+from datetime import datetime
 
 def validate(request):
     data = request.data
