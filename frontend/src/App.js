@@ -1,6 +1,5 @@
 import "./styles/App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "react-quill/dist/quill.snow.css";
 import store from "./store";
 import { Provider } from "react-redux";
 import {
@@ -15,6 +14,7 @@ import { setToken, refreshToken } from "./securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 import { SET_CURRENT_USER, GET_ERRORS } from "./actions/types";
 import { lazy, Suspense } from "react";
+import ProtectedRoute from "./components/UserAuth/protected-route";
 
 const ProfileDash = lazy(() => import("./components/Dashboards/profile-dash"));
 const EventDash = lazy(() => import("./components/Dashboards/event-dash"));
@@ -43,12 +43,6 @@ const getAccessToken = async (token) => {
 
 if (token) {
   getAccessToken(token);
-}
-
-function ProtectedRoute({ children }) {
-  const isAuthenticated = localStorage.getItem("token");
-
-  return isAuthenticated ? children : <Navigate to="/signin" />;
 }
 
 function App() {
