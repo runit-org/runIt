@@ -69,7 +69,6 @@ export const login =
         const accessToken = res.data.access;
         //store token in local storage
         localStorage.setItem("token", refToken);
-        localStorage.setItem("accessToken", accessToken);
         //set token in header
         setToken(accessToken);
         //get data from response
@@ -79,7 +78,7 @@ export const login =
         };
 
         localStorage.setItem("username", decoded.username);
-        if (localStorage.getItem("token")) {
+        if (res.status === 200 && localStorage.getItem("token")) {
           navigate("/posts");
         }
         dispatch({
@@ -109,9 +108,8 @@ export const logout = (refToken, navigate) => async (dispatch) => {
 
   setToken(false);
   localStorage.clear();
-  if (!localStorage.getItem("token")) {
-    navigate("/");
-  }
+  navigate("/", { replace: true });
+
   dispatch({
     type: SET_CURRENT_USER,
     payload: null,
