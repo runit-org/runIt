@@ -11,13 +11,13 @@ const ProfileDash = lazy(() => import("./components/Dashboards/profile-dash"));
 const EventDash = lazy(() => import("./components/Dashboards/event-dash"));
 const Posts = lazy(() => import("./components/Dashboards/main-dash"));
 
-const token = localStorage.token;
-
-if (token) {
-  getAccessToken();
-}
-
 function App() {
+  const token = localStorage.token;
+
+  if (token) {
+    getAccessToken();
+  }
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>

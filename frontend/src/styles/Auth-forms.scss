@@ -54,3 +54,9 @@ div#auth-container {
 .login-card .form-floating > label {
   color: $primary-dark;
 }
+
+//current user
+.current-signedin .list-group-item:hover {
+  transition: all 0.2s;
+  background-color: $secondary-light;
+}

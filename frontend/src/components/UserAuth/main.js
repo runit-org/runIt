@@ -1,14 +1,22 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Footer from "../SiteElements/footer";
 import Login from "./log-in";
 import ResetPassword from "./reset-pw";
 import ResetPasswordEmail from "./resetPw-email";
 import SignUp from "./sign-up";
 import { useParams } from "react-router-dom";
+import CurrentUser from "./current-user";
 
 function Main() {
   let { token } = useParams();
+  let location = useLocation();
+  const [isValid, setIsValid] = useState(false);
+  const localToken = localStorage.token;
+
+  useEffect(() => {
+    setIsValid(localToken);
+  }, [localToken]);
 
   return (
     <>
@@ -16,13 +24,17 @@ function Main() {
         <div className="auth-content">
           <div>
             <h1 className="titleText text-center">eventmatcher</h1>
-            {window.location.pathname === "/signup" ? (
+            {location.pathname === "/signup" ? (
               <SignUp />
-            ) : window.location.pathname === "/reset-password-auth" ? (
+            ) : location.pathname === "/reset-password-auth" ? (
               <ResetPasswordEmail />
-            ) : window.location.pathname ===
+            ) : location.pathname ===
               `/reset-password/${encodeURIComponent(token)}` ? (
               <ResetPassword token={encodeURIComponent(token)} />
+            ) : isValid &&
+              location.pathname === "/" &&
+              location.state === null ? (
+              <CurrentUser />
             ) : (
               <Login />
             )}
