@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
+import { Card, Form, Row, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewUser } from "../../actions/securityActions";
 import Loading from "../SiteElements/loader";
@@ -73,98 +73,71 @@ function SignUp() {
               <Form.Group
                 as={Col}
                 md="6"
-                className="mb-3"
                 controlId="formBasicEmail"
+                className="mb-3"
               >
-                <Form.Label className="text-muted">Name</Form.Label>
-
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Name"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="text"
-                    placeholder="Name"
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-                </FloatingLabel>
+                <Form.Label className="text-muted visually-hidden">
+                  Name
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Name"
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
               </Form.Group>
 
               <Form.Group
                 as={Col}
                 md="6"
-                className="mb-3"
                 controlId="formBasicEmail1"
-              >
-                <Form.Label className="text-muted">Username</Form.Label>
-
-                <FloatingLabel
-                  controlId="floatingInput1"
-                  label="Username"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="text"
-                    placeholder="Username"
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                  />
-                </FloatingLabel>
-              </Form.Group>
-
-              <Form.Label className="text-muted">Email</Form.Label>
-              <Form.Group className="mb-3" controlId="formBasicEmail2">
-                <FloatingLabel
-                  controlId="floatingInput2"
-                  label="Email"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="email"
-                    placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </FloatingLabel>
-              </Form.Group>
-
-              <Form.Group
-                as={Col}
-                md="6"
                 className="mb-3"
-                controlId="formBasicPassword"
               >
-                <Form.Label className="text-muted">Password</Form.Label>
-                <FloatingLabel controlId="floatingPassword" label="Password">
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </FloatingLabel>
+                <Form.Label className="text-muted visually-hidden">
+                  Username
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Username"
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
               </Form.Group>
 
-              <Form.Group
-                as={Col}
-                md="6"
-                className="mb-3"
-                controlId="formBasicPassword"
-              >
-                <Form.Label className="text-muted">Confirm Password</Form.Label>
-                <FloatingLabel
-                  controlId="floating_c_Password"
-                  label="Confirm Password"
-                >
-                  <Form.Control
-                    type="password"
-                    placeholder="Confirm Password"
-                    onChange={(e) => setc_Password(e.target.value)}
-                    required
-                  />
-                </FloatingLabel>
+              <Form.Group controlId="formBasicEmail2" className="mb-3">
+                <Form.Label className="text-muted visually-hidden">
+                  Email
+                </Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formBasicPassword" className="mb-3">
+                <Form.Label className="text-muted visually-hidden">
+                  Password
+                </Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label className="text-muted visually-hidden">
+                  Confirm Password
+                </Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Confirm Password"
+                  onChange={(e) => setc_Password(e.target.value)}
+                  required
+                />
               </Form.Group>
 
               <div className="centerContent align-items-center">

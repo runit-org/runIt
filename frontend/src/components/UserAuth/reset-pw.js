@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Form, Button, FloatingLabel, Row, Col } from "react-bootstrap";
+import { Card, Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPw } from "../../actions/securityActions";
 import { Link } from "react-router-dom";
@@ -68,31 +68,30 @@ function ResetPassword(props) {
               <span>Reset Password</span>
             </h4>
             <hr className="divider" />
-            <Form.Label className="text-muted">Password</Form.Label>
+
             <Form.Group className="mb-3" controlId="password">
-              <FloatingLabel controlId="password" label="Password">
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </FloatingLabel>
+              <Form.Label className="text-muted visually-hidden">
+                Password
+              </Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label className="text-muted">Confirm Password</Form.Label>
-              <FloatingLabel
-                controlId="confirmPassword"
-                label="Confirm Password"
-              >
-                <Form.Control
-                  type="password"
-                  placeholder="Confirm Password"
-                  onChange={(e) => set_c_Password(e.target.value)}
-                  required
-                />
-              </FloatingLabel>
+              <Form.Label className="text-muted visually-hidden">
+                Confirm Password
+              </Form.Label>
+
+              <Form.Control
+                type="password"
+                placeholder="Confirm Password"
+                onChange={(e) => set_c_Password(e.target.value)}
+                required
+              />
             </Form.Group>
 
             <div className="centerContent align-items-center">

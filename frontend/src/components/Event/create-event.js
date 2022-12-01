@@ -74,12 +74,10 @@ function CreateEvent() {
             <Row>
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label className="text-muted p-1">
-                    Event Title
-                  </Form.Label>
+                  <Form.Label className="m-1">Event Title</Form.Label>
                   <Form.Control
                     type="title"
-                    placeholder="Event Title"
+                    placeholder="Christmas social"
                     onChange={(e) => setTitle(e.target.value)}
                     required
                   />
@@ -89,12 +87,11 @@ function CreateEvent() {
             <Row>
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label className="text-muted p-1">Size</Form.Label>
-
+                  <Form.Label className="m-1">Size</Form.Label>
                   <Form.Control
                     type="number"
                     className="mb-3"
-                    placeholder="Maximum Members"
+                    placeholder="14"
                     onChange={(e) => setMaxMembers(parseInt(e.target.value))}
                     min="2"
                     required
@@ -103,7 +100,7 @@ function CreateEvent() {
               </Col>
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label className="text-muted  p-1">Time</Form.Label>
+                  <Form.Label className="m-1">Time</Form.Label>
 
                   <Form.Control
                     type="time"
@@ -115,7 +112,7 @@ function CreateEvent() {
               </Col>
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label className="text-muted p-1">Date</Form.Label>
+                  <Form.Label className="m-1">Date</Form.Label>
 
                   <Form.Control
                     type="date"
@@ -130,7 +127,7 @@ function CreateEvent() {
 
             <Form.Group>
               <Form.Control
-                placeholder="What's on your mind?"
+                placeholder="Event details..."
                 as="textarea"
                 onChange={(e) => setDetails(e.target.value)}
                 rows={4}

@@ -4,14 +4,15 @@ import { Badge, Button, ButtonGroup, Card } from "react-bootstrap";
 import JoinEvent from "./join-event";
 import { useNavigate } from "react-router-dom";
 import PopoverItem from "../Profile/popover-item";
+import { ACCEPTED, PENDING, REJECTED } from "./types";
 
 function EventItemCard(props) {
   const [currentUser, setCurrentUser] = useState();
   const navigate = useNavigate();
 
-  const joined = props.eventData.joinedStatus === "ACCEPTED";
-  const requested = props.eventData.joinedStatus === "PENDING";
-  const rejected = props.eventData.joinedStatus === "REJECTED";
+  const joined = props.eventData.joinedStatus === ACCEPTED;
+  const requested = props.eventData.joinedStatus === PENDING;
+  const rejected = props.eventData.joinedStatus === REJECTED;
 
   var getCurrentUser = useSelector(
     (securityReducer) => securityReducer.security.user

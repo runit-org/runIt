@@ -15,8 +15,6 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  socket.emit("server", "hello client");
-
   socket.on("client", (msg) => {
     io.emit("data", msg);
     console.log("id: " + msg);

@@ -6,13 +6,14 @@ import UpdateEvent from "./update-event";
 import { eventOptions } from "../Utilities/event-options";
 import { Mention } from "../Utilities/mention";
 import EventMembers from "./event-members";
+import { ACCEPTED, PENDING, REJECTED } from "./types";
 
 function EventItem(props) {
   const [currentUser, setCurrentUser] = useState();
   const [editorMode, setEditorMode] = useState(false);
-  const joined = props.eventData.joinedStatus === "ACCEPTED";
-  const requested = props.eventData.joinedStatus === "PENDING";
-  const rejected = props.eventData.joinedStatus === "REJECTED";
+  const joined = props.eventData.joinedStatus === ACCEPTED;
+  const requested = props.eventData.joinedStatus === PENDING;
+  const rejected = props.eventData.joinedStatus === REJECTED;
 
   var getCurrentUser = useSelector(
     (securityReducer) => securityReducer.security.user

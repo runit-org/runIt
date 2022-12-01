@@ -11,6 +11,7 @@ import { getAllComments } from "../../actions/commentActions";
 import { SearchParam } from "../Utilities/search-param";
 import Pagination from "../SiteElements/pagination";
 import Breadcrumbs from "../SiteElements/breadcrumbs";
+import { ACCEPTED, OWNER } from "../Event/types";
 
 function EventDash() {
   const dispatch = useDispatch();
@@ -88,8 +89,8 @@ function EventDash() {
             <div className="content">
               <Container>
                 <Breadcrumbs items={breadcrumbItem} />
-                {eventData.joinedStatus === "OWNER" ||
-                eventData.joinedStatus === "ACCEPTED" ? (
+                {eventData.joinedStatus === OWNER ||
+                eventData.joinedStatus === ACCEPTED ? (
                   <CreateComment id={params.id} userName={eventData.userName} />
                 ) : (
                   <Card className="event-card">

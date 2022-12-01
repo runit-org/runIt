@@ -25,21 +25,20 @@ div#auth-container {
   border-top: 1px solid #e0e0e0;
 }
 
-.login-card .form-floating > .form-control:-webkit-autofill {
+.login-card .form-control:-webkit-autofill {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-.login-card .form-floating > .form-control:focus {
+.login-card .form-control:focus {
   border: 1px solid $theme;
   box-shadow: none !important;
 }
 
-.login-card .form-floating > .form-control {
-  border: 1px solid rgba(0, 0, 0, 0.3);
+.login-card .form-control {
+  border: 1px solid rgba($primary-dark, 0.1);
 }
 
-.login-card .form-floating > .form-control:hover,
-.new-post-container .form-floating > .form-control:hover {
+.new-post-container .form-control:hover {
   border: 1px solid $theme;
 }
 
@@ -49,10 +48,6 @@ div#auth-container {
   font-weight: 500;
   width: 100%;
   max-width: 500px !important;
-}
-
-.login-card .form-floating > label {
-  color: $primary-dark;
 }
 
 //current user

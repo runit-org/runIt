@@ -23,7 +23,6 @@ function Main() {
       <div id="auth-container">
         <div className="auth-content">
           <div>
-            <h1 className="titleText text-center">eventmatcher</h1>
             {location.pathname === "/signup" ? (
               <SignUp />
             ) : location.pathname === "/reset-password-auth" ? (

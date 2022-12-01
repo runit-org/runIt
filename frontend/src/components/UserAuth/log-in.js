@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
+import { Card, Form, Row, Col, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { login } from "../../actions/securityActions";
 import { Link, useNavigate } from "react-router-dom";
@@ -68,33 +68,25 @@ function Login() {
               Username
             </Form.Label>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <FloatingLabel
-                controlId="floatingInput"
-                label="Username"
-                className="mb-3"
-              >
-                <Form.Control
-                  type="username"
-                  placeholder="Username"
-                  value={Object.keys(username).length !== 0 ? username : ""}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                />
-              </FloatingLabel>
+              <Form.Control
+                type="username"
+                placeholder="Username"
+                value={Object.keys(username).length !== 0 ? username : ""}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label className="text-muted visually-hidden">
                 Password
               </Form.Label>
-              <FloatingLabel controlId="floatingPassword" label="Password">
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </FloatingLabel>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
             </Form.Group>
 
             <div className="centerContent align-items-center">

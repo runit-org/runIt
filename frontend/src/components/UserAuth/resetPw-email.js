@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Form, Button, FloatingLabel, Row, Col } from "react-bootstrap";
+import { Card, Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { resetPwEmail } from "../../actions/securityActions";
 import { Link } from "react-router-dom";
@@ -43,20 +43,17 @@ function ResetPasswordEmail() {
             </h4>
             <hr className="divider" />
 
-            <Form.Label className="text-muted">Email</Form.Label>
-            <Form.Group className="mb-3" controlId="formBasicEmail2">
-              <FloatingLabel
-                controlId="floatingInput2"
-                label="Email"
-                className="mb-3"
-              >
-                <Form.Control
-                  type="email"
-                  placeholder="Email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </FloatingLabel>
+            <Form.Label className="text-muted visually-hidden">
+              Email
+            </Form.Label>
+            <Form.Group controlId="formBasicEmail2">
+              <Form.Control
+                className="p-2"
+                type="email"
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
             </Form.Group>
 
             <div className="centerContent align-items-center">

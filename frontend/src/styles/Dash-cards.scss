@@ -18,37 +18,23 @@
   border: none;
 }
 
-:is(.new-post-container, .editor-card)
-  :is(.form-floating > .form-control, .form-control) {
+:is(.new-post-container, .editor-card) :is(.form-control, .form-control) {
   color: $primary-dark;
-  border-radius: 8px;
 }
 
 :is(.new-post-container, .editor-card)
-  :is(.form-floating > .form-control:focus, .form-control:focus) {
+  :is(.form-control:focus, .form-control:focus) {
   border: 1px solid $theme;
   box-shadow: none !important;
 }
 
-:is(.new-post-container, .editor-card)
-  :is(.form-floating > .form-control, .form-control) {
+:is(.new-post-container, .editor-card) :is(.form-control, .form-control) {
   border: 1px solid rgba($primary-dark, 0.1);
 }
 
-.new-post-container :is(.ql-container.ql-snow, .ql-toolbar.ql-snow) {
-  border: 1px solid rgba($primary-dark, 0.1);
-  background-color: rgb(240, 240, 240) !important;
-}
-
-.new-post-container
-  :is(.ql-snow .ql-picker, .ql-toolbar .ql-stroke, .ql-picker-options) {
-  color: $primary-dark;
-}
-
-.new-post-container
-  :is(.ql-toolbar .ql-stroke, .ql-toolbar .ql-fill, .ql-toolbar .ql-picker) {
-  fill: none;
-  stroke: $primary-dark;
+.new-post-container .form-label {
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .event-card {
