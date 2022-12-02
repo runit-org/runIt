@@ -4,6 +4,8 @@ from base.views.baseViews import response, error, paginate
 from base.enums import EventMemberStatus
 from base.traits import NotifyUser
 
+from datetime import datetime
+
 def checkEventId(id):
     checkEventExist = Event.objects.filter(id = id)
 
@@ -72,6 +74,8 @@ def create(request, eventId):
         event = event,
         user = user,
         content = data['content'],
+
+        createdAt = datetime.now()
     )
     serializer = EventCommentSerializer(eventComment, many=False)
 

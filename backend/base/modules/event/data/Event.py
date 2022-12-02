@@ -14,7 +14,7 @@ class Event(models.Model):
     maxMember = models.IntegerField(null=True, blank=True, default=0)
     details = models.TextField(null=True, blank=True)
     startDate = models.DateTimeField(null=True, blank=True)
-    createdAt = models.DateTimeField(default=datetime.now())
+    createdAt = models.DateTimeField(null=True, blank=True)
 
     year = models.IntegerField(null=True, blank=True)
     month = models.IntegerField(null=True, blank=True)

@@ -9,6 +9,7 @@ class EventCommentSerializer(serializers.ModelSerializer):
     humanTimeDiffCreatedAt = serializers.SerializerMethodField(read_only=True)
     username = serializers.SerializerMethodField(read_only=True)
     gravatarImage = serializers.SerializerMethodField(read_only=True)
+    numLikes = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = EventComment
@@ -22,3 +23,6 @@ class EventCommentSerializer(serializers.ModelSerializer):
 
     def get_gravatarImage(self, obj):
         return CreateGravatarProfile.create(obj.user.email)
+
+    def get_numLikes(self, obj):
+        return len(EventCommentLike.objects.filter(eventComment=obj))

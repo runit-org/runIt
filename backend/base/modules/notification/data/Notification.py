@@ -7,7 +7,8 @@ class Notification(models.Model):
     userId = models.IntegerField(null=True, blank=True, default=0)
     details = models.CharField(max_length=200, null=True, blank=True)
     status = models.IntegerField(null=True, blank=True, default=NotificationStatus.get.UNREAD.value)
-    createdAt = models.DateTimeField(auto_now_add=True)
+
+    createdAt = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.id

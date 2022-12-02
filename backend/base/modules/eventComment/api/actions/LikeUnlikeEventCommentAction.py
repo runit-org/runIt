@@ -2,6 +2,7 @@ from base.models import User, EventComment, EventCommentLike
 from base.serializers import EventCommentSerializer
 from base.views.baseViews import response, error, paginate
 from base.enums import EventMemberStatus
+from base.traits import NotifyUser
 
 def checkCommentId(id):
     checkCommentExist = EventComment.objects.filter(id = id)
@@ -38,6 +39,10 @@ def update(request, commentId):
             eventComment=comment,
             user=user
         )
+
+        if user != comment.user:
+            notifDetails = 'User <b>' + user.username + '</b> liked your comment: <i>' + comment.content + '</i>' 
+            NotifyUser.notify(comment.user.id, notifDetails)
 
         return response('Comment liked', [])
     
