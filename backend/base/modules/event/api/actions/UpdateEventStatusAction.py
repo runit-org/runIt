@@ -1,7 +1,8 @@
-from base.models import Event, User
+from base.models import Event, User, EventMember
 from base.serializers import EventSerializer
 from base.traits import NotifyUser
 from base.views.baseViews import response, error
+from base.enums import EventMemberStatus, EventStatus
 
 def checkEventId(pk):
     checkEventExist = Event.objects.filter(id = pk)
@@ -10,6 +11,14 @@ def checkEventId(pk):
         return True
     else:
         return False
+
+def sendNotification(user, event, status):
+    eventMemberObjects = EventMember.objects.filter(event=event)
+    for eventMember in eventMemberObjects:
+        if eventMember.user != user:
+            if eventMember.status == EventMemberStatus.get.ACCEPTED.value:
+                notificationMessage = 'User <b>' + user.username + '</b> has updated the status of an event you are affiliated with: <b>' + event.title + '</b>. New status: ' + status
+                NotifyUser.notify(eventMember.user.id, notificationMessage)
 
 def update(request, pk):
     data = request.data
@@ -28,6 +37,8 @@ def update(request, pk):
 
     event.status = data['status']
     event.save()
+
+    sendNotification(user, event, EventStatus.get(data['status']).name)
 
     serializer = EventSerializer(event, many=False)
 
