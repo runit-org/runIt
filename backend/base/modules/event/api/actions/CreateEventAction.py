@@ -39,7 +39,8 @@ def create(request):
         hour        = data['hour'],
         minute      = data['minute'],
 
-        startDate   = datetime(data['year'], data['month'], data['day'], data['hour'], data['minute'])
+        startDate   = datetime(data['year'], data['month'], data['day'], data['hour'], data['minute']),
+        createdAt   = datetime.now()
     )
     # serializer = EventSerializer(event, many=False)
 
