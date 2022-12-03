@@ -18,11 +18,16 @@ function CurrentUser() {
     (securityReducer) => securityReducer.users.currProfile
   );
 
+  var error = useSelector((errorReducer) => errorReducer.errors.status);
+
   useEffect(() => {
-    if (currProfile) {
+    if (currProfile && !error) {
       setCurrUserProfile(currProfile.data);
+    } else {
+      localStorage.clear();
+      navigate(0);
     }
-  }, [currProfile]);
+  }, [currProfile, error, navigate]);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -34,7 +39,6 @@ function CurrentUser() {
 
     dispatch(logout(refToken, navigate));
   };
-
   return (
     <>
       {currUserProfile ? (

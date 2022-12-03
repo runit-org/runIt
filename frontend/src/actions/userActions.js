@@ -3,6 +3,7 @@ import {
   GET_ERRORS,
   GET_USER_PROFILE,
   GET_CURRENT_USER_PROFILE,
+  SET_CURRENT_USER,
 } from "./types";
 import { setToken, refreshToken } from "../securityUtils/setToken";
 
@@ -40,7 +41,11 @@ export const getCurrentUserProfile = () => async (dispatch) => {
       .catch((error) => {
         dispatch({
           type: GET_ERRORS,
-          payload: error.response.data,
+          payload: error.response,
+        });
+        dispatch({
+          type: SET_CURRENT_USER,
+          payload: null,
         });
       });
   });
