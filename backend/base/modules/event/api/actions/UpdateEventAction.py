@@ -24,8 +24,9 @@ def mention(event, content, user):
 
             # Tagging yourself wouldn't notify
             if targetUser != user:
+                link = '/event/' + str(event.id)
                 notificationMessage = 'User <b>' + user.username + '</b> mentioned you on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
-                NotifyUser.notify(targetUser.id, notificationMessage)
+                NotifyUser.notify(targetUser.id, notificationMessage, link)
 
 def update(request, pk):
     data = request.data
