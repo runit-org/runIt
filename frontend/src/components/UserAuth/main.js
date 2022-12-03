@@ -1,22 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Footer from "../SiteElements/footer";
 import Login from "./log-in";
 import ResetPassword from "./reset-pw";
 import ResetPasswordEmail from "./resetPw-email";
 import SignUp from "./sign-up";
 import { useParams } from "react-router-dom";
-import CurrentUser from "./current-user";
+import SingleClick from "./single-click";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUserProfile } from "../../actions/userActions";
 
 function Main() {
   let { token } = useParams();
   let location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isValid, setIsValid] = useState(false);
+  const [currUserProfile, setCurrUserProfile] = useState({});
   const localToken = localStorage.token;
 
   useEffect(() => {
-    setIsValid(localToken);
-  }, [localToken]);
+    if (localToken && location.pathname === "/" && location.state === null)
+      setIsValid(localToken);
+  }, [localToken, location.pathname, location.state]);
+
+  useEffect(() => {
+    if (isValid) dispatch(getCurrentUserProfile());
+  }, [dispatch, isValid]);
+
+  var currProfile = useSelector(
+    (securityReducer) => securityReducer.users.currProfile
+  );
+
+  var error = useSelector((errorReducer) => errorReducer.errors.status);
+
+  useEffect(() => {
+    if (isValid) {
+      if (currProfile && !error) {
+        setCurrUserProfile(currProfile.data);
+      } else {
+        localStorage.clear();
+        navigate(0);
+      }
+    }
+  }, [currProfile, error, navigate, isValid]);
 
   return (
     <>
@@ -30,10 +57,8 @@ function Main() {
             ) : location.pathname ===
               `/reset-password/${encodeURIComponent(token)}` ? (
               <ResetPassword token={encodeURIComponent(token)} />
-            ) : isValid &&
-              location.pathname === "/" &&
-              location.state === null ? (
-              <CurrentUser />
+            ) : isValid ? (
+              <SingleClick currUserProfile={currUserProfile} />
             ) : (
               <Login />
             )}

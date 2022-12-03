@@ -108,7 +108,9 @@ export const logout = (refToken, navigate) => async (dispatch) => {
 
   setToken(false);
   localStorage.clear();
-  navigate("/", { replace: true });
+  console.log("here");
+  // navigate("/", { replace: true });
+  navigate(0);
 
   dispatch({
     type: SET_CURRENT_USER,
