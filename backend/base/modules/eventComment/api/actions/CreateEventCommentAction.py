@@ -77,7 +77,6 @@ def create(request, eventId):
 
         createdAt = datetime.now()
     )
-    serializer = EventCommentSerializer(eventComment, many=False)
 
     eventCreatorUserId = event.user.id
     notificationMessage = 'User <b>' + user.username + '</b> commented on your event ' + '<b>' + event.title + '</b>'
@@ -87,6 +86,6 @@ def create(request, eventId):
 
     mention(event, data['content'], user)
 
-    return response('Comment created', serializer.data)
+    return response('Comment created', [])
 
     
