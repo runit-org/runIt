@@ -128,7 +128,7 @@ function SignUp() {
                 />
               </Form.Group>
 
-              <Form.Group controlId="formBasicPassword">
+              <Form.Group controlId="formBasic_CPassword">
                 <Form.Label className="text-muted visually-hidden">
                   Confirm Password
                 </Form.Label>

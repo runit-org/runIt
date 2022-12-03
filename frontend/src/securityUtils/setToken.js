@@ -12,10 +12,17 @@ const setToken = (token) => {
 };
 
 const refreshToken = () => {
-  const ref = axios.post("http://localhost:8000/api/auth/token/refresh/", {
-    refresh: localStorage.getItem("token"),
-  });
-  return ref;
+  if (localStorage.token) {
+    const ref = axios.post("http://localhost:8000/api/auth/token/refresh/", {
+      refresh: localStorage.getItem("token"),
+    });
+    return ref;
+  } else {
+    store.dispatch({
+      type: SET_CURRENT_USER,
+      payload: null,
+    });
+  }
 };
 
 const getAccessToken = async () => {
@@ -33,6 +40,10 @@ const getAccessToken = async () => {
       store.dispatch({
         type: GET_ERRORS,
         payload: error.message,
+      });
+      store.dispatch({
+        type: SET_CURRENT_USER,
+        payload: null,
       });
     });
 };
