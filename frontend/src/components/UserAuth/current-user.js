@@ -1,33 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Card, ListGroup } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/securityActions";
-import { getCurrentUserProfile } from "../../actions/userActions";
 
-function CurrentUser() {
+function CurrentUser(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [currUserProfile, setCurrUserProfile] = useState({});
-
-  useEffect(() => {
-    dispatch(getCurrentUserProfile());
-  }, [dispatch]);
-
-  var currProfile = useSelector(
-    (securityReducer) => securityReducer.users.currProfile
-  );
-
-  var error = useSelector((errorReducer) => errorReducer.errors.status);
-
-  useEffect(() => {
-    if (currProfile && !error) {
-      setCurrUserProfile(currProfile.data);
-    } else {
-      localStorage.clear();
-      navigate(0);
-    }
-  }, [currProfile, error, navigate]);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -41,21 +20,21 @@ function CurrentUser() {
   };
   return (
     <>
-      {currUserProfile ? (
+      {props.currUserProfile ? (
         <Card className="current-signedin" style={{ width: "24rem" }}>
           <ListGroup variant="flush">
             <ListGroup.Item className="p-0">
               <Link to="/posts">
                 <div className="d-flex align-items-center userInfo-div p-3">
                   <img
-                    src={currUserProfile.gravatarImage}
+                    src={props.currUserProfile.gravatarImage}
                     className="userProf-img"
                     alt="use profile"
                   />
                   <div className="ms-3">
-                    <strong>{currUserProfile.username}</strong>
+                    <strong>{props.currUserProfile.username}</strong>
                     <small className="d-block text-muted">
-                      {currUserProfile.email}
+                      {props.currUserProfile.email}
                     </small>
                   </div>
                 </div>
