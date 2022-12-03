@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Badge, Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
-import JoinEvent from "./join-event";
+import { Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
 import UpdateEvent from "./update-event";
 import { eventOptions } from "../Utilities/event-options";
 import { Mention } from "../Utilities/mention";
 import EventMembers from "./event-members";
-import { ACCEPTED, PENDING, REJECTED } from "./types";
+import { RequestBtn, StatusBadge } from "./utilities/event-handles";
 
 function EventItem(props) {
   const [currentUser, setCurrentUser] = useState();
   const [editorMode, setEditorMode] = useState(false);
-  const joined = props.eventData.joinedStatus === ACCEPTED;
-  const requested = props.eventData.joinedStatus === PENDING;
-  const rejected = props.eventData.joinedStatus === REJECTED;
 
   var getCurrentUser = useSelector(
     (securityReducer) => securityReducer.security.user
@@ -40,36 +36,7 @@ function EventItem(props) {
                 className="userProf-img me-3"
                 alt="Img"
               />
-              {joined ? (
-                <div>
-                  <Badge
-                    bg=""
-                    style={{ backgroundColor: "#DFF2BF", color: "#4F8A10" }}
-                  >
-                    Joined
-                  </Badge>
-                </div>
-              ) : requested ? (
-                <div>
-                  <Badge
-                    bg=""
-                    style={{ backgroundColor: "#e5edff", color: "#5850ec" }}
-                  >
-                    Requested
-                  </Badge>
-                </div>
-              ) : rejected ? (
-                <div>
-                  <Badge
-                    bg=""
-                    style={{ backgroundColor: "#FFD2D2", color: "#D8000C" }}
-                  >
-                    Unapproved
-                  </Badge>
-                </div>
-              ) : (
-                ""
-              )}
+              <StatusBadge joinedStatus={props.eventData.joinedStatus} />
               {currentUser === props.eventData.user ? (
                 <Dropdown>
                   <Dropdown.Toggle
@@ -179,18 +146,10 @@ function EventItem(props) {
                   {props.commentCount}
                 </span>
               </Button>
-              {currentUser !== props.eventData.user &&
-              !joined &&
-              !requested &&
-              !rejected ? (
-                <JoinEvent
-                  eventId={props.eventData.id}
-                  eventTitle={props.eventData.title}
-                  userName={props.eventData.userName}
-                />
-              ) : (
-                ""
-              )}
+              <RequestBtn
+                JoinEvent={props.eventData}
+                joinedStatus={props.eventData.joinedStatus}
+              />
             </ButtonGroup>
           </Card.Body>
         </Card>

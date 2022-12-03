@@ -1,28 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Badge, Button, ButtonGroup, Card } from "react-bootstrap";
-import JoinEvent from "./join-event";
+import React from "react";
+import { Button, ButtonGroup, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import PopoverItem from "../Profile/popover-item";
-import { ACCEPTED, PENDING, REJECTED } from "./types";
+import { RequestBtn, StatusBadge } from "./utilities/event-handles";
 
 function EventItemCard(props) {
-  const [currentUser, setCurrentUser] = useState();
   const navigate = useNavigate();
-
-  const joined = props.eventData.joinedStatus === ACCEPTED;
-  const requested = props.eventData.joinedStatus === PENDING;
-  const rejected = props.eventData.joinedStatus === REJECTED;
-
-  var getCurrentUser = useSelector(
-    (securityReducer) => securityReducer.security.user
-  );
-
-  useEffect(() => {
-    if (getCurrentUser != null) {
-      setCurrentUser(getCurrentUser.user_id);
-    }
-  }, [getCurrentUser]);
 
   return (
     <Card className="event-card_dash">
@@ -43,36 +26,7 @@ function EventItemCard(props) {
               <strong> {props.eventData.humanTimeDiffCreatedAt} ago</strong>
             </small>
           </div>
-          {joined ? (
-            <div>
-              <Badge
-                bg=""
-                style={{ backgroundColor: "#DFF2BF", color: "#4F8A10" }}
-              >
-                Joined
-              </Badge>
-            </div>
-          ) : requested ? (
-            <div>
-              <Badge
-                bg=""
-                style={{ backgroundColor: "#e5edff", color: "#5850ec" }}
-              >
-                Requested
-              </Badge>
-            </div>
-          ) : rejected ? (
-            <div>
-              <Badge
-                bg=""
-                style={{ backgroundColor: "#FFD2D2", color: "#D8000C" }}
-              >
-                Unapproved
-              </Badge>
-            </div>
-          ) : (
-            ""
-          )}
+          <StatusBadge joinedStatus={props.eventData.joinedStatus} />
         </div>
       </Card.Header>
       <Card.Body>
@@ -92,19 +46,11 @@ function EventItemCard(props) {
           >
             More Information
           </Button>
-          {currentUser !== props.eventData.user &&
-          !joined &&
-          !requested &&
-          !rejected ? (
-            <JoinEvent
-              eventId={props.eventData.id}
-              eventTitle={props.eventData.title}
-              btnStyleFull={true}
-              userName={props.eventData.userName}
-            />
-          ) : (
-            ""
-          )}
+          <RequestBtn
+            JoinEvent={props.eventData}
+            joinedStatus={props.eventData.joinedStatus}
+            btnStyleFull={true}
+          />
         </ButtonGroup>
       </Card.Body>
     </Card>

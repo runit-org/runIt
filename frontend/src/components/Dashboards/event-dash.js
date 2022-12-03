@@ -11,7 +11,7 @@ import { getAllComments } from "../../actions/commentActions";
 import { SearchParam } from "../Utilities/search-param";
 import Pagination from "../SiteElements/pagination";
 import Breadcrumbs from "../SiteElements/breadcrumbs";
-import { ACCEPTED, OWNER } from "../Event/types";
+import { ACCEPTED, OWNER } from "../Event/utilities/types";
 
 function EventDash() {
   const dispatch = useDispatch();

@@ -4,15 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getEventMembers } from "../../actions/eventActions";
 import ModalItem from "./modal-item";
+import { ACCEPTED } from "./utilities/types";
 
 function EventMembers(props) {
   const dispatch = useDispatch();
   const ref = React.createRef();
   const [modalShow, setModalShow] = useState(false);
   const [eventMbs, setEventMbs] = useState([]);
-  let acceptedMembers = eventMbs.filter(
-    (member) => member.status === "ACCEPTED"
-  );
+  let acceptedMembers = eventMbs.filter((member) => member.status === ACCEPTED);
 
   const handler = useCallback((modalShow) => {
     setModalShow(modalShow);
