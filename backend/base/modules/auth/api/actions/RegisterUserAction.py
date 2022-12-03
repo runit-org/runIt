@@ -3,6 +3,11 @@ from base.views.baseViews import response, error
 from django.contrib.auth.hashers import make_password
 from base.serializers import UserSerializer
 from base.mail.AuthMail import userRegistered
+from base.traits import NotifyUser
+
+def sendNotification(user):
+    message = 'Welcome to eventmatcher, <b>' + user.username + '</b>! You can now participate in events made by other users, or create one of your own. Enjoy!'
+    NotifyUser.notify(user.id, message)
 
 def register(request):
     data = request.data
@@ -27,6 +32,8 @@ def register(request):
         user.username,
         user.email
     )
+
+    sendNotification(user)
 
     serializer = UserSerializer(user, many=False)
     return response('User registered', serializer.data)
