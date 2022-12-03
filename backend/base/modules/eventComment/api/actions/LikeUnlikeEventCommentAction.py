@@ -41,8 +41,9 @@ def update(request, commentId):
         )
 
         if user != comment.user:
+            link = '/event/' + comment.event.id
             notifDetails = 'User <b>' + user.username + '</b> liked your comment: <i>' + comment.content + '</i>' 
-            NotifyUser.notify(comment.user.id, notifDetails)
+            NotifyUser.notify(comment.user.id, notifDetails, link)
 
         return response('Comment liked', [])
     

@@ -36,8 +36,9 @@ def mention(event, content, user):
             eventMembers = EventMember.objects.filter(event = event)    
             for eventMemObject in eventMembers:
                 if eventMemObject.status == EventMemberStatus.get.ACCEPTED.value:
+                    link = '/event/' + str(event.id)
                     notificationMessage = 'User <b>' + user.username + '</b> mentioned you in a comment on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
-                    NotifyUser.notify(eventMemObject.userId, notificationMessage)
+                    NotifyUser.notify(eventMemObject.userId, notificationMessage, link)
 
         # Check if the mentioned user exist in the database first
         if len(User.objects.filter(username = targetUsername)) > 0:
@@ -50,8 +51,9 @@ def mention(event, content, user):
 
                 # Then check if the mentioned user is an ACCEPTED member of the current event OR is the event's creator
                 if len(checkIfTargetUserIsMember) > 0 or targetUser == event.user:
+                    link = '/event/' + str(event.id)
                     notificationMessage = 'User <b>' + user.username + '</b> mentioned you in a comment on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
-                    NotifyUser.notify(targetUser.id, notificationMessage)
+                    NotifyUser.notify(targetUser.id, notificationMessage, link)
 
 
 def create(request, eventId):
@@ -82,7 +84,8 @@ def create(request, eventId):
     notificationMessage = 'User <b>' + user.username + '</b> commented on your event ' + '<b>' + event.title + '</b>'
 
     if eventCreatorUserId != user.id:
-        NotifyUser.notify(eventCreatorUserId, notificationMessage)
+        link = '/event/' + str(event.id)
+        NotifyUser.notify(eventCreatorUserId, notificationMessage, link)
 
     mention(event, data['content'], user)
 

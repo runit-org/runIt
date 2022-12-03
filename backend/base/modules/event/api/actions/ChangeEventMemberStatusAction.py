@@ -61,14 +61,15 @@ def updateStatus(request):
         eventMember.status = data['status']
         eventMember.save()
 
+        link = '/event/' + str(event.id)
         if (data['status']) == EventMemberStatus.get.ACCEPTED.value:
             notifContent = 'Your request to join event <b>' + event.title + '</b> has been ' + EventMemberStatus.get.ACCEPTED.name
-            NotifyUser.notify(data['userId'], notifContent)
+            NotifyUser.notify(data['userId'], notifContent, link)
             return response('Request approved')
 
         else:
             notifContent = 'Your request to join event <b>' + event.title + '</b> has been ' + EventMemberStatus.get.REJECTED.name
-            NotifyUser.notify(data['userId'], notifContent)
+            NotifyUser.notify(data['userId'], notifContent, link)
             return response('Request rejected')
     else:
         return error('This user has already been accepted into the event')

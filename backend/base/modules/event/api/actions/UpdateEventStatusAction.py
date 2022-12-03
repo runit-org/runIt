@@ -17,8 +17,9 @@ def sendNotification(user, event, status):
     for eventMember in eventMemberObjects:
         if eventMember.user != user:
             if eventMember.status == EventMemberStatus.get.ACCEPTED.value:
+                link = '/event/' + str(event.id)
                 notificationMessage = 'User <b>' + user.username + '</b> has updated the status of an event you are affiliated with: <b>' + event.title + '</b>. New status: ' + status
-                NotifyUser.notify(eventMember.user.id, notificationMessage)
+                NotifyUser.notify(eventMember.user.id, notificationMessage, link)
 
 def update(request, pk):
     data = request.data

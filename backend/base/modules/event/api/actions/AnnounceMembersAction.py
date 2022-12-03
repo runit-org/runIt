@@ -28,7 +28,8 @@ def send(request, eventId):
     members = EventMember.objects.filter(event=event)
 
     message = '<b>' + user.username + '</b> made an announcement on event <b>' + event.title + '</b>: ' + '<i>' + data['content'] + '</i>'
+    link = '/event/' + str(event.id)
     for member in members:
-        NotifyUser.notify(member.id, message)
+        NotifyUser.notify(member.id, message, link)
 
     return response('Announcement sent')
