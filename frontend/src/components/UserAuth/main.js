@@ -6,7 +6,7 @@ import ResetPassword from "./reset-pw";
 import ResetPasswordEmail from "./resetPw-email";
 import SignUp from "./sign-up";
 import { useParams } from "react-router-dom";
-import CurrentUser from "./current-user";
+import SingleClick from "./single-click";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUserProfile } from "../../actions/userActions";
 
@@ -58,7 +58,7 @@ function Main() {
               `/reset-password/${encodeURIComponent(token)}` ? (
               <ResetPassword token={encodeURIComponent(token)} />
             ) : isValid ? (
-              <CurrentUser currUserProfile={currUserProfile} />
+              <SingleClick currUserProfile={currUserProfile} />
             ) : (
               <Login />
             )}

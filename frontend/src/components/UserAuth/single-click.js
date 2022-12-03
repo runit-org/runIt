@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/securityActions";
 
-function CurrentUser(props) {
+function SingleClick(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -78,4 +78,4 @@ function CurrentUser(props) {
   );
 }
 
-export default CurrentUser;
+export default SingleClick;
