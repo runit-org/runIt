@@ -21,8 +21,7 @@ function Main() {
 
   useEffect(() => {
     if (localToken && location.pathname === "/" && location.state === null)
-      console.log("yes");
-    setIsValid(localToken);
+      setIsValid(localToken);
   }, [localToken, location.pathname, location.state]);
 
   useEffect(() => {
