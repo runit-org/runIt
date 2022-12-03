@@ -6,6 +6,7 @@ import Main from "./components/UserAuth/main";
 import { getAccessToken } from "./securityUtils/setToken";
 import { lazy, Suspense } from "react";
 import ProtectedRoute from "./components/UserAuth/protected-route";
+import { Spinner } from "react-bootstrap";
 
 const ProfileDash = lazy(() => import("./components/Dashboards/profile-dash"));
 const EventDash = lazy(() => import("./components/Dashboards/event-dash"));
@@ -19,7 +20,15 @@ function App() {
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="auth-content">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      }
+    >
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<Main />} />
