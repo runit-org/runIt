@@ -159,7 +159,7 @@ function EventItem(props) {
               className="mt-3 w-100 justify-content-between"
             >
               <Button variant="light" className="postBtn-placements cta_button">
-                <span className="d-flex align-items-center">
+                <span className="d-flex align-items-center fw-normal small text-muted">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
