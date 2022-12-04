@@ -1,0 +1,1 @@
+from base.tests.AuthTest import AuthTestClass
