@@ -1,36 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { getEventMembers, memberStatus } from "../../actions/eventActions";
+import { useDispatch } from "react-redux";
+import { memberStatus } from "../../actions/eventActions";
 import Loading from "../SiteElements/loader";
 import { Link } from "react-router-dom";
 import { emitter } from "../client/socket";
+import { EventMembersHandler } from "./utilities/action-handlers";
+import { Pending } from "./utilities/event-builder";
 
 function ManageMembers(props) {
   const dispatch = useDispatch();
-  const [eventMbs, setEventMbs] = useState([]);
   const [load, setLoad] = useState(false);
-  let pendingMembers = eventMbs.filter(
-    (member) =>
-      member.status === "PENDING" &&
-      member.userId !== props.currentUser &&
-      props.eventData.user === props.currentUser
-  );
-
-  useEffect(() => {
-    if (props.eventData.id) {
-      dispatch(getEventMembers(props.eventData.id));
-    }
-  }, [dispatch, props.eventData.id]);
-
-  var allEventMembers = useSelector(
-    (eventReducer) => eventReducer.events.eventMembers.data
-  );
-  useEffect(() => {
-    if (allEventMembers) {
-      setEventMbs(allEventMembers);
-    }
-  }, [allEventMembers]);
+  const eventMembers = EventMembersHandler(props.eventData.id);
+  const pendingMembers = Pending(eventMembers, props.currentUser);
 
   const manageUser = async (status, memberId) => {
     const postData = {

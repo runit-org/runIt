@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
 import { Mention } from "../Utilities/mention";
-import { commentOptions } from "../Utilities/comment-options";
+import { commentOptions } from "./utilities/comment-options";
 import UpdateComment from "./update-comment";
 import { getAllComments, likeUnlike } from "../../actions/commentActions";
 import { SearchParam } from "../Utilities/search-param";
 import PopoverItem from "../Profile/popover-item";
-import { CommentReacts } from "./comment-reacts";
+import { CommentReacts } from "./utilities/comment-builder";
 
 function CommentItem(props) {
   const dispatch = useDispatch();

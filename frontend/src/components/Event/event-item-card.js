@@ -2,7 +2,7 @@ import React from "react";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import PopoverItem from "../Profile/popover-item";
-import { RequestBtn, StatusBadge } from "./utilities/event-handles";
+import { RequestBtn, StatusBadge } from "./utilities/event-builder";
 
 function EventItemCard(props) {
   const navigate = useNavigate();

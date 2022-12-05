@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
 import UpdateEvent from "./update-event";
-import { eventOptions } from "../Utilities/event-options";
+import { eventOptions } from "./utilities/event-options";
 import { Mention } from "../Utilities/mention";
 import EventMembers from "./event-members";
-import { RequestBtn, StatusBadge } from "./utilities/event-handles";
+import { RequestBtn, StatusBadge } from "./utilities/event-builder";
 
 function EventItem(props) {
   const [currentUser, setCurrentUser] = useState();

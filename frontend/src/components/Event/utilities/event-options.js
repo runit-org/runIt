@@ -1,7 +1,7 @@
-import EventMembers from "../Event/event-members";
-import JoinEvent from "../Event/join-event";
-import RemoveEvent from "../Event/remove-event";
-import CTAButton from "../SiteElements/cta-button";
+import EventMembers from "../event-members";
+import JoinEvent from "../join-event";
+import RemoveEvent from "../remove-event";
+import CTAButton from "../../SiteElements/cta-button";
 
 export const eventOptions = (id, title, user, currUser, handleClick) => {
   const options_owner = [

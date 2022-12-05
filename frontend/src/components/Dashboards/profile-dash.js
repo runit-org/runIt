@@ -20,7 +20,10 @@ function ProfileDash() {
           <div className="sidebar-wrapper">
             <Card style={{ maxWidth: "20rem" }}>
               <Card.Body>
-                <UserProfile userData={child_data} />
+                <UserProfile
+                  userData={child_data}
+                  username={localStorage.getItem("username")}
+                />
               </Card.Body>
             </Card>
             <Card>

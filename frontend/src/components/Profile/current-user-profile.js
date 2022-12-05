@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Badge } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getCurrentUserProfile } from "../../actions/userActions";
+import { VoteBadge } from "./utilities/profile-builder";
 
-function CurrentUserProfile(props) {
+function CurrentUserProfile() {
   const dispatch = useDispatch();
   const [currUserProfile, setCurrUserProfile] = useState({});
 
@@ -48,13 +48,7 @@ function CurrentUserProfile(props) {
             </div>
           </div>
           <div className="mt-3 ">
-            <Badge id="vote_badge" className="mb-2">
-              {currUserProfile.totalVote > 1 ? (
-                <>{currUserProfile.totalVote} votes</>
-              ) : (
-                <>{currUserProfile.totalVote} vote</>
-              )}
-            </Badge>
+            <VoteBadge votes={currUserProfile.totalVote} />
             <small className="d-block text-muted">
               <span className="d-inline-flex align-items-center">
                 <svg

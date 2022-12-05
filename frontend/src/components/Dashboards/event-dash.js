@@ -58,6 +58,7 @@ function EventDash() {
     }
   }, [event, comments]);
 
+  //pagination
   useEffect(() => {
     if (state) {
       const { id } = state;
@@ -70,6 +71,8 @@ function EventDash() {
   }, [setSearchParams, currentPage]);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  //breadcrumbs
   const breadcrumbItem = eventData
     ? [
         { title: "Dashboard", path: "/posts", current: false },

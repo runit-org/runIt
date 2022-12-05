@@ -86,7 +86,7 @@ function Header() {
           <Navbar.Brand href="/posts">eventmatcher</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text>
+            <Navbar.Text id="nav-end-items">
               <Nav className="me-aut align-items-center gap-3">
                 <Nav.Link href="/posts">Dashboard</Nav.Link>
                 <Nav.Link onClick={handleNotifShow} id="notification-icon">

@@ -1,5 +1,5 @@
-import RemoveComment from "../Comments/remove-comment";
-import CTAButton from "../SiteElements/cta-button";
+import RemoveComment from "../remove-comment";
+import CTAButton from "../../SiteElements/cta-button";
 
 export const commentOptions = (commentId, eventId, count, handleClick) => {
   const options_owner = [

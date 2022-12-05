@@ -53,3 +53,19 @@ export const RequestBtn = (props) => {
     </>
   );
 };
+
+export const Accepted = (eventMembers) => {
+  let acceptedMembers = eventMembers.filter(
+    (member) => member.status === ACCEPTED
+  );
+
+  return acceptedMembers;
+};
+
+export const Pending = (eventMembers, currentUser) => {
+  let pendingMembers = eventMembers.filter(
+    (member) => member.status === PENDING && member.userId !== currentUser
+  );
+
+  return pendingMembers;
+};

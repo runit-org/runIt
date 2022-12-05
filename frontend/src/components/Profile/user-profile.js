@@ -1,40 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Badge } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { getUserProfile } from "../../actions/userActions";
+import UserProfileHandler from "./utilities/action-handlers";
+import { VoteBadge } from "./utilities/profile-builder.js";
 import Vote from "./vote";
 
 function UserProfile(props) {
-  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const param = searchParams.get("user");
-  const [userProfile, setUserProfile] = useState({});
+
+  const user = UserProfileHandler(param ? param : props.username);
 
   useEffect(() => {
-    dispatch(getUserProfile(param ? param : props.username));
-  }, [dispatch, props.username, param]);
-
-  var profile = useSelector(
-    (securityReducer) => securityReducer.users.userProfile
-  );
-
-  useEffect(() => {
-    if (profile) {
-      setUserProfile(profile.data);
+    if (props.userData && user) {
+      props.userData(user);
     }
-    if (props.userData && userProfile) {
-      props.userData(userProfile);
-    }
-  }, [profile, userProfile, props]);
+  }, [user, props]);
 
   return (
     <>
-      {userProfile ? (
+      {user ? (
         <div className="w-100">
           <div className="d-flex align-items-center userInfo-div">
             <img
-              src={userProfile.gravatarImage}
+              src={user.gravatarImage}
               className="userProf-img"
               alt="use profile"
             />
@@ -42,23 +30,17 @@ function UserProfile(props) {
               <Link
                 to={{
                   pathname: "/profile",
-                  search: `user=${userProfile.username}`,
+                  search: `user=${user.username}`,
                 }}
               >
-                @{userProfile.username}
+                @{user.username}
               </Link>
 
-              <small className="d-block text-muted">{userProfile.email}</small>
+              <small className="d-block text-muted">{user.email}</small>
             </div>
           </div>
           <div className="mt-3 ">
-            <Badge id="vote_badge" className="mb-2">
-              {userProfile.totalVote > 1 ? (
-                <>{userProfile.totalVote} votes</>
-              ) : (
-                <>{userProfile.totalVote} vote</>
-              )}
-            </Badge>
+            <VoteBadge votes={user.totalVote} />
             <small className="d-block text-muted">
               <span className="d-inline-flex align-items-center">
                 <svg
@@ -105,12 +87,12 @@ function UserProfile(props) {
               </span>
             </small>
           </div>
-          {userProfile.username !== localStorage.getItem("username") ? (
+          {user.username !== localStorage.getItem("username") ? (
             <div className="mt-4">
               <Vote
-                userId={userProfile.id}
-                username={userProfile.username}
-                voteStatus={userProfile.voteStatus}
+                userId={user.id}
+                username={user.username}
+                voteStatus={user.voteStatus}
               />
             </div>
           ) : (
