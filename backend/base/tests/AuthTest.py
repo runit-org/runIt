@@ -200,7 +200,7 @@ class AuthTestClass(TestCase):
         # Check if access token is returned from the refresh token api
         self.assertTrue('access' in response.json())
 
-    def test_reset_forgotten_functionality_success(self):
+    def test_reset_forgotten_password_functionality_success(self):
         c = Client()
         sendResetPassUrl = self.baseUrl + 'sendResetPasswordEmail/'
         resetPassUrl = self.baseUrl + 'resetPassword/'
