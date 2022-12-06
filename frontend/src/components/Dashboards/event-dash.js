@@ -1,6 +1,5 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { Card, Container } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import EventItem from "../Event/event-item";
 import ManageMembers from "../Event/manage-members";
@@ -11,6 +10,7 @@ import Pagination from "../SiteElements/pagination";
 import Breadcrumbs from "../SiteElements/breadcrumbs";
 import { ACCEPTED, OWNER } from "../Event/utilities/types";
 import { SingleEventHandler } from "../Event/utilities/action-handlers";
+import { SecurityContext } from "../Context/security-context";
 
 export const SingleEventContext = createContext();
 
@@ -20,23 +20,13 @@ function EventDash() {
 
   const eventData = SingleEventHandler(params, pageId).eventData;
   const commentData = SingleEventHandler(params, pageId).commentData;
-  const [currentUser, setCurrentUser] = useState();
+  const currentUser = useContext(SecurityContext);
 
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(10);
   const [searchParams, setSearchParams] = useSearchParams({});
   const { state } = useLocation();
-
-  var getCurrentUser = useSelector(
-    (securityReducer) => securityReducer.security.user
-  );
-
-  useEffect(() => {
-    if (getCurrentUser != null) {
-      setCurrentUser(getCurrentUser.user_id);
-    }
-  }, [getCurrentUser]);
 
   //pagination
   useEffect(() => {

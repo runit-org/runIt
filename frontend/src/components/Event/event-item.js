@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useContext } from "react";
 import { Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
 import UpdateEvent from "./update-event";
 import { eventOptions } from "./utilities/event-options";
@@ -7,21 +6,12 @@ import { Mention } from "../Utilities/mention";
 import EventMembers from "./event-members";
 import { RequestBtn, StatusBadge } from "./utilities/event-builder";
 import { SingleEventContext } from "../Dashboards/event-dash";
+import { SecurityContext } from "../Context/security-context";
 
 function EventItem(props) {
-  const [currentUser, setCurrentUser] = useState();
   const [editorMode, setEditorMode] = useState(false);
   const eventData = useContext(SingleEventContext);
-
-  var getCurrentUser = useSelector(
-    (securityReducer) => securityReducer.security.user
-  );
-
-  useEffect(() => {
-    if (getCurrentUser != null) {
-      setCurrentUser(getCurrentUser.user_id);
-    }
-  }, [getCurrentUser]);
+  const currentUser = useContext(SecurityContext);
 
   function handleClick() {
     setEditorMode(!editorMode);

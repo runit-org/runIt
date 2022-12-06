@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useContext } from "react";
+import { useDispatch } from "react-redux";
 import { Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
 import { Mention } from "../Utilities/mention";
 import { commentOptions } from "./utilities/comment-options";
@@ -9,25 +9,16 @@ import { SearchParam } from "../Utilities/search-param";
 import PopoverItem from "../Profile/popover-item";
 import { CommentReacts } from "./utilities/comment-builder";
 import { SingleEventContext } from "../Dashboards/event-dash";
+import { SecurityContext } from "../Context/security-context";
 
 function CommentItem(props) {
   const dispatch = useDispatch();
 
-  const [currentUser, setCurrentUser] = useState();
   const [editorMode, setEditorMode] = useState(false);
   const eventData = useContext(SingleEventContext);
+  const currentUser = useContext(SecurityContext);
 
   let pageId = SearchParam();
-
-  var getCurrentUser = useSelector(
-    (securityReducer) => securityReducer.security.user
-  );
-
-  useEffect(() => {
-    if (getCurrentUser != null) {
-      setCurrentUser(getCurrentUser.user_id);
-    }
-  }, [getCurrentUser]);
 
   function handleClick() {
     setEditorMode(!editorMode);
