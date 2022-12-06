@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { UserContext } from "../Context/user-context";
 import UserProfileHandler from "./utilities/action-handlers";
 import { VoteBadge } from "./utilities/profile-builder.js";
 import Vote from "./vote";
@@ -7,8 +8,9 @@ import Vote from "./vote";
 function UserProfile(props) {
   const [searchParams] = useSearchParams();
   const param = searchParams.get("user");
+  const contextUser = useContext(UserContext);
 
-  const user = UserProfileHandler(param ? param : props.username);
+  const user = UserProfileHandler(param ? param : contextUser);
 
   useEffect(() => {
     if (props.userData && user) {
@@ -87,7 +89,7 @@ function UserProfile(props) {
               </span>
             </small>
           </div>
-          {user.username !== localStorage.getItem("username") ? (
+          {user.username !== contextUser ? (
             <div className="mt-4">
               <Vote
                 userId={user.id}

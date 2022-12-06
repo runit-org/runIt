@@ -37,7 +37,9 @@ function EventItemCard(props) {
           <p className="mt-1">{props.eventData.title}</p>
         </div>
 
-        <small className="text-muted ">Party size: 4</small>
+        <small className="text-muted ">
+          Party size: {props.eventData.maxMember}
+        </small>
 
         <ButtonGroup className="mt-3 w-100 gap-2" vertical>
           <Button
