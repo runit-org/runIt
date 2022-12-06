@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import { Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
 import UpdateEvent from "./update-event";
@@ -6,10 +6,12 @@ import { eventOptions } from "./utilities/event-options";
 import { Mention } from "../Utilities/mention";
 import EventMembers from "./event-members";
 import { RequestBtn, StatusBadge } from "./utilities/event-builder";
+import { SingleEventContext } from "../Dashboards/event-dash";
 
 function EventItem(props) {
   const [currentUser, setCurrentUser] = useState();
   const [editorMode, setEditorMode] = useState(false);
+  const eventData = useContext(SingleEventContext);
 
   var getCurrentUser = useSelector(
     (securityReducer) => securityReducer.security.user
@@ -32,12 +34,12 @@ function EventItem(props) {
           <Card.Header>
             <div className="d-flex justify-content-between">
               <img
-                src={props.eventData.gravatarImage}
+                src={eventData.gravatarImage}
                 className="userProf-img me-3"
                 alt="Img"
               />
-              <StatusBadge joinedStatus={props.eventData.joinedStatus} />
-              {currentUser === props.eventData.user ? (
+              <StatusBadge joinedStatus={eventData.joinedStatus} />
+              {currentUser === eventData.user ? (
                 <Dropdown>
                   <Dropdown.Toggle
                     variant="light"
@@ -62,9 +64,9 @@ function EventItem(props) {
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     {eventOptions(
-                      props.eventData.id,
-                      props.eventData.title,
-                      props.eventData.user,
+                      eventData.id,
+                      eventData.title,
+                      eventData.user,
                       currentUser,
                       handleClick
                     ).options_owner.map((i, index) => {
@@ -83,12 +85,12 @@ function EventItem(props) {
           </Card.Header>
           <Card.Body>
             <div className="details_textarea">
-              <h4>{props.eventData.title}</h4>
+              <h4>{eventData.title}</h4>
               <span
                 dangerouslySetInnerHTML={{
-                  __html: props.eventData.details
-                    ? Mention(props.eventData.details)
-                    : props.eventData.details,
+                  __html: eventData.details
+                    ? Mention(eventData.details)
+                    : eventData.details,
                 }}
               />
             </div>
@@ -97,27 +99,27 @@ function EventItem(props) {
               <small className="text-muted">
                 Host:{" "}
                 <a
-                  href={`/profile?user=${props.eventData.userName}`}
+                  href={`/profile?user=${eventData.userName}`}
                   className="text-decoration-none"
                 >
-                  @{props.eventData.userName}
+                  @{eventData.userName}
                 </a>
               </small>
               <br />
               <small className="text-muted">
-                Posted: {props.eventData.humanTimeDiffCreatedAt} ago
+                Posted: {eventData.humanTimeDiffCreatedAt} ago
               </small>
               <br />
               <small className="text-muted">
-                Date: {props.eventData.eventDateString}{" "}
+                Date: {eventData.eventDateString}{" "}
               </small>
 
               <div className="mt-4">
                 <EventMembers
-                  eventId={props.eventData.id}
-                  userId={props.eventData.user}
+                  eventId={eventData.id}
+                  userId={eventData.user}
                   currentUser={currentUser}
-                  img={props.eventData.gravatarImage}
+                  img={eventData.gravatarImage}
                 />
               </div>
             </div>
@@ -147,19 +149,19 @@ function EventItem(props) {
                 </span>
               </Button>
               <RequestBtn
-                JoinEvent={props.eventData}
-                joinedStatus={props.eventData.joinedStatus}
+                JoinEvent={eventData}
+                joinedStatus={eventData.joinedStatus}
               />
             </ButtonGroup>
           </Card.Body>
         </Card>
       ) : (
         <UpdateEvent
-          eventId={props.eventData.id}
-          title={props.eventData.title}
-          details={props.eventData.details}
-          maxMembers={props.eventData.maxMember}
-          cardStyle={currentUser === props.eventData.user ? "editor-card" : ""}
+          eventId={eventData.id}
+          title={eventData.title}
+          details={eventData.details}
+          maxMembers={eventData.maxMember}
+          cardStyle={currentUser === eventData.user ? "editor-card" : ""}
           handleUpate={handleClick}
         />
       )}

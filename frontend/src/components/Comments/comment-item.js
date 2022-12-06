@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
 import { Mention } from "../Utilities/mention";
@@ -8,12 +8,14 @@ import { getAllComments, likeUnlike } from "../../actions/commentActions";
 import { SearchParam } from "../Utilities/search-param";
 import PopoverItem from "../Profile/popover-item";
 import { CommentReacts } from "./utilities/comment-builder";
+import { SingleEventContext } from "../Dashboards/event-dash";
 
 function CommentItem(props) {
   const dispatch = useDispatch();
 
   const [currentUser, setCurrentUser] = useState();
   const [editorMode, setEditorMode] = useState(false);
+  const eventData = useContext(SingleEventContext);
 
   let pageId = SearchParam();
 
@@ -33,7 +35,7 @@ function CommentItem(props) {
 
   const commentReact = () => {
     dispatch(likeUnlike(props.commentData.id)).then(() => {
-      dispatch(getAllComments(props.eventData.id, pageId));
+      dispatch(getAllComments(eventData.id, pageId));
     });
   };
 
@@ -90,7 +92,7 @@ function CommentItem(props) {
                   <Dropdown.Menu>
                     {commentOptions(
                       props.commentData.id,
-                      props.eventData.id,
+                      eventData.id,
                       props.commentCount,
                       handleClick
                     ).options_owner.map((i, index) => {
@@ -135,10 +137,10 @@ function CommentItem(props) {
         </Card>
       ) : (
         <UpdateComment
-          eventId={props.eventData.id}
+          eventId={eventData.id}
           commentId={props.commentData.id}
           content={props.commentData.content}
-          cardStyle={currentUser === props.eventData.user ? "editor-card" : ""}
+          cardStyle={currentUser === eventData.user ? "editor-card" : ""}
           handleUpate={handleClick}
         />
       )}

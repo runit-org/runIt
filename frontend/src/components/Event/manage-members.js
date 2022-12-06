@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { memberStatus } from "../../actions/eventActions";
@@ -7,16 +7,19 @@ import { Link } from "react-router-dom";
 import { emitter } from "../client/socket";
 import { EventMembersHandler } from "./utilities/action-handlers";
 import { Pending } from "./utilities/event-builder";
+import { SingleEventContext } from "../Dashboards/event-dash";
 
 function ManageMembers(props) {
   const dispatch = useDispatch();
+  const eventData = useContext(SingleEventContext);
+
   const [load, setLoad] = useState(false);
-  const eventMembers = EventMembersHandler(props.eventData.id);
+  const eventMembers = EventMembersHandler(eventData.id);
   const pendingMembers = Pending(eventMembers, props.currentUser);
 
   const manageUser = async (status, memberId) => {
     const postData = {
-      eventId: props.eventData.id,
+      eventId: eventData.id,
       userId: memberId,
       status: status,
     };
