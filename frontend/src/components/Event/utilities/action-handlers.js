@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllComments } from "../../../actions/commentActions";
-import { getEventMembers, getSingleEvent } from "../../../actions/eventActions";
+import {
+  getAllEvents,
+  getEventMembers,
+  getSingleEvent,
+} from "../../../actions/eventActions";
 
 export const EventMembersHandler = (eventId) => {
   const dispatch = useDispatch();
@@ -51,4 +55,22 @@ export const SingleEventHandler = (params, pageId) => {
   }, [event, comments]);
 
   return { eventData, commentData };
+};
+
+export const EventHandler = (pageId) => {
+  const dispatch = useDispatch();
+  const [eventData, setEventData] = useState([]);
+
+  useEffect(() => {
+    dispatch(getAllEvents(pageId ? pageId : 1));
+  }, [dispatch, pageId]);
+
+  var allEventsData = useSelector((eventReducer) => eventReducer.events.events);
+  useEffect(() => {
+    if (allEventsData) {
+      setEventData(allEventsData);
+    }
+  }, [allEventsData]);
+
+  return eventData;
 };
