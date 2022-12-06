@@ -35,7 +35,5 @@ def send(request):
         user.email
     )
 
-    print(token)
-
     return response('Reset password has been sent if email is available on our system')
 
