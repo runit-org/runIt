@@ -2,6 +2,7 @@ import React from "react";
 import { VoteBadge } from "./utilities/profile-builder";
 import Vote from "./vote";
 import UserProfileHandler from "./utilities/action-handlers.js";
+import { ArrowRight } from "../SiteElements/icons";
 
 const UserPopoverContent = (props) => {
   const user = UserProfileHandler(props.data);
@@ -37,22 +38,7 @@ const UserPopoverContent = (props) => {
                 href={`/profile?user=${user.username}`}
                 className="text-decoration-none"
               >
-                Visit profile{" "}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  width="14"
-                  height="14"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                  />
-                </svg>
+                Visit profile <ArrowRight />
               </a>
             </div>
           </div>
