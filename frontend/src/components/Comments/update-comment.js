@@ -6,6 +6,7 @@ import { getAllComments, updateComment } from "../../actions/commentActions";
 import { SearchParam } from "../Utilities/search-param";
 import { emitter } from "../client/socket";
 import { MentionFilter } from "../Utilities/mention";
+import { Cross, Submit } from "../SiteElements/icons";
 
 function UpdateComment(props, { handleUpate }) {
   const dispatch = useDispatch();
@@ -54,22 +55,7 @@ function UpdateComment(props, { handleUpate }) {
               onClick={props.handleUpate}
               placeholder={
                 <div className="d-flex align-items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    width="20"
-                    height="20"
-                    className="me-2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
+                  <Cross />
                   Cancel
                 </div>
               }
@@ -82,22 +68,7 @@ function UpdateComment(props, { handleUpate }) {
               isLoading={""}
               placeholder={
                 <div className="d-flex align-items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    width="20"
-                    height="20"
-                    className="me-2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
-                    />
-                  </svg>
+                  <Submit />
                   Update
                 </div>
               }

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Card, Form, Row, Col, Button } from "react-bootstrap";
+import { Card, Form, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { login } from "../../actions/securityActions";
 import { Link, useNavigate } from "react-router-dom";
-import Loading from "../SiteElements/loader";
 import ErrorToast from "../SiteElements/error-toast";
 import { useLocation } from "react-router-dom";
 import { MsgToast } from "../SiteElements/msg-toast";
+import { FormButton } from "./utilities/auth-builder";
 
 function Login() {
   let navigate = useNavigate();
@@ -88,18 +88,7 @@ function Login() {
                 required
               />
             </Form.Group>
-
-            <div className="centerContent align-items-center">
-              <Button type="submit" className="mb-2 mt-3 w-100">
-                {(() => {
-                  if (load) {
-                    return <Loading />;
-                  } else {
-                    return <>Login</>;
-                  }
-                })()}
-              </Button>
-            </div>
+            <FormButton load={load} name="Login" />
             <Row className="mt-3">
               <Col className="text-center">
                 <Link to="/reset-password-auth">Forgot Password?</Link>

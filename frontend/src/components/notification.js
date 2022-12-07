@@ -6,16 +6,20 @@ import {
   notificationRead_all,
 } from "../actions/notificationActions";
 import { VscCircleFilled } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
 
 function Notifications(props) {
   const dispatch = useDispatch();
-  const [read, setRead] = useState("");
+  const navigate = useNavigate();
+  const [read, setRead] = useState({});
 
   useEffect(() => {
-    if (read !== "") {
-      dispatch(notificationRead(read));
+    if (read.read) {
+      dispatch(notificationRead(read.read)).then(() => {
+        navigate(read.link);
+      });
     }
-  }, [read, dispatch]);
+  }, [read, navigate, dispatch]);
 
   const handleReadall = () => {
     dispatch(notificationRead_all());
@@ -59,7 +63,7 @@ function Notifications(props) {
                       variant="link"
                       className="notif-button-item"
                       onClick={() => {
-                        setRead(notif.id);
+                        setRead({ read: notif.id, link: notif.link });
                       }}
                     >
                       <small className="notif-mark float-end">
