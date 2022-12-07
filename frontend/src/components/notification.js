@@ -16,7 +16,9 @@ function Notifications(props) {
   useEffect(() => {
     if (read.read) {
       dispatch(notificationRead(read.read)).then(() => {
-        navigate(read.link);
+        if (read.link) {
+          navigate(read.link);
+        }
       });
     }
   }, [read, navigate, dispatch]);
