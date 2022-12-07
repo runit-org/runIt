@@ -9,6 +9,7 @@ import { EventMembersHandler } from "./utilities/action-handlers";
 import { Pending } from "./utilities/event-builder";
 import { SingleEventContext } from "../Dashboards/event-dash";
 import { Cross, Tick } from "../SiteElements/icons";
+import { DisplayImage } from "../SiteElements/user-displayimg";
 
 function ManageMembers(props) {
   const dispatch = useDispatch();
@@ -44,11 +45,7 @@ function ManageMembers(props) {
                   style={{ padding: " 20px 10px 10px 20px" }}
                 >
                   <div className="d-flex align-items-center">
-                    <img
-                      src={member.gravatarImage}
-                      className="userProf-img"
-                      alt="use profile"
-                    />
+                    <DisplayImage image={member.gravatarImage} />
 
                     <div className="ms-4">
                       <Link

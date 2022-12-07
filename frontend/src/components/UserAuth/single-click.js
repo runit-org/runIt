@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/securityActions";
 import { Logout } from "../SiteElements/icons";
+import { DisplayImage } from "../SiteElements/user-displayimg";
 
 function SingleClick(props) {
   const dispatch = useDispatch();
@@ -27,11 +28,7 @@ function SingleClick(props) {
             <ListGroup.Item className="p-0">
               <Link to="/posts">
                 <div className="d-flex align-items-center userInfo-div p-3">
-                  <img
-                    src={props.currUserProfile.gravatarImage}
-                    className="userProf-img"
-                    alt="use profile"
-                  />
+                  <DisplayImage image={props.currUserProfile.gravatarImage} />
                   <div className="ms-3">
                     <strong>{props.currUserProfile.username}</strong>
                     <small className="d-block text-muted">

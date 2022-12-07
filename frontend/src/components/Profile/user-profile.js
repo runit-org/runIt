@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { UserContext } from "../Context/user-context";
-import { Geomark, Star } from "../SiteElements/icons";
+import { DisplayImage } from "../SiteElements/user-displayimg";
 import UserProfileHandler from "./utilities/action-handlers";
-import { VoteBadge } from "./utilities/profile-builder.js";
+import { UserCardInfo, VoteBadge } from "./utilities/profile-builder.js";
 import Vote from "./vote";
 
 function UserProfile(props) {
@@ -24,11 +24,8 @@ function UserProfile(props) {
       {user ? (
         <div className="w-100">
           <div className="d-flex align-items-center userInfo-div">
-            <img
-              src={user.gravatarImage}
-              className="userProf-img"
-              alt="use profile"
-            />
+            <DisplayImage image={user.gravatarImage} />
+
             <div className="ms-3">
               <Link
                 to={{
@@ -44,18 +41,7 @@ function UserProfile(props) {
           </div>
           <div className="mt-3 ">
             <VoteBadge votes={user.totalVote} />
-            <small className="d-block text-muted">
-              <span className="d-inline-flex align-items-center">
-                <Geomark />
-                Melbourne, Australia
-              </span>
-            </small>
-            <small className="d-block text-muted">
-              <span className="d-inline-flex align-items-center">
-                <Star />
-                Last event created was in the past week
-              </span>
-            </small>
+            <UserCardInfo />
           </div>
           {user.username !== contextUser ? (
             <div className="mt-4">

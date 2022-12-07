@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getCurrentUserProfile } from "../../actions/userActions";
-import { Geomark, Star } from "../SiteElements/icons";
-import { VoteBadge } from "./utilities/profile-builder";
+import { DisplayImage } from "../SiteElements/user-displayimg";
+import { UserCardInfo, VoteBadge } from "./utilities/profile-builder";
 
 function CurrentUserProfile() {
   const dispatch = useDispatch();
@@ -28,11 +28,7 @@ function CurrentUserProfile() {
       {currUserProfile ? (
         <div className="w-100">
           <div className="d-flex align-items-center userInfo-div">
-            <img
-              src={currUserProfile.gravatarImage}
-              className="userProf-img"
-              alt="use profile"
-            />
+            <DisplayImage image={currUserProfile.gravatarImage} />
             <div className="ms-3">
               <Link
                 to={{
@@ -50,18 +46,7 @@ function CurrentUserProfile() {
           </div>
           <div className="mt-3 ">
             <VoteBadge votes={currUserProfile.totalVote} />
-            <small className="d-block text-muted">
-              <span className="d-inline-flex align-items-center">
-                <Geomark />
-                Melbourne, Australia
-              </span>
-            </small>
-            <small className="d-block text-muted">
-              <span className="d-inline-flex align-items-center">
-                <Star />
-                Last event created was in the past week
-              </span>
-            </small>
+            <UserCardInfo />
           </div>
         </div>
       ) : (

@@ -1,6 +1,7 @@
 import React from "react";
 import { ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { DisplayImage } from "../SiteElements/user-displayimg";
 import ModalItem from "./modal-item";
 import { EventMembersHandler } from "./utilities/action-handlers";
 import { Accepted } from "./utilities/event-builder";
@@ -45,11 +46,7 @@ function EventMembers(props) {
                 {acceptedMembers.map((member) => (
                   <ListGroup.Item key={member.id}>
                     <div className="d-flex align-items-center">
-                      <img
-                        src={member.gravatarImage}
-                        className="userProf-img"
-                        alt="use profile"
-                      />
+                      <DisplayImage image={member.gravatarImage} />
                       <div className="ms-4">
                         <Link
                           to={{

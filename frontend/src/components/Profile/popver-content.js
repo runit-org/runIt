@@ -3,6 +3,7 @@ import { VoteBadge } from "./utilities/profile-builder";
 import Vote from "./vote";
 import UserProfileHandler from "./utilities/action-handlers.js";
 import { ArrowRight } from "../SiteElements/icons";
+import { DisplayImage } from "../SiteElements/user-displayimg";
 
 const UserPopoverContent = (props) => {
   const user = UserProfileHandler(props.data);
@@ -12,11 +13,7 @@ const UserPopoverContent = (props) => {
       {user ? (
         <div className="w-100">
           <div className="d-flex align-items-center userInfo-div">
-            <img
-              src={user.gravatarImage}
-              className="userProf-img"
-              alt="use profile"
-            />
+            <DisplayImage image={user.gravatarImage} />
             <div className="ms-3">
               <h6 className="m-0">{user.username}</h6>
               <small className="d-block text-muted">{user.email}</small>
