@@ -166,6 +166,12 @@ div.content {
   position: sticky;
   top: 0;
   padding-top: 80px !important;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 .sidebar_eventDash .card {
   background-color: $primary-light;
