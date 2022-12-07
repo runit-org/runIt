@@ -59,6 +59,7 @@ function CreateComment(props) {
             ref={formRef}
           >
             <Form.Control
+              spellCheck={true}
               placeholder="Add a comment..."
               as="textarea"
               onChange={(e) => setContent(e.target.value)}

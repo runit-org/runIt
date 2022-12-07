@@ -40,6 +40,7 @@ function UpdateComment(props, { handleUpate }) {
         </Card.Header>
         <Card.Body>
           <Form.Control
+            spellCheck={true}
             placeholder="What's on your mind?"
             as="textarea"
             value={content || ""}

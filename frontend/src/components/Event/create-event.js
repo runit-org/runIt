@@ -128,6 +128,7 @@ function CreateEvent() {
 
             <Form.Group>
               <Form.Control
+                spellCheck={true}
                 placeholder="Event details..."
                 as="textarea"
                 onChange={(e) => setDetails(e.target.value)}

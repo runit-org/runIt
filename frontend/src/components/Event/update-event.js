@@ -63,6 +63,7 @@ function UpdateEvent(props, { handleUpate }) {
           </Form.Group>
           <Form.Group>
             <Form.Control
+              spellCheck={true}
               placeholder="What's on your mind?"
               as="textarea"
               value={details || ""}
