@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Card, Form, Row, Col, Button } from "react-bootstrap";
+import { Card, Form, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewUser } from "../../actions/securityActions";
-import Loading from "../SiteElements/loader";
 import ErrorToast from "../SiteElements/error-toast";
 import { useNavigate } from "react-router-dom";
 import { MsgToast } from "../SiteElements/msg-toast";
+import { FormButton } from "./utilities/auth-builder";
 
 function SignUp() {
   let navigate = useNavigate();
@@ -139,18 +139,7 @@ function SignUp() {
                   required
                 />
               </Form.Group>
-
-              <div className="centerContent align-items-center">
-                <Button type="submit" className="mb-2 mt-3 w-100">
-                  {(() => {
-                    if (load) {
-                      return <Loading />;
-                    } else {
-                      return <>Continue</>;
-                    }
-                  })()}
-                </Button>
-              </div>
+              <FormButton load={load} name="Continue" />
             </Row>
           </Form>
         </fieldset>

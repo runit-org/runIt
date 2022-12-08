@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Card, Form, Button, Row, Col } from "react-bootstrap";
+import { Card, Form, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPw } from "../../actions/securityActions";
 import { Link } from "react-router-dom";
-import Loading from "../SiteElements/loader";
 import ErrorToast from "../SiteElements/error-toast";
 import { useNavigate } from "react-router-dom";
 import { MsgToast } from "../SiteElements/msg-toast";
+import { FormButton } from "./utilities/auth-builder";
 
 function ResetPassword(props) {
   const dispatch = useDispatch();
@@ -93,18 +93,7 @@ function ResetPassword(props) {
                 required
               />
             </Form.Group>
-
-            <div className="centerContent align-items-center">
-              <Button type="submit" className="mb-2 mt-3 w-100">
-                {(() => {
-                  if (load) {
-                    return <Loading />;
-                  } else {
-                    return <>Confirm</>;
-                  }
-                })()}
-              </Button>
-            </div>
+            <FormButton load={load} name="Confirm" />
             <Row className="mt-3">
               <Col className="text-center">
                 <Link to="/">Return to log in</Link>

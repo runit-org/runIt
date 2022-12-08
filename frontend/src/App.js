@@ -7,6 +7,8 @@ import { getAccessToken } from "./securityUtils/setToken";
 import { lazy, Suspense } from "react";
 import ProtectedRoute from "./components/UserAuth/protected-route";
 import { Spinner } from "react-bootstrap";
+import UserContext from "./components/Context/user-context";
+import SecurityContext from "./components/Context/security-context";
 
 const ProfileDash = lazy(() => import("./components/Dashboards/profile-dash"));
 const EventDash = lazy(() => import("./components/Dashboards/event-dash"));
@@ -48,8 +50,10 @@ function App() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <Header />
-              <ProfileDash />
+              <UserContext>
+                <Header />
+                <ProfileDash />
+              </UserContext>
             </ProtectedRoute>
           }
         />
@@ -58,8 +62,10 @@ function App() {
           path="/event/:id"
           element={
             <ProtectedRoute>
-              <Header />
-              <EventDash />
+              <SecurityContext>
+                <Header />
+                <EventDash />
+              </SecurityContext>
             </ProtectedRoute>
           }
         />

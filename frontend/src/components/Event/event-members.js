@@ -1,42 +1,19 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import { ListGroup } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getEventMembers } from "../../actions/eventActions";
+import { DisplayImage } from "../SiteElements/user-displayimg";
 import ModalItem from "./modal-item";
+import { EventMembersHandler } from "./utilities/action-handlers";
+import { Accepted } from "./utilities/event-builder";
 
 function EventMembers(props) {
-  const dispatch = useDispatch();
   const ref = React.createRef();
-  const [modalShow, setModalShow] = useState(false);
-  const [eventMbs, setEventMbs] = useState([]);
-  let acceptedMembers = eventMbs.filter(
-    (member) => member.status === "ACCEPTED"
-  );
-
-  const handler = useCallback((modalShow) => {
-    setModalShow(modalShow);
-  }, []);
-
-  useEffect(() => {
-    if (modalShow) {
-      dispatch(getEventMembers(props.eventId));
-    }
-  }, [dispatch, modalShow, props.eventId]);
-
-  var allEventMembers = useSelector(
-    (eventReducer) => eventReducer.events.eventMembers.data
-  );
-  useEffect(() => {
-    if (allEventMembers) {
-      setEventMbs(allEventMembers);
-    }
-  }, [allEventMembers]);
+  const eventMembers = EventMembersHandler(props.eventId);
+  const acceptedMembers = Accepted(eventMembers);
 
   return (
     <>
       <ModalItem
-        parentCallback={handler}
         ref={ref}
         customBtn={""}
         btnIcon={
@@ -52,7 +29,7 @@ function EventMembers(props) {
               );
             })}
             {acceptedMembers.length > 4 ? (
-              <span className="members-count">+{eventMbs.length - 4}</span>
+              <span className="members-count">+{eventMembers.length - 4}</span>
             ) : (
               ""
             )}
@@ -62,18 +39,14 @@ function EventMembers(props) {
         title={"Members"}
         content={
           <>
-            {eventMbs.length === 0 ? (
+            {eventMembers.length === 0 ? (
               <strong>Nobody here yet....</strong>
             ) : (
               <ListGroup className="members-list" variant="flush">
                 {acceptedMembers.map((member) => (
                   <ListGroup.Item key={member.id}>
                     <div className="d-flex align-items-center">
-                      <img
-                        src={member.gravatarImage}
-                        className="userProf-img"
-                        alt="use profile"
-                      />
+                      <DisplayImage image={member.gravatarImage} />
                       <div className="ms-4">
                         <Link
                           to={{
@@ -85,7 +58,7 @@ function EventMembers(props) {
                         </Link>
 
                         <small className="d-block text-muted">
-                          user@email.com
+                          {member.email}
                         </small>
                       </div>
                     </div>

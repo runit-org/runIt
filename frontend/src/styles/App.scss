@@ -144,6 +144,7 @@ div.content {
   flex: 0 1 auto;
   min-height: 100vh;
   margin: 0 auto;
+  max-width: 1440px;
 }
 
 .dash-container .content {
@@ -160,10 +161,17 @@ div.content {
 .sidebar-wrapper {
   width: 100%;
   overflow: auto;
+  height: 100vh;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   padding-top: 80px !important;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 .sidebar_eventDash .card {
   background-color: $primary-light;
@@ -178,13 +186,20 @@ div.content {
 
 /*------Off-Canvas------*/
 .offcanvas-header {
-  background-color: $primary-light;
+  background-color: $theme-light;
   color: $theme;
   padding: 20px 30px !important;
 }
 .offcanvas-body {
   background-color: $primary-light;
   padding: 0 !important;
+}
+.offcanvas.offcanvas-end {
+  border-color: $theme-light !important;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+}
+.offcanvas-backdrop {
+  background-color: rgba(255, 255, 255, 0.8) !important;
 }
 
 /*------Modal------*/
