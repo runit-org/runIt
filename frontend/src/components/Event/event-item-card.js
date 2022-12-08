@@ -2,7 +2,7 @@ import React from "react";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import PopoverItem from "../Profile/popover-item";
-import { RequestBtn, StatusBadge } from "./utilities/event-builder";
+import { BadgeItem, RequestBtn, StatusBadge } from "./utilities/event-builder";
 
 function EventItemCard(props) {
   const navigate = useNavigate();
@@ -26,10 +26,13 @@ function EventItemCard(props) {
               <strong> {props.eventData.humanTimeDiffCreatedAt} ago</strong>
             </small>
           </div>
+
           <StatusBadge joinedStatus={props.eventData.joinedStatus} />
         </div>
       </Card.Header>
       <Card.Body>
+        <BadgeItem content={props.eventData.timeToEvent} />
+
         <div className="event-brief">
           <small className="text-muted">
             {props.eventData.eventDateString}
@@ -38,7 +41,7 @@ function EventItemCard(props) {
         </div>
 
         <small className="text-muted ">
-          Party size: {props.eventData.maxMember}
+          Accepting: {props.eventData.maxMember} members
         </small>
 
         <ButtonGroup className="mt-3 w-100 gap-2" vertical>

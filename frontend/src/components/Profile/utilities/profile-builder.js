@@ -1,5 +1,4 @@
 import { Badge } from "react-bootstrap";
-import { Geomark, Star } from "../../SiteElements/icons";
 
 export const VoteBadge = (props) => {
   return (
@@ -16,13 +15,11 @@ export const UserCardInfo = () => {
     <>
       <small className="d-block text-muted">
         <span className="d-inline-flex align-items-center">
-          <Geomark />
           Melbourne, Australia
         </span>
       </small>
       <small className="d-block text-muted">
         <span className="d-inline-flex align-items-center">
-          <Star />
           Last event created was in the past week
         </span>
       </small>

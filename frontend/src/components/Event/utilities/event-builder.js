@@ -2,6 +2,18 @@ import { Badge } from "react-bootstrap";
 import JoinEvent from "../join-event";
 import { ACCEPTED, OWNER, PENDING, REJECTED } from "./types";
 
+export const BadgeItem = (props) => {
+  return (
+    <>
+      <div>
+        <Badge bg="" style={{ backgroundColor: "#dcfce7", color: "#166534" }}>
+          in {props.content}
+        </Badge>
+      </div>
+    </>
+  );
+};
+
 export const StatusBadge = (props) => {
   const statusOnEvent = props.joinedStatus;
 
