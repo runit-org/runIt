@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Form, Row, Col } from "react-bootstrap";
+import { Card, Form, Row, Col, InputGroup, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { login } from "../../actions/securityActions";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import ErrorToast from "../SiteElements/error-toast";
 import { useLocation } from "react-router-dom";
 import { MsgToast } from "../SiteElements/msg-toast";
 import { FormButton } from "./utilities/auth-builder";
+import { Eye, EyeSlash } from "../SiteElements/icons";
 
 function Login() {
   let navigate = useNavigate();
@@ -17,6 +18,7 @@ function Login() {
   const [show, setShow] = useState(false);
   const [signupData, setSignupData] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
+  const [inputType, setInputType] = useState("password");
 
   const { state } = useLocation();
 
@@ -38,6 +40,10 @@ function Login() {
     dispatch(login(LoginRequest, navigate, setLoad, setShow));
   };
 
+  const handleInputType = () => {
+    inputType === "password" ? setInputType("text") : setInputType("password");
+  };
+
   useEffect(() => {
     setFormSwitch(load);
   }, [load]);
@@ -46,24 +52,26 @@ function Login() {
     <>
       <ErrorToast showToast={show} variant={MsgToast().errorVariant} />
 
-      <Card className="p-5 login-card" style={{ width: "28rem" }}>
+      <Card className="login-card" style={{ width: "28rem" }}>
         <fieldset disabled={formSwitch}>
           <Form
             onSubmit={(e) => {
               handleSubmit(e);
             }}
           >
-            <h4 className="subTitle">
-              {signupData !== "" ? (
-                <span>
-                  welcome{" "}
-                  <span style={{ color: "#5865f2" }}>{signupData}!</span>
-                </span>
-              ) : (
-                <span>Log in</span>
-              )}
-            </h4>
-            <hr className="divider" />
+            <span className="mb-4">
+              <h4 className="subTitle">
+                {signupData !== "" ? (
+                  <span>
+                    welcome{" "}
+                    <span style={{ color: "#5865f2" }}>{signupData}!</span>
+                  </span>
+                ) : (
+                  <span>Sign in</span>
+                )}
+              </h4>
+            </span>
+
             <Form.Label className="text-muted visually-hidden">
               Username
             </Form.Label>
@@ -81,14 +89,26 @@ function Login() {
               <Form.Label className="text-muted visually-hidden">
                 Password
               </Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <InputGroup className="mb-3">
+                <Form.Control
+                  type={inputType}
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <Button
+                  className="fst-italic show_hide-pw"
+                  onClick={() => {
+                    handleInputType();
+                  }}
+                >
+                  {inputType === "password" ? <Eye /> : <EyeSlash />}
+                </Button>
+              </InputGroup>
             </Form.Group>
+
             <FormButton load={load} name="Login" />
+            <hr className="divider" />
             <Row className="mt-3">
               <Col className="text-center">
                 <Link to="/reset-password-auth">Forgot Password?</Link>

@@ -57,17 +57,16 @@ function ResetPassword(props) {
         }
       />
 
-      <Card className="p-5 login-card" style={{ width: "28rem" }}>
+      <Card className="login-card" style={{ width: "28rem" }}>
         <fieldset disabled={formSwitch}>
           <Form
             onSubmit={(e) => {
               handleSubmit(e);
             }}
           >
-            <h4 className="subTitle">
-              <span>Reset Password</span>
-            </h4>
-            <hr className="divider" />
+            <div className="mb-4">
+              <h4 className="subTitle">Reset Password</h4>
+            </div>
 
             <Form.Group className="mb-3" controlId="password">
               <Form.Label className="text-muted visually-hidden">
@@ -94,6 +93,7 @@ function ResetPassword(props) {
               />
             </Form.Group>
             <FormButton load={load} name="Confirm" />
+            <hr className="divider" />
             <Row className="mt-3">
               <Col className="text-center">
                 <Link to="/">Return to log in</Link>

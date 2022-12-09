@@ -59,16 +59,16 @@ function SignUp() {
         }
       />
 
-      <Card className="p-5 login-card">
+      <Card className="login-card">
         <fieldset disabled={formSwitch}>
           <Form
             onSubmit={(e) => {
               handleSubmit(e);
             }}
           >
-            {" "}
-            <h4 className="subTitle">Create an account</h4>
-            <hr className="divider" />
+            <div className="mb-4">
+              <h4 className="subTitle">Create an account</h4>
+            </div>
             <Row>
               <Form.Group
                 as={Col}

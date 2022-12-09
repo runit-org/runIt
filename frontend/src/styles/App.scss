@@ -19,11 +19,16 @@ body {
 }
 
 .titleText {
-  @include title-text($theme, 2px, 800);
+  @include title-text($primary-light, 1.5rem, 0px, 700);
+  padding: 0.4rem;
+  margin-left: 2rem;
+  background-color: $theme;
+  width: max-content;
+  border-radius: 8px;
 }
 
 .subTitle {
-  @include title-text($primary-dark, normal, 600);
+  @include title-text($primary-dark, 1.5rem, normal, 600);
 }
 
 .btn-primary {

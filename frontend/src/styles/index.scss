@@ -18,8 +18,9 @@ $button-hover: #3730a3;
   font-weight: $fw !important;
 }
 
-@mixin title-text($color, $ltrspace, $fw) {
+@mixin title-text($color, $fs, $ltrspace, $fw) {
   color: $color !important;
+  font-size: $fs;
   letter-spacing: $ltrspace !important;
   font-weight: $fw !important;
 }

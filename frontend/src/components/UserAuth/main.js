@@ -50,6 +50,8 @@ function Main() {
       <div id="auth-container">
         <div className="auth-content">
           <div>
+            <h1 className="titleText">runIt</h1>
+
             {location.pathname === "/signup" ? (
               <SignUp />
             ) : location.pathname === "/reset-password-auth" ? (
