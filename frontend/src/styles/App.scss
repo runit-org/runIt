@@ -141,6 +141,42 @@ div.content {
   }
 }
 
+#badgeItem {
+  display: inline-flex;
+  position: relative;
+}
+
+.pulse_dot {
+  display: inline-flex;
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+  background-color: #dc2626;
+}
+.animate_pulse {
+  display: inline-flex;
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+  background-color: #dc2626;
+  opacity: 0.75;
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+
+  @keyframes ping {
+    75%,
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+}
+
 /*------Main Dash------*/
 
 .dash-container {

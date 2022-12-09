@@ -1,13 +1,65 @@
 import { Badge } from "react-bootstrap";
 import JoinEvent from "../join-event";
-import { ACCEPTED, OWNER, PENDING, REJECTED } from "./types";
+import {
+  ACCEPTED,
+  CANCELLED,
+  FINISHED,
+  ONGOING,
+  OWNER,
+  PENDING,
+  PENDING_START,
+  REJECTED,
+} from "./types";
 
 export const BadgeItem = (props) => {
+  const badgeStyle =
+    props.eventStatus === FINISHED
+      ? {
+          backgroundColor: "#dbeafe",
+          color: "#1e40af",
+        }
+      : props.eventStatus === ONGOING
+      ? {
+          backgroundColor: "#ffedd5",
+          color: "#9a3412",
+        }
+      : props.eventStatus === PENDING_START
+      ? {
+          backgroundColor: "#cffafe",
+          color: "#155e75",
+        }
+      : props.eventStatus === CANCELLED
+      ? {
+          backgroundColor: "#f1f5f9",
+          color: "#1e293b",
+        }
+      : "";
+
   return (
     <>
       <div>
-        <Badge bg="" style={{ backgroundColor: "#dcfce7", color: "#166534" }}>
-          in {props.content}
+        <Badge bg="" id="badgeItem" style={badgeStyle}>
+          {props.eventStatus === ONGOING ? (
+            <>
+              Underway
+              <span className="animate_pulse"></span>
+              <span className="pulse_dot"></span>
+            </>
+          ) : props.eventStatus === FINISHED ? (
+            <>
+              Ended
+              <span className="animate_pulse"></span>
+              <span className="pulse_dot"></span>
+            </>
+          ) : props.eventStatus === CANCELLED ? (
+            <>
+              Cancelled
+              <span className="animate_pulse"></span>
+              <span className="pulse_dot"></span>
+            </>
+          ) : (
+            <> in {props.content}</>
+          )}
         </Badge>
       </div>
     </>

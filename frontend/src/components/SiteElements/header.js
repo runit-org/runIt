@@ -84,7 +84,7 @@ function Header() {
         className="header-blur"
       >
         <Container>
-          <Navbar.Brand href="/posts">eventmatcher</Navbar.Brand>
+          <Navbar.Brand href="/posts">runIt</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text id="nav-end-items">
