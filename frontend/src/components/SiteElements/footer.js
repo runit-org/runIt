@@ -7,7 +7,7 @@ function Footer() {
       <Row>
         <Col sm={6} className="footer-logo">
           <small>
-            <strong style={{ color: "#5865f2" }}>runIt</strong>{" "}
+            <img src="/runit.png" alt="runIt" width={"50px"} />{" "}
             <small className="text-muter">- v1.0.0</small>
           </small>
         </Col>

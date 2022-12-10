@@ -50,7 +50,12 @@ function Main() {
       <div id="auth-container">
         <div className="auth-content">
           <div>
-            <h1 className="titleText">runIt</h1>
+            <img
+              src="/runit.png"
+              alt="runIt"
+              width={"100px"}
+              className="ms-4"
+            />
 
             {location.pathname === "/signup" ? (
               <SignUp />

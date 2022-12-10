@@ -20,8 +20,8 @@ body {
 
 .titleText {
   @include title-text($primary-light, 1.5rem, 0px, 700);
+  font-family: Poppins;
   padding: 0.4rem;
-  margin-left: 2rem;
   background-color: $theme;
   width: max-content;
   border-radius: 8px;
