@@ -85,7 +85,7 @@ function Header() {
       >
         <Container>
           <Navbar.Brand href="/posts">
-            <AppLogo w={"80px"} />
+            <AppLogo w={"50px"} />
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">

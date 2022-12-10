@@ -32,7 +32,7 @@ body {
 }
 
 .btn-primary {
-  @include btn-style($button-bg-dark, $primary-light, none, 600);
+  @include btn-style($button-bg, $button-text, none, 600);
   &:hover {
     background-color: $button-hover !important;
     color: $primary-light !important;
@@ -106,7 +106,7 @@ body {
 }
 
 div.content {
-  padding: 80px 12px;
+  padding: 80px 0;
   background-color: $secondary-light;
   height: 100%;
 }
@@ -177,7 +177,6 @@ div.content {
 }
 
 /*------Main Dash------*/
-
 .dash-container {
   display: flex;
   flex-direction: row;
@@ -193,11 +192,10 @@ div.content {
 }
 
 .sidebar {
-  width: 33.33%;
-}
-.sidebar_eventDash {
+  // width: 33.33%;
   width: 50%;
 }
+
 .sidebar-wrapper {
   width: 100%;
   overflow: auto;
@@ -213,17 +211,29 @@ div.content {
     display: none;
   }
 }
+.sidebar_right {
+  margin-top: 20px;
+  padding-right: 10px;
+}
+.sidebar_left {
+  // margin: 20px 0 0 10px;
+  margin-top: 20px;
+  padding-left: 10px;
+}
+.sidebar .card {
+  background-color: $primary-light;
+  border-radius: 8px !important;
+}
+
+/*------Event Dash------*/
+.sidebar_eventDash {
+  width: 50%;
+}
 .sidebar_eventDash .card {
   background-color: $primary-light;
   border-radius: 8px;
   margin: 20px;
 }
-.sidebar .card {
-  background-color: $primary-light;
-  border-radius: 8px !important;
-  margin: 20px;
-}
-
 /*------Off-Canvas------*/
 .offcanvas-header {
   background-color: $theme-light;
