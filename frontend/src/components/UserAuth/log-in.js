@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Form, Row, Col, InputGroup, Button } from "react-bootstrap";
+import { Form, Row, Col, InputGroup, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { login } from "../../actions/securityActions";
 import { Link, useNavigate } from "react-router-dom";
@@ -51,72 +51,69 @@ function Login() {
   return (
     <>
       <ErrorToast showToast={show} variant={MsgToast().errorVariant} />
+      <fieldset disabled={formSwitch}>
+        <Form
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+        >
+          <span className="mb-4">
+            <h4 className="subTitle">
+              {signupData !== "" ? (
+                <span>
+                  welcome{" "}
+                  <span style={{ color: "#5865f2" }}>{signupData}!</span>
+                </span>
+              ) : (
+                <span>Sign in</span>
+              )}
+            </h4>
+          </span>
 
-      <Card className="login-card" style={{ width: "28rem" }}>
-        <fieldset disabled={formSwitch}>
-          <Form
-            onSubmit={(e) => {
-              handleSubmit(e);
-            }}
-          >
-            <span className="mb-4">
-              <h4 className="subTitle">
-                {signupData !== "" ? (
-                  <span>
-                    welcome{" "}
-                    <span style={{ color: "#5865f2" }}>{signupData}!</span>
-                  </span>
-                ) : (
-                  <span>Sign in</span>
-                )}
-              </h4>
-            </span>
+          <Form.Label className="text-muted visually-hidden">
+            Username
+          </Form.Label>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Control
+              type="username"
+              placeholder="Username"
+              value={Object.keys(username).length !== 0 ? username : ""}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </Form.Group>
 
+          <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label className="text-muted visually-hidden">
-              Username
+              Password
             </Form.Label>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <InputGroup className="mb-3">
               <Form.Control
-                type="username"
-                placeholder="Username"
-                value={Object.keys(username).length !== 0 ? username : ""}
-                onChange={(e) => setUsername(e.target.value)}
+                type={inputType}
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
-            </Form.Group>
+              <Button
+                className="fst-italic show_hide-pw"
+                onClick={() => {
+                  handleInputType();
+                }}
+              >
+                {inputType === "password" ? <Eye /> : <EyeSlash />}
+              </Button>
+            </InputGroup>
+          </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label className="text-muted visually-hidden">
-                Password
-              </Form.Label>
-              <InputGroup className="mb-3">
-                <Form.Control
-                  type={inputType}
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-                <Button
-                  className="fst-italic show_hide-pw"
-                  onClick={() => {
-                    handleInputType();
-                  }}
-                >
-                  {inputType === "password" ? <Eye /> : <EyeSlash />}
-                </Button>
-              </InputGroup>
-            </Form.Group>
-
-            <FormButton load={load} name="Login" />
-            <hr className="divider" />
-            <Row className="mt-3">
-              <Col className="text-center">
-                <Link to="/reset-password-auth">Forgot Password?</Link>
-              </Col>
-            </Row>
-          </Form>
-        </fieldset>
-      </Card>
+          <FormButton load={load} name="Login" />
+          <hr className="divider" />
+          <Row className="mt-3">
+            <Col className="text-center">
+              <Link to="/reset-password-auth">Forgot Password?</Link>
+            </Col>
+          </Row>
+        </Form>
+      </fieldset>
     </>
   );
 }

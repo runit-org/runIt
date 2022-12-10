@@ -7,7 +7,7 @@ import Notifications from "../notification";
 import { getCurrentUserProfile } from "../../actions/userActions";
 import { receiver } from "../client/socket";
 import { getNotifications } from "../../actions/notificationActions";
-import { Notification } from "./icons";
+import { AppLogo, Notification } from "./icons";
 
 function Header() {
   let navigate = useNavigate();
@@ -85,7 +85,7 @@ function Header() {
       >
         <Container>
           <Navbar.Brand href="/posts">
-            <img src="/runit.png" alt="runIt" width={"80px"} />
+            <AppLogo w={"80px"} />
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
@@ -96,7 +96,7 @@ function Header() {
                   <Notification />
                   {notifs ? (
                     unreadCount > 0 ? (
-                      <div className="notification-badge">{unreadCount}</div>
+                      <div className="notification-badge" />
                     ) : (
                       ""
                     )

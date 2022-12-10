@@ -1,3 +1,14 @@
+export const AppLogo = (props) => {
+  return (
+    <img
+      src="/runit.png"
+      alt="runIt"
+      width={props.w}
+      className={props.defClass}
+    />
+  );
+};
+
 export const Ellipse = () => {
   return (
     <svg

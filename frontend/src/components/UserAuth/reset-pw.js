@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Form, Row, Col } from "react-bootstrap";
+import { Form, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPw } from "../../actions/securityActions";
 import { Link } from "react-router-dom";
@@ -57,51 +57,49 @@ function ResetPassword(props) {
         }
       />
 
-      <Card className="login-card" style={{ width: "28rem" }}>
-        <fieldset disabled={formSwitch}>
-          <Form
-            onSubmit={(e) => {
-              handleSubmit(e);
-            }}
-          >
-            <div className="mb-4">
-              <h4 className="subTitle">Reset Password</h4>
-            </div>
+      <fieldset disabled={formSwitch}>
+        <Form
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+        >
+          <div className="mb-4">
+            <h4 className="subTitle">Reset Password</h4>
+          </div>
 
-            <Form.Group className="mb-3" controlId="password">
-              <Form.Label className="text-muted visually-hidden">
-                Password
-              </Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form.Group className="mb-3" controlId="password">
+            <Form.Label className="text-muted visually-hidden">
+              Password
+            </Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label className="text-muted visually-hidden">
-                Confirm Password
-              </Form.Label>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="text-muted visually-hidden">
+              Confirm Password
+            </Form.Label>
 
-              <Form.Control
-                type="password"
-                placeholder="Confirm Password"
-                onChange={(e) => set_c_Password(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <FormButton load={load} name="Confirm" />
-            <hr className="divider" />
-            <Row className="mt-3">
-              <Col className="text-center">
-                <Link to="/">Return to log in</Link>
-              </Col>
-            </Row>
-          </Form>
-        </fieldset>
-      </Card>
+            <Form.Control
+              type="password"
+              placeholder="Confirm Password"
+              onChange={(e) => set_c_Password(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <FormButton load={load} name="Confirm" />
+          <hr className="divider" />
+          <Row className="mt-3">
+            <Col className="text-center">
+              <Link to="/">Return to log in</Link>
+            </Col>
+          </Row>
+        </Form>
+      </fieldset>
     </>
   );
 }

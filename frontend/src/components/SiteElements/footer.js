@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
+import { AppLogo } from "./icons";
 
 function Footer() {
   return (
@@ -7,7 +8,7 @@ function Footer() {
       <Row>
         <Col sm={6} className="footer-logo">
           <small>
-            <img src="/runit.png" alt="runIt" width={"50px"} />{" "}
+            <AppLogo w={"40px"} />{" "}
             <small className="text-muter">- v1.0.0</small>
           </small>
         </Col>

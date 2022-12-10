@@ -42,21 +42,13 @@ export const BadgeItem = (props) => {
           {props.eventStatus === ONGOING ? (
             <>
               Underway
-              <span className="animate_pulse"></span>
-              <span className="pulse_dot"></span>
+              <span className="animate_pulse" />
+              <span className="pulse_dot" />
             </>
           ) : props.eventStatus === FINISHED ? (
-            <>
-              Ended
-              <span className="animate_pulse"></span>
-              <span className="pulse_dot"></span>
-            </>
+            <>Ended</>
           ) : props.eventStatus === CANCELLED ? (
-            <>
-              Cancelled
-              <span className="animate_pulse"></span>
-              <span className="pulse_dot"></span>
-            </>
+            <>Cancelled</>
           ) : (
             <> in {props.content}</>
           )}

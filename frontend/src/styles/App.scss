@@ -32,13 +32,12 @@ body {
 }
 
 .btn-primary {
-  @include btn-style($button-bg, $button-text, none, 600);
-}
-
-.btn-primary:hover {
-  background-color: $button-hover !important;
-  color: $primary-light !important;
-  border: none;
+  @include btn-style($button-bg-dark, $primary-light, none, 600);
+  &:hover {
+    background-color: $button-hover !important;
+    color: $primary-light !important;
+    border: none;
+  }
 }
 
 .btn-cancel {

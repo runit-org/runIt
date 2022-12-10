@@ -65,11 +65,6 @@ div#auth-container {
 }
 
 //current user
-.current-signedin.card {
-  background-color: transparent;
-  padding: 1.5rem 2rem 2rem 2rem;
-  border: none;
-}
 .current-signedin .list-group-item:hover {
   transition: all 0.2s;
   background-color: $secondary-light;

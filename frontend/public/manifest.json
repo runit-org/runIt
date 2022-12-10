@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "runit192.png",
+      "src": "runit96.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "runit512.png",
+      "src": "runitFav.png",
       "type": "image/png",
       "sizes": "512x512"
     }
