@@ -11,6 +11,7 @@ import { CommentReacts } from "./utilities/comment-builder";
 import { SingleEventContext } from "../Dashboards/event-dash";
 import { SecurityContext } from "../Context/security-context";
 import { Ellipse } from "../SiteElements/icons";
+import { emitter } from "../client/socket";
 
 function CommentItem(props) {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function CommentItem(props) {
   const commentReact = () => {
     dispatch(likeUnlike(props.commentData.id)).then(() => {
       dispatch(getAllComments(eventData.id, pageId));
+      emitter([props.commentData.username]);
     });
   };
 

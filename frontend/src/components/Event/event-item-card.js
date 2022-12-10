@@ -1,61 +1,57 @@
 import React from "react";
-import { Button, ButtonGroup, Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import PopoverItem from "../Profile/popover-item";
-import { RequestBtn, StatusBadge } from "./utilities/event-builder";
+import { ArrowRight } from "../SiteElements/icons";
+import { BadgeItem, RequestBtn, StatusBadge } from "./utilities/event-builder";
 
 function EventItemCard(props) {
-  const navigate = useNavigate();
-
   return (
-    <Card className="event-card_dash">
-      <Card.Header>
-        <div className="d-flex">
-          <img
-            src={props.eventData.gravatarImage}
-            className="userProf-img me-2"
-            alt="Img"
-          />
-          <div className="me-auto">
-            <PopoverItem data={props.eventData.userName} />
+    <>
+      <Card className="event-card_dash">
+        <Card.Header>
+          <div className="d-flex">
+            <img
+              src={props.eventData.gravatarImage}
+              className="userProf-img me-2"
+              alt="Img"
+            />
+            <div className="me-auto">
+              <PopoverItem data={props.eventData.userName} />
 
-            <small
-              className="text-muted"
-              style={{ fontSize: "12px", display: "block" }}
-            >
-              <strong> {props.eventData.humanTimeDiffCreatedAt} ago</strong>
-            </small>
+              <small
+                className="text-muted"
+                style={{ fontSize: "12px", display: "block" }}
+              >
+                <strong> {props.eventData.humanTimeDiffCreatedAt} ago</strong>
+              </small>
+            </div>
+
+            <StatusBadge joinedStatus={props.eventData.joinedStatus} />
+            <RequestBtn
+              JoinEvent={props.eventData}
+              joinedStatus={props.eventData.joinedStatus}
+              btnStyleFull={false}
+            />
           </div>
-          <StatusBadge joinedStatus={props.eventData.joinedStatus} />
-        </div>
-      </Card.Header>
-      <Card.Body>
-        <div className="event-brief">
-          <small className="text-muted">
-            {props.eventData.eventDateString}
-          </small>
-          <p className="mt-1">{props.eventData.title}</p>
-        </div>
-
-        <small className="text-muted ">
-          Party size: {props.eventData.maxMember}
-        </small>
-
-        <ButtonGroup className="mt-3 w-100 gap-2" vertical>
-          <Button
-            variant="primary"
-            onClick={() => navigate(`/event/${props.eventData.id}`)}
-          >
-            More Information
-          </Button>
-          <RequestBtn
-            JoinEvent={props.eventData}
-            joinedStatus={props.eventData.joinedStatus}
-            btnStyleFull={true}
+        </Card.Header>
+        <Card.Body>
+          <div className="event-brief mt-1">
+            <h4>{props.eventData.title} </h4>
+          </div>
+          <BadgeItem
+            content={props.eventData.timeToEvent}
+            eventStatus={props.eventData.eventStatus}
           />
-        </ButtonGroup>
-      </Card.Body>
-    </Card>
+          <p className="text-muted mt-2">{props.eventData.details}</p>
+        </Card.Body>
+        <Card.Footer>
+          <Link to={`/event/${props.eventData.id}`}>
+            More Information <ArrowRight />
+          </Link>
+        </Card.Footer>
+      </Card>
+    </>
   );
 }
 

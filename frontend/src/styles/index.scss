@@ -9,6 +9,8 @@ $button-bg: #e0e7ff;
 $button-text: #3730a3;
 $button-hover: #3730a3;
 
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
 /*------Mixin------*/
 //Button
 @mixin btn-style($bgColor, $color, $border, $fw) {
@@ -18,8 +20,9 @@ $button-hover: #3730a3;
   font-weight: $fw !important;
 }
 
-@mixin title-text($color, $ltrspace, $fw) {
+@mixin title-text($color, $fs, $ltrspace, $fw) {
   color: $color !important;
+  font-size: $fs;
   letter-spacing: $ltrspace !important;
   font-weight: $fw !important;
 }

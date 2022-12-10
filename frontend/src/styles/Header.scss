@@ -24,9 +24,9 @@
 }
 
 .navbar .container {
-  padding-left: 2rem;
-  padding-right: 2rem;
-  max-width: 1400px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 1440px;
 }
 
 a.dropdown-item:hover {
@@ -62,12 +62,12 @@ a.dropdown-item:hover {
 .notification-badge {
   display: inline-flex;
   position: absolute;
-  top: 0rem;
-  right: 0rem;
+  top: 0.5rem;
+  right: 0.5rem;
   justify-content: center;
   align-items: center;
-  width: 1rem;
-  height: 1rem;
+  width: 0.5rem;
+  height: 0.5rem;
   font-size: x-small;
   font-weight: bold;
   color: white;

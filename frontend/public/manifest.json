@@ -1,6 +1,6 @@
 {
-  "short_name": "Event Matcher",
-  "name": "Event Matcher App",
+  "short_name": "runit",
+  "name": "runit",
   "icons": [
     {
       "src": "favicon.ico",

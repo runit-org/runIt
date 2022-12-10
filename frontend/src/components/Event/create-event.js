@@ -119,7 +119,13 @@ function CreateEvent() {
                     type="date"
                     placeholder="Date"
                     onChange={(e) => setDate(e.target.value)}
-                    min={new Date().toISOString().split("T")[0]}
+                    min={
+                      new Date(
+                        Date.now() - new Date().getTimezoneOffset() * 60000
+                      )
+                        .toISOString()
+                        .split("T")[0]
+                    }
                     required
                   />
                 </Form.Group>

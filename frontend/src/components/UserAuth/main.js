@@ -9,6 +9,8 @@ import { useParams } from "react-router-dom";
 import SingleClick from "./single-click";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUserProfile } from "../../actions/userActions";
+import { Card } from "react-bootstrap";
+import { AppLogo } from "../SiteElements/icons";
 
 function Main() {
   let { token } = useParams();
@@ -49,7 +51,12 @@ function Main() {
     <>
       <div id="auth-container">
         <div className="auth-content">
-          <div>
+          <Card
+            className="login-card"
+            style={location.pathname !== "/signup" ? { width: "28rem" } : {}}
+          >
+            {!isValid ? <AppLogo w={"80px"} defClass="mb-4" /> : ""}
+
             {location.pathname === "/signup" ? (
               <SignUp />
             ) : location.pathname === "/reset-password-auth" ? (
@@ -62,7 +69,7 @@ function Main() {
             ) : (
               <Login />
             )}
-          </div>
+          </Card>
         </div>
         <div className="auth-footer">
           {window.location.pathname === "/signup" ? (

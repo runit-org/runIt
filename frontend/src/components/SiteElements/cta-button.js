@@ -6,7 +6,7 @@ function CTAButton(props) {
   return (
     <React.Fragment>
       {props.btnStyleFull ? (
-        <Button variant="light" className="w-100" onClick={props.onClick}>
+        <Button variant="primary" className="w-max" onClick={props.onClick}>
           {props.title}
         </Button>
       ) : (
