@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { updateEvent, getSingleEvent } from "../../actions/eventActions";
 import { useDispatch } from "react-redux";

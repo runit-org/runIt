@@ -100,7 +100,6 @@ export const createNewEvent =
 export const updateEvent = (id, postData) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
-
     axios
       .put(`http://localhost:8000/api/event/update/${id}/`, postData)
       .then((res) => {

@@ -74,10 +74,16 @@
 .dropdown-toggle::after {
   display: none !important;
 }
+.event-card div[aria-labelledby="dropdown-basic"] button {
+  width: 100%;
 
-.event-card div[aria-labelledby="dropdown-basic"] {
-  min-width: 100px !important;
+  &:hover {
+    background-color: $button-bg !important;
+  }
 }
+/* .event-card div[aria-labelledby="dropdown-basic"] {
+  min-width: 100px !important;
+} */
 
 // Dashboard
 .event-card_dash {

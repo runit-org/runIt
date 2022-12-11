@@ -11,7 +11,7 @@ import ModalItem from "./modal-item";
 import { SearchParam } from "../Utilities/search-param";
 import { useLocation, useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
-import { Plus } from "../SiteElements/icons";
+import { PencilSquare } from "../SiteElements/icons";
 import { CANCELLED, FINISHED } from "./utilities/types";
 import { EventMembersHandler } from "./utilities/action-handlers";
 
@@ -52,7 +52,7 @@ function EventStatus(props) {
         customBtn={""}
         btnIcon={
           <div className="d-flex align-items-center">
-            <Plus />
+            <PencilSquare />
             Status
           </div>
         }
