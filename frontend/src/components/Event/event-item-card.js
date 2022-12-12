@@ -39,10 +39,12 @@ function EventItemCard(props) {
           <div className="event-brief mt-1">
             <h4>{props.eventData.title} </h4>
           </div>
-          <BadgeItem
-            content={props.eventData.timeToEvent}
-            eventStatus={props.eventData.eventStatus}
-          />
+          <div>
+            <BadgeItem
+              content={props.eventData.timeToEvent}
+              eventStatus={props.eventData.eventStatus}
+            />
+          </div>
           <p className="text-muted mt-2">{props.eventData.details}</p>
         </Card.Body>
         <Card.Footer>

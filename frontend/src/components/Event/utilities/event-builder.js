@@ -37,23 +37,21 @@ export const BadgeItem = (props) => {
 
   return (
     <>
-      <div>
-        <Badge bg="" id="badgeItem" style={badgeStyle}>
-          {props.eventStatus === ONGOING ? (
-            <>
-              Underway
-              <span className="animate_pulse" />
-              <span className="pulse_dot" />
-            </>
-          ) : props.eventStatus === FINISHED ? (
-            <>Ended</>
-          ) : props.eventStatus === CANCELLED ? (
-            <>Cancelled</>
-          ) : (
-            <> in {props.content}</>
-          )}
-        </Badge>
-      </div>
+      <Badge bg="" id="badgeItem" style={badgeStyle}>
+        {props.eventStatus === ONGOING ? (
+          <>
+            Underway
+            <span className="animate_pulse" />
+            <span className="pulse_dot" />
+          </>
+        ) : props.eventStatus === FINISHED ? (
+          <>Ended</>
+        ) : props.eventStatus === CANCELLED ? (
+          <>Cancelled</>
+        ) : (
+          <> in {props.content}</>
+        )}
+      </Badge>
     </>
   );
 };

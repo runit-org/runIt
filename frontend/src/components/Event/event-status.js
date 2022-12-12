@@ -1,15 +1,10 @@
 import React, { useState, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import {
-  getAllEvents,
-  getSingleEvent,
-  updateStatus,
-} from "../../actions/eventActions";
+import { getSingleEvent, updateStatus } from "../../actions/eventActions";
 import Loading from "../SiteElements/loader";
 import ModalItem from "./modal-item";
-import { SearchParam } from "../Utilities/search-param";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
 import { PencilSquare } from "../SiteElements/icons";
 import { CANCELLED, FINISHED } from "./utilities/types";
@@ -23,9 +18,7 @@ function EventStatus(props) {
   const [load, setLoad] = useState(false);
   const [error, setError] = useState({});
 
-  let pageId = SearchParam();
   const params = useParams();
-  const location = useLocation();
 
   const eventMembers = EventMembersHandler(props.eventId);
 
@@ -38,9 +31,7 @@ function EventStatus(props) {
 
     dispatch(updateStatus(props.eventId, postData, setLoad, setError)).then(
       () => {
-        location.pathname.includes("event")
-          ? dispatch(getSingleEvent(params.id))
-          : dispatch(getAllEvents(pageId));
+        dispatch(getSingleEvent(params.id));
         emitter(eventMembers.map((member) => member.username));
       }
     );
