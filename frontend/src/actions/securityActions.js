@@ -69,8 +69,7 @@ export const login =
         const refToken = res.data.refresh;
         const accessToken = res.data.access;
         //store token in local storage
-        // localStorage.setItem("token", refToken);
-        Cookies.set("token", refToken, { secure: true });
+        Cookies.set("token", refToken, { secure: true, sameSite: "strict" });
         //set token in header
         setToken(accessToken);
         //get data from response
@@ -80,9 +79,7 @@ export const login =
         };
 
         localStorage.setItem("username", decoded.username);
-        /*  if (res.status === 200 && localStorage.getItem("token")) {
-          navigate("/posts");
-        } */
+
         if (res.status === 200 && Cookies.get("token")) {
           navigate("/posts");
         }

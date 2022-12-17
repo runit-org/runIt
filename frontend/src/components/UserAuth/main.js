@@ -20,7 +20,6 @@ function Main() {
   const navigate = useNavigate();
   const [isValid, setIsValid] = useState(false);
   const [currUserProfile, setCurrUserProfile] = useState({});
-  // const localToken = localStorage.token;
   const localToken = Cookies.get("token");
 
   useEffect(() => {

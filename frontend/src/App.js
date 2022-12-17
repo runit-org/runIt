@@ -16,7 +16,6 @@ const EventDash = lazy(() => import("./components/Dashboards/event-dash"));
 const Posts = lazy(() => import("./components/Dashboards/main-dash"));
 
 function App() {
-  /* const token = localStorage.token; */
   const token = Cookies.get("token");
 
   if (token) {

@@ -13,7 +13,6 @@ function SingleClick(props) {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    /* const token = localStorage.token; */
     const token = Cookies.get("token");
 
     const refToken = {

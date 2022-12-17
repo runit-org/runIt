@@ -15,7 +15,6 @@ const setToken = (token) => {
 const refreshToken = () => {
   if (Cookies.get("token")) {
     const ref = axios.post("http://localhost:8000/api/auth/token/refresh/", {
-      /*  refresh: localStorage.getItem("token"), */
       refresh: Cookies.get("token"),
     });
     return ref;
