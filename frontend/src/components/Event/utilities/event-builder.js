@@ -87,14 +87,17 @@ export const StatusBadge = (props) => {
 };
 
 export const RequestBtn = (props) => {
-  const statusOnEvent = props.joinedStatus;
+  const userStatusOnEvent = props.joinedStatus;
+  const statusOnEvent = props.JoinEvent.eventStatus;
 
   return (
     <>
-      {statusOnEvent !== ACCEPTED &&
-      statusOnEvent !== PENDING &&
-      statusOnEvent !== REJECTED &&
-      statusOnEvent !== OWNER ? (
+      {userStatusOnEvent !== ACCEPTED &&
+      userStatusOnEvent !== PENDING &&
+      userStatusOnEvent !== REJECTED &&
+      userStatusOnEvent !== OWNER &&
+      statusOnEvent !== FINISHED &&
+      statusOnEvent !== CANCELLED ? (
         <JoinEvent
           eventId={props.JoinEvent.id}
           eventTitle={props.JoinEvent.title}
