@@ -46,7 +46,7 @@ function CommentItem(props) {
               />
 
               <div className="me-auto">
-                <h6 className="fw-bold m-0"> {props.commentData.username}</h6>
+                <h6 className="m-0"> {props.commentData.username}</h6>
                 <small
                   className="text-muted"
                   style={{ fontSize: "12px", display: "block" }}
@@ -91,7 +91,7 @@ function CommentItem(props) {
           </Card.Header>
           <Card.Body>
             <Card.Text
-              className="details_textarea"
+              className="details_textarea content_sm1"
               dangerouslySetInnerHTML={{
                 __html: props.commentData.content
                   ? Mention(props.commentData.content)

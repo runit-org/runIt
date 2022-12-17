@@ -13,12 +13,12 @@ export const VoteBadge = (props) => {
 export const UserCardInfo = () => {
   return (
     <>
-      <small className="d-block text-muted">
+      <small className="d-block text-muted content_sm5">
         <span className="d-inline-flex align-items-center">
           Melbourne, Australia
         </span>
       </small>
-      <small className="d-block text-muted">
+      <small className="d-block text-muted content_sm5">
         <span className="d-inline-flex align-items-center">
           Last event created was in the past week
         </span>

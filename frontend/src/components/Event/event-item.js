@@ -72,6 +72,7 @@ function EventItem(props) {
             <div className="details_textarea">
               <h4>{eventData.title}</h4>
               <span
+                className="content_sm1"
                 dangerouslySetInnerHTML={{
                   __html: eventData.details
                     ? Mention(eventData.details)

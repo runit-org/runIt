@@ -39,17 +39,21 @@ function EventItemCard(props) {
           <div className="event-brief mt-1">
             <h4>{props.eventData.title} </h4>
           </div>
+
+          <div className="mt-2">
+            <p className="text-muted content_sm1">{props.eventData.details}</p>
+          </div>
+
           <div>
             <BadgeItem
               content={props.eventData.timeToEvent}
               eventStatus={props.eventData.eventStatus}
             />
           </div>
-          <p className="text-muted mt-2">{props.eventData.details}</p>
         </Card.Body>
         <Card.Footer>
           <Link to={`/event/${props.eventData.id}`}>
-            More Information <ArrowRight />
+            More <ArrowRight />
           </Link>
         </Card.Footer>
       </Card>
