@@ -2,6 +2,7 @@ import axios from "axios";
 import store from "../store";
 import jwt_decode from "jwt-decode";
 import { GET_ERRORS, SET_CURRENT_USER } from "../actions/types";
+import Cookies from "js-cookie";
 
 const setToken = (token) => {
   if (token) {
@@ -12,9 +13,10 @@ const setToken = (token) => {
 };
 
 const refreshToken = () => {
-  if (localStorage.token) {
+  if (Cookies.get("token")) {
     const ref = axios.post("http://localhost:8000/api/auth/token/refresh/", {
-      refresh: localStorage.getItem("token"),
+      /*  refresh: localStorage.getItem("token"), */
+      refresh: Cookies.get("token"),
     });
     return ref;
   } else {

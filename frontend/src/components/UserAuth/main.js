@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUserProfile } from "../../actions/userActions";
 import { Card } from "react-bootstrap";
 import { AppLogo } from "../SiteElements/icons";
+import Cookies from "js-cookie";
 
 function Main() {
   let { token } = useParams();
@@ -19,7 +20,8 @@ function Main() {
   const navigate = useNavigate();
   const [isValid, setIsValid] = useState(false);
   const [currUserProfile, setCurrUserProfile] = useState({});
-  const localToken = localStorage.token;
+  // const localToken = localStorage.token;
+  const localToken = Cookies.get("token");
 
   useEffect(() => {
     if (localToken && location.pathname === "/" && location.state === null)
@@ -42,6 +44,7 @@ function Main() {
         setCurrUserProfile(currProfile.data);
       } else {
         localStorage.clear();
+        Cookies.remove("token");
         navigate(0);
       }
     }

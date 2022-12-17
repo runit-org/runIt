@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
@@ -12,7 +13,8 @@ function SingleClick(props) {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    const token = localStorage.token;
+    /* const token = localStorage.token; */
+    const token = Cookies.get("token");
 
     const refToken = {
       refresh: token,
