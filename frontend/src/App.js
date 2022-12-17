@@ -9,13 +9,14 @@ import ProtectedRoute from "./components/UserAuth/protected-route";
 import { Spinner } from "react-bootstrap";
 import UserContext from "./components/Context/user-context";
 import SecurityContext from "./components/Context/security-context";
+import Cookies from "js-cookie";
 
 const ProfileDash = lazy(() => import("./components/Dashboards/profile-dash"));
 const EventDash = lazy(() => import("./components/Dashboards/event-dash"));
 const Posts = lazy(() => import("./components/Dashboards/main-dash"));
 
 function App() {
-  const token = localStorage.token;
+  const token = Cookies.get("token");
 
   if (token) {
     getAccessToken();

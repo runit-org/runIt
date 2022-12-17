@@ -8,6 +8,7 @@ import { getCurrentUserProfile } from "../../actions/userActions";
 import { receiver } from "../client/socket";
 import { getNotifications } from "../../actions/notificationActions";
 import { AppLogo, Notification } from "./icons";
+import Cookies from "js-cookie";
 
 function Header() {
   let navigate = useNavigate();
@@ -26,7 +27,7 @@ function Header() {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    const token = localStorage.token;
+    const token = Cookies.get("token");
 
     const refToken = {
       refresh: token,

@@ -2,6 +2,7 @@ import axios from "axios";
 import { GET_USERS, GET_ERRORS, SET_CURRENT_USER, SET_NEW_USER } from "./types";
 import { setToken, refreshToken } from "../securityUtils/setToken";
 import jwt_decode from "jwt-decode";
+import Cookies from "js-cookie";
 
 export const getUsers = () => async (dispatch) => {
   await axios
@@ -68,7 +69,7 @@ export const login =
         const refToken = res.data.refresh;
         const accessToken = res.data.access;
         //store token in local storage
-        localStorage.setItem("token", refToken);
+        Cookies.set("token", refToken, { secure: true, sameSite: "strict" });
         //set token in header
         setToken(accessToken);
         //get data from response
@@ -78,7 +79,8 @@ export const login =
         };
 
         localStorage.setItem("username", decoded.username);
-        if (res.status === 200 && localStorage.getItem("token")) {
+
+        if (res.status === 200 && Cookies.get("token")) {
           navigate("/posts");
         }
         dispatch({
@@ -108,7 +110,7 @@ export const logout = (refToken, navigate) => async (dispatch) => {
 
   setToken(false);
   localStorage.clear();
-  console.log("here");
+  Cookies.remove("token");
   // navigate("/", { replace: true });
   navigate(0);
 
