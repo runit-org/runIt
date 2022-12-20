@@ -17,6 +17,21 @@ class UserTestClass(TestCase):
             "email": "test@email.com",
             "password": "password"
         }
+    
+    def createNewUser(self):
+        User.objects.create(
+            username = self.newUser['username'],
+            email    = self.newUser['email'],
+            password = make_password(self.newUser['password'])
+        )
 
     def test_get_user_profile_success(self):
-        self.assertTrue(True)
+        c = Client()
+        url = self.baseUrl + 'profile/' + self.newUser['username'] + '/'
+
+        self.createNewUser()
+
+        logged_in = c.login(username=self.newUser['username'], password=self.newUser['password'])
+        response = c.get(url, [], format='json')
+        print(response)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
