@@ -19,7 +19,7 @@ class UserTestClass(TestCase):
         }
     
     def createNewUser(self):
-        User.objects.create(
+        return User.objects.create(
             username = self.newUser['username'],
             email    = self.newUser['email'],
             password = make_password(self.newUser['password'])
@@ -29,9 +29,10 @@ class UserTestClass(TestCase):
         c = Client()
         url = self.baseUrl + 'profile/' + self.newUser['username'] + '/'
 
-        self.createNewUser()
-
-        logged_in = c.login(username=self.newUser['username'], password=self.newUser['password'])
-        response = c.get(url, [], format='json')
-        print(response)
+        user = self.createNewUser()
+        print(user)
+        c.force_login(user)
+        # logged_in = c.login(username=self.newUser['username'], password=self.newUser['password'])
+        response = c.get(url, {}, format='json')
+        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
