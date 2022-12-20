@@ -8,7 +8,7 @@ export const InfoCard = (props) => {
           {props.icon} {props.title}
         </Card.Title>
 
-        <Card.Text>{props.content}</Card.Text>
+        <Card.Text className="content_sm1">{props.content}</Card.Text>
       </Card.Body>
     </Card>
   );
