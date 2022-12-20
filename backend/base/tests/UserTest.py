@@ -3,8 +3,9 @@ from django.test import Client
 from base.models import User, UserExtend
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
-from rest_framework.test import APIRequestFactory
-
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APIClient
+from rest_framework.test import force_authenticate
 
 class UserTestClass(TestCase):
     newUser = None
@@ -26,13 +27,15 @@ class UserTestClass(TestCase):
         )
 
     def test_get_user_profile_success(self):
-        c = Client()
         url = self.baseUrl + 'profile/' + self.newUser['username'] + '/'
 
-        user = self.createNewUser()
-        print(user)
-        c.force_login(user)
-        # logged_in = c.login(username=self.newUser['username'], password=self.newUser['password'])
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
         response = c.get(url, {}, format='json')
-        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(self.newUser['username'], response.json()['data']['username'])
