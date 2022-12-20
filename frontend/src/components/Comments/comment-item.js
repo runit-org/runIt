@@ -11,6 +11,7 @@ import { CommentReacts } from "./utilities/comment-builder";
 import { SingleEventContext } from "../Dashboards/event-dash";
 import { SecurityContext } from "../Context/security-context";
 import { Ellipse } from "../SiteElements/icons";
+import { emitter } from "../client/socket";
 
 function CommentItem(props) {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function CommentItem(props) {
   const commentReact = () => {
     dispatch(likeUnlike(props.commentData.id)).then(() => {
       dispatch(getAllComments(eventData.id, pageId));
+      emitter([props.commentData.username]);
     });
   };
 
@@ -44,7 +46,7 @@ function CommentItem(props) {
               />
 
               <div className="me-auto">
-                <h6 className="fw-bold m-0"> {props.commentData.username}</h6>
+                <h6 className="m-0"> {props.commentData.username}</h6>
                 <small
                   className="text-muted"
                   style={{ fontSize: "12px", display: "block" }}
@@ -89,7 +91,7 @@ function CommentItem(props) {
           </Card.Header>
           <Card.Body>
             <Card.Text
-              className="details_textarea"
+              className="details_textarea content_sm1"
               dangerouslySetInnerHTML={{
                 __html: props.commentData.content
                   ? Mention(props.commentData.content)

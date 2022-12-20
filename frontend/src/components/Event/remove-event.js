@@ -13,7 +13,7 @@ function RemoveEvent(props) {
   const ref = React.createRef();
   const btnRef = useRef();
   const [load, setLoad] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +47,7 @@ function RemoveEvent(props) {
               className="me-3 btn-cancel"
               onClick={() => btnRef.current.setModalShow(false)}
             >
-              Cancel
+              Back
             </Button>
             <Button
               type="submit"

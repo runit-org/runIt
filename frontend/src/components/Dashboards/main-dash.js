@@ -7,6 +7,7 @@ import { SearchParam } from "../Utilities/search-param";
 import EventItemCard from "../Event/event-item-card";
 import CurrentUserProfile from "../Profile/current-user-profile";
 import { EventHandler } from "../Event/utilities/action-handlers";
+import DefaultExample from "./dash-placeholder";
 
 function MainDash() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,11 +35,18 @@ function MainDash() {
   return (
     <div style={{ position: "relative" }}>
       <div className="dash-container">
+        <div className="sidebar">
+          <div className="sidebar-wrapper">
+            <div className="sidebar_left">
+              <DefaultExample />
+            </div>
+          </div>
+        </div>
         <div className="content">
           <Container>
             <div>
               <CreatePost />
-              <Row xs={1} sm={1} md={2}>
+              <Row xs={1} sm={1} md={1}>
                 {eventData.results
                   ? eventData.results.map((event, index) => (
                       <Col key={index}>
@@ -62,12 +70,14 @@ function MainDash() {
         </div>
 
         <div className="sidebar">
-          <div className="sidebar-wrapper">
-            <Card style={{ maxWidth: "20rem" }}>
-              <Card.Body>
-                <CurrentUserProfile />
-              </Card.Body>
-            </Card>
+          <div className="sidebar-wrapper ">
+            <div className="sidebar_right">
+              <Card>
+                <Card.Body>
+                  <CurrentUserProfile />
+                </Card.Body>
+              </Card>
+            </div>
           </div>
         </div>
       </div>

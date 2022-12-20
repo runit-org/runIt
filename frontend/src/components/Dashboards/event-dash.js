@@ -8,9 +8,12 @@ import CreateComment from "../Comments/create-comment";
 import { SearchParam } from "../Utilities/search-param";
 import Pagination from "../SiteElements/pagination";
 import Breadcrumbs from "../SiteElements/breadcrumbs";
-import { ACCEPTED, OWNER } from "../Event/utilities/types";
+import { ACCEPTED, CANCELLED, FINISHED, OWNER } from "../Event/utilities/types";
 import { SingleEventHandler } from "../Event/utilities/action-handlers";
 import { SecurityContext } from "../Context/security-context";
+import { BadgeItem } from "../Event/utilities/event-builder";
+import { Information } from "../SiteElements/icons";
+import { InfoCard } from "../SiteElements/info-cards";
 
 export const SingleEventContext = createContext();
 
@@ -106,8 +109,28 @@ function EventDash() {
               <div className="sidebar_eventDash">
                 <div className="sidebar-wrapper">
                   <Container>
+                    {eventData.eventStatus === CANCELLED ||
+                    eventData.eventStatus === FINISHED ? (
+                      <InfoCard
+                        title="Note"
+                        content={
+                          <>
+                            This event now has{" "}
+                            <BadgeItem eventStatus={eventData.eventStatus} />{" "}
+                            therefore it can not be updated or particapated in.
+                          </>
+                        }
+                        icon={<Information />}
+                        cardStyle={{ backgroundColor: "#eaebfd" }}
+                      />
+                    ) : (
+                      ""
+                    )}
+
                     <EventItem commentCount={commentData.count} />
-                    {currentUser === eventData.user ? (
+                    {currentUser === eventData.user &&
+                    eventData.eventStatus !== CANCELLED &&
+                    eventData.eventStatus !== FINISHED ? (
                       <ManageMembers currentUser={currentUser} />
                     ) : (
                       ""

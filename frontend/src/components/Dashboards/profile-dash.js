@@ -18,16 +18,13 @@ function ProfileDash() {
 
         <div className="sidebar">
           <div className="sidebar-wrapper">
-            <Card style={{ maxWidth: "20rem" }}>
-              <Card.Body>
-                <UserProfile userData={child_data} />
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <h6 className="mb-4">Latest Activity</h6>
-              </Card.Body>
-            </Card>
+            <div className="sidebar_right">
+              <Card>
+                <Card.Body>
+                  <UserProfile userData={child_data} />
+                </Card.Body>
+              </Card>
+            </div>
           </div>
         </div>
       </div>

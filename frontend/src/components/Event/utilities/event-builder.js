@@ -1,6 +1,60 @@
 import { Badge } from "react-bootstrap";
 import JoinEvent from "../join-event";
-import { ACCEPTED, OWNER, PENDING, REJECTED } from "./types";
+import {
+  ACCEPTED,
+  CANCELLED,
+  FINISHED,
+  ONGOING,
+  OWNER,
+  PENDING,
+  PENDING_START,
+  REJECTED,
+} from "./types";
+
+export const BadgeItem = (props) => {
+  const badgeStyle =
+    props.eventStatus === FINISHED
+      ? {
+          backgroundColor: "#dbeafe",
+          color: "#1e40af",
+        }
+      : props.eventStatus === ONGOING
+      ? {
+          backgroundColor: "#ffedd5",
+          color: "#9a3412",
+        }
+      : props.eventStatus === PENDING_START
+      ? {
+          backgroundColor: "#cffafe",
+          color: "#155e75",
+        }
+      : props.eventStatus === CANCELLED
+      ? {
+          backgroundColor: "#f1f5f9",
+          color: "#1e293b",
+        }
+      : "";
+
+  return (
+    <>
+      <Badge bg="" id="badgeItem" style={badgeStyle}>
+        {props.eventStatus === ONGOING ? (
+          <>
+            Underway
+            <span className="animate_pulse" />
+            <span className="pulse_dot" />
+          </>
+        ) : props.eventStatus === FINISHED ? (
+          <>Ended</>
+        ) : props.eventStatus === CANCELLED ? (
+          <>Cancelled</>
+        ) : (
+          <> in {props.content}</>
+        )}
+      </Badge>
+    </>
+  );
+};
 
 export const StatusBadge = (props) => {
   const statusOnEvent = props.joinedStatus;
@@ -33,14 +87,17 @@ export const StatusBadge = (props) => {
 };
 
 export const RequestBtn = (props) => {
-  const statusOnEvent = props.joinedStatus;
+  const userStatusOnEvent = props.joinedStatus;
+  const statusOnEvent = props.JoinEvent.eventStatus;
 
   return (
     <>
-      {statusOnEvent !== ACCEPTED &&
-      statusOnEvent !== PENDING &&
-      statusOnEvent !== REJECTED &&
-      statusOnEvent !== OWNER ? (
+      {userStatusOnEvent !== ACCEPTED &&
+      userStatusOnEvent !== PENDING &&
+      userStatusOnEvent !== REJECTED &&
+      userStatusOnEvent !== OWNER &&
+      statusOnEvent !== FINISHED &&
+      statusOnEvent !== CANCELLED ? (
         <JoinEvent
           eventId={props.JoinEvent.id}
           eventTitle={props.JoinEvent.title}

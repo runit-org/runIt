@@ -3,6 +3,7 @@ import JoinEvent from "../join-event";
 import RemoveEvent from "../remove-event";
 import CTAButton from "../../SiteElements/cta-button";
 import { Edit } from "../../SiteElements/icons";
+import EventStatus from "../event-status";
 
 export const eventOptions = (id, title, user, currUser, handleClick) => {
   const options_owner = [
@@ -25,8 +26,12 @@ export const eventOptions = (id, title, user, currUser, handleClick) => {
       ),
     },
     {
+      item: <EventStatus eventId={id} eventTitle={title} />,
+    },
+    {
       item: <RemoveEvent eventId={id} eventTitle={title} />,
     },
+
     /* {
       item: <EventMembers eventId={id} userId={user} currentUser={currUser} />,
     }, */

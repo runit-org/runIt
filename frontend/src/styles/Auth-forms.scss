@@ -32,10 +32,12 @@ div#auth-container {
 .login-card .form-control:focus {
   border: 1px solid $theme;
   box-shadow: none !important;
+  background-color: rgba($primary-light, 0.5);
 }
 
 .login-card .form-control {
   border: 1px solid rgba($primary-dark, 0.1);
+  background-color: transparent;
 }
 
 .new-post-container .form-control:hover {
@@ -43,11 +45,23 @@ div#auth-container {
 }
 
 .login-card.card {
-  background-color: $primary-light;
+  background-color: transparent;
+  border: none;
   color: $primary-dark;
   font-weight: 500;
   width: 100%;
   max-width: 500px !important;
+  padding: 1.5rem 2rem 2rem 2rem;
+}
+
+.btn-primary.show_hide-pw {
+  background-color: $button-bg !important;
+  color: $theme !important;
+
+  &:hover {
+    background-color: $button-bg !important;
+    color: $button-text !important;
+  }
 }
 
 //current user

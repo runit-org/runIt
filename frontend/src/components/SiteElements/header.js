@@ -7,7 +7,8 @@ import Notifications from "../notification";
 import { getCurrentUserProfile } from "../../actions/userActions";
 import { receiver } from "../client/socket";
 import { getNotifications } from "../../actions/notificationActions";
-import { Notification } from "./icons";
+import { AppLogo, Notification } from "./icons";
+import Cookies from "js-cookie";
 
 function Header() {
   let navigate = useNavigate();
@@ -26,7 +27,7 @@ function Header() {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    const token = localStorage.token;
+    const token = Cookies.get("token");
 
     const refToken = {
       refresh: token,
@@ -84,7 +85,9 @@ function Header() {
         className="header-blur"
       >
         <Container>
-          <Navbar.Brand href="/posts">eventmatcher</Navbar.Brand>
+          <Navbar.Brand href="/posts">
+            <AppLogo w={"50px"} />
+          </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text id="nav-end-items">
@@ -94,7 +97,7 @@ function Header() {
                   <Notification />
                   {notifs ? (
                     unreadCount > 0 ? (
-                      <div className="notification-badge">{unreadCount}</div>
+                      <div className="notification-badge" />
                     ) : (
                       ""
                     )

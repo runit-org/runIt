@@ -20,7 +20,7 @@ function ErrorToast(props) {
   }, [props.showToast, reducer]);
 
   return (
-    <div xs={6}>
+    <div className="d-flex justify-content-center">
       <Toast
         className="toasts position-absolute"
         onClose={() => setShow(false)}

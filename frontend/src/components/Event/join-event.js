@@ -18,7 +18,7 @@ function JoinEvent(props) {
   const ref = React.createRef();
   const btnRef = useRef();
   const [load, setLoad] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState({});
 
   let pageId = SearchParam();
   const params = useParams();

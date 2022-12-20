@@ -44,7 +44,7 @@ function CurrentUserProfile() {
               </small>
             </div>
           </div>
-          <div className="mt-3 ">
+          <div className="mt-3">
             <VoteBadge votes={currUserProfile.totalVote} />
             <UserCardInfo />
           </div>

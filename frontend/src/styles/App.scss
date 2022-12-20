@@ -19,21 +19,25 @@ body {
 }
 
 .titleText {
-  @include title-text($theme, 2px, 800);
+  @include title-text($primary-light, 1.5rem, 0px, 700);
+  font-family: Poppins;
+  padding: 0.4rem;
+  background-color: $theme;
+  width: max-content;
+  border-radius: 8px;
 }
 
 .subTitle {
-  @include title-text($primary-dark, normal, 600);
+  @include title-text($primary-dark, 1.5rem, normal, 600);
 }
 
 .btn-primary {
   @include btn-style($button-bg, $button-text, none, 600);
-}
-
-.btn-primary:hover {
-  background-color: $button-hover !important;
-  color: $primary-light !important;
-  border: none;
+  &:hover {
+    background-color: $button-hover !important;
+    color: $primary-light !important;
+    border: none;
+  }
 }
 
 .btn-cancel {
@@ -102,7 +106,7 @@ body {
 }
 
 div.content {
-  padding: 80px 12px;
+  padding: 80px 0;
   background-color: $secondary-light;
   height: 100%;
 }
@@ -136,8 +140,43 @@ div.content {
   }
 }
 
-/*------Main Dash------*/
+#badgeItem {
+  display: inline-flex;
+  position: relative;
+}
 
+.pulse_dot {
+  display: inline-flex;
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+  background-color: #dc2626;
+}
+.animate_pulse {
+  display: inline-flex;
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+  background-color: #dc2626;
+  opacity: 0.75;
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+
+  @keyframes ping {
+    75%,
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+}
+
+/*------Main Dash------*/
 .dash-container {
   display: flex;
   flex-direction: row;
@@ -153,11 +192,10 @@ div.content {
 }
 
 .sidebar {
-  width: 33.33%;
-}
-.sidebar_eventDash {
+  // width: 33.33%;
   width: 50%;
 }
+
 .sidebar-wrapper {
   width: 100%;
   overflow: auto;
@@ -173,17 +211,29 @@ div.content {
     display: none;
   }
 }
+.sidebar_right {
+  margin-top: 20px;
+  padding-right: 10px;
+}
+.sidebar_left {
+  // margin: 20px 0 0 10px;
+  margin-top: 20px;
+  padding-left: 10px;
+}
+.sidebar .card {
+  background-color: $primary-light;
+  border-radius: 8px !important;
+}
+
+/*------Event Dash------*/
+.sidebar_eventDash {
+  width: 50%;
+}
 .sidebar_eventDash .card {
   background-color: $primary-light;
   border-radius: 8px;
   margin: 20px;
 }
-.sidebar .card {
-  background-color: $primary-light;
-  border-radius: 8px !important;
-  margin: 20px;
-}
-
 /*------Off-Canvas------*/
 .offcanvas-header {
   background-color: $theme-light;
@@ -196,10 +246,6 @@ div.content {
 }
 .offcanvas.offcanvas-end {
   border-color: $theme-light !important;
-  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
-}
-.offcanvas-backdrop {
-  background-color: rgba(255, 255, 255, 0.8) !important;
 }
 
 /*------Modal------*/

@@ -8,6 +8,7 @@ import { RequestBtn, StatusBadge } from "./utilities/event-builder";
 import { SingleEventContext } from "../Dashboards/event-dash";
 import { SecurityContext } from "../Context/security-context";
 import { Comment, Ellipse } from "../SiteElements/icons";
+import { CANCELLED, FINISHED } from "./utilities/types";
 
 function EventItem(props) {
   const [editorMode, setEditorMode] = useState(false);
@@ -46,13 +47,20 @@ function EventItem(props) {
                       eventData.user,
                       currentUser,
                       handleClick
-                    ).options_owner.map((i, index) => {
-                      return (
-                        <div key={index} className="p-1">
-                          {i.item}
-                        </div>
-                      );
-                    })}
+                    )
+                      .options_owner.slice(
+                        eventData.eventStatus === CANCELLED ||
+                          eventData.eventStatus === FINISHED
+                          ? (0, 2)
+                          : ""
+                      )
+                      .map((i, index) => {
+                        return (
+                          <div key={index} className="p-1">
+                            {i.item}
+                          </div>
+                        );
+                      })}
                   </Dropdown.Menu>
                 </Dropdown>
               ) : (
@@ -64,6 +72,7 @@ function EventItem(props) {
             <div className="details_textarea">
               <h4>{eventData.title}</h4>
               <span
+                className="content_sm1"
                 dangerouslySetInnerHTML={{
                   __html: eventData.details
                     ? Mention(eventData.details)

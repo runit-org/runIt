@@ -57,7 +57,13 @@ const ModalItem = React.forwardRef(
               }}
             >
               <h4>{title}</h4>
-              {error ? <small className="mb-4">{error}</small> : ""}
+              {error.success === "true" ? (
+                <small className="mb-4 text-success">{error.message}</small>
+              ) : error.success === "false" ? (
+                <small className="mb-4 text-danger">{error.message}</small>
+              ) : (
+                ""
+              )}
               <div>
                 <div className="mt-3"> {content}</div>
               </div>

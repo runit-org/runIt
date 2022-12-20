@@ -100,7 +100,6 @@ export const createNewEvent =
 export const updateEvent = (id, postData) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
-
     axios
       .put(`http://localhost:8000/api/event/update/${id}/`, postData)
       .then((res) => {
@@ -118,6 +117,35 @@ export const updateEvent = (id, postData) => async (dispatch) => {
   });
 };
 
+export const updateStatus =
+  (id, postData, setLoad, setError) => async (dispatch) => {
+    await refreshToken().then((ref) => {
+      setToken(ref.data.access);
+      setLoad(true);
+      axios
+        .patch(`http://localhost:8000/api/event/updateStatus/${id}/`, postData)
+        .then((res) => {
+          if (res.status === 200) {
+            setLoad(false);
+            setError(res.data);
+          }
+
+          dispatch({
+            type: GET_ERRORS,
+            payload: res.data,
+          });
+        })
+        .catch((error) => {
+          setLoad(false);
+          setError(error.response.data);
+          dispatch({
+            type: GET_ERRORS,
+            payload: error.response.data,
+          });
+        });
+    });
+  };
+
 export const requestToJoin =
   (postData, setLoad, setError) => async (dispatch) => {
     await refreshToken().then((ref) => {
@@ -129,7 +157,7 @@ export const requestToJoin =
         .then((res) => {
           if (res.status === 200) {
             setLoad(false);
-            setError(res.data.message);
+            setError(res.data);
           }
           dispatch({
             type: GET_ERRORS,
@@ -138,8 +166,7 @@ export const requestToJoin =
         })
         .catch((error) => {
           setLoad(false);
-          console.log(error.response.data.message);
-          setError(error.response.data.message);
+          setError(error.response.data);
           dispatch({
             type: GET_ERRORS,
             payload: error.response.data,
@@ -159,9 +186,10 @@ export const removeEvent =
         .then((res) => {
           if (res.status === 200) {
             setLoad(false);
-            setError(res.data.message);
+            setError(res.data);
             navigate(`/posts`);
           }
+
           dispatch({
             type: GET_ERRORS,
             payload: res.data,
@@ -169,7 +197,7 @@ export const removeEvent =
         })
         .catch((error) => {
           setLoad(false);
-          setError(error.response.data.message);
+          setError(error.response.data);
           dispatch({
             type: GET_ERRORS,
             payload: error.response,
