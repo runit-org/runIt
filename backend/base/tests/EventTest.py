@@ -46,24 +46,24 @@ class EventTestClass(TestCase):
     def generateNewUserObject(self):
         randomUserData = self.generateNewUserData()
         return User.objects.create(
-            name     = randomUserData['name'],
-            username = randomUserData['username'],
-            email    = randomUserData['email'],
-            password = randomUserData['password'] 
+            first_name = randomUserData['name'],
+            username   = randomUserData['username'],
+            email      = randomUserData['email'],
+            password   = randomUserData['password'] 
         )
 
     def generateNewEventData(self):
-        today = datetime.date.today()
+        now = datetime.date.today() + datetime.timedelta(days=1)
         newEvent = {
             "title"       : self.generateRandomString(5),
             "maxMember"   : 3,
             "userName"    : self.generateRandomString(5),
             "details"     : self.generateRandomString(5),
-            "year"        : today.year,
-            "month"       : today.month,
-            "day"         : today.day,
-            "hour"        : today.hour,
-            "minute"      : today.minute,
+            "year"        : now.year,
+            "month"       : now.month,
+            "day"         : now.day,
+            "hour"        : 20,
+            "minute"      : 20,
         }
         return newEvent
     
@@ -81,9 +81,44 @@ class EventTestClass(TestCase):
             day           = randomEventData['day'],
             hour          = randomEventData['hour'],
             minute        = randomEventData["minute"],
+
+            startDate   = datetime.datetime(randomEventData['year'], randomEventData['month'], randomEventData['day'], randomEventData['hour'], randomEventData['minute']),
+            createdAt   = datetime.datetime.now()
         )
 
     def test_get_all_events_success(self):
-        
-        self.assertTrue(True)
+        # Create 2 events
+        self.generateNewEventObject()
+        self.generateNewEventObject()
+
+        url = self.baseUrl + 'all/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        response = c.get(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(2, response.json()['count'])
+
+    def test_create_event_success(self):
+        url = self.baseUrl + 'create/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        eventData = self.generateNewEventData()
+        response = c.post(url, eventData, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(len(Event.objects.filter(title=eventData['title'])) > 0)
+
+
+
 
