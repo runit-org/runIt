@@ -119,6 +119,47 @@ class EventTestClass(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(len(Event.objects.filter(title=eventData['title'])) > 0)
 
+    def test_create_event_empty_data_values_fails(self):
+        url = self.baseUrl + 'create/'
 
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        response = c.post(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_create_event_max_member_less_than_two_fails(self):
+        url = self.baseUrl + 'create/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        eventData = self.generateNewEventData()
+        eventData['maxMember'] = 1
+        response = c.post(url, eventData, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_create_event_start_date_in_the_past_fails(self):
+        url = self.baseUrl + 'create/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        eventData = self.generateNewEventData()
+        eventData['year'] = 2000
+        response = c.post(url, eventData, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 
