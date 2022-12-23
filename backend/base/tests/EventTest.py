@@ -652,4 +652,104 @@ class EventTestClass(TestCase):
         response = c.get(url, {}, format='json')
         self.assertFalse(response.status_code == status.HTTP_200_OK)
 
+    def test_change_event_member_status_success(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/changeStatus/'
+
+        # Authenticated user is event owner
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=eventObject.userName)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        member1 = self.generateNewUserObject()
+        EventMember.objects.create(
+            user = member1,
+            userId = member1.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.PENDING.value
+        )
+
+        data = {
+            "eventId" : eventObject.id,
+            "userId" : member1.id,
+            "status" : EventMemberStatus.get.ACCEPTED.value
+        }
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(EventMember.objects.get(user=member1, event=eventObject).status == EventMemberStatus.get.ACCEPTED.value)
+
+    def test_change_event_member_status_with_empty_data_array_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/changeStatus/'
+
+        # Authenticated user is event owner
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=eventObject.userName)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+        
+        data = {}
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_change_event_member_status_invalid_member_status_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/changeStatus/'
+
+        # Authenticated user is event owner
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=eventObject.userName)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+        
+        data = {
+            "eventId" : 1,
+            "userId" : 1,
+            "status" : 1000
+        }
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
     
+    def test_change_event_member_status_user_id_not_found_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/changeStatus/'
+
+        # Authenticated user is event owner
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=eventObject.userName)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+        
+        data = {
+            "eventId" : 1,
+            "userId" : 1000,
+            "status" : EventMemberStatus.get.ACCEPTED.value
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+
+    def test_change_event_member_status_event_id_not_found_fails(self):
+        url = self.baseUrl + 'member/changeStatus/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        member1 = self.generateNewUserObject()
+        
+        data = {
+            "eventId" : 1000,
+            "userId" : member1.id,
+            "status" : EventMemberStatus.get.ACCEPTED.value
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
