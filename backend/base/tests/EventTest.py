@@ -435,6 +435,221 @@ class EventTestClass(TestCase):
         response = c.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_request_join_event_success(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/requestJoin/'
+
+        # The authenticated user wouldn't be the event owner
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        data = {
+            "eventId" : eventObject.id
+        }
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Make sure the status of this user on this event is PENDING
+        self.assertEqual(EventMemberStatus.get.PENDING.value, EventMember.objects.get(user = user, event = eventObject).status)
+
+    def test_request_join_event_with_empty_array_data_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/requestJoin/'
+
+        # The authenticated user wouldn't be the event owner
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        data = {}
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_request_join_event_id_not_found_fails(self):
+        url = self.baseUrl + 'member/requestJoin/'
+
+        # The authenticated user wouldn't be the event owner
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        data = {
+            "eventId" : 1
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+
+    def test_request_join_a_cancelled_event_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/requestJoin/'
+
+        # The authenticated user wouldn't be the event owner
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        eventObject.status = EventStatus.get.CANCELLED.value
+        eventObject.save()
+
+        data = {
+            "eventId" : eventObject.id
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+        self.assertTrue(len(EventMember.objects.filter(user=user, event=eventObject)) < 1)
+
+    def test_request_join_your_own_event_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/requestJoin/'
+
+        # Test authenticating the event owner
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=eventObject.userName)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        data = {
+            "eventId" : eventObject.id
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+        self.assertTrue(len(EventMember.objects.filter(user=user, event=eventObject)) < 1)
+
+    def test_request_join_event_already_pending_request_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/requestJoin/'
+
+        # The authenticated user wouldn't be the event owner
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        EventMember.objects.create(
+            user = user,
+            userId = user.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.PENDING.value
+        )
+
+        data = {
+            "eventId" : eventObject.id
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+
+    def test_request_join_event_already_part_of_event_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/requestJoin/'
+
+        # The authenticated user wouldn't be the event owner
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        EventMember.objects.create(
+            user = user,
+            userId = user.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
+
+        data = {
+            "eventId" : eventObject.id
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+
+    def test_request_join_event_request_already_denied_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/requestJoin/'
+
+        # The authenticated user wouldn't be the event owner
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        EventMember.objects.create(
+            user = user,
+            userId = user.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.REJECTED.value
+        )
+
+        data = {
+            "eventId" : eventObject.id
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+
+    def test_get_event_members_success(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/getMembers/' + str(eventObject.id) + '/'
+
+        # Authenticated user is event owner
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=eventObject.userName)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        member1 = self.generateNewUserObject()
+        EventMember.objects.create(
+            user = member1,
+            userId = member1.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
+        member2 = self.generateNewUserObject()
+        EventMember.objects.create(
+            user = member2,
+            userId = member2.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
+
+        response = c.get(url, {}, format='json')
+        self.assertTrue(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(len(response.json()['data']) == 2)
+
+    def test_get_event_members_event_id_not_found_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/getMembers/' + str(eventObject.id  + 1) + '/'
+
+        # Authenticated user is event owner
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=eventObject.userName)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        response = c.get(url, {}, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+
     
-
-
