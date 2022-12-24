@@ -3,6 +3,7 @@ from base.serializers import EventSerializer
 from base.enums import EventMemberStatus
 from base.traits import NotifyUser
 from base.views.baseViews import response, error
+from django.utils import timezone
 
 from datetime import datetime
 
@@ -40,8 +41,8 @@ def create(request):
         hour        = data['hour'],
         minute      = data['minute'],
 
-        startDate   = datetime(data['year'], data['month'], data['day'], data['hour'], data['minute']),
-        createdAt   = datetime.now()
+        startDate   = timezone.make_aware(datetime(data['year'], data['month'], data['day'], data['hour'], data['minute'])),
+        createdAt   = timezone.make_aware(datetime.now())
     )
     # serializer = EventSerializer(event, many=False)
 

@@ -5,6 +5,7 @@ from base.enums import EventMemberStatus
 from base.traits import NotifyUser
 
 from datetime import datetime
+from django.utils import timezone
 
 def checkEventId(id):
     checkEventExist = Event.objects.filter(id = id)
@@ -77,7 +78,7 @@ def create(request, eventId):
         user = user,
         content = data['content'],
 
-        createdAt = datetime.now()
+        createdAt = timezone.make_aware(datetime.now())
     )
 
     eventCreatorUserId = event.user.id

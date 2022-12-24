@@ -10,6 +10,7 @@ from base.enums import UserVoteStatus, EventStatus, EventMemberStatus
 import random
 import string
 import datetime
+from django.utils import timezone
 
 class EventTestClass(TestCase):
     newUser = None
@@ -81,8 +82,8 @@ class EventTestClass(TestCase):
             hour          = randomEventData['hour'],
             minute        = randomEventData["minute"],
 
-            startDate   = datetime.datetime(randomEventData['year'], randomEventData['month'], randomEventData['day'], randomEventData['hour'], randomEventData['minute']),
-            createdAt   = datetime.datetime.now()
+            startDate   = timezone.make_aware(datetime.datetime(randomEventData['year'], randomEventData['month'], randomEventData['day'], randomEventData['hour'], randomEventData['minute'])),
+            createdAt   = timezone.make_aware(datetime.datetime.now())
         )
 
     def test_get_all_events_success(self):
@@ -903,7 +904,7 @@ class EventTestClass(TestCase):
             user = member1,
             event = eventObject,
             content = "Hello World",
-            createdAt = datetime.datetime.now()
+            createdAt = timezone.make_aware(datetime.datetime.now())
         )
         
         response = c.get(url, {}, format='json')
@@ -935,7 +936,7 @@ class EventTestClass(TestCase):
             user = member1,
             event = eventObject,
             content = "Hello World",
-            createdAt = datetime.datetime.now()
+            createdAt = timezone.make_aware(datetime.datetime.now())
         )
         # Try adding a second command to test
         member2 = self.generateNewUserObject()
@@ -943,7 +944,7 @@ class EventTestClass(TestCase):
             user = member2,
             event = eventObject,
             content = "Hello World",
-            createdAt = datetime.datetime.now()
+            createdAt = timezone.make_aware(datetime.datetime.now())
         )
         
         response = c.get(url, {}, format='json')
@@ -975,7 +976,7 @@ class EventTestClass(TestCase):
             user = member1,
             event = eventObject,
             content = "Hello World",
-            createdAt = datetime.datetime.now()
+            createdAt = timezone.make_aware(datetime.datetime.now())
         )
         
         response = c.get(url, {}, format='json')
@@ -996,6 +997,73 @@ class EventTestClass(TestCase):
         response = c.get(url, {}, format='json')
         self.assertFalse(response.status_code == status.HTTP_200_OK)
 
+    def test_update_event_comment_success(self):
+        eventObject = self.generateNewEventObject()
+
+        # Authenticated user is an accepted event member
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        EventMember.objects.create(
+            user = user,
+            userId = user.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
+
+        comment = EventComment.objects.create(
+            event = eventObject,
+            user = user,
+            content = "Hello World",
+            createdAt = timezone.make_aware(datetime.datetime.now()),
+        )
+        url = self.baseUrl + 'comment/update/' + str(comment.id) + '/'
+
+        data = {
+            "content" : "Hello World"
+        }
+        response = c.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(EventComment.objects.get(user=user, event=eventObject).content == data['content'])
+
+    def test_update_event_comment_not_comment_writer_fails(self):
+        eventObject = self.generateNewEventObject()
+
+        # Authenticated user is an accepted event member
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        EventMember.objects.create(
+            user = user,
+            userId = user.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
+
+        otherUser = self.generateNewUserObject()
+        comment = EventComment.objects.create(
+            event = eventObject,
+            user = otherUser,
+            content = "Hello World",
+            createdAt = timezone.make_aware(datetime.datetime.now()),
+        )
+        url = self.baseUrl + 'comment/update/' + str(comment.id) + '/'
+
+        data = {
+            "content" : "Hello World"
+        }
+        response = c.put(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
 
 
 
