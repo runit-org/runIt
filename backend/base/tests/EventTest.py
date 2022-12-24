@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.test import Client
-from base.models import User, UserExtend, UserVote, Event, EventMember, EventComment
+from base.models import User, UserExtend, UserVote, Event, EventMember, EventComment, EventCommentLike
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -1065,9 +1065,168 @@ class EventTestClass(TestCase):
         response = c.put(url, data, format='json')
         self.assertFalse(response.status_code == status.HTTP_200_OK)
 
+    def test_delete_comment_success(self):
+        eventObject = self.generateNewEventObject()
 
+        # Authenticated user is an accepted event member
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
 
+        EventMember.objects.create(
+            user = user,
+            userId = user.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
 
+        comment = EventComment.objects.create(
+            event = eventObject,
+            user = user,
+            content = "Hello World",
+            createdAt = timezone.make_aware(datetime.datetime.now()),
+        )
+        url = self.baseUrl + 'comment/delete/' + str(comment.id) + '/'
 
+        response = c.delete(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(len(EventComment.objects.filter(id=eventObject.id)) < 1)
+
+    def test_delete_comment_not_comment_writer_fails(self):
+        eventObject = self.generateNewEventObject()
+
+        # Authenticated user is an accepted event member
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        EventMember.objects.create(
+            user = user,
+            userId = user.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
+
+        otherUser = self.generateNewUserObject()
+        comment = EventComment.objects.create(
+            event = eventObject,
+            user = otherUser,
+            content = "Hello World",
+            createdAt = timezone.make_aware(datetime.datetime.now()),
+        )
+        url = self.baseUrl + 'comment/delete/' + str(comment.id) + '/'
+
+        response = c.delete(url, {}, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+        self.assertTrue(len(EventComment.objects.filter(id=eventObject.id)) > 0)
+
+    def test_like_event_comment_success(self):
+        eventObject = self.generateNewEventObject()
+
+        # Authenticated user is an accepted event member
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        EventMember.objects.create(
+            user = user,
+            userId = user.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
+
+        comment = EventComment.objects.create(
+            event = eventObject,
+            user = user,
+            content = "Hello World",
+            createdAt = timezone.make_aware(datetime.datetime.now()),
+        )
+        url = self.baseUrl + 'comment/likeUnlike/' + str(comment.id) + '/'
+
+        response = c.post(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(len(EventCommentLike.objects.filter(eventComment=comment, user=user)) > 0)
+
+    def test_unlike_event_comment_success(self):
+        eventObject = self.generateNewEventObject()
+
+        # Authenticated user is an accepted event member
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        EventMember.objects.create(
+            user = user,
+            userId = user.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
+
+        comment = EventComment.objects.create(
+            event = eventObject,
+            user = user,
+            content = "Hello World",
+            createdAt = timezone.make_aware(datetime.datetime.now()),
+        )
+        url = self.baseUrl + 'comment/likeUnlike/' + str(comment.id) + '/'
+
+        # Create a comment object first so it can be unliked
+        EventCommentLike.objects.create(
+            eventComment = comment,
+            user = user
+        )
+
+        response = c.post(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(len(EventCommentLike.objects.filter(eventComment=comment, user=user)) < 1)
+
+    def test_like_event_comment_not_accepted_member_fails(self):
+        eventObject = self.generateNewEventObject()
+
+        # Authenticated user is an accepted event member
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        EventMember.objects.create(
+            user = user,
+            userId = user.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.PENDING.value
+        )
+
+        comment = EventComment.objects.create(
+            event = eventObject,
+            user = user,
+            content = "Hello World",
+            createdAt = timezone.make_aware(datetime.datetime.now()),
+        )
+        url = self.baseUrl + 'comment/likeUnlike/' + str(comment.id) + '/'
+
+        response = c.post(url, {}, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+
+    def test_like_event_comment_event_no_longer_active_fails(self):
+        
 
 
