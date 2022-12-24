@@ -1227,6 +1227,39 @@ class EventTestClass(TestCase):
         self.assertFalse(response.status_code == status.HTTP_200_OK)
 
     def test_like_event_comment_event_no_longer_active_fails(self):
-        
+        eventObject = self.generateNewEventObject()
+        eventObject.status = EventStatus.get.CANCELLED.value
+        eventObject.save()
 
+        # Authenticated user is an accepted event member
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
 
+        EventMember.objects.create(
+            user = user,
+            userId = user.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
+
+        comment = EventComment.objects.create(
+            event = eventObject,
+            user = user,
+            content = "Hello World",
+            createdAt = timezone.make_aware(datetime.datetime.now()),
+        )
+        url = self.baseUrl + 'comment/likeUnlike/' + str(comment.id) + '/'
+
+        # Create a comment object first so it can be unliked
+        EventCommentLike.objects.create(
+            eventComment = comment,
+            user = user
+        )
+
+        response = c.post(url, {}, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
