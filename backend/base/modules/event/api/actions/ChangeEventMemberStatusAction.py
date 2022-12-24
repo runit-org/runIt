@@ -34,7 +34,7 @@ def updateStatus(request):
     data = request.data
     user = request.user
 
-    if not checkEventId:
+    if not checkEventId(data['eventId']):
         return error('Event ID not found')
 
     event = Event.objects.get(id=data['eventId'])

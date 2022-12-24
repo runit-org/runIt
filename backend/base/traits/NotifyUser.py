@@ -1,6 +1,7 @@
 from base.models import *
 
 from datetime import datetime
+from django.utils import timezone
 
 def notify(userId, details, link=None):
     Notification.objects.create(
@@ -8,5 +9,5 @@ def notify(userId, details, link=None):
         details = details,
         link = link,
 
-        createdAt = datetime.now()
+        createdAt = timezone.make_aware(datetime.now())
     )
