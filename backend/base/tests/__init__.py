@@ -3,3 +3,4 @@ from base.tests.UserTest import UserTestClass
 from base.tests.EventTest import EventTestClass
 from base.tests.EventCommentTest import EventCommentTestClass
 from base.tests.EventMemberTest import EventMemberTestClass
+from base.tests.NotificationTest import NotificationTestClass
