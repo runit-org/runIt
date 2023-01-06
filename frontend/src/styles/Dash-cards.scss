@@ -100,8 +100,18 @@
   padding: 1rem 1rem;
 }
 
+.event-card_dash .card-footer {
+  background-color: $primary-light;
+  border-bottom-left-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+}
+
 .event-card_dash .event-brief small {
   font-size: 12px;
+}
+.event-card_dash .event-brief h4 {
+  font-size: 16px;
+  font-weight: 600;
 }
 .event-card_dash .event-brief p {
   font-size: 16px;
