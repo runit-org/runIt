@@ -1,5 +1,5 @@
 describe("Init", () => {
-  it("App loads up", () => {
+  it("App loads", () => {
     cy.mount("/");
   });
 });
