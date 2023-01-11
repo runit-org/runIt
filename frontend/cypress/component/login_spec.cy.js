@@ -1,5 +1,5 @@
-describe("inital", () => {
-  it("initial load", () => {
+describe("login", () => {
+  it("user can login", () => {
     cy.mount("/");
   });
 });
