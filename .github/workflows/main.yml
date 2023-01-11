@@ -8,17 +8,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        run: npm install --legacy-peer-deps
       - name: Show Cypress information
         run: npx cypress info
       - name: Verify Cypress can run
         run: npx cypress verify
       - name: Cypress run
-        uses: cypress-io/github-action@v5.0.5 # use the explicit version number
+        uses: cypress-io/github-action@v5.0.5
         with:
+          install: false
+          working-directory: ./frontend
           build: npm run build
           start: npm start
-          working-directory: ./frontend
