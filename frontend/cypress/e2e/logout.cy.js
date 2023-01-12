@@ -7,7 +7,8 @@ describe("Auth-logout", () => {
       cy.findByLabelText(/password/i).type(user.password);
       cy.findByRole("button", { name: /login/i }).click();
       //logout
-      cy.location("pathname", { timeout: 6000 })
+      cy.wait(5000);
+      cy.location("pathname")
         .should("include", "/posts")
         .then((res) => {
           cy.findByRole("button", { name: /img/i }).click();

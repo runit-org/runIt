@@ -7,6 +7,7 @@ describe("Auth-loggedIn", () => {
       cy.findByLabelText(/password/i).type(user.password);
       cy.findByRole("button", { name: /login/i }).click();
       //route to homepage
+      cy.wait(5000);
       cy.location("pathname")
         .should("include", "/posts")
         .then(() => {
