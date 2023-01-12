@@ -7,9 +7,12 @@ describe("Auth-loggedIn", () => {
       cy.findByLabelText(/password/i).type(user.password);
       cy.findByRole("button", { name: /login/i }).click();
       //route to homepage
-      cy.location("pathname", { timeout: 6000 }).should("include", "/posts");
-      cy.visit("/");
-      cy.getCookie("token").should("be.not.empty");
+      cy.location("pathname")
+        .should("include", "/posts")
+        .then(() => {
+          cy.visit("/");
+          cy.getCookie("token").should("be.not.empty");
+        });
     });
   });
 });
