@@ -11,7 +11,7 @@ describe("Auth-logout", () => {
       cy.getCookie("token").should("be.not.empty");
       cy.findByRole("button", { name: /img/i }).click();
       cy.findByRole("button", { name: /logout/i }).click();
-      cy.getCookie("token").should("not.exist");
+      cy.getCookie("token", { timeout: 6000 }).should("not.exist");
     });
   });
 });

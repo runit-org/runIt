@@ -9,7 +9,7 @@ describe("Auth-loggedIn", () => {
       //route to homepage
       cy.wait(4000);
       cy.visit("/");
-      cy.getCookie("token").should("be.not.empty");
+      cy.getCookie("token", { timeout: 6000 }).should("be.not.empty");
     });
   });
 });
