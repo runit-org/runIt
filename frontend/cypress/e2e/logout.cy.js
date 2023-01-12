@@ -7,13 +7,11 @@ describe("Auth-logout", () => {
       cy.findByLabelText(/password/i).type(user.password);
       cy.findByRole("button", { name: /login/i }).click();
       //logout
-      cy.location("pathname", { timeout: 20000 })
-        .should("include", "/posts")
-        .then(() => {
-          cy.findByRole("button", { name: /img/i }).click();
-          cy.findByRole("button", { name: /logout/i }).click();
-          cy.getCookie("token").should("not.exist");
-        });
+      cy.wait(4000);
+      cy.getCookie("token").should("be.not.empty");
+      cy.findByRole("button", { name: /img/i }).click();
+      cy.findByRole("button", { name: /logout/i }).click();
+      cy.getCookie("token").should("not.exist");
     });
   });
 });
