@@ -1,5 +1,5 @@
 describe("Auth-logout", () => {
-  let username = "testuser1";
+  let username = "testuser";
   let password = "password123";
   it("user can logout", () => {
     cy.visit("/");

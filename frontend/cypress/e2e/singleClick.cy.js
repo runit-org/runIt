@@ -1,5 +1,5 @@
 describe("Auth-loggedIn", () => {
-  let username = "testuser1";
+  let username = "testuser";
   let password = "password123";
 
   it("single click login works", () => {
