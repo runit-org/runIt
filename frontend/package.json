@@ -32,7 +32,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "node server.js & npm start",
-    "djangoServer": "script.bat"
   },
   "eslintConfig": {
     "extends": [
