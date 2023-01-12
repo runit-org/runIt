@@ -1,15 +1,15 @@
 describe("Auth-logout", () => {
-  let username = "testuser";
-  let password = "password123";
   it("user can logout", () => {
-    cy.visit("/");
-    cy.findByRole("textbox").type(username);
-    cy.findByLabelText(/password/i).type(password);
-    cy.findByRole("button", { name: /login/i }).click();
+    cy.fixture("user_creds").then((user) => {
+      cy.visit("/");
+      cy.findByRole("textbox").type(user.username);
+      cy.findByLabelText(/password/i).type(user.password);
+      cy.findByRole("button", { name: /login/i }).click();
 
-    cy.location("pathname", { timeout: 6000 }).should("include", "/posts");
-    cy.findByRole("button", { name: /img/i }).click();
-    cy.findByRole("button", { name: /logout/i }).click();
-    cy.getCookie("token").should("not.exist");
+      cy.location("pathname", { timeout: 6000 }).should("include", "/posts");
+      cy.findByRole("button", { name: /img/i }).click();
+      cy.findByRole("button", { name: /logout/i }).click();
+      cy.getCookie("token").should("not.exist");
+    });
   });
 });
