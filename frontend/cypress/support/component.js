@@ -14,14 +14,29 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import "./commands";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import { mount } from 'cypress/react'
+import { mount } from "cypress/react";
+import { MemoryRouter, Routes } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "../../src/store";
 
-Cypress.Commands.add('mount', mount)
+Cypress.Commands.add("mount", (component, options = {}) => {
+  const { routerProps = { initialEntries: ["/"] }, ...mountOptions } = options;
+
+  const wrapped = (
+    <Provider store={store}>
+      <MemoryRouter {...routerProps}>
+        <Routes>{component}</Routes>
+      </MemoryRouter>
+    </Provider>
+  );
+
+  return mount(wrapped, mountOptions);
+});
 
 // Example use:
 // cy.mount(<MyComponent />)
