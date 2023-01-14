@@ -24,7 +24,7 @@ def validate(request):
         return validationError('The dates format must be integer') 
 
     if data['year'] != datetime.now().year:
-        return validationError('The eventmatcher app does not provide event planning outside the current year')
+        return validationError('The runIt app does not provide event planning outside the current year')
 
     if data['month'] < 1 or data['month'] > 12:
         return validationError('Invalid month')
