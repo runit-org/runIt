@@ -29,32 +29,33 @@ def mention(event, content, user):
     characters = content.split(' ')
     for i in characters:
         targetUsername = ''
-        if i[0] == '@':
-            targetUsername = i[1:]
+        if len(i) > 1:
+            if i[0] == '@':
+                targetUsername = i[1:]
 
-        # Check if user is tagging everyone
-        if targetUsername == 'everyone':
-            eventMembers = EventMember.objects.filter(event = event)    
-            for eventMemObject in eventMembers:
-                if eventMemObject.status == EventMemberStatus.get.ACCEPTED.value:
-                    link = '/event/' + str(event.id)
-                    notificationMessage = 'User <b>' + user.username + '</b> mentioned you in a comment on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
-                    NotifyUser.notify(eventMemObject.userId, notificationMessage, link)
+            # Check if user is tagging everyone
+            if targetUsername == 'everyone':
+                eventMembers = EventMember.objects.filter(event = event)    
+                for eventMemObject in eventMembers:
+                    if eventMemObject.status == EventMemberStatus.get.ACCEPTED.value:
+                        link = '/event/' + str(event.id)
+                        notificationMessage = 'User <b>' + user.username + '</b> mentioned you in a comment on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
+                        NotifyUser.notify(eventMemObject.userId, notificationMessage, link)
 
-        # Check if the mentioned user exist in the database first
-        if len(User.objects.filter(username = targetUsername)) > 0:
-            targetUser = User.objects.get(username = targetUsername)
+            # Check if the mentioned user exist in the database first
+            if len(User.objects.filter(username = targetUsername)) > 0:
+                targetUser = User.objects.get(username = targetUsername)
 
-            checkIfTargetUserIsMember = EventMember.objects.filter(eventId = event.id, userId = targetUser.id, status = EventMemberStatus.get.ACCEPTED.value)
+                checkIfTargetUserIsMember = EventMember.objects.filter(eventId = event.id, userId = targetUser.id, status = EventMemberStatus.get.ACCEPTED.value)
 
-            # Tagging yourself wouldn't notify
-            if targetUser != user:
+                # Tagging yourself wouldn't notify
+                if targetUser != user:
 
-                # Then check if the mentioned user is an ACCEPTED member of the current event OR is the event's creator
-                if len(checkIfTargetUserIsMember) > 0 or targetUser == event.user:
-                    link = '/event/' + str(event.id)
-                    notificationMessage = 'User <b>' + user.username + '</b> mentioned you in a comment on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
-                    NotifyUser.notify(targetUser.id, notificationMessage, link)
+                    # Then check if the mentioned user is an ACCEPTED member of the current event OR is the event's creator
+                    if len(checkIfTargetUserIsMember) > 0 or targetUser == event.user:
+                        link = '/event/' + str(event.id)
+                        notificationMessage = 'User <b>' + user.username + '</b> mentioned you in a comment on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
+                        NotifyUser.notify(targetUser.id, notificationMessage, link)
 
 
 def create(request, eventId):
