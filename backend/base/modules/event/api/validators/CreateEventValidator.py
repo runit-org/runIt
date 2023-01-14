@@ -14,6 +14,9 @@ def validate(request):
     if str(data['title']) == '' or str(data['title']).isspace() == True:
         return validationError('Title cannot be empty')
 
+    if len(data['title']) > 100:
+        return validationError('Title is too long (100 chars max)')
+
     if isinstance(data['maxMember'], int) == False:
         return validationError('Max member must be integer')
     
