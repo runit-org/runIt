@@ -6,7 +6,7 @@ from base.mail.AuthMail import userRegistered
 from base.traits import NotifyUser
 
 def sendNotification(user):
-    message = 'Welcome to eventmatcher, <b>' + user.username + '</b>! You can now participate in events made by other users, or create one of your own. Enjoy!'
+    message = 'Welcome to runIt, <b>' + user.username + '</b>! You can now participate in events made by other users, or create one of your own. Enjoy!'
     NotifyUser.notify(user.id, message)
 
 def register(request):
