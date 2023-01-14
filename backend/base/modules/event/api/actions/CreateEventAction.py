@@ -11,18 +11,19 @@ def mention(event, content, user):
     characters = content.split(' ')
     for i in characters:
         targetUsername = ''
-        if i[0] == '@':
-            targetUsername = i[1:]
+        if len(i) > 1:
+            if i[0] == '@':
+                targetUsername = i[1:]
 
-        # Check if the mentioned user exist in the database first
-        if len(User.objects.filter(username = targetUsername)) > 0:
-            targetUser = User.objects.get(username = targetUsername)
+            # Check if the mentioned user exist in the database first
+            if len(User.objects.filter(username = targetUsername)) > 0:
+                targetUser = User.objects.get(username = targetUsername)
 
-            # Tagging yourself wouldn't notify
-            if targetUser != user:
-                link = '/event/' + str(event.id)
-                notificationMessage = 'User <b>' + user.username + '</b> mentioned you on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
-                NotifyUser.notify(targetUser.id, notificationMessage, link)
+                # Tagging yourself wouldn't notify
+                if targetUser != user:
+                    link = '/event/' + str(event.id)
+                    notificationMessage = 'User <b>' + user.username + '</b> mentioned you on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
+                    NotifyUser.notify(targetUser.id, notificationMessage, link)
 
                
 def create(request):
