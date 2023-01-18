@@ -34,6 +34,7 @@ urlpatterns = [
     path('event/owned/', EventViews.ownedEvent, name="owned_event"),
     path('event/affiliated/', EventViews.participatedAndOwnedEvent, name='affiliated_event'),
     path('event/announce/<str:eventId>/', EventViews.announce, name='make_announcement'),
+    path('event/createSuggestions/<str:page>/', EventViews.createEventSuggestions, name='create_event_suggestions'),
 
     path('event/member/requestJoin/', EventViews.requestJoinEvent, name="request_join_event"),
     path('event/member/getMembers/<str:pk>/', EventViews.getEventMembers, name="get_event_members"),
