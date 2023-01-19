@@ -15,21 +15,23 @@ def getEventJsonObjects(soupFound):
 
     eventJsonObjectsArray = []
     for indvEvent in soupFound:
-        spanArray = []
-        spans = indvEvent.find_all('span')
-        for span in spans:
-            spanArray.append(span)
+        if len(eventJsonObjectsArray) < 15:
+            spanArray = []
+            spans = indvEvent.find_all('span')
+            for span in spans:
+                spanArray.append(span)
 
-        if indvEvent.h2 != None:
-            eventJsonObject = {
-                'title': indvEvent.h2.a.get_text().replace(u'\xa0', u' '),
-                'location': indvEvent.p.span.get_text().replace(u'\xa0', u' '),
-                'time': spanArray[2].get('title'),
-                'category': spanArray[3].get_text().replace(u'\xa0', u' '),
-                'link': baseEventWebsite + indvEvent.h2.a.get('href')
-            }
+            if indvEvent.h2 != None:
+                eventJsonObject = {
+                    'title': indvEvent.h2.a.get_text().replace(u'\xa0', u' '),
+                    'location': indvEvent.p.span.get_text().replace(u'\xa0', u' '),
+                    'time': spanArray[2].get('title'),
+                    'category': spanArray[3].get_text().replace(u'\xa0', u' '),
+                    'link': baseEventWebsite + indvEvent.h2.a.get('href'),
+                    'image': indvEvent.img.get('data-src'),
+                }
 
-            eventJsonObjectsArray.append(eventJsonObject)
+                eventJsonObjectsArray.append(eventJsonObject)
 
     return eventJsonObjectsArray
 
@@ -50,7 +52,8 @@ def get(request, page):
     driver.quit()
 
     soup = BeautifulSoup(page, 'html.parser')
-    findDiv = soup.find_all("div", {"class": "card-body"})
+    findDiv = soup.find_all("div", {"class": "d-flex"})
+
     eventJsonObjects = getEventJsonObjects(findDiv)
 
     return response('Event suggestions retrieved', eventJsonObjects)
