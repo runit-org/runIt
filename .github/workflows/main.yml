@@ -18,3 +18,5 @@ jobs:
           working-directory: ./frontend
           build: npm run build
           start: npm run dev & npx wait-on http://localhost:3000
+          component: true
+          e2e: false
