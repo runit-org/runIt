@@ -14,6 +14,9 @@ def validate(request):
     if str(data['title']) == '' or str(data['title']).isspace() == True:
         return validationError('Title cannot be empty')
 
+    if len(data['title']) > 100:
+        return validationError('Title is too long (100 chars max)')
+
     if isinstance(data['maxMember'], int) == False:
         return validationError('Max member must be integer')
     
@@ -24,7 +27,7 @@ def validate(request):
         return validationError('The dates format must be integer') 
 
     if data['year'] != datetime.now().year:
-        return validationError('The eventmatcher app does not provide event planning outside the current year')
+        return validationError('The runIt app does not provide event planning outside the current year')
 
     if data['month'] < 1 or data['month'] > 12:
         return validationError('Invalid month')

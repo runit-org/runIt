@@ -21,6 +21,7 @@ from base.modules.event.api.actions import (
     GetParticipatedAndOwnedEventsAction,
     AnnounceMembersAction,
     UpdateEventStatusAction,
+    GetCreateEventSuggestionsAction,
 )
 
 @api_view(['POST'])
@@ -103,3 +104,8 @@ def announce(request, eventId):
         return AnnounceMembersValidator.validate(request)
 
     return AnnounceMembersAction.send(request, eventId)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def createEventSuggestions(request, page):
+    return GetCreateEventSuggestionsAction.get(request, page)
