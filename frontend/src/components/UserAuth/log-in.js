@@ -96,6 +96,7 @@ function Login() {
               />
               <Button
                 className="fst-italic show_hide-pw"
+                name="login"
                 onClick={() => {
                   handleInputType();
                 }}

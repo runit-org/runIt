@@ -15,13 +15,13 @@ function Footer() {
 
         <Col sm={6} className="footer-links">
           <span>
-            <a href="#">Support</a>
+            <a href="/">Support</a>
           </span>
           <span>
-            <a href="#">About</a>
+            <a href="/">About</a>
           </span>
           <span>
-            <a href="#">Changelog</a>
+            <a href="/">Changelog</a>
           </span>
         </Col>
       </Row>

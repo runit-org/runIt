@@ -2,7 +2,7 @@ import { io } from "socket.io-client";
 import { getNotifications } from "../../actions/notificationActions";
 
 export const connection = () => {
-  const socket = io("ws://localhost:5000");
+  const socket = io("ws://localhost:4001");
   return socket;
 };
 
