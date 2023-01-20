@@ -1,0 +1,28 @@
+@import "index.scss";
+
+/*------Notification------*/
+.notif-button-item {
+  padding: 15px 30px 0 !important;
+  width: 100%;
+  text-align: left !important;
+  text-decoration: none !important;
+  color: $primary-dark !important;
+  border: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.notif-button-item:hover {
+  background-color: $theme-light;
+  color: $theme !important;
+}
+.notif-button-item hr {
+  margin-bottom: 0;
+  color: $theme;
+}
+.notif-subHeader {
+  padding: 20px 30px 0 !important;
+}
+.notif-mark {
+  color: $theme;
+}

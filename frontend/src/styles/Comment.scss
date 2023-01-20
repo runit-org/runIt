@@ -1,0 +1,12 @@
+@import "index.scss";
+
+.comment-card {
+  background-color: $primary-light !important;
+  margin: 20px;
+  border-radius: 8px !important;
+}
+.comment-card textarea {
+  background-color: transparent !important;
+
+  resize: none;
+}

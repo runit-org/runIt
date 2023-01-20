@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+/*------Color Pallet------*/
+$theme: #6366f1;
+$theme-light: #eaebfd;
+$primary-light: #ffffff;
+$secondary-light: #f7f7f7;
+$primary-dark: #2c2f33;
+$secondary-dark: #23272a;
+$button-bg: #e0e7ff;
+$button-text: #3730a3;
+$button-hover: #3730a3;
+
+/*------Font------*/
+$size-sm: 0.75rem;
+$size-md: 0.875rem;
+$size-lg: 1.2rem;
+
+$font-header: "Poppins", "Roboto", "sans-serif", Arial, Helvetica;
+$font-body: "Roboto", sans-serif, Arial, Helvetica;
+
+/*------Mixin------*/
+
+//Button
+@mixin btn-style($bgColor, $color, $border, $fw) {
+  background-color: $bgColor !important;
+  color: $color !important;
+  border: $border !important;
+  font-weight: $fw !important;
+}
+
+@mixin title-text($color, $fs, $ltrspace, $fw) {
+  color: $color !important;
+  font-size: $fs;
+  letter-spacing: $ltrspace !important;
+  font-weight: $fw !important;
+}
+
+@mixin header-footer-font($fntSize, $fntFam, $fntW) {
+  font-size: $fntSize;
+  font-family: $fntFam;
+  font-weight: $fntW;
+}
+@mixin font($fntFam, $fntSize, $fntW, $lineH, $fontStyle) {
+  font-family: $fntFam !important;
+  font-size: $fntSize;
+  font-weight: $fntW !important;
+  line-height: $lineH;
+  font-style: $fontStyle;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: $font-body, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+h1 {
+  @include font($font-header, 56px, 600, 67.2px, "normal");
+}
+h2 {
+  @include font($font-header, 48px, 600, 57.6px, "normal");
+}
+h3 {
+  @include font($font-header, 22px, 600, 26.4px, "normal");
+}
+
+.content_1 {
+  @include font($font-body, 20px, 400, 30px, "normal");
+}
+.content_sm1 {
+  @include font($font-body, 16px, 400, 24px, "normal");
+}
+.content_sm3 {
+  @include font($font-body, 12px, 400, 18px, "normal");
+}
+.content_sm4 {
+  @include font($font-body, 18px, 600, 27px, "normal");
+}
+.content_sm5 {
+  @include font($font-body, 14px, 400, 18px, "normal");
+}
+p {
+  @include font($font-body, 20px, 400, 30px, "normal");
+}
+a,
+h5,
+h6 {
+  font-family: $font-body;
+}
