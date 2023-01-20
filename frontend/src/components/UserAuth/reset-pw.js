@@ -18,7 +18,7 @@ function ResetPassword(props) {
   const [show, setShow] = useState(false);
   const [formSwitch, setFormSwitch] = useState(false);
 
-  var errorStatus = useSelector((errorReducer) => errorReducer.errors);
+  var errorStatus = useSelector((errorReducer) => errorReducer.errors.errors);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

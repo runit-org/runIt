@@ -35,7 +35,7 @@ function Main() {
     (securityReducer) => securityReducer.users.currProfile
   );
 
-  var error = useSelector((errorReducer) => errorReducer.errors.status);
+  var error = useSelector((errorReducer) => errorReducer.errors.errors.status);
 
   useEffect(() => {
     if (isValid) {

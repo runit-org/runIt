@@ -6,16 +6,18 @@ function ErrorToast(props) {
   const [show, setShow] = useState(props.showToast);
   const [msg, setMsg] = useState("");
 
-  const reducer = useSelector((securityReducer) => securityReducer);
+  const reducer = useSelector((errorReducer) => errorReducer.errors.errors);
 
   useEffect(() => {
     setShow(props.showToast);
-    if (reducer.errors.data) {
-      if (reducer.errors.data.detail) {
-        setMsg(reducer.errors.data.detail);
-      } else if (reducer.errors.data.message) {
-        setMsg(reducer.errors.data.message);
+    if (reducer.data) {
+      if (reducer.data.detail) {
+        setMsg(reducer.data.detail);
+      } else if (reducer.data.message) {
+        setMsg(reducer.data.message);
       }
+    } else {
+      setMsg("Fe: Err report");
     }
   }, [props.showToast, reducer]);
 
