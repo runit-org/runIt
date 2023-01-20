@@ -16,7 +16,7 @@ jobs:
         uses: cypress-io/github-action@v5.0.5
         with:
           working-directory: ./frontend
-          component: true
-          e2e: false
           build: npm run build
           start: npm run dev & npx wait-on http://localhost:3000
+          component: true
+          e2e: false
