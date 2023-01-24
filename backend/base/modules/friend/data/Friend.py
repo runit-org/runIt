@@ -6,9 +6,9 @@ from datetime import datetime
 # Create your models here.
 
 class Friend(models.Model):
-
-    user1 = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    user2 = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    # Related name is needed to avoid clash between models, since we have both foreign key to the User model
+    user1 = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='first_user')
+    user2 = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='second_user')
     createdAt = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
