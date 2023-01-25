@@ -8,7 +8,7 @@ import { Submit } from "../SiteElements/icons";
 import { MentionFilter } from "../Utilities/mention";
 import { SearchParam } from "../Utilities/search-param";
 
-function CreateEvent() {
+function CreateEvent(props) {
   const dispatch = useDispatch();
   const formRef = useRef(0);
   const [title, setTitle] = useState("");
@@ -59,6 +59,13 @@ function CreateEvent() {
     }
   }, [error]);
 
+  //data from suggestions
+  useEffect(() => {
+    if (props.suggestion !== "") {
+      setTitle(props.suggestion);
+    }
+  }, [props.suggestion]);
+
   return (
     <Card className="event-card">
       <Card.Header>
@@ -79,6 +86,7 @@ function CreateEvent() {
                   <Form.Control
                     type="title"
                     placeholder="Christmas social"
+                    value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
                   />

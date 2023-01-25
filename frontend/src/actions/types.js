@@ -21,3 +21,6 @@ export const GET_CURRENT_USER_PROFILE = "GET_CURRENT_USER_PROFILE";
 
 //comment types
 export const GET_ALL_COMMENTS = "GET_ALL_COMMENTS";
+
+//suggest types
+export const GET_EVENT_SUGGESTIONS = "GET_EVENT_SUGGESTIONS";

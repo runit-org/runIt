@@ -4,6 +4,7 @@ import { getAllComments } from "../../../actions/commentActions";
 import {
   getAllEvents,
   getEventMembers,
+  getEventSuggestions,
   getSingleEvent,
 } from "../../../actions/eventActions";
 

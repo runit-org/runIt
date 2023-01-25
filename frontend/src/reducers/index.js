@@ -5,6 +5,7 @@ import eventReducer from "./eventReducer";
 import notificationReducer from "./notificationReducer";
 import userReducer from "./userReducer";
 import commentReducer from "./commentReducer";
+import suggestReducer from "./suggestReducer";
 
 export default combineReducers({
   security: securityReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   notifications: notificationReducer,
   users: userReducer,
   comments: commentReducer,
+  suggestions: suggestReducer,
 });
