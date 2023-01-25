@@ -7,6 +7,7 @@ from base.modules.friend.api.actions import (
     RequestFriendshipAction,
     RespondFriendshipRequestAction,
     ShowFriendsAction,
+    ShowFriendRequestsAction,
 )
 
 @api_view(['POST'])
@@ -26,3 +27,8 @@ def respondFriendshipRequest(request, userId):
 @permission_classes([IsAuthenticated])
 def showFriends(request):
     return ShowFriendsAction.get(request)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def showFriendRequests(request):
+    return ShowFriendRequestsAction.get(request)
