@@ -6,6 +6,7 @@ from base.modules.friend.api.validators import (
 from base.modules.friend.api.actions import (
     RequestFriendshipAction,
     RespondFriendshipRequestAction,
+    ShowFriendsAction,
 )
 
 @api_view(['POST'])
@@ -20,3 +21,8 @@ def respondFriendshipRequest(request, userId):
         return RespondFriendshipRequestValidator.validate(request)
 
     return RespondFriendshipRequestAction.respond(request, userId)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def showFriends(request):
+    return ShowFriendsAction.get(request)

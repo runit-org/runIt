@@ -53,4 +53,5 @@ urlpatterns = [
 
     path('friends/request/<str:userId>/', FriendViews.requestFriendship, name="send_friendship_request"),
     path('friends/respond/<str:userId>/', FriendViews.respondFriendshipRequest, name="respond_friendship_request"),
+    path('friends/show/', FriendViews.showFriends, name="show_current_user_friends"),
 ]
