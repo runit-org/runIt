@@ -87,23 +87,37 @@
 
 // Dashboard
 .event-card_dash {
+  margin: 20px;
+}
+.event-card_dash #card_header {
+  padding: 0 0.4rem 10px 0.4rem;
+}
+.event-card_dash #card_header .card-timestamp {
+  font-size: 12px;
+  &::before {
+    padding-right: 1.5px;
+    content: "\2022";
+  }
+}
+.userProf-img#card-img {
+  width: 25px;
+}
+
+.event-card_dash .card {
   background-color: $primary-light !important;
   border-radius: 8px !important;
-  margin: 20px;
-  // min-height: 298px;
 }
 
-.event-card_dash .card-header {
+.event-card_dash .card .card-footer {
   background-color: $primary-light;
-  border-top-left-radius: 8px !important;
-  border-top-right-radius: 8px !important;
-  padding: 1rem 1rem;
-}
-
-.event-card_dash .card-footer {
-  background-color: $primary-light;
+  border-top: none;
   border-bottom-left-radius: 8px !important;
   border-bottom-right-radius: 8px !important;
+  text-align: end;
+}
+.event-card_dash .card .card-footer a {
+  color: $fnt-muted !important;
+  font-size: 14px;
 }
 
 .event-card_dash .event-brief small {

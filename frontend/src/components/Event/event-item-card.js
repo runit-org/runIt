@@ -7,34 +7,31 @@ import { BadgeItem, RequestBtn, StatusBadge } from "./utilities/event-builder";
 
 function EventItemCard(props) {
   return (
-    <>
-      <Card className="event-card_dash">
-        <Card.Header>
-          <div className="d-flex">
-            <img
-              src={props.eventData.gravatarImage}
-              className="userProf-img me-2"
-              alt="Img"
-            />
-            <div className="me-auto">
-              <PopoverItem data={props.eventData.userName} />
+    <div className="event-card_dash">
+      <div className="d-flex" id="card_header">
+        <img
+          src={props.eventData.gravatarImage}
+          className="userProf-img me-2"
+          id="card-img"
+          alt="Img"
+        />
+        <PopoverItem data={props.eventData.userName} />
 
-              <small
-                className="text-muted"
-                style={{ fontSize: "12px", display: "block" }}
-              >
-                <strong> {props.eventData.humanTimeDiffCreatedAt} ago</strong>
-              </small>
-            </div>
+        <div className="me-auto">
+          <span className="card-timestamp text-muted align-self-center ms-1">
+            {props.eventData.humanTimeDiffCreatedAt} ago
+          </span>
+        </div>
 
-            <StatusBadge joinedStatus={props.eventData.joinedStatus} />
-            <RequestBtn
-              JoinEvent={props.eventData}
-              joinedStatus={props.eventData.joinedStatus}
-              btnStyleFull={false}
-            />
-          </div>
-        </Card.Header>
+        <StatusBadge joinedStatus={props.eventData.joinedStatus} />
+        <RequestBtn
+          JoinEvent={props.eventData}
+          joinedStatus={props.eventData.joinedStatus}
+          btnStyleFull={false}
+        />
+      </div>
+
+      <Card>
         <Card.Body>
           <div className="event-brief mt-1">
             <h4>{props.eventData.title} </h4>
@@ -53,11 +50,11 @@ function EventItemCard(props) {
         </Card.Body>
         <Card.Footer>
           <Link to={`/event/${props.eventData.id}`}>
-            More <ArrowRight />
+            Details <ArrowRight />
           </Link>
         </Card.Footer>
       </Card>
-    </>
+    </div>
   );
 }
 

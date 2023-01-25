@@ -34,7 +34,7 @@ const PopoverItem = (props) => {
         onMouseEnter={handleOnMouseEnter}
         onMouseLeave={handleOnMouseLeave}
         ref={ref}
-        className="username_tags"
+        className="username_tags align-self-center"
       >
         @{props.data}
       </span>

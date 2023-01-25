@@ -16,7 +16,7 @@
 }
 
 .navbar-nav .nav-link {
-  color: #6c757d !important;
+  color: $fnt-muted !important;
 }
 
 .navbar-nav .nav-link:hover {
@@ -42,7 +42,7 @@ a.dropdown-item:hover {
 
 .navbar .dropdown-menu a {
   @include header-footer-font(0.875rem, sans-serif, 500);
-  color: #6c757d !important;
+  color: $fnt-muted !important;
   &:hover {
     color: $theme !important;
   }
