@@ -52,4 +52,5 @@ urlpatterns = [
     path('notifications/readAll/', NotificationViews.readAll, name="user_read_all_notification"),
 
     path('friends/request/<str:userId>/', FriendViews.requestFriendship, name="send_friendship_request"),
+    path('friends/respond/<str:userId>/', FriendViews.respondFriendshipRequest, name="respond_friendship_request"),
 ]

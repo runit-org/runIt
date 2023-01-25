@@ -39,13 +39,13 @@ def checkRequestExist(main, requester):
         return False
 
 def sendNotification(target, user):
-    link = '/friend-request/'
-    notificationMessage = 'You have a pending friend request from <b>' + user.username + '</b>. Click to manage your friend requests.'  
+    link = '/profile?user=' + user.username
+    notificationMessage = 'User <b>' + user.username + '</b> has accepted your friendship request.'  
     NotifyUser.notify(
         target.id, notificationMessage, link
     )
 
-def request(request, userId):
+def respond(request, userId):
     data = request.data
     user = request.user
 
@@ -53,7 +53,7 @@ def request(request, userId):
         return error('User ID not found')
 
     if int(user.id) == int(userId):
-        return error('Cannot request friend on self')
+        return error('Cannot respond friend on self')
 
     targetUser = User.objects.get(id=userId)
 
@@ -61,12 +61,19 @@ def request(request, userId):
         return error('Already friends')
 
     if checkRequestExist(targetUser, user):
-        return error('You have friendship request pending on this user')
+        return error('You have requested to be their friend')
 
-    if checkRequestExist(user, targetUser):
-        return error('This user has requested to be your friend')
+    if not checkRequestExist(user, targetUser):
+        return error('This user is not requesting to be your friend')
 
-    FriendRequest.objects.create(main=targetUser, requester=user)
-    sendNotification(targetUser, user)
+    friendRequestObject = FriendRequest.objects.get(main=user, requester=targetUser)
+    friendRequestObject.delete()
 
-    return response('Request sent')
+    if data['respond'] == 1:
+        Friend.objects.create(user1=user, user2=targetUser)
+        sendNotification(targetUser, user)
+
+        return response('Request accepted')
+    else:
+        return response('Request deleted')
+    
