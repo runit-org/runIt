@@ -46,6 +46,8 @@ def checkAlreadyFriends(user1, user2):
         return False
 
 def getAuthUserFriendshipStatusOnThisUser(targetUser, currentUser):
+    if targetUser == currentUser:
+        return 'ME'
     if checkAlreadyFriends(targetUser, currentUser):
         return FriendshipStatus.get.FRIENDS.name
     if checkRequestExist(targetUser, currentUser):
