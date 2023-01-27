@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap";
-import Loading from "../../SiteElements/loader";
+import { Loading } from "../../SiteElements/loader";
 
 export const FormButton = (props) => {
   return (

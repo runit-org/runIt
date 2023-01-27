@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Information } from "../SiteElements/icons";
+import { Skeleton } from "../SiteElements/loader";
 import PopoverItem from "./popover-item";
 import { EventSuggestHandler } from "./utilities/suggest-handler";
 
@@ -15,6 +16,11 @@ function SuggestItem(props) {
       props.userData(data);
     }
   }, [data, props]);
+
+  let loader;
+  for (var i = 0; i < 4; i++) {
+    loader = <Skeleton />;
+  }
 
   return (
     <>
@@ -65,7 +71,7 @@ function SuggestItem(props) {
               );
             })
           : suggestData.isLoading
-          ? "Loading"
+          ? loader
           : ""}
       </ListGroup>
     </>

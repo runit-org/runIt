@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { removeEvent } from "../../actions/eventActions";
-import Loading from "../SiteElements/loader";
+import { Loading } from "../SiteElements/loader";
 import ModalItem from "./modal-item";
 import { useNavigate } from "react-router-dom";
 import { Delete } from "../SiteElements/icons";
