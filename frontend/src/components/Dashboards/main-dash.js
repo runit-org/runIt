@@ -34,11 +34,11 @@ function MainDash() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   //suggestions
-  const [title, setTitle] = useState("");
+  const [suggestedData, setSuggestedData] = useState({});
 
   const child_data = (data) => {
     if (data) {
-      setTitle(data);
+      setSuggestedData(data);
     }
   };
 
@@ -55,7 +55,7 @@ function MainDash() {
         <div className="content">
           <Container>
             <div>
-              <CreatePost suggestion={title} />
+              <CreatePost suggestion={suggestedData} />
               <Row xs={1} sm={1} md={1}>
                 {eventData.results
                   ? eventData.results.map((event, index) => (

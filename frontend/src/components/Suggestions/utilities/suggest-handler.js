@@ -5,10 +5,11 @@ import { getSuggestions } from "../../../actions/suggestAction";
 export const EventSuggestHandler = (pageId) => {
   const dispatch = useDispatch();
   const [suggestData, setSuggestData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    dispatch(getSuggestions(pageId ? pageId : 1));
-  }, [dispatch, pageId]);
+    dispatch(getSuggestions(pageId ? pageId : 1, setIsLoading));
+  }, [dispatch, pageId, setIsLoading]);
 
   var allSuggestData = useSelector(
     (suggestReducer) => suggestReducer.suggestions.suggestEvent
@@ -19,5 +20,5 @@ export const EventSuggestHandler = (pageId) => {
     }
   }, [allSuggestData]);
 
-  return suggestData;
+  return { suggestData, isLoading };
 };

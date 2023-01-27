@@ -1,0 +1,17 @@
+@import "index.scss";
+
+.suggested img {
+  border-radius: 8px;
+}
+
+.suggested li {
+  margin-top: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.175) !important;
+  border-radius: 8px;
+}
+
+.suggested .badge {
+  font-size: 10px;
+  background-color: $theme-light !important;
+  color: $primary-dark;
+}

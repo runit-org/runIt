@@ -54,6 +54,9 @@ function CreateEvent(props) {
   useEffect(() => {
     if (error === 200) {
       formRef.current.reset();
+      setTitle("");
+      setDate("");
+      setTime("");
       setDetails("");
       setError("");
     }
@@ -61,8 +64,18 @@ function CreateEvent(props) {
 
   //data from suggestions
   useEffect(() => {
-    if (props.suggestion !== "") {
-      setTitle(props.suggestion);
+    if (Object.keys(props.suggestion).length !== 0) {
+      setTitle(`${props.suggestion.title} - ${props.suggestion.category}`);
+      setDetails(
+        `Location: ${props.suggestion.location} \nLink: ${props.suggestion.link}\n\n`
+      );
+      setDate(new Date(props.suggestion.time).toISOString().split("T")[0]);
+      setTime(
+        new Date(props.suggestion.time).toLocaleTimeString("en-US", {
+          timeStyle: "short",
+          hour12: false,
+        })
+      );
     }
   }, [props.suggestion]);
 
@@ -114,6 +127,7 @@ function CreateEvent(props) {
                   <Form.Control
                     type="time"
                     placeholder="Time"
+                    value={time}
                     onChange={(e) => setTime(e.target.value)}
                     required
                   />
@@ -126,6 +140,7 @@ function CreateEvent(props) {
                   <Form.Control
                     type="date"
                     placeholder="Date"
+                    value={date}
                     onChange={(e) => setDate(e.target.value)}
                     min={
                       new Date(
@@ -145,6 +160,7 @@ function CreateEvent(props) {
                 spellCheck={true}
                 placeholder="Event details..."
                 as="textarea"
+                value={details}
                 onChange={(e) => setDetails(e.target.value)}
                 rows={4}
                 required
