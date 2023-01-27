@@ -38,7 +38,10 @@ function EventItemCard(props) {
           </div>
 
           <div className="mt-2">
-            <p className="text-muted content_sm1">{props.eventData.details}</p>
+            <p
+              className="text-muted content_sm1"
+              dangerouslySetInnerHTML={{ __html: props.eventData.details }}
+            />
           </div>
 
           <div>

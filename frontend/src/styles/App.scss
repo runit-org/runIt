@@ -6,6 +6,7 @@
 @import "Notification.scss";
 @import "Responsive.scss";
 @import "Comment.scss";
+@import "Suggested.scss";
 
 /*------General Components------*/
 html,
@@ -372,4 +373,78 @@ nav[aria-label="breadcrumb"] {
 
 .breadcrumb :not(.breadcrumb-item.active) {
   color: $theme !important;
+}
+
+/*------Loaders------*/
+.loading_skeleton {
+  border: 1px solid rgba(0, 0, 0, 0.175);
+  margin-top: 10px;
+  border-radius: 8px;
+  background-color: $primary-light;
+}
+
+.loading_skeleton .title {
+  width: 270px;
+  height: 25px;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  @extend %load-effect;
+}
+
+.loading_skeleton .img {
+  border-radius: 4px;
+  padding: 20px;
+  margin-top: 10px;
+  background-color: #d1d5db;
+  display: flex;
+  justify-content: center;
+  @extend %load-effect;
+}
+
+.loading_skeleton .img svg {
+  color: #e5e7eb;
+}
+
+.loading_skeleton .circle {
+  width: 20px;
+  height: 20px;
+  background-color: #e5e7eb;
+  border-radius: 1000px;
+  @extend %load-effect;
+}
+.loading_skeleton .btn {
+  width: 67px;
+  height: 30px;
+  background-color: #e5e7eb;
+  border-radius: 8px;
+  @extend %load-effect;
+}
+
+%load-effect {
+  animation-duration: 2.2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: shimmer;
+  animation-timing-function: linear;
+  background: #ddd;
+  background: linear-gradient(to right, #f6f6f6 8%, #f0f0f0 18%, #f6f6f6 33%);
+  background-size: 1200px 100%;
+}
+
+@-webkit-keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1200px 0;
+  }
+  100% {
+    background-position: 1200px 0;
+  }
 }

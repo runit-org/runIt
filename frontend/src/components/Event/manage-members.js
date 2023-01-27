@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { memberStatus } from "../../actions/eventActions";
-import Loading from "../SiteElements/loader";
+import { Loading } from "../SiteElements/loader";
 import { Link } from "react-router-dom";
 import { emitter } from "../client/socket";
 import { EventMembersHandler } from "./utilities/action-handlers";

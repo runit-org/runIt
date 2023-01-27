@@ -6,7 +6,7 @@ import {
   getAllEvents,
   getSingleEvent,
 } from "../../actions/eventActions";
-import Loading from "../SiteElements/loader";
+import { Loading } from "../SiteElements/loader";
 import ModalItem from "./modal-item";
 import { SearchParam } from "../Utilities/search-param";
 import { useLocation, useParams } from "react-router-dom";

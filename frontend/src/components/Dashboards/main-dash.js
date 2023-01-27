@@ -7,9 +7,10 @@ import { SearchParam } from "../Utilities/search-param";
 import EventItemCard from "../Event/event-item-card";
 import CurrentUserProfile from "../Profile/current-user-profile";
 import { EventHandler } from "../Event/utilities/action-handlers";
-import DefaultExample from "./dash-placeholder";
+import SuggestItem from "../Suggestions/suggest-item";
 
 function MainDash() {
+  //pagination and event api
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(10);
   // eslint-disable-next-line no-unused-vars
@@ -32,20 +33,29 @@ function MainDash() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  //suggestions
+  const [suggestedData, setSuggestedData] = useState({});
+
+  const child_data = (data) => {
+    if (data) {
+      setSuggestedData(data);
+    }
+  };
+
   return (
     <div style={{ position: "relative" }}>
       <div className="dash-container">
         <div className="sidebar">
           <div className="sidebar-wrapper">
             <div className="sidebar_left">
-              <DefaultExample />
+              <SuggestItem userData={child_data} />
             </div>
           </div>
         </div>
         <div className="content">
           <Container>
             <div>
-              <CreatePost />
+              <CreatePost suggestion={suggestedData} />
               <Row xs={1} sm={1} md={1}>
                 {eventData.results
                   ? eventData.results.map((event, index) => (

@@ -8,7 +8,7 @@ import { Submit } from "../SiteElements/icons";
 import { MentionFilter } from "../Utilities/mention";
 import { SearchParam } from "../Utilities/search-param";
 
-function CreateEvent() {
+function CreateEvent(props) {
   const dispatch = useDispatch();
   const formRef = useRef(0);
   const [title, setTitle] = useState("");
@@ -54,10 +54,30 @@ function CreateEvent() {
   useEffect(() => {
     if (error === 200) {
       formRef.current.reset();
+      setTitle("");
+      setDate("");
+      setTime("");
       setDetails("");
       setError("");
     }
   }, [error]);
+
+  //data from suggestions
+  useEffect(() => {
+    if (Object.keys(props.suggestion).length !== 0) {
+      setTitle(`${props.suggestion.title} - ${props.suggestion.category}`);
+      setDetails(
+        `Location: ${props.suggestion.location} \nLink: ${props.suggestion.link}\n\n`
+      );
+      setDate(new Date(props.suggestion.time).toISOString().split("T")[0]);
+      setTime(
+        new Date(props.suggestion.time).toLocaleTimeString("en-US", {
+          timeStyle: "short",
+          hour12: false,
+        })
+      );
+    }
+  }, [props.suggestion]);
 
   return (
     <Card className="event-card">
@@ -79,6 +99,7 @@ function CreateEvent() {
                   <Form.Control
                     type="title"
                     placeholder="Christmas social"
+                    value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
                   />
@@ -106,6 +127,7 @@ function CreateEvent() {
                   <Form.Control
                     type="time"
                     placeholder="Time"
+                    value={time}
                     onChange={(e) => setTime(e.target.value)}
                     required
                   />
@@ -118,6 +140,7 @@ function CreateEvent() {
                   <Form.Control
                     type="date"
                     placeholder="Date"
+                    value={date}
                     onChange={(e) => setDate(e.target.value)}
                     min={
                       new Date(
@@ -137,6 +160,7 @@ function CreateEvent() {
                 spellCheck={true}
                 placeholder="Event details..."
                 as="textarea"
+                value={details}
                 onChange={(e) => setDetails(e.target.value)}
                 rows={4}
                 required
