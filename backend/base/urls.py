@@ -5,6 +5,7 @@ from base.modules.notification.api import NotificationViews
 from base.modules.user.api import UserViews
 from base.modules.auth.api import AuthViews
 from base.modules.userVote.api import UserVoteViews
+from base.modules.friend.api import FriendViews
 
 
 from rest_framework_simplejwt.views import (
@@ -49,4 +50,9 @@ urlpatterns = [
     path('notifications/all/', NotificationViews.index, name="user_notification"),
     path('notifications/read/<str:pk>/', NotificationViews.read, name="read_notification"),
     path('notifications/readAll/', NotificationViews.readAll, name="user_read_all_notification"),
+
+    path('friends/request/<str:userId>/', FriendViews.requestFriendship, name="send_friendship_request"),
+    path('friends/respond/<str:userId>/', FriendViews.respondFriendshipRequest, name="respond_friendship_request"),
+    path('friends/show/', FriendViews.showFriends, name="show_current_user_friends"),
+    path('friends/showRequests/', FriendViews.showFriendRequests, name="show_current_user_friend_requests"),
 ]

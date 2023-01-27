@@ -13,3 +13,5 @@ from base.modules.user.api.serializers.UserProfileSerializer import UserProfileS
 
 from base.modules.eventComment.api.serializers.EventCommentSerializer import EventCommentSerializer
 from base.modules.eventComment.api.serializers.AllEventCommentSerializer import AllEventCommentSerializer
+
+from base.modules.friend.api.serializers.FriendRequestsSerializer import FriendRequestsSerializer

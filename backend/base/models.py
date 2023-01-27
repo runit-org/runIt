@@ -8,4 +8,6 @@ from base.modules.eventComment.data.EventComment import EventComment
 from base.modules.eventComment.data.EventCommentLike import EventCommentLike
 from base.modules.notification.data.Notification import Notification
 from base.modules.userVote.data.UserVote import UserVote
+from base.modules.friend.data.Friend import Friend
+from base.modules.friend.data.FriendRequest import FriendRequest
 
