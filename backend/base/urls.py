@@ -32,6 +32,7 @@ urlpatterns = [
     path('event/update/<str:pk>/', EventViews.updateEvent, name="update_event"),
     path('event/updateStatus/<str:pk>/', EventViews.updateEventStatus, name="update_event_status"),
     path('event/delete/<str:pk>/', EventViews.deleteEvent, name="delete_event"),
+    path('event/deleteCategory/<str:pk>/', EventViews.deleteEventCategory, name="delete_event_category"),
     path('event/owned/', EventViews.ownedEvent, name="owned_event"),
     path('event/affiliated/', EventViews.participatedAndOwnedEvent, name='affiliated_event'),
     path('event/announce/<str:eventId>/', EventViews.announce, name='make_announcement'),

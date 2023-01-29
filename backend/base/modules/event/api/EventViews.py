@@ -22,6 +22,7 @@ from base.modules.event.api.actions import (
     AnnounceMembersAction,
     UpdateEventStatusAction,
     GetCreateEventSuggestionsAction,
+    DeleteEventCategoryAction,
 )
 
 @api_view(['POST'])
@@ -53,7 +54,6 @@ def updateEventStatus(request, pk):
         return UpdateEventStatusValidator.validate(request)
 
     return UpdateEventStatusAction.update(request, pk)
-
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
@@ -109,3 +109,8 @@ def announce(request, eventId):
 @permission_classes([IsAuthenticated])
 def createEventSuggestions(request, page):
     return GetCreateEventSuggestionsAction.get(request, page)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteEventCategory(request, pk):
+    return DeleteEventCategoryAction.delete(request, pk)
