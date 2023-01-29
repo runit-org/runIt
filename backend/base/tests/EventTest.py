@@ -64,6 +64,7 @@ class EventTestClass(TestCase):
             "day"         : tomorrow.day,
             "hour"        : 23,
             "minute"      : 59,
+            "tags"        : "#hello"
         }
         return newEvent
     
@@ -81,6 +82,7 @@ class EventTestClass(TestCase):
             day           = randomEventData['day'],
             hour          = randomEventData['hour'],
             minute        = randomEventData["minute"],
+            tags          = randomEventData['tags'],
 
             startDate   = timezone.make_aware(datetime.datetime(randomEventData['year'], randomEventData['month'], randomEventData['day'], randomEventData['hour'], randomEventData['minute'])),
             createdAt   = timezone.make_aware(datetime.datetime.now())
