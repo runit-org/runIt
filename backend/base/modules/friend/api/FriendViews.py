@@ -8,6 +8,7 @@ from base.modules.friend.api.actions import (
     RespondFriendshipRequestAction,
     ShowFriendsAction,
     ShowFriendRequestsAction,
+    DeleteFriendshipAction,
 )
 
 @api_view(['POST'])
@@ -32,3 +33,13 @@ def showFriends(request):
 @permission_classes([IsAuthenticated])
 def showFriendRequests(request):
     return ShowFriendRequestsAction.get(request)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def showFriendRequests(request):
+    return ShowFriendRequestsAction.delete(request)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteFriendship(request, userId):
+    return DeleteFriendshipAction.delete(request, userId)
