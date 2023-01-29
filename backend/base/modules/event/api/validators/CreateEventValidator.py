@@ -35,7 +35,7 @@ def validate(request):
     if data['hour'] < 0 or data['hour'] > 24:
         return validationError('Invalid hour')
 
-    if data['minute'] < 1 or data['minute'] > 59:
+    if data['minute'] < 0 or data['minute'] > 59:
         return validationError('Invalid minute')
 
     oddMonths = [1, 3, 5, 7, 8, 10, 12]
