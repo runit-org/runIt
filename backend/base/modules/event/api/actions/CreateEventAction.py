@@ -39,13 +39,13 @@ def validateTag(tag):
     return True
 
 def processTags(event, tags):
-    tags.strip()
-    tagsArray = tags.split('#')
+    tagsStripped = tags.strip()
+    tagsArray = tagsStripped.split('#')
 
     for tag in tagsArray[1:]:
         if len(tag) > 0:
-            tag.strip()
-            tagLower = tag.lower()
+            tagStripped = tag.strip()
+            tagLower = tagStripped.lower()
 
             if not checkEventTagExist(event, tagLower):
                 if validateTag(tagLower):
@@ -73,7 +73,7 @@ def create(request):
         startDate   = timezone.make_aware(datetime(data['year'], data['month'], data['day'], data['hour'], data['minute'])),
         createdAt   = timezone.make_aware(datetime.now())
     )
-    processTags(request['tags'])
+    processTags(event, data['tags'])
 
     mention(event, event.details, user)
 

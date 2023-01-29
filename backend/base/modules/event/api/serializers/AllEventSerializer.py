@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import *
+from base.modules.event.api.serializers.EventCategorySerializer import EventCategorySerializer
 from base.traits import GetHumanTimeDifferenceToNow, CheckUserMemberEvent, EventDateToStringTime, CreateGravatarProfile
 from base.enums import EventStatus
 
@@ -15,6 +16,7 @@ class AllEventSerializer(serializers.ModelSerializer):
     gravatarImage = serializers.SerializerMethodField(read_only=True)
     timeToEvent = serializers.SerializerMethodField(read_only=True)
     eventStatus = serializers.SerializerMethodField(read_only=True)
+    eventTags = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Event
@@ -56,4 +58,9 @@ class AllEventSerializer(serializers.ModelSerializer):
             else:
                 return EventStatus.get.ONGOING.name
 
+    def get_eventTags(self, obj):
+        tags = EventCategory.objects.filter(event=obj)
+        serializer = EventCategorySerializer(tags, many=True)
+
+        return serializer.data
     
