@@ -1,4 +1,4 @@
-from base.models import Event, User, EventMember
+from base.models import Event, User, EventCategory
 from base.serializers import EventSerializer
 from base.enums import EventMemberStatus
 from base.traits import NotifyUser
@@ -25,7 +25,35 @@ def mention(event, content, user):
                     notificationMessage = 'User <b>' + user.username + '</b> mentioned you on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
                     NotifyUser.notify(targetUser.id, notificationMessage, link)
 
-               
+def checkEventTagExist(event, tag):
+    checkTagExist = EventCategory.objects.filter(event=event, tag=tag)
+
+    if len(checkTagExist) > 0:
+        return True
+    else:
+        return False
+
+def validateTag(tag):
+    if len(tag) > 30:
+        return False
+    return True
+
+def processTags(event, tags):
+    tags.strip()
+    tagsArray = tags.split('#')
+
+    for tag in tagsArray[1:]:
+        if len(tag) > 0:
+            tag.strip()
+            tagLower = tag.lower()
+
+            if not checkEventTagExist(event, tagLower):
+                if validateTag(tagLower):
+                    EventCategory.objects.create(
+                        event = event,
+                        tag = tagLower,
+                    )
+
 def create(request):
     data = request.data
     user = request.user
@@ -45,7 +73,7 @@ def create(request):
         startDate   = timezone.make_aware(datetime(data['year'], data['month'], data['day'], data['hour'], data['minute'])),
         createdAt   = timezone.make_aware(datetime.now())
     )
-    # serializer = EventSerializer(event, many=False)
+    processTags(request['tags'])
 
     mention(event, event.details, user)
 
