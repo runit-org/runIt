@@ -61,12 +61,16 @@ def request(request, userId):
         return error('Already friends')
 
     if checkRequestExist(targetUser, user):
-        return error('You have friendship request pending on this user')
+        friendRequestObject = FriendRequest.objects.get(main=targetUser, requester=user)
+        friendRequestObject.delete()
 
-    if checkRequestExist(user, targetUser):
-        return error('This user has requested to be your friend')
+        return response('Friendship request removed')
+        
+    else:
+        if checkRequestExist(user, targetUser):
+            return error('This user has requested to be your friend')
 
-    FriendRequest.objects.create(main=targetUser, requester=user)
-    sendNotification(targetUser, user)
+        FriendRequest.objects.create(main=targetUser, requester=user)
+        sendNotification(targetUser, user)
 
-    return response('Request sent')
+        return response('Request sent')
