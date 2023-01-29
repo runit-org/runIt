@@ -3,7 +3,7 @@ from base.views.baseViews import validationError
 def validate(request):
     data = request.data
     
-    if data.get('title') == None or data.get('maxMember') == None or data.get('details') == None:
+    if data.get('title') == None or data.get('maxMember') == None or data.get('details') == None or data.get('tags') == None:
         return validationError('Required fields not met')
 
     if str(data['title']) == '' or str(data['title']).isspace() == True:

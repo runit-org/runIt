@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import *
+from base.modules.event.api.serializers.EventCategorySerializer import EventCategorySerializer
 from base.traits import GetHumanTimeDifferenceToNow, EventDateToStringTime
 from base.enums import EventStatus
 
@@ -13,10 +14,11 @@ class AffiliatedEventSerializer(serializers.ModelSerializer):
     eventDate = serializers.SerializerMethodField(read_only=True)
     timeToEvent = serializers.SerializerMethodField(read_only=True)
     eventStatus = serializers.SerializerMethodField(read_only=True)
+    eventTags = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Event
-        fields = ['id', 'userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 'eventDateString', 'eventDate', 'timeToEvent', 'eventStatus']
+        fields = ['id', 'userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 'eventDateString', 'eventDate', 'timeToEvent', 'eventStatus', 'eventTags']
 
     def get_humanTimeDiffCreatedAt(self, obj):
         return GetHumanTimeDifferenceToNow.get(obj.createdAt)
@@ -46,3 +48,10 @@ class AffiliatedEventSerializer(serializers.ModelSerializer):
                 return EventStatus.get.PENDING.name
             else:
                 return EventStatus.get.ONGOING.name
+
+    def get_eventTags(self, obj):
+        tags = EventCategory.objects.filter(event=obj)
+        serializer = EventCategorySerializer(tags, many=True)
+
+        return serializer.data
+    

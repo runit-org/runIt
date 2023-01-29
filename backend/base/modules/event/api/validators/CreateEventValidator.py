@@ -5,8 +5,8 @@ from datetime import datetime
 def validate(request):
     data = request.data
 
-    if data.get('title') == None or data.get('maxMember') == None or data.get('details') == None:
-        return validationError('Please provide the following fields: title, maxMember, details')
+    if data.get('title') == None or data.get('maxMember') == None or data.get('details') == None or data.get('tags') == None:
+        return validationError('Please provide the following fields: title, maxMember, details, tags')
 
     if data.get('year') == None or data.get('month') == None or data.get('day') == None or data.get('hour') == None or data.get('minute') == None:
         return validationError('Please provide the following fields: year, month, day, hour, minute')

@@ -5,6 +5,7 @@ from base.modules.event.api.serializers.AffiliatedEventSerializer import Affilia
 from base.modules.event.api.serializers.EventMemberSerializer import EventMemberSerializer
 from base.modules.event.api.serializers.OwnedEventSerializer import OwnedEventSerializer
 from base.modules.event.api.serializers.AllEventSerializer import AllEventSerializer
+from base.modules.event.api.serializers.EventCategorySerializer import EventCategorySerializer
 
 from base.modules.notification.api.serializers.NotificationSerializer import NotificationSerializer
 

@@ -1,4 +1,4 @@
-from base.models import Event, User
+from base.models import Event, User, EventCategory
 from base.serializers import EventSerializer
 from base.traits import NotifyUser
 from base.views.baseViews import response, error
@@ -28,6 +28,35 @@ def mention(event, content, user):
                 notificationMessage = 'User <b>' + user.username + '</b> mentioned you on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
                 NotifyUser.notify(targetUser.id, notificationMessage, link)
 
+def checkEventTagExist(event, tag):
+    checkTagExist = EventCategory.objects.filter(event=event, tag=tag)
+
+    if len(checkTagExist) > 0:
+        return True
+    else:
+        return False
+
+def validateTag(tag):
+    if len(tag) > 30:
+        return False
+    return True
+
+def processTags(event, tags):
+    tagsStripped = tags.strip()
+    tagsArray = tagsStripped.split('#')
+
+    for tag in tagsArray[1:]:
+        if len(tag) > 0:
+            tagStripped = tag.strip()
+            tagLower = tagStripped.lower()
+
+            if not checkEventTagExist(event, tagLower):
+                if validateTag(tagLower):
+                    EventCategory.objects.create(
+                        event = event,
+                        tag = tagLower,
+                    )
+
 def update(request, pk):
     data = request.data
     user = request.user
@@ -47,6 +76,8 @@ def update(request, pk):
     event.maxMember = data['maxMember']
     event.details = data['details']
     event.save()
+
+    processTags(event, data['tags'])
 
     serializer = EventSerializer(event, many=False)
 

@@ -64,6 +64,7 @@ class EventTestClass(TestCase):
             "day"         : tomorrow.day,
             "hour"        : 23,
             "minute"      : 59,
+            "tags"        : "#hello"
         }
         return newEvent
     
