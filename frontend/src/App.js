@@ -10,6 +10,7 @@ import { Spinner } from "react-bootstrap";
 import UserContext from "./components/Context/user-context";
 import SecurityContext from "./components/Context/security-context";
 import Cookies from "js-cookie";
+import ResponseContext from "./components/Context/response-context";
 
 const ProfileDash = lazy(() => import("./components/Dashboards/profile-dash"));
 const EventDash = lazy(() => import("./components/Dashboards/event-dash"));
@@ -33,10 +34,38 @@ function App() {
       }
     >
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/signup" element={<Main />} />
-        <Route path="/reset-password/:token" element={<Main />} />
-        <Route path="/reset-password-auth" element={<Main />} />
+        <Route
+          path="/"
+          element={
+            <ResponseContext>
+              <Main />
+            </ResponseContext>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <ResponseContext>
+              <Main />
+            </ResponseContext>
+          }
+        />
+        <Route
+          path="/reset-password/:token"
+          element={
+            <ResponseContext>
+              <Main />
+            </ResponseContext>
+          }
+        />
+        <Route
+          path="/reset-password-auth"
+          element={
+            <ResponseContext>
+              <Main />
+            </ResponseContext>
+          }
+        />
 
         <Route
           path="/posts"

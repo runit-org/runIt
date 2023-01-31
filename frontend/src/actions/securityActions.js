@@ -22,13 +22,12 @@ export const getUsers = () => async (dispatch) => {
 };
 
 export const createNewUser =
-  (userData, setLoad, setShow, navigate) => async (dispatch) => {
+  (userData, setLoad, navigate) => async (dispatch) => {
     setLoad(true);
     await axios
       .post("http://localhost:8000/api/auth/register/", userData)
       .then((res) => {
         if (res.status === 200) {
-          setShow(true);
           navigate("/", {
             replace: true,
             state: { id: res.data },
@@ -45,8 +44,6 @@ export const createNewUser =
       })
 
       .catch((error) => {
-        setLoad(false);
-        setShow(true);
         dispatch({
           type: SET_NEW_USER,
           payload: {},
@@ -55,52 +52,55 @@ export const createNewUser =
           type: GET_ERRORS,
           payload: error.response,
         });
-      });
-  };
-
-export const login =
-  (LoginRequest, navigate, setLoad, setShow) => async (dispatch) => {
-    //post => login request
-    setLoad(true);
-    await axios
-      .post("http://localhost:8000/api/auth/login/", LoginRequest)
-      .then((res) => {
-        //extract token from data
-        const refToken = res.data.refresh;
-        const accessToken = res.data.access;
-        //store token in local storage
-        Cookies.set("token", refToken, { secure: true, sameSite: "strict" });
-        //set token in header
-        setToken(accessToken);
-        //get data from response
-        const decoded_token = jwt_decode(res.data.access);
-        const decoded = {
-          username: res.data.username,
-        };
-
-        localStorage.setItem("username", decoded.username);
-
-        if (res.status === 200 && Cookies.get("token")) {
-          navigate("/posts");
-        }
-        dispatch({
-          type: GET_ERRORS,
-          payload: res,
-        });
-        dispatch({
-          type: SET_CURRENT_USER,
-          payload: decoded_token,
-        });
       })
-      .catch((error) => {
+      .finally(() => {
         setLoad(false);
-        setShow(true);
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response,
-        });
       });
   };
+
+export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
+  //post => login request
+  setLoad(true);
+  await axios
+    .post("http://localhost:8000/api/auth/login/", LoginRequest)
+    .then((res) => {
+      //extract token from data
+      const refToken = res.data.refresh;
+      const accessToken = res.data.access;
+      //store token in local storage
+      Cookies.set("token", refToken, { secure: true, sameSite: "strict" });
+      //set token in header
+      setToken(accessToken);
+      //get data from response
+      const decoded_token = jwt_decode(res.data.access);
+      const decoded = {
+        username: res.data.username,
+      };
+
+      localStorage.setItem("username", decoded.username);
+
+      if (res.status === 200 && Cookies.get("token")) {
+        navigate("/posts");
+      }
+      dispatch({
+        type: GET_ERRORS,
+        payload: res,
+      });
+      dispatch({
+        type: SET_CURRENT_USER,
+        payload: decoded_token,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response,
+      });
+    })
+    .finally(() => {
+      setLoad(false);
+    });
+};
 
 export const logout = (refToken, navigate) => async (dispatch) => {
   await refreshToken().then((ref) => {
