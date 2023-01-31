@@ -25,14 +25,6 @@ def mention(event, content, user):
                     notificationMessage = 'User <b>' + user.username + '</b> mentioned you on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
                     NotifyUser.notify(targetUser.id, notificationMessage, link)
 
-# def checkEventTagExist(event, tag):
-#     checkTagExist = EventCategory.objects.filter(event=event, tag=tag)
-
-#     if len(checkTagExist) > 0:
-#         return True
-#     else:
-#         return False
-
 def validateTag(tag):
     if len(tag) > 30:
         return False
