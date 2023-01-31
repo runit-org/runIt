@@ -25,35 +25,45 @@ def mention(event, content, user):
                     notificationMessage = 'User <b>' + user.username + '</b> mentioned you on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
                     NotifyUser.notify(targetUser.id, notificationMessage, link)
 
-def checkEventTagExist(event, tag):
-    checkTagExist = EventCategory.objects.filter(event=event, tag=tag)
-
-    if len(checkTagExist) > 0:
-        return True
-    else:
-        return False
-
 def validateTag(tag):
     if len(tag) > 30:
         return False
     return True
 
-def processTags(event, tags):
-    tagsStripped = tags.strip()
-    tagsArray = tagsStripped.split('#')
+def getTagsFromDetails(details):
+    details = details.lower()
+    tagsArray = []
+    if '#' in details:
+        characters = details.split('#')
+        characters.pop(0)
+        for char in characters:
+            if len(char) < 1:
+                continue
+            if char.isspace():
+                continue
+            if char[0] == ' ':
+                continue
+            if ' ' not in char:
+                if char not in tagsArray:
+                    if validateTag(char):
+                        tagsArray.append(char)
+                        continue
 
-    for tag in tagsArray[1:]:
-        if len(tag) > 0:
-            tagStripped = tag.strip()
-            tagLower = tagStripped.lower()
+            charWithSpaces = char.split(' ')
+            if charWithSpaces[0] not in tagsArray:
+                if validateTag(charWithSpaces[0]):
+                    tagsArray.append(charWithSpaces[0])
+    
+    return tagsArray
 
-            if not checkEventTagExist(event, tagLower):
-                if validateTag(tagLower):
-                    EventCategory.objects.create(
-                        event = event,
-                        tag = tagLower,
-                    )
-
+def processTags(event, details):
+    tagsArray = getTagsFromDetails(details)
+    for tag in tagsArray:
+        EventCategory.objects.create(
+            event = event,
+            tag = tag,
+        )
+    
 def create(request):
     data = request.data
     user = request.user
@@ -73,7 +83,7 @@ def create(request):
         startDate   = timezone.make_aware(datetime(data['year'], data['month'], data['day'], data['hour'], data['minute'])),
         createdAt   = timezone.make_aware(datetime.now())
     )
-    processTags(event, data['tags'])
+    processTags(event, data['details'])
 
     mention(event, event.details, user)
 

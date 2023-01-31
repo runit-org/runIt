@@ -28,34 +28,58 @@ def mention(event, content, user):
                 notificationMessage = 'User <b>' + user.username + '</b> mentioned you on event ' + '<b>' + event.title + '</b>. Message: <i>' + content + '</i>'
                 NotifyUser.notify(targetUser.id, notificationMessage, link)
 
-def checkEventTagExist(event, tag):
-    checkTagExist = EventCategory.objects.filter(event=event, tag=tag)
-
-    if len(checkTagExist) > 0:
-        return True
-    else:
-        return False
-
 def validateTag(tag):
     if len(tag) > 30:
         return False
     return True
 
-def processTags(event, tags):
-    tagsStripped = tags.strip()
-    tagsArray = tagsStripped.split('#')
+def getTagsFromDetails(details):
+    details = details.lower()
+    tagsArray = []
+    if '#' in details:
+        characters = details.split('#')
+        characters.pop(0)
+        for char in characters:
+            if len(char) < 1:
+                continue
+            if char.isspace():
+                continue
+            if char[0] == ' ':
+                continue
+            if ' ' not in char:
+                if char not in tagsArray:
+                    if validateTag(char):
+                        tagsArray.append(char)
+                        continue
 
-    for tag in tagsArray[1:]:
-        if len(tag) > 0:
-            tagStripped = tag.strip()
-            tagLower = tagStripped.lower()
+            charWithSpaces = char.split(' ')
+            if charWithSpaces[0] not in tagsArray:
+                if validateTag(charWithSpaces[0]):
+                    tagsArray.append(charWithSpaces[0])
+    
+    return tagsArray
 
-            if not checkEventTagExist(event, tagLower):
-                if validateTag(tagLower):
-                    EventCategory.objects.create(
-                        event = event,
-                        tag = tagLower,
-                    )
+def getRemovedTags(oldTags, newTags):
+    return set(oldTags) - set(newTags)
+
+def getNewTags(oldTags, newTags):
+    return set(newTags) - set(oldTags)
+
+def processTags(event, oldDetails, newDetails):
+    oldTags = getTagsFromDetails(oldDetails)
+    newTags = getTagsFromDetails(newDetails)
+
+    removedTags = getRemovedTags(oldTags, newTags)
+    for rem in removedTags:
+        eventCategoryFound = EventCategory.objects.get(event=event, tag=rem)
+        eventCategoryFound.delete()
+    
+    newTags = getNewTags(oldTags, newTags)
+    for new in newTags:
+        EventCategory.objects.create(
+            event=event,
+            tag = new
+        )
 
 def update(request, pk):
     data = request.data
@@ -71,13 +95,15 @@ def update(request, pk):
 
     if user.id != event.user.id:
         return error('Can only delete your own events')
+    
+    oldDetails = event.details
 
     event.title = data['title']
     event.maxMember = data['maxMember']
     event.details = data['details']
     event.save()
 
-    processTags(event, data['tags'])
+    processTags(event, oldDetails, data['details'])
 
     serializer = EventSerializer(event, many=False)
 
