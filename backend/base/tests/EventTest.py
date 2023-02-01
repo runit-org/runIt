@@ -436,3 +436,17 @@ class EventTestClass(TestCase):
         }
         response = c.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_show_trending_suggestion_for_event_creation_success(self):
+        url = self.baseUrl + 'createSuggestions/1/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        response = c.get(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.json()['data']), 15)
