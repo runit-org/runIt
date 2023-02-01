@@ -76,7 +76,6 @@ class NotificationTestClass(TestCase):
         # ------------------------------------------------------------
 
         response = c.get(url, {}, format='json')
-        print(response)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.json()['count'] == 2)
 
