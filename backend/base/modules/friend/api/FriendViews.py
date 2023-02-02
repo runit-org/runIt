@@ -11,10 +11,12 @@ from base.modules.friend.api.actions import (
     DeleteFriendshipAction,
 )
 
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def requestFriendship(request, userId):
     return RequestFriendshipAction.request(request, userId)
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -24,20 +26,18 @@ def respondFriendshipRequest(request, userId):
 
     return RespondFriendshipRequestAction.respond(request, userId)
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def showFriends(request):
     return ShowFriendsAction.get(request)
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def showFriendRequests(request):
     return ShowFriendRequestsAction.get(request)
 
-@api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
-def showFriendRequests(request):
-    return ShowFriendRequestsAction.delete(request)
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
