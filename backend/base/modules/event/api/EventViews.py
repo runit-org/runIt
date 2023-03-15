@@ -1,18 +1,19 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from base.modules.event.api.validators import (
-    CreateEventValidator, 
+    CreateEventValidator,
     UpdateEventValidator,
     RequestJoinEventValidator,
     ChangeEventMemberStatusValidator,
     AnnounceMembersValidator,
     UpdateEventStatusValidator,
+    InviteFriendToEventValidator,
 )
 from base.modules.event.api.actions import (
-    CreateEventAction, 
-    ViewEventAction, 
-    UpdateEventAction, 
-    DeleteEventAction, 
+    CreateEventAction,
+    ViewEventAction,
+    UpdateEventAction,
+    DeleteEventAction,
     GetAllEventAction,
     RequestJoinEventAction,
     GetEventMembersAction,
@@ -23,21 +24,25 @@ from base.modules.event.api.actions import (
     UpdateEventStatusAction,
     GetCreateEventSuggestionsAction,
     DeleteEventCategoryAction,
+    InviteFriendToEventAction,
 )
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def createEvent(request):
     if (CreateEventValidator.validate(request) != None):
         return CreateEventValidator.validate(request)
-    
+
     return CreateEventAction.create(request)
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def viewEvent(request, pk):
 
     return ViewEventAction.view(request, pk)
+
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
@@ -47,6 +52,7 @@ def updateEvent(request, pk):
 
     return UpdateEventAction.update(request, pk)
 
+
 @api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 def updateEventStatus(request, pk):
@@ -55,14 +61,17 @@ def updateEventStatus(request, pk):
 
     return UpdateEventStatusAction.update(request, pk)
 
+
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def deleteEvent(request, pk):
     return DeleteEventAction.delete(request, pk)
 
+
 @api_view(['GET'])
 def allEvent(request):
     return GetAllEventAction.all(request)
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -72,10 +81,12 @@ def requestJoinEvent(request):
 
     return RequestJoinEventAction.request(request)
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getEventMembers(request, pk):
     return GetEventMembersAction.getMembers(request, pk)
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -86,16 +97,21 @@ def changeEventMemberStatus(request):
     return ChangeEventMemberStatusAction.updateStatus(request)
 
 # Get events owned by auth user
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def ownedEvent(request):
     return GetOwnedEventsAction.get(request)
 
 # Get events participated (ACCEPTED) and owned by auth user
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def participatedAndOwnedEvent(request):
     return GetParticipatedAndOwnedEventsAction.get(request)
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -105,12 +121,23 @@ def announce(request, eventId):
 
     return AnnounceMembersAction.send(request, eventId)
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def createEventSuggestions(request, page):
     return GetCreateEventSuggestionsAction.get(request, page)
 
+
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def deleteEventCategory(request, pk):
     return DeleteEventCategoryAction.delete(request, pk)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def inviteFriendToEvent(request, userId):
+    if (InviteFriendToEventValidator.validate(request) != None):
+        return InviteFriendToEventValidator.validate(request)
+
+    return InviteFriendToEventAction.send(request, userId)
