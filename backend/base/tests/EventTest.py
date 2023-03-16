@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.test import Client
-from base.models import User, UserExtend, UserVote, Event, EventMember, EventComment, EventCommentLike
+from base.models import User, UserExtend, UserVote, Event, EventMember, EventComment, EventCommentLike, Friend
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -450,3 +450,28 @@ class EventTestClass(TestCase):
         response = c.get(url, {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()['data']), 15)
+
+    def test_invite_friend_to_event_success(self):
+        eventObject = self.generateNewEventObject()
+        user1 = eventObject.user
+        user2 = self.generateNewUserObject()
+
+        url = self.baseUrl + 'inviteFriend/' + str(user2.id) + '/'
+
+        Friend.objects.create(
+            user1 = user1,
+            user2 = user2
+        )
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=user1.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        data = {
+            "eventId": eventObject.id
+        }
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
