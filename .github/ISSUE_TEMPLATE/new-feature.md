@@ -1,8 +1,8 @@
 ---
-name: "💡  New feature"
-about: Add new feature
+name: "💡  New feature idea"
+about: Idea for new feature
 title: ''
-labels: feature
+labels: feature, idea
 assignees: ''
 
 ---
