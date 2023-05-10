@@ -25,6 +25,7 @@ from base.modules.event.api.actions import (
     GetCreateEventSuggestionsAction,
     DeleteEventCategoryAction,
     InviteFriendToEventAction,
+    GetNumEventsPerMonthAction,
 )
 
 
@@ -96,17 +97,15 @@ def changeEventMemberStatus(request):
 
     return ChangeEventMemberStatusAction.updateStatus(request)
 
+
 # Get events owned by auth user
-
-
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def ownedEvent(request):
     return GetOwnedEventsAction.get(request)
 
+
 # Get events participated (ACCEPTED) and owned by auth user
-
-
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def participatedAndOwnedEvent(request):
@@ -141,3 +140,9 @@ def inviteFriendToEvent(request, userId):
         return InviteFriendToEventValidator.validate(request)
 
     return InviteFriendToEventAction.send(request, userId)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getNumEventsPerMonth(request, userId, monthYear):
+    return GetNumEventsPerMonthAction.get(request, userId, monthYear)
