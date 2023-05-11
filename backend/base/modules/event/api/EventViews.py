@@ -26,6 +26,7 @@ from base.modules.event.api.actions import (
     DeleteEventCategoryAction,
     InviteFriendToEventAction,
     GetNumEventsPerMonthAction,
+    GetEventsPerFullDateAction,
 )
 
 
@@ -146,3 +147,9 @@ def inviteFriendToEvent(request, userId):
 @permission_classes([IsAuthenticated])
 def getNumEventsPerMonth(request, userId, monthYear):
     return GetNumEventsPerMonthAction.get(request, userId, monthYear)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getEventsPerFullDate(request, userId, fullDate):
+    return GetEventsPerFullDateAction.get(request, userId, fullDate)

@@ -39,6 +39,7 @@ urlpatterns = [
     path('event/createSuggestions/<str:page>/', EventViews.createEventSuggestions, name='create_event_suggestions'),
     path('event/inviteFriend/<str:userId>/', EventViews.inviteFriendToEvent, name="invite_a_friend_to_event"),
     path('event/getMonthYear/<str:userId>/<str:monthYear>/', EventViews.getNumEventsPerMonth, name="get_number_of_events_per_month"),
+    path('event/getPerDate/<str:userId>/<str:fullDate>/', EventViews.getEventsPerFullDate, name="get_user_events_per_given_full_date"),
 
     path('event/member/requestJoin/', EventViews.requestJoinEvent, name="request_join_event"),
     path('event/member/getMembers/<str:pk>/', EventViews.getEventMembers, name="get_event_members"),
