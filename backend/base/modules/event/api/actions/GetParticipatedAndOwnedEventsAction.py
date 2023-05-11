@@ -32,10 +32,9 @@ def filter(request):
 
         filterFieldContains = filterField + '__icontains'
         eventsFiltered = Event.objects.filter(**{filterFieldContains: filterValue})
-        print(eventsFiltered)
         for eachEvent in eventsFiltered:
             if (eachEvent in participatedEventDatas) or (eachEvent.user == user):
-                affiliatedEventsFiltered = affiliatedEventsFiltered | Event.objects.filter(id = eachEvent.id)
+                affiliatedEventsFiltered = affiliatedEventsFiltered | Event.objects.filter(id = eachEvent.eventId)
 
         return affiliatedEventsFiltered
 
