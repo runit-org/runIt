@@ -475,3 +475,39 @@ class EventTestClass(TestCase):
         }
         response = c.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get_user_daily_number_of_events_per_month_success(self):
+        eventObject = self.generateNewEventObject()
+        eventObject2 = Event.objects.create(
+            year  = eventObject.year,
+            month = eventObject.month,
+            day  = eventObject.day
+        )
+        
+        # user1 is the owner of eventObject
+        user1 = eventObject.user
+        
+        # Assign user1 to a new event
+        eventMemberUser1 = EventMember.objects.create(
+            eventId = eventObject2.id,
+            event   = eventObject2,
+            userId  = user1.id,
+            user    = user1,
+            status  = EventMemberStatus.get.ACCEPTED.value
+        )
+
+        url = self.baseUrl + 'getMonthYear/' + str(user1.id) + '/' + str(eventObject.month) + '-' + str(eventObject.year) + '/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=user1.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        response = c.get(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # The number of event on that day should be owned + joined as member (2)
+        self.assertEqual(2, response.json()['data'][eventObject.day-1])
+
+    
