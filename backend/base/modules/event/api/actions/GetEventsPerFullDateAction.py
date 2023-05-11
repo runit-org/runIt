@@ -23,7 +23,7 @@ def checkFullDateFormat(fullDate):
     if not split[0].isnumeric() or not split[1].isnumeric() or not split[2].isnumeric():
         return False
     
-    if int(split[1]) > 31 or int(split[1]) < 1:
+    if int(split[0]) > 31 or int(split[0]) < 1:
         return False
     
     if int(split[1]) > 12 or int(split[1]) < 1:
