@@ -7,5 +7,7 @@ class UserExtend(models.Model):
     resetToken = models.CharField(max_length=200, null=True, blank=True)
     resetTokenTime = models.DateTimeField(null=True)
 
+    statusMessage = models.CharField(max_length=200, null=True, blank=True)
+
     def __str__(self):
         return self.id

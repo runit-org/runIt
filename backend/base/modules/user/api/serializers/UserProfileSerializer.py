@@ -61,10 +61,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
     voteStatus = serializers.SerializerMethodField(read_only=True)
     gravatarImage = serializers.SerializerMethodField(read_only=True)
     friendStatus = serializers.SerializerMethodField(read_only=True)
+    statusMessage = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'date_joined', 'totalVote', 'voteStatus', 'gravatarImage', 'friendStatus']
+        fields = ['id', 'username', 'email', 'date_joined', 'totalVote', 'voteStatus', 'gravatarImage', 'friendStatus', 'statusMessage']
 
     def get_totalVote(self, obj):
         return getUserTotalVotes(obj.id)
@@ -80,3 +81,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
         authUserId = self.context.get('userId')
         authUser = User.objects.get(id=authUserId)
         return getAuthUserFriendshipStatusOnThisUser(obj, authUser)
+    
+    def get_statusMessage(self, obj):
+        return UserExtend.objects.get(userId=obj.id).statusMessage
