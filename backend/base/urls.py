@@ -25,6 +25,7 @@ urlpatterns = [
     path('user/vote/<str:userId>/', UserVoteViews.vote, name="vote_user"),
     path('user/profile/<str:username>/', UserViews.userProfile, name="get_user_profile"),
     path('user/me/', UserViews.currentUserProfile, name="get_current_user_profile"),
+    path('user/updateStatusMessage/', UserViews.updateStatusMessage, name="update_my_status_message"),
 
     path('event/all/', EventViews.allEvent, name="all_event"),
     path('event/create/', EventViews.createEvent, name="create_event"),

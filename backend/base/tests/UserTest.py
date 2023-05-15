@@ -7,6 +7,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 from rest_framework.test import force_authenticate
 from base.enums import UserVoteStatus
+import random
+import string
 
 class UserTestClass(TestCase):
     newUser = None
@@ -19,13 +21,48 @@ class UserTestClass(TestCase):
             "email": "test@email.com",
             "password": "password"
         }
+
+    def generateRandomString(self, length):
+        letters = string.ascii_lowercase
+        return ''.join(random.choice(letters) for i in range(10))
+    
     
     def createNewUser(self):
-        return User.objects.create(
+        user = User.objects.create(
             username = self.newUser['username'],
             email    = self.newUser['email'],
             password = make_password(self.newUser['password'])
         )
+
+        userExtend = UserExtend.objects.create(
+            userId = user.id,
+        )
+
+        return user
+    
+    def generateNewUserData(self):
+        randomUserData = {
+            "name"          : self.generateRandomString(5),
+            "username"      : self.generateRandomString(10),
+            "email"         : self.generateRandomString(10) + "@gmail.com",
+            "password"      : make_password(self.newUser['password'])
+        }
+        return randomUserData
+
+    def generateNewUserObject(self):
+        randomUserData = self.generateNewUserData()
+        user = User.objects.create(
+            first_name = randomUserData['name'],
+            username   = randomUserData['username'],
+            email      = randomUserData['email'],
+            password   = randomUserData['password'] 
+        )
+
+        userExtend = UserExtend.objects.create(
+            userId = user.id,
+        )
+
+        return user
 
     def getUserTotalVotes(self, userId):
         findUserVotes = UserVote.objects.filter(votedUserId = userId)
@@ -47,6 +84,7 @@ class UserTestClass(TestCase):
         response = c.get(url, {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(self.newUser['username'], response.json()['data']['username'])
+        self.assertTrue('statusMessage' in response.json()['data'])
 
     def test_get_user_profile_username_not_found_fails(self):
         url = self.baseUrl + 'profile/' + ('a'*20) + '/'
@@ -174,3 +212,22 @@ class UserTestClass(TestCase):
         response = c.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
         self.assertEqual(0, self.getUserTotalVotes(targetVoteUser.id))
+
+    def test_update_my_status_message_success(self):
+        user = self.generateNewUserObject()
+        url = self.baseUrl + 'updateStatusMessage/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        message = 'New Status Message'
+        data = {
+            'message': message
+        }
+        response = c.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(message, UserExtend.objects.get(userId=user.id).statusMessage)
