@@ -29,6 +29,11 @@ def checkEventMemberStatus(eventId, userId):
     else:
         # return -1 if no event-member record exist
         return -1
+    
+def checkEventFull(event):
+    if len(EventMember.objects.filter(eventId = event.id, status = EventMemberStatus.get.ACCEPTED.value)) >= event.maxMember:
+        return False
+    return True
 
 def updateStatus(request):
     data = request.data
@@ -38,6 +43,9 @@ def updateStatus(request):
         return error('Event ID not found')
 
     event = Event.objects.get(id=data['eventId'])
+
+    if not checkEventFull(event):
+        return error('Event is full')
 
     if event.status != None:
         return error('Event status is FINISHED/CANCELLED')
