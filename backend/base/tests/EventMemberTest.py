@@ -445,4 +445,51 @@ class EventMemberTestClass(TestCase):
         response = c.post(url, data, format='json')
         self.assertFalse(response.status_code == status.HTTP_200_OK)
 
-    
+    def test_change_event_member_status_event_is_full_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/changeStatus/'
+
+        eventObject.maxMember = 2
+        eventObject.save()
+
+        member1 = self.generateNewUserObject()
+        EventMember.objects.create(
+            eventId = eventObject.id,
+            event = eventObject,
+            userId = member1.id,
+            user = member1,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
+
+        member2 = self.generateNewUserObject()
+        EventMember.objects.create(
+            eventId = eventObject.id,
+            event = eventObject,
+            userId = member2.id,
+            user = member2,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
+
+        # Authenticated user is event owner
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=eventObject.userName)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+        
+        member3 = self.generateNewUserObject()
+        EventMember.objects.create(
+            eventId = eventObject.id,
+            event = eventObject,
+            userId = member3.id,
+            user = member3,
+            status = EventMemberStatus.get.PENDING.value
+        )
+
+        data = {
+            "eventId" : eventObject.id,
+            "userId" : member3.id,
+            "status" : EventMemberStatus.get.ACCEPTED.value
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
