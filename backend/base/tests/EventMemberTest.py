@@ -57,7 +57,7 @@ class EventMemberTestClass(TestCase):
         tomorrow = datetime.date.today() + datetime.timedelta(days=1)
         newEvent = {
             "title"       : self.generateRandomString(5),
-            "maxMember"   : 3,
+            "maxMember"   : 15,
             "details"     : self.generateRandomString(5),
             "year"        : tomorrow.year,
             "month"       : tomorrow.month,
@@ -160,6 +160,46 @@ class EventMemberTestClass(TestCase):
         response = c.post(url, data, format='json')
         self.assertFalse(response.status_code == status.HTTP_200_OK)
         self.assertTrue(len(EventMember.objects.filter(user=user, event=eventObject)) < 1)
+
+    def test_request_join_a_full_event_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/requestJoin/'
+
+        eventObject.maxMember = 2
+        eventObject.save()
+
+        member1 = self.generateNewUserObject()
+        EventMember.objects.create(
+            eventId = eventObject.id,
+            event = eventObject,
+            userId = member1.id,
+            user = member1,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
+
+        member2 = self.generateNewUserObject()
+        EventMember.objects.create(
+            eventId = eventObject.id,
+            event = eventObject,
+            userId = member2.id,
+            user = member2,
+            status = EventMemberStatus.get.ACCEPTED.value
+        )
+
+        # The authenticated user wouldn't be the event owner
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        data = {
+            "eventId" : eventObject.id
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+        self.assertTrue(len(EventMember.objects.filter(event=eventObject, status=EventMemberStatus.get.PENDING.value)) == 0)
 
     def test_request_join_your_own_event_fails(self):
         eventObject = self.generateNewEventObject()
