@@ -10,8 +10,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Verify Cypress can run
-        run: npx cypress verify
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
