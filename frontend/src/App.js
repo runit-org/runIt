@@ -1,10 +1,10 @@
 import "./styles/App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import Header from "./components/SiteElements/header";
 import Main from "./components/UserAuth/main";
 import { getAccessToken } from "./securityUtils/setToken";
-import { lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import ProtectedRoute from "./components/UserAuth/protected-route";
 import { Spinner } from "react-bootstrap";
 import UserContext from "./components/Context/user-context";
@@ -15,6 +15,19 @@ import ResponseContext from "./components/Context/response-context";
 const ProfileDash = lazy(() => import("./components/Dashboards/profile-dash"));
 const EventDash = lazy(() => import("./components/Dashboards/event-dash"));
 const Posts = lazy(() => import("./components/Dashboards/main-dash"));
+
+const RoutesContainer = ({ children }) => {
+  const path = useLocation().pathname;
+  return (
+    <React.Fragment>
+      {["/", "/signup", "/reset-password/", "/reset-password-auth"].some((el) =>
+        path.includes(el)
+      ) ? (
+        <ResponseContext>{children}</ResponseContext>
+      ) : null}
+    </React.Fragment>
+  );
+};
 
 function App() {
   const token = Cookies.get("token");
@@ -33,79 +46,53 @@ function App() {
         </div>
       }
     >
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ResponseContext>
-              <Main />
-            </ResponseContext>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <ResponseContext>
-              <Main />
-            </ResponseContext>
-          }
-        />
-        <Route
-          path="/reset-password/:token"
-          element={
-            <ResponseContext>
-              <Main />
-            </ResponseContext>
-          }
-        />
-        <Route
-          path="/reset-password-auth"
-          element={
-            <ResponseContext>
-              <Main />
-            </ResponseContext>
-          }
-        />
+      <RoutesContainer>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/signup" element={<Main />} />
+          <Route path="/reset-password/:token" element={<Main />} />
+          <Route path="/reset-password-auth" element={<Main />} />
 
-        <Route
-          path="/posts"
-          element={
-            <ProtectedRoute>
-              <Header />
-              <Posts />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <UserContext>
+          <Route
+            path="/posts"
+            element={
+              <ProtectedRoute>
                 <Header />
-                <ProfileDash />
-              </UserContext>
-            </ProtectedRoute>
-          }
-        />
+                <Posts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <UserContext>
+                  <Header />
+                  <ProfileDash />
+                </UserContext>
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/event/:id"
-          element={
-            <ProtectedRoute>
-              <SecurityContext>
-                <Header />
-                <EventDash />
-              </SecurityContext>
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/event/:id"
+            element={
+              <ProtectedRoute>
+                <SecurityContext>
+                  <Header />
+                  <EventDash />
+                </SecurityContext>
+              </ProtectedRoute>
+            }
+          />
 
-        {token ? (
-          <Route path="*" element={<Navigate to="/posts" />} />
-        ) : (
-          <Route path="*" element={<Navigate to="/" />} />
-        )}
-      </Routes>
+          {token ? (
+            <Route path="*" element={<Navigate to="/posts" />} />
+          ) : (
+            <Route path="*" element={<Navigate to="/" />} />
+          )}
+        </Routes>
+      </RoutesContainer>
     </Suspense>
   );
 }
