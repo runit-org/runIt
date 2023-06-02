@@ -45,20 +45,17 @@ function CommentItem(props) {
                 alt="Img"
               />
 
-              <div className="me-auto">
-                <h6 className="m-0"> {props.commentData.username}</h6>
+              <span className="me-auto">
+                <PopoverItem data={props.commentData.username} />
                 <small
-                  className="text-muted"
-                  style={{ fontSize: "12px", display: "block" }}
+                  className="d-block text-muted fw-semibold"
+                  style={{
+                    fontSize: "12px",
+                  }}
                 >
-                  <PopoverItem data={props.commentData.username} />
-
-                  <strong>
-                    {" "}
-                    {props.commentData.humanTimeDiffCreatedAt} ago
-                  </strong>
+                  {props.commentData.humanTimeDiffCreatedAt} ago
                 </small>
-              </div>
+              </span>
 
               {currentUser === props.commentData.user ? (
                 <Dropdown>

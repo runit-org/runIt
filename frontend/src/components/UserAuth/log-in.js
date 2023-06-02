@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Form, Row, Col, InputGroup, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { login } from "../../actions/securityActions";
 import { Link, useNavigate } from "react-router-dom";
-import ErrorToast from "../SiteElements/error-toast";
 import { useLocation } from "react-router-dom";
-import { MsgToast } from "../SiteElements/msg-toast";
 import { FormButton } from "./utilities/auth-builder";
 import { Eye, EyeSlash } from "../SiteElements/icons";
+import { ResponseContext } from "../Context/response-context";
 
 function Login() {
   let navigate = useNavigate();
@@ -15,12 +14,13 @@ function Login() {
   const [username, setUsername] = useState({});
   const [password, setPassword] = useState({});
   const [load, setLoad] = useState(false);
-  const [show, setShow] = useState(false);
   const [signupData, setSignupData] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
   const [inputType, setInputType] = useState("password");
 
   const { state } = useLocation();
+
+  const { response, status } = useContext(ResponseContext);
 
   useEffect(() => {
     if (state) {
@@ -37,7 +37,7 @@ function Login() {
       username: username,
       password: password,
     };
-    dispatch(login(LoginRequest, navigate, setLoad, setShow));
+    dispatch(login(LoginRequest, navigate, setLoad));
   };
 
   const handleInputType = () => {
@@ -50,7 +50,7 @@ function Login() {
 
   return (
     <>
-      <ErrorToast showToast={show} variant={MsgToast().errorVariant} />
+      {/* <ErrorToast showToast={show} variant={MsgToast().errorVariant} /> */}
       <fieldset disabled={formSwitch}>
         <Form
           onSubmit={(e) => {
@@ -105,7 +105,11 @@ function Login() {
               </Button>
             </InputGroup>
           </Form.Group>
-
+          {status !== 200 ? (
+            <small className="text-danger">{response}</small>
+          ) : (
+            ""
+          )}
           <FormButton load={load} name="Login" />
           <hr className="divider" />
           <Row className="mt-3">

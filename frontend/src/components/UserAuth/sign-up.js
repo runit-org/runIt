@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewUser } from "../../actions/securityActions";
-import ErrorToast from "../SiteElements/error-toast";
 import { useNavigate } from "react-router-dom";
-import { MsgToast } from "../SiteElements/msg-toast";
 import { FormButton } from "./utilities/auth-builder";
+import { ResponseContext } from "../Context/response-context";
 
 function SignUp() {
   let navigate = useNavigate();
@@ -16,11 +15,12 @@ function SignUp() {
   const [password, setPassword] = useState({});
   const [c_password, setc_Password] = useState({});
   const [load, setLoad] = useState(false);
-  const [show, setShow] = useState(false);
   const [signUpStatus, setSignUpStatus] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
 
   var apiStatus = useSelector((securityReducer) => securityReducer.security);
+
+  const { response, status } = useContext(ResponseContext);
 
   useEffect(() => {
     if (apiStatus.userData) {
@@ -39,7 +39,7 @@ function SignUp() {
       c_password: c_password,
     };
 
-    dispatch(createNewUser(userData, setLoad, setShow, navigate));
+    dispatch(createNewUser(userData, setLoad, navigate));
   };
 
   useEffect(() => {
@@ -50,15 +50,6 @@ function SignUp() {
 
   return (
     <>
-      <ErrorToast
-        showToast={show}
-        variant={
-          signUpStatus === "true"
-            ? MsgToast().successVariant
-            : MsgToast().errorVariant
-        }
-      />
-
       <fieldset disabled={formSwitch}>
         <Form
           onSubmit={(e) => {
@@ -127,7 +118,7 @@ function SignUp() {
               />
             </Form.Group>
 
-            <Form.Group controlId="formBasic_CPassword">
+            <Form.Group controlId="formBasic_CPassword" className="mb-3">
               <Form.Label className="text-muted visually-hidden">
                 Confirm Password
               </Form.Label>
@@ -138,6 +129,11 @@ function SignUp() {
                 required
               />
             </Form.Group>
+            {status !== 200 ? (
+              <small className="text-danger">{response}</small>
+            ) : (
+              ""
+            )}
             <FormButton load={load} name="Continue" />
           </Row>
         </Form>
