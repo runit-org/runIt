@@ -1,11 +1,23 @@
 import { Route } from "react-router-dom";
 import Login from "../../src/components/UserAuth/log-in";
 import Header from "../../src/components/SiteElements/header";
+import ResponseProvider from "../../src/components/Context/response-context";
 
 describe("Logout", () => {
+  const response = "";
+  const status = 200;
   it("renders", () => {
     //login
-    cy.mount(<Route path={"/"} element={<Login />} />);
+    cy.mount(
+      <Route
+        path={"/"}
+        element={
+          <ResponseProvider value={{ response: response, status: status }}>
+            <Login />
+          </ResponseProvider>
+        }
+      />
+    );
     cy.fixture("user_creds").then((user) => {
       cy.intercept("POST", "/api/auth/login/", {
         statusCode: 200,

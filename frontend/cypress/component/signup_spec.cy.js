@@ -1,9 +1,21 @@
 import { Route } from "react-router-dom";
+import ResponseProvider from "../../src/components/Context/response-context";
 import Signup from "../../src/components/UserAuth/sign-up";
 
 describe("Signup form", () => {
+  const response = "";
+  const status = 200;
   it("renders", () => {
-    cy.mount(<Route path={"/"} element={<Signup />} />);
+    cy.mount(
+      <Route
+        path={"/"}
+        element={
+          <ResponseProvider value={{ response: response, status: status }}>
+            <Signup />
+          </ResponseProvider>
+        }
+      />
+    );
     cy.fixture("user_creds").then((user) => {
       cy.intercept("POST", "/api/auth/register/", {
         statusCode: 200,
