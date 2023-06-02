@@ -11,6 +11,7 @@ jobs:
       - name: Verify Cypress can run
         run: npx cypress verify
       - name: Install dependencies
+        working-directory: ./frontend
         run: npm ci && npm run build
       - name: Cypress run
         uses: cypress-io/github-action@v5
