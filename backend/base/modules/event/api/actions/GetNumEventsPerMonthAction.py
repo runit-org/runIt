@@ -34,7 +34,7 @@ def checkMonthYearFormat(monthYear):
 def getMonthlyNumEventsPerDate(userId, month, year, length):
     user = User.objects.get(id=userId)
     monthArray = []
-    for i in range (1, length):
+    for i in range (1, length+1):
         totalEvents = 0
 
         # 1. Count owned events
@@ -57,8 +57,8 @@ def get(request, userId, monthYear):
         return error('User ID does not exist')
     
     split = monthYear.split("-")
-    month = split[0]
-    year  = split[1]
+    month = int(split[0])
+    year  = int(split[1])
     
     oddMonths = [1, 3, 5, 7, 8, 10, 12]
     evenMonths = [4, 6, 9, 11]
