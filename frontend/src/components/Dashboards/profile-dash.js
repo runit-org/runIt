@@ -4,6 +4,7 @@ import Calendar from "../Calendar/calendar";
 import UserProfile from "../Profile/user-profile";
 
 function ProfileDash() {
+  // eslint-disable-next-line no-unused-vars
   const [currUserData, setCurrUserData] = useState([]);
 
   const child_data = (data) => {

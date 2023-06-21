@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 function Days(props) {
   const firstMonthDay = new Date(

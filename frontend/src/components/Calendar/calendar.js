@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Days from "./days";
 
 function Calendar() {
+  // eslint-disable-next-line no-unused-vars
   const [days, setDays] = useState([
     "Sun",
     "Mon",
@@ -12,6 +13,7 @@ function Calendar() {
     "Sat",
   ]);
 
+  // eslint-disable-next-line no-unused-vars
   const [months, setMonths] = useState([
     "January",
     "February",
