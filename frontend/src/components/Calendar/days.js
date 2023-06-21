@@ -42,7 +42,14 @@ function Days(props) {
             }`}
             onClick={() => props.changeCurrentDay(days)}
           >
-            <p>{days.day}</p>
+            <p>
+              {days.day}
+              {props.eventIndexes
+                ? props.eventIndexes.includes(days.day)
+                  ? "yes"
+                  : ""
+                : ""}
+            </p>
           </div>
         );
       })}

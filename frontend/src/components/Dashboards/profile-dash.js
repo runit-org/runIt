@@ -18,8 +18,7 @@ function ProfileDash() {
       <div className="dash-container">
         <div className="content">
           <Container>
-            {/* {currUserData.username} */}
-            <Calendar />
+            <Calendar userId={currUserData.id} />
           </Container>
         </div>
 

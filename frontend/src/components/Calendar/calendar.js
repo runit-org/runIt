@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { ChevronLeft, ChevronRight } from "../SiteElements/icons";
 import Days from "./days";
+import {
+  DayEventsHandler,
+  MonthlyEventsHandler,
+} from "./utilities/action-handler";
 
-function Calendar() {
+function Calendar(props) {
   // eslint-disable-next-line no-unused-vars
   const [days, setDays] = useState([
     "Sun",
@@ -45,6 +49,30 @@ function Calendar() {
     setCurrentDay(new Date(currentDay.setMonth(currentDay.getMonth() - 1)));
   };
 
+  const monthlyEvents = MonthlyEventsHandler(
+    props.userId,
+    currentDay.getMonth() + 1,
+    currentDay.getFullYear()
+  );
+
+  if (monthlyEvents) {
+    var indexes = [],
+      i;
+    for (i = 0; i < monthlyEvents.length; i++) {
+      if (monthlyEvents[i] > 0) {
+        indexes.push(i);
+      }
+    }
+  }
+
+  const dayEvents = DayEventsHandler(
+    props.userId,
+    currentDay.getDate(),
+    currentDay.getMonth() + 1,
+    currentDay.getFullYear()
+  );
+
+  console.log(dayEvents);
   return (
     <div className="calendar">
       <div className="head">
@@ -69,7 +97,11 @@ function Calendar() {
           })}
         </div>
 
-        <Days day={currentDay} changeCurrentDay={changeCurrentDay} />
+        <Days
+          day={currentDay}
+          changeCurrentDay={changeCurrentDay}
+          eventIndexes={indexes}
+        />
       </div>
     </div>
   );
