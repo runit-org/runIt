@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Button } from "react-bootstrap";
+import { ChevronLeft, ChevronRight } from "../SiteElements/icons";
 import Days from "./days";
 
 function Calendar() {
@@ -46,18 +48,15 @@ function Calendar() {
   return (
     <div className="calendar">
       <div className="head">
-        <h5 className="m-0">Calendar</h5>
-        <button onClick={prevMonth}>
-          <span className="">prev</span>
-        </button>
-        <p className="m-0">
-          {months[currentDay.getMonth()]}
-          {currentDay.getFullYear()}
-        </p>
+        {currentDay.getFullYear()}
+        <Button onClick={prevMonth}>
+          <ChevronLeft />
+        </Button>
+        <h6 className="m-0">{months[currentDay.getMonth()]}</h6>
 
-        <button onClick={nextMonth}>
-          <span className="">next</span>
-        </button>
+        <Button onClick={nextMonth}>
+          <ChevronRight />
+        </Button>
       </div>
       <div className="body">
         <div className="header">

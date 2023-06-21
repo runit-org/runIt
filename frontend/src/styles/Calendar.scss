@@ -47,4 +47,23 @@
   height: 75px;
   position: relative;
   border: 1px solid #a6a6a6;
+  transition: 0.4s;
+  &:hover {
+    background-color: $theme-light;
+  }
+}
+
+.calendar-days .day p {
+  position: absolute;
+  right: 10px;
+  color: #a6a6a6;
+}
+
+.calendar-days .currMonth p {
+  color: $primary-dark;
+}
+
+.calendar-days .selectedDay p {
+  color: $theme;
+  font-weight: bold;
 }

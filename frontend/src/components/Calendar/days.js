@@ -37,7 +37,9 @@ function Days(props) {
         return (
           <div
             key={index}
-            className="day"
+            className={`day ${days.isCurrMonth ? `currMonth` : ``} ${
+              days.selected ? `selectedDay` : ``
+            }`}
             onClick={() => props.changeCurrentDay(days)}
           >
             <p>{days.day}</p>
