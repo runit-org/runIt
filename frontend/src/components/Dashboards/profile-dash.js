@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
+import Calendar from "../Calendar/calendar";
 import UserProfile from "../Profile/user-profile";
 
 function ProfileDash() {
@@ -14,7 +15,12 @@ function ProfileDash() {
   return (
     <div style={{ position: "relative" }}>
       <div className="dash-container">
-        <div className="content">{currUserData.username}</div>
+        <div className="content">
+          <Container>
+            {/* {currUserData.username} */}
+            <Calendar />
+          </Container>
+        </div>
 
         <div className="sidebar">
           <div className="sidebar-wrapper">

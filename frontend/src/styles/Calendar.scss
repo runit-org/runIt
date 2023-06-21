@@ -1,0 +1,50 @@
+@import "index.scss";
+
+/*------Calendar------*/
+.calendar {
+  width: 900px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+.calendar .head {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.calendar .body {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar .body .header {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.calendar .body .week {
+  width: 100px;
+  text-align: center;
+}
+
+.calendar-days {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.calendar-days .day {
+  width: 125px;
+  height: 75px;
+  position: relative;
+  border: 1px solid #a6a6a6;
+}
