@@ -60,7 +60,7 @@ function Calendar(props) {
 
     for (var i = 0; i < monthlyEvents.length; i++) {
       if (monthlyEvents[i] > 0) {
-        indexes.push({ day: i, count: monthlyEvents[i] });
+        indexes.push({ day: i + 1, count: monthlyEvents[i] });
       }
     }
   }
@@ -72,8 +72,6 @@ function Calendar(props) {
     currentDay.getMonth() + 1,
     currentDay.getFullYear()
   );
-
-  // console.log(indexes);
 
   return (
     <div className="calendar">
