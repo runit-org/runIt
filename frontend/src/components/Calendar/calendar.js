@@ -65,6 +65,7 @@ function Calendar(props) {
     }
   }
 
+  // eslint-disable-next-line no-unused-vars
   const dayEvents = DayEventsHandler(
     props.userId,
     currentDay.getDate(),
@@ -72,7 +73,7 @@ function Calendar(props) {
     currentDay.getFullYear()
   );
 
-  console.log(indexes);
+  // console.log(indexes);
 
   return (
     <div className="calendar">
