@@ -56,11 +56,11 @@ function Calendar(props) {
   );
 
   if (monthlyEvents) {
-    var indexes = [],
-      i;
-    for (i = 0; i < monthlyEvents.length; i++) {
+    var indexes = [];
+
+    for (var i = 0; i < monthlyEvents.length; i++) {
       if (monthlyEvents[i] > 0) {
-        indexes.push(i);
+        indexes.push({ day: i, count: monthlyEvents[i] });
       }
     }
   }
@@ -72,7 +72,8 @@ function Calendar(props) {
     currentDay.getFullYear()
   );
 
-  console.log(dayEvents);
+  console.log(indexes);
+
   return (
     <div className="calendar">
       <div className="head">
@@ -101,6 +102,7 @@ function Calendar(props) {
           day={currentDay}
           changeCurrentDay={changeCurrentDay}
           eventIndexes={indexes}
+          currentMonth={currentDay.getMonth()}
         />
       </div>
     </div>

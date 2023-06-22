@@ -1,4 +1,5 @@
 import React from "react";
+import { Badge } from "react-bootstrap";
 
 function Days(props) {
   const firstMonthDay = new Date(
@@ -42,14 +43,17 @@ function Days(props) {
             }`}
             onClick={() => props.changeCurrentDay(days)}
           >
-            <p>
-              {days.day}
-              {props.eventIndexes
-                ? props.eventIndexes.includes(days.day)
-                  ? "yes"
-                  : ""
-                : ""}
-            </p>
+            <p>{days.day}</p>
+            {props.eventIndexes
+              ? props.eventIndexes.map((data, index) => {
+                  return data.day === days.day &&
+                    props.currentMonth === days.month ? (
+                    <Badge key={index}>{data.count}</Badge>
+                  ) : (
+                    ""
+                  );
+                })
+              : null}
           </div>
         );
       })}
