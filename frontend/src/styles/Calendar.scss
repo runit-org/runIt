@@ -18,6 +18,10 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  background-color: $primary-light !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(0, 0, 0, 0.175) !important;
+  padding-bottom: 20px;
 }
 
 .calendar .body .header {
@@ -46,10 +50,17 @@
   width: 125px;
   height: 75px;
   position: relative;
-  border: 1px solid #a6a6a6;
+  border-top: 1px solid rgba(0, 0, 0, 0.175);
+  border-left: 1px solid rgba(0, 0, 0, 0.175);
   transition: 0.4s;
   &:hover {
     background-color: $theme-light;
+  }
+  &:nth-child(7n) {
+    border-right: 1px solid rgba(0, 0, 0, 0.175);
+  }
+  &:nth-child(n + 36) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.175);
   }
 }
 

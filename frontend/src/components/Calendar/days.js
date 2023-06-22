@@ -2,39 +2,43 @@ import React from "react";
 import { Badge } from "react-bootstrap";
 
 function Days(props) {
-  const firstMonthDay = new Date(
+  const firstDayOfMonth = new Date(
     props.day.getFullYear(),
     props.day.getMonth(),
     1
   );
 
-  const dayOfFirstDay = firstMonthDay.getDay();
-  let currentDays = [];
+  const indexOfFIrstDay = firstDayOfMonth.getDay();
 
-  for (let day = 0; day < 42; day++) {
-    if (day === 0 && dayOfFirstDay === 0) {
-      firstMonthDay.setDate(firstMonthDay.getDate() - 7);
-    } else if (day === 0) {
-      firstMonthDay.setDate(firstMonthDay.getDate() + (day - dayOfFirstDay));
+  let currentCalendarDays = [];
+
+  //sets the first day of the calendar
+  for (let calendarIndex = 0; calendarIndex < 42; calendarIndex++) {
+    if (calendarIndex === 0 && indexOfFIrstDay === 0) {
+      firstDayOfMonth.setDate(firstDayOfMonth.getDate() - 7);
+    } else if (calendarIndex === 0) {
+      firstDayOfMonth.setDate(
+        firstDayOfMonth.getDate() + (calendarIndex - indexOfFIrstDay)
+      );
     } else {
-      firstMonthDay.setDate(firstMonthDay.getDate() + 1);
+      firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 1);
     }
 
     let calendarDay = {
-      isCurrMonth: firstMonthDay.getMonth() === props.day.getMonth(),
-      fullDate: new Date(firstMonthDay),
-      month: firstMonthDay.getMonth(),
-      day: firstMonthDay.getDate(),
-      selected: firstMonthDay.toDateString() === props.day.toDateString(),
-      year: firstMonthDay.getFullYear(),
+      isCurrMonth: firstDayOfMonth.getMonth() === props.day.getMonth(),
+      fullDate: new Date(firstDayOfMonth),
+      month: firstDayOfMonth.getMonth(),
+      day: firstDayOfMonth.getDate(),
+      selected: firstDayOfMonth.toDateString() === props.day.toDateString(),
+      year: firstDayOfMonth.getFullYear(),
     };
 
-    currentDays.push(calendarDay);
+    currentCalendarDays.push(calendarDay);
   }
 
   return (
     <div className="calendar-days">
-      {currentDays.map((days, index) => {
+      {currentCalendarDays.map((days, index) => {
         return (
           <div
             key={index}
@@ -48,7 +52,9 @@ function Days(props) {
               ? props.eventIndexes.map((data, index) => {
                   return data.day === days.day &&
                     props.currentMonth === days.month ? (
-                    <Badge key={index}>{data.count}</Badge>
+                    <Badge key={index}>
+                      <small>{data.count} Event(s)</small>
+                    </Badge>
                   ) : (
                     ""
                   );
