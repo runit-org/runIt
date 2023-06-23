@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { ChevronLeft, ChevronRight } from "../SiteElements/icons";
 import Days from "./days";
@@ -65,7 +65,6 @@ function Calendar(props) {
     }
   }
 
-  // eslint-disable-next-line no-unused-vars
   const dayEvents = DayEventsHandler(
     props.userId,
     currentDay.getDate(),
@@ -73,31 +72,25 @@ function Calendar(props) {
     currentDay.getFullYear()
   );
 
+  useEffect(() => {
+    if (props.calendarData && dayEvents) {
+      props.calendarData(dayEvents);
+    }
+  }, [dayEvents, props]);
+
   return (
     <div className="calendar">
-      <div>
-        {dayEvents
-          ? dayEvents.map((item, i) => {
-              return (
-                <span key={i}>
-                  {item.title}
-                  <br />
-                </span>
-              );
-            })
-          : null}
-      </div>
-
       <div className="head">
-        {currentDay.getFullYear()}
-        <Button onClick={prevMonth}>
-          <ChevronLeft />
-        </Button>
-        <h6 className="m-0">{months[currentDay.getMonth()]}</h6>
-
-        <Button onClick={nextMonth}>
-          <ChevronRight />
-        </Button>
+        <span> {currentDay.getFullYear()}</span>
+        <div className="month-controls">
+          <Button onClick={prevMonth}>
+            <ChevronLeft />
+          </Button>
+          <h6 className="m-0">{months[currentDay.getMonth()]}</h6>
+          <Button onClick={nextMonth}>
+            <ChevronRight />
+          </Button>
+        </div>
       </div>
 
       <div className="body">

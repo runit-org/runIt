@@ -118,10 +118,12 @@ function Header() {
                 >
                   <NavDropdown.Item
                     href={
-                      currentUser ? `/profile?user=${currentUser.username}` : ""
+                      currentUser
+                        ? `/calendar?user=${currentUser.username}`
+                        : ""
                     }
                   >
-                    Your profile
+                    Calendar
                   </NavDropdown.Item>
                   <NavDropdown.Item
                     onClick={(e) => {

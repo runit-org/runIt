@@ -237,6 +237,20 @@ div.content {
   border-radius: 8px;
   margin: 20px;
 }
+/*------Calendar Dash------*/
+.sidebar_calendarDash {
+  width: 50%;
+}
+.sidebar_calendarDash .card {
+  background-color: $primary-light;
+  border-radius: 8px;
+  margin: 20px;
+}
+.sidebar_calendarDash .sidebar-wrapper .sidebar_right {
+  margin-top: 90px;
+  padding-right: 10px;
+}
+
 /*------Off-Canvas------*/
 .offcanvas-header {
   background-color: $theme-light;

@@ -12,7 +12,26 @@
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 530px) {
+  .calendar {
+    width: 400px !important;
+    height: 400px !important;
+  }
+  .calendar .body .week {
+    width: 50px !important;
+  }
+  .calendar-days .day {
+    width: 50px !important;
+    height: 46px !important;
+    padding: 0px !important;
+    padding-right: 2px !important;
+  }
+  .calendar-days .day span {
+    display: none !important;
+  }
+}
+
+@media only screen and (min-width: 530px) and (max-width: 768px) {
   .calendar {
     width: 500px !important;
     height: 400px !important;
@@ -22,7 +41,7 @@
   }
   .calendar-days .day {
     width: 60px !important;
-    height: 36px !important;
+    height: 46px !important;
     padding: 0px !important;
     padding-right: 4px !important;
   }
@@ -53,10 +72,22 @@
     margin: 0 auto !important;
     flex-direction: column-reverse !important;
   }
-  .sidebar_eventDash {
+  .sidebar_eventDash,
+  .sidebar_calendarDash {
     width: 100% !important;
+  }
+  .dash-container#calendar {
+    margin: 0 auto !important;
+    flex-direction: column !important;
   }
   .sidebar-wrapper {
     height: 100% !important;
+  }
+  .sidebar_calendarDash .sidebar-wrapper {
+    padding-top: 0 !important;
+  }
+  .sidebar_calendarDash .sidebar-wrapper .sidebar_right {
+    margin-top: 0 !important;
+    padding: 0 !important;
   }
 }

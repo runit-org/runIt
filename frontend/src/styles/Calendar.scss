@@ -11,6 +11,7 @@
   height: 100px;
   width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 .calendar .body {
@@ -88,11 +89,12 @@
 
 .calendar-days .day span {
   display: block;
-  float: right;
   clear: right;
-  width: max-content;
+  width: 100%;
   font-size: 11px;
   border-radius: 4px !important;
+  text-align: start;
+  background-color: $theme !important;
 }
 
 .calendar-days .currMonth p {
@@ -106,4 +108,20 @@
 .calendar-days .selectedDay p {
   color: $theme;
   font-weight: bold;
+}
+
+.calendar .month-controls {
+  display: flex;
+  align-items: center;
+}
+
+.calendar .month-controls h6 {
+  width: 75px;
+  margin: 0 20px 0 20px !important;
+  text-align: center;
+}
+
+.calendar .head span {
+  font-size: 20px;
+  font-weight: 600;
 }
