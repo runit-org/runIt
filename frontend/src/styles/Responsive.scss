@@ -12,6 +12,34 @@
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .calendar {
+    width: 500px !important;
+    height: 400px !important;
+  }
+  .calendar .body .week {
+    width: 60px !important;
+  }
+  .calendar-days .day {
+    width: 60px !important;
+    height: 35px !important;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .calendar {
+    width: 700px !important;
+    height: 500px !important;
+  }
+  .calendar .body .week {
+    width: 90px !important;
+  }
+  .calendar-days .day {
+    width: 90px !important;
+    height: 65px !important;
+  }
+}
+
 @media only screen and (max-width: 1024px) {
   .sidebar {
     display: none;

@@ -48,13 +48,12 @@ function Days(props) {
             onClick={() => props.changeCurrentDay(days)}
           >
             <p>{days.day}</p>
+
             {props.eventIndexes
               ? props.eventIndexes.map((data, index) => {
                   return data.day === days.day &&
                     props.currentMonth === days.month ? (
-                    <Badge key={index}>
-                      <small>{data.count} Event(s)</small>
-                    </Badge>
+                    <Badge key={index}>{data.count} Event(s)</Badge>
                   ) : (
                     ""
                   );

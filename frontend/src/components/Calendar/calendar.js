@@ -76,7 +76,6 @@ function Calendar(props) {
   return (
     <div className="calendar">
       <div>
-        {" "}
         {dayEvents
           ? dayEvents.map((item, i) => {
               return (
@@ -86,8 +85,9 @@ function Calendar(props) {
                 </span>
               );
             })
-          : null}{" "}
+          : null}
       </div>
+
       <div className="head">
         {currentDay.getFullYear()}
         <Button onClick={prevMonth}>
@@ -99,6 +99,7 @@ function Calendar(props) {
           <ChevronRight />
         </Button>
       </div>
+
       <div className="body">
         <div className="header">
           {days.map((i, index) => {
