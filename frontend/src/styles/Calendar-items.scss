@@ -20,10 +20,6 @@
   align-items: center;
 }
 
-.calender-event-card .image-wrapper {
-  //   flex-shrink: 0;
-}
-
 .calender-event-card img {
   width: 3.5rem;
   width: 45px;
@@ -35,8 +31,12 @@
   flex-direction: row;
 }
 
-.calender-event-card .details_textarea small:nth-child(2) {
+.calender-event-card .details_textarea span:nth-child(2) {
   padding-left: 10px;
   margin-left: 10px;
   border-left: 1px solid #d1d5db;
+}
+
+.calender-event-card .details_textarea span svg {
+  margin: 2.8px 5px 0 0;
 }

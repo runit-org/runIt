@@ -24,6 +24,9 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  background-color: $primary-light !important;
+  border: 1px solid rgba(0, 0, 0, 0.175);
+  border-radius: 9px;
 }
 
 .calendar .body .header {
@@ -32,12 +35,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $primary-light !important;
-  border-width: 1px 1px 0px 1px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.175) !important;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
 }
 
 .calendar .body .week {
@@ -57,12 +54,6 @@
   flex-wrap: wrap;
   justify-content: center;
   box-sizing: border-box;
-  background-color: $primary-light !important;
-  border-width: 0px 1px 1px 1px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.175) !important;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
   padding: 10px;
 }
 
@@ -113,9 +104,16 @@
   align-items: center;
 }
 
+.calendar .month-controls div {
+  padding: 2px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .calendar .month-controls h6 {
   width: 75px;
-  margin: 0 20px 0 20px !important;
+  margin: 0 18px 0 18px !important;
   text-align: center;
 }
 

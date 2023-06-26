@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 import { ChevronLeft, ChevronRight } from "../SiteElements/icons";
 import Days from "./days";
 import {
@@ -83,13 +82,13 @@ function Calendar(props) {
       <div className="head">
         <span> {currentDay.getFullYear()}</span>
         <div className="month-controls">
-          <Button onClick={prevMonth}>
+          <div onClick={prevMonth}>
             <ChevronLeft />
-          </Button>
+          </div>
           <h6 className="m-0">{months[currentDay.getMonth()]}</h6>
-          <Button onClick={nextMonth}>
+          <div onClick={nextMonth}>
             <ChevronRight />
-          </Button>
+          </div>
         </div>
       </div>
 
