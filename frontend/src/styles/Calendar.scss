@@ -1,18 +1,23 @@
 @import "index.scss";
 
 /*------Calendar------*/
+.calendar-wrapper {
+  display: flex;
+  justify-content: center;
+}
 .calendar {
-  width: 900px;
-  height: 600px;
+  width: 400px;
+  height: 400px;
   display: flex;
   flex-direction: column;
 }
 .calendar .head {
-  height: 100px;
+  height: 46px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 5px;
 }
 .calendar .body {
   width: 100%;
@@ -36,11 +41,13 @@
 }
 
 .calendar .body .week {
-  width: 125px;
+  width: 50px;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 14px;
+  color: $fnt-muted;
 }
 
 .calendar-days {
@@ -60,41 +67,26 @@
 }
 
 .calendar-days .day {
-  width: 125px;
-  height: 75px;
+  width: 50px;
+  height: 50px;
   position: relative;
-  border-left: 1px solid rgba(0, 0, 0, 0.175);
   transition: 0.4s;
   padding: 8px;
 
   &:hover {
     background-color: $theme-light;
+    border-radius: 6px;
   }
-  &:nth-child(n + 8) {
-    border-top: 1px solid rgba(0, 0, 0, 0.175);
-  }
-  &:nth-child(7n + 1) {
-    border-left: none;
-  }
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
 }
 
 .calendar-days .day p {
   margin: 0;
-  float: right;
-  right: 10px;
   font-size: 16px;
   font-weight: 400 !important;
   color: #adadad;
-}
-
-.calendar-days .day span {
-  display: block;
-  clear: right;
-  width: 100%;
-  font-size: 11px;
-  border-radius: 4px !important;
-  text-align: start;
-  background-color: $theme !important;
 }
 
 .calendar-days .currMonth p {
@@ -103,11 +95,17 @@
 
 .calendar-days .selectedDay {
   background-color: $theme-light;
+  border-radius: 6px;
 }
 
 .calendar-days .selectedDay p {
   color: $theme;
-  font-weight: bold;
+  font-weight: bold !important;
+}
+
+.calendar-days .hasEvent p {
+  color: $theme;
+  font-weight: bold !important;
 }
 
 .calendar .month-controls {

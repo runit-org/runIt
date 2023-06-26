@@ -1,17 +1,22 @@
-import React, { useContext, useState } from "react";
-import { Container } from "react-bootstrap";
+import React, { useState } from "react";
+import { Card, Container } from "react-bootstrap";
 import Calendar from "../Calendar/calendar";
 import CalendarEventItem from "../Calendar/calendar-event-item";
-import { UserContext } from "../Context/user-context";
+import UserProfile from "../Profile/user-profile";
 
 function ProfileDash() {
-  // eslint-disable-next-line no-unused-vars
+  const [currUserData, setCurrUserData] = useState([]);
   const [calendarEvents, setCalendarEvents] = useState([]);
-  const contextUser = useContext(UserContext);
 
   const child_data = (data) => {
     if (data) {
       setCalendarEvents(data);
+    }
+  };
+
+  const child_data2 = (data) => {
+    if (data) {
+      setCurrUserData(data);
     }
   };
 
@@ -20,7 +25,7 @@ function ProfileDash() {
       <div className="dash-container" id="calendar">
         <div className="content">
           <Container>
-            <Calendar userId={contextUser.id} calendarData={child_data} />
+            <CalendarEventItem calendarEvents={calendarEvents} />
           </Container>
         </div>
 
@@ -28,7 +33,18 @@ function ProfileDash() {
           <div className="sidebar-wrapper">
             <div className="sidebar_right">
               <Container>
-                <CalendarEventItem calendarEvents={calendarEvents} />
+                <Card>
+                  <Card.Body>
+                    <UserProfile userData={child_data2} />
+                  </Card.Body>
+                </Card>
+
+                <div className="calendar-wrapper">
+                  <Calendar
+                    userId={currUserData.id}
+                    calendarData={child_data}
+                  />
+                </div>
               </Container>
             </div>
           </div>

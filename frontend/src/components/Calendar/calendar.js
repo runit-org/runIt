@@ -10,13 +10,13 @@ import {
 function Calendar(props) {
   // eslint-disable-next-line no-unused-vars
   const [days, setDays] = useState([
-    "Sun",
-    "Mon",
-    "Tue",
-    "Wed",
-    "Thu",
-    "Fri",
-    "Sat",
+    "SUN",
+    "MON",
+    "TUE",
+    "WED",
+    "THU",
+    "FRI",
+    "SAT",
   ]);
 
   // eslint-disable-next-line no-unused-vars

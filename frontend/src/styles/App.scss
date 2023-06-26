@@ -8,6 +8,7 @@
 @import "Comment.scss";
 @import "Suggested.scss";
 @import "Calendar.scss";
+@import "Calendar-items.scss";
 
 /*------General Components------*/
 html,
@@ -245,10 +246,6 @@ div.content {
   background-color: $primary-light;
   border-radius: 8px;
   margin: 20px;
-}
-.sidebar_calendarDash .sidebar-wrapper .sidebar_right {
-  margin-top: 90px;
-  padding-right: 10px;
 }
 
 /*------Off-Canvas------*/

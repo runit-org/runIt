@@ -85,7 +85,7 @@ function EventItem(props) {
               <small className="text-muted">
                 Host:{" "}
                 <a
-                  href={`/calendar?user=${eventData.userName}`}
+                  href={`/profile?user=${eventData.userName}`}
                   className="text-decoration-none"
                 >
                   @{eventData.userName}

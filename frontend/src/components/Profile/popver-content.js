@@ -32,10 +32,10 @@ const UserPopoverContent = (props) => {
             </small>
             <div className="mt-2">
               <a
-                href={`/calendar?user=${user.username}`}
+                href={`/profile?user=${user.username}`}
                 className="text-decoration-none"
               >
-                View calendar <ArrowRight />
+                View profile <ArrowRight />
               </a>
             </div>
           </div>

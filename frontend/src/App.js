@@ -63,7 +63,7 @@ function App() {
             }
           />
           <Route
-            path="/calendar"
+            path="/profile"
             element={
               <ProtectedRoute>
                 <UserContext>

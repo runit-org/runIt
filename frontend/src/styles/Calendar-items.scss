@@ -1,0 +1,42 @@
+@import "index.scss";
+
+.calender-event-card {
+  background-color: $primary-light !important;
+  border-radius: 8px !important;
+  margin: 20px;
+}
+
+.calender-event-card .card-body {
+  display: flow-root;
+  margin: 0 50px 0 50px;
+}
+
+.calender-event-card .row {
+  padding: 20px;
+}
+
+.calender-event-card .row .col-1 {
+  display: flex;
+  align-items: center;
+}
+
+.calender-event-card .image-wrapper {
+  //   flex-shrink: 0;
+}
+
+.calender-event-card img {
+  width: 3.5rem;
+  width: 45px;
+  border-radius: 4px !important;
+}
+
+.calender-event-card .details_textarea {
+  display: flex;
+  flex-direction: row;
+}
+
+.calender-event-card .details_textarea small:nth-child(2) {
+  padding-left: 10px;
+  margin-left: 10px;
+  border-left: 1px solid #d1d5db;
+}
