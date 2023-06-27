@@ -121,7 +121,7 @@ function Header() {
                       currentUser ? `/profile?user=${currentUser.username}` : ""
                     }
                   >
-                    Your profile
+                    Profile
                   </NavDropdown.Item>
                   <NavDropdown.Item
                     onClick={(e) => {

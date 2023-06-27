@@ -11,7 +11,7 @@ function UserProfile(props) {
   const param = searchParams.get("user");
   const contextUser = useContext(UserContext);
 
-  const user = UserProfileHandler(param ? param : contextUser);
+  const user = UserProfileHandler(param ? param : contextUser.user);
 
   useEffect(() => {
     if (props.userData && user) {
@@ -43,7 +43,7 @@ function UserProfile(props) {
             <VoteBadge votes={user.totalVote} />
             <UserCardInfo />
           </div>
-          {user.username !== contextUser ? (
+          {user.username !== contextUser.user ? (
             <div className="mt-4">
               <Vote
                 userId={user.id}

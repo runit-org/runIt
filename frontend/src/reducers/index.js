@@ -6,6 +6,7 @@ import notificationReducer from "./notificationReducer";
 import userReducer from "./userReducer";
 import commentReducer from "./commentReducer";
 import suggestReducer from "./suggestReducer";
+import calendarReducer from "./calendarReducer";
 
 export default combineReducers({
   security: securityReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   users: userReducer,
   comments: commentReducer,
   suggestions: suggestReducer,
+  calendarReducer: calendarReducer,
 });

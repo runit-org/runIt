@@ -24,3 +24,7 @@ export const GET_ALL_COMMENTS = "GET_ALL_COMMENTS";
 
 //suggest types
 export const GET_EVENT_SUGGESTIONS = "GET_EVENT_SUGGESTIONS";
+
+//Calendar types
+export const GET_MONTHLY_EVENTS = "GET_MONTHLY_EVENTS";
+export const GET_DAY_EVENTS = "GET_DAY_EVENTS";

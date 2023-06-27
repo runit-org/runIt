@@ -35,7 +35,7 @@ const UserPopoverContent = (props) => {
                 href={`/profile?user=${user.username}`}
                 className="text-decoration-none"
               >
-                Visit profile <ArrowRight />
+                View profile <ArrowRight />
               </a>
             </div>
           </div>
