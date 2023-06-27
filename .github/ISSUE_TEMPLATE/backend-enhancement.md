@@ -1,5 +1,5 @@
 ---
-name: ":fax: Backend enhancement"
+name: "📠 Backend enhancement"
 about: Suggest a new API feature
 title: ''
 labels: backend, enhancement, idea
