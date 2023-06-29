@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PopoverItem from "../Profile/popover-item";
-import { ArrowRight } from "../SiteElements/icons";
+import { ArrowRight } from "../../Layouts/icons";
 import { BadgeItem, RequestBtn, StatusBadge } from "./utilities/event-builder";
 
 function EventItemCard(props) {

@@ -1,6 +1,6 @@
 import React, { useState, useImperativeHandle, useEffect } from "react";
 import { Form, Modal } from "react-bootstrap";
-import CTAButton from "../SiteElements/cta-button";
+import CTAButton from "../../Layouts/cta-button";
 
 const ModalItem = React.forwardRef(
   (

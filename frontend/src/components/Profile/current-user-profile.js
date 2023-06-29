@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getCurrentUserProfile } from "../../actions/userActions";
-import { DisplayImage } from "../SiteElements/user-displayimg";
+import { DisplayImage } from "../../Layouts/user-displayimg";
 import { UserCardInfo, VoteBadge } from "./utilities/profile-builder";
 
 function CurrentUserProfile() {

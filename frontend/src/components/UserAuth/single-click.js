@@ -4,8 +4,8 @@ import { Card, ListGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/securityActions";
-import { Logout } from "../SiteElements/icons";
-import { DisplayImage } from "../SiteElements/user-displayimg";
+import { Logout } from "../../Layouts/icons";
+import { DisplayImage } from "../../Layouts/user-displayimg";
 
 function SingleClick(props) {
   const dispatch = useDispatch();

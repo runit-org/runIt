@@ -4,8 +4,8 @@ import { useDispatch } from "react-redux";
 import { createComment, getAllComments } from "../../actions/commentActions";
 import { emitter } from "../client/socket";
 import { SingleEventContext } from "../Dashboards/event-dash";
-import CTAButton from "../SiteElements/cta-button";
-import { Submit } from "../SiteElements/icons";
+import CTAButton from "../../Layouts/cta-button";
+import { Submit } from "../../Layouts/icons";
 import { MentionFilter } from "../Utilities/mention";
 import { SearchParam } from "../Utilities/search-param";
 

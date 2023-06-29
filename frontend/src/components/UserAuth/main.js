@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Footer from "../SiteElements/footer";
+import Footer from "../../Layouts/footer";
 import Login from "./log-in";
 import ResetPassword from "./reset-pw";
 import ResetPasswordEmail from "./resetPw-email";
@@ -10,7 +10,7 @@ import SingleClick from "./single-click";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUserProfile } from "../../actions/userActions";
 import { Card } from "react-bootstrap";
-import { AppLogo } from "../SiteElements/icons";
+import { AppLogo } from "../../Layouts/icons";
 import Cookies from "js-cookie";
 
 function Main() {

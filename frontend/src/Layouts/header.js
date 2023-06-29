@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../actions/securityActions";
-import Notifications from "../notification";
-import { getCurrentUserProfile } from "../../actions/userActions";
-import { receiver } from "../client/socket";
-import { getNotifications } from "../../actions/notificationActions";
+import { logout } from "../actions/securityActions";
+import Notifications from "../components/Notification/notification";
+import { getCurrentUserProfile } from "../actions/userActions";
+import { receiver } from "../components/client/socket";
+import { getNotifications } from "../actions/notificationActions";
 import { AppLogo, Notification } from "./icons";
 import Cookies from "js-cookie";
 

@@ -10,7 +10,7 @@ import PopoverItem from "../Profile/popover-item";
 import { CommentReacts } from "./utilities/comment-builder";
 import { SingleEventContext } from "../Dashboards/event-dash";
 import { SecurityContext } from "../Context/security-context";
-import { Ellipse } from "../SiteElements/icons";
+import { Ellipse } from "../../Layouts/icons";
 import { emitter } from "../client/socket";
 
 function CommentItem(props) {

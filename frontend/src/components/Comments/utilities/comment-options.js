@@ -1,6 +1,6 @@
 import RemoveComment from "../remove-comment";
-import CTAButton from "../../SiteElements/cta-button";
-import { Edit } from "../../SiteElements/icons";
+import CTAButton from "../../../Layouts/cta-button";
+import { Edit } from "../../../Layouts/icons";
 
 export const commentOptions = (commentId, eventId, count, handleClick) => {
   const options_owner = [

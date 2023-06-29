@@ -7,7 +7,7 @@ import EventMembers from "./event-members";
 import { RequestBtn, StatusBadge } from "./utilities/event-builder";
 import { SingleEventContext } from "../Dashboards/event-dash";
 import { SecurityContext } from "../Context/security-context";
-import { Comment, Ellipse } from "../SiteElements/icons";
+import { Comment, Ellipse } from "../../Layouts/icons";
 import { CANCELLED, FINISHED } from "./utilities/types";
 
 function EventItem(props) {

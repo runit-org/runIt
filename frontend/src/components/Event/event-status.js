@@ -2,11 +2,11 @@ import React, { useState, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getSingleEvent, updateStatus } from "../../actions/eventActions";
-import { Loading } from "../SiteElements/loader";
+import { Loading } from "../../Layouts/loader";
 import ModalItem from "./modal-item";
 import { useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
-import { PencilSquare } from "../SiteElements/icons";
+import { PencilSquare } from "../../Layouts/icons";
 import { CANCELLED, FINISHED } from "./utilities/types";
 import { EventMembersHandler } from "./utilities/action-handlers";
 

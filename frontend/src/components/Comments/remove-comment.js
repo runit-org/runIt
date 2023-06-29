@@ -1,12 +1,12 @@
 import React, { useState, useRef } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Loading } from "../SiteElements/loader";
+import { Loading } from "../../Layouts/loader";
 import ModalItem from "../Event/modal-item";
 import { SearchParam } from "../Utilities/search-param";
 import { useNavigate } from "react-router-dom";
 import { getAllComments, removeComment } from "../../actions/commentActions";
-import { Delete } from "../SiteElements/icons";
+import { Delete } from "../../Layouts/icons";
 
 function RemoveComment(props) {
   const dispatch = useDispatch();
