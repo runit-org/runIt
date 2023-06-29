@@ -1,8 +1,8 @@
 import EventMembers from "../event-members";
 import JoinEvent from "../join-event";
 import RemoveEvent from "../remove-event";
-import CTAButton from "../../../Layouts/cta-button";
-import { Edit } from "../../../Layouts/icons";
+import CTAButton from "../../../layouts/cta-button";
+import { Edit } from "../../../layouts/icons";
 import EventStatus from "../event-status";
 
 export const eventOptions = (id, title, user, currUser, handleClick) => {

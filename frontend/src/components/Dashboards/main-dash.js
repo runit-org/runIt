@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import CreatePost from "../Event/create-event";
-import Pagination from "../../Layouts/pagination";
+import Pagination from "../../layouts/pagination";
 import { useSearchParams, useLocation } from "react-router-dom";
 import { SearchParam } from "../Utilities/search-param";
 import EventItemCard from "../Event/event-item-card";

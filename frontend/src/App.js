@@ -1,7 +1,7 @@
 import "./styles/App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
-import Header from "./Layouts/header";
+import Header from "./layouts/header";
 import Main from "./components/UserAuth/main";
 import { getAccessToken } from "./securityUtils/setToken";
 import React, { lazy, Suspense } from "react";

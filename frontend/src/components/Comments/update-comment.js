@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import CTAButton from "../../Layouts/cta-button";
+import CTAButton from "../../layouts/cta-button";
 import { getAllComments, updateComment } from "../../actions/commentActions";
 import { SearchParam } from "../Utilities/search-param";
 import { emitter } from "../client/socket";
 import { MentionFilter } from "../Utilities/mention";
-import { Cross, Submit } from "../../Layouts/icons";
+import { Cross, Submit } from "../../layouts/icons";
 
 function UpdateComment(props, { handleUpate }) {
   const dispatch = useDispatch();

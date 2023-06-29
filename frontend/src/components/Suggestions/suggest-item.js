@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
-import { Information } from "../../Layouts/icons";
-import { Skeleton } from "../../Layouts/loader";
+import { Information } from "../../layouts/icons";
+import { Skeleton } from "../../layouts/loader";
 import PopoverItem from "./popover-item";
 import { EventSuggestHandler } from "./utilities/suggest-handler";
 

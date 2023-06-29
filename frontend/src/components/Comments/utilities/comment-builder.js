@@ -1,4 +1,4 @@
-import { Like } from "../../../Layouts/icons";
+import { Like } from "../../../layouts/icons";
 
 export const CommentReacts = (props) => {
   const reactCount = props.commentData.totalLikes;

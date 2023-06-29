@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "../../Layouts/icons";
+import { ChevronLeft, ChevronRight } from "../../layouts/icons";
 import Days from "./days";
 import {
   DayEventsHandler,

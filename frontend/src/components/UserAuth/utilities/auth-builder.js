@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap";
-import { Loading } from "../../../Layouts/loader";
+import { Loading } from "../../../layouts/loader";
 
 export const FormButton = (props) => {
   return (

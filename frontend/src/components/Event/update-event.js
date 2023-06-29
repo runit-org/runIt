@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { updateEvent, getSingleEvent } from "../../actions/eventActions";
 import { useDispatch } from "react-redux";
-import CTAButton from "../../Layouts/cta-button";
+import CTAButton from "../../layouts/cta-button";
 import { useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
 import { MentionFilter } from "../Utilities/mention";
-import { Cross, Submit } from "../../Layouts/icons";
+import { Cross, Submit } from "../../layouts/icons";
 
 function UpdateEvent(props, { handleUpate }) {
   const dispatch = useDispatch();

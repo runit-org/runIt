@@ -6,14 +6,14 @@ import ManageMembers from "../Event/manage-members";
 import CommentItem from "../Comments/comment-item";
 import CreateComment from "../Comments/create-comment";
 import { SearchParam } from "../Utilities/search-param";
-import Pagination from "../../Layouts/pagination";
-import Breadcrumbs from "../../Layouts/breadcrumbs";
+import Pagination from "../../layouts/pagination";
+import Breadcrumbs from "../../layouts/breadcrumbs";
 import { ACCEPTED, CANCELLED, FINISHED, OWNER } from "../Event/utilities/types";
 import { SingleEventHandler } from "../Event/utilities/action-handlers";
 import { SecurityContext } from "../Context/security-context";
 import { BadgeItem } from "../Event/utilities/event-builder";
-import { Information } from "../../Layouts/icons";
-import { InfoCard } from "../../Layouts/info-cards";
+import { Information } from "../../layouts/icons";
+import { InfoCard } from "../../layouts/info-cards";
 
 export const SingleEventContext = createContext();
 

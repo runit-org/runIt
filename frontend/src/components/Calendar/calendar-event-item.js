@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import { Calendar, Geomark } from "../../Layouts/icons";
+import { Calendar, Geomark } from "../../layouts/icons";
 
 function CalendarEventItem(props) {
   return (

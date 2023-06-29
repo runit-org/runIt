@@ -2,7 +2,7 @@ import React from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getUserProfile, vote } from "../../actions/userActions";
-import { Thumbsup, Thumbsdown } from "../../Layouts/icons";
+import { Thumbsup, Thumbsdown } from "../../layouts/icons";
 
 function Vote(props) {
   const dispatch = useDispatch();

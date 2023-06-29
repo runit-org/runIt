@@ -3,9 +3,9 @@ import { Form, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPw } from "../../actions/securityActions";
 import { Link } from "react-router-dom";
-import ErrorToast from "../../Layouts/error-toast";
+import ErrorToast from "../../layouts/error-toast";
 import { useNavigate } from "react-router-dom";
-import { MsgToast } from "../../Layouts/msg-toast";
+import { MsgToast } from "../../layouts/msg-toast";
 import { FormButton } from "./utilities/auth-builder";
 
 function ResetPassword(props) {

@@ -6,12 +6,12 @@ import {
   getAllEvents,
   getSingleEvent,
 } from "../../actions/eventActions";
-import { Loading } from "../../Layouts/loader";
+import { Loading } from "../../layouts/loader";
 import ModalItem from "./modal-item";
 import { SearchParam } from "../Utilities/search-param";
 import { useLocation, useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
-import { Plus } from "../../Layouts/icons";
+import { Plus } from "../../layouts/icons";
 
 function JoinEvent(props) {
   const dispatch = useDispatch();

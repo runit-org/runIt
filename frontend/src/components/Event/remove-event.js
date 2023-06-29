@@ -2,10 +2,10 @@ import React, { useState, useRef } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { removeEvent } from "../../actions/eventActions";
-import { Loading } from "../../Layouts/loader";
+import { Loading } from "../../layouts/loader";
 import ModalItem from "./modal-item";
 import { useNavigate } from "react-router-dom";
-import { Delete } from "../../Layouts/icons";
+import { Delete } from "../../layouts/icons";
 
 function RemoveEvent(props) {
   const dispatch = useDispatch();

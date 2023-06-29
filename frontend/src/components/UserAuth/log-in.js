@@ -5,7 +5,7 @@ import { login } from "../../actions/securityActions";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { FormButton } from "./utilities/auth-builder";
-import { Eye, EyeSlash } from "../../Layouts/icons";
+import { Eye, EyeSlash } from "../../layouts/icons";
 import { ResponseContext } from "../Context/response-context";
 
 function Login() {
