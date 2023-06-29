@@ -1,6 +1,6 @@
 import { Route } from "react-router-dom";
 import Login from "../../src/components/UserAuth/log-in";
-import Header from "../../src/components/layouts/header";
+import Header from "../../src/layouts/header";
 import ResponseProvider from "../../src/components/Context/response-context";
 
 describe("Logout", () => {
