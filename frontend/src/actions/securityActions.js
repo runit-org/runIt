@@ -80,6 +80,7 @@ export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
       localStorage.setItem("username", decoded.username);
 
       if (res.status === 200 && Cookies.get("token")) {
+        setLoad(true);
         navigate("/posts");
       }
       dispatch({
@@ -96,9 +97,6 @@ export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
         type: GET_ERRORS,
         payload: error.response,
       });
-    })
-    .finally(() => {
-      setLoad(false);
     });
 };
 
