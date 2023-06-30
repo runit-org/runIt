@@ -5,34 +5,11 @@ import {
   DayEventsHandler,
   MonthlyEventsHandler,
 } from "./utilities/action-handler";
+import { Months, WeekDays } from "./utilities/calendar-builder";
 
 function Calendar(props) {
-  // eslint-disable-next-line no-unused-vars
-  const [days, setDays] = useState([
-    "SUN",
-    "MON",
-    "TUE",
-    "WED",
-    "THU",
-    "FRI",
-    "SAT",
-  ]);
-
-  // eslint-disable-next-line no-unused-vars
-  const [months, setMonths] = useState([
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ]);
+  var days = WeekDays();
+  var months = Months();
 
   const [currentDay, setCurrentDay] = useState(new Date());
 
