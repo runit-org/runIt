@@ -84,3 +84,23 @@
     padding: 0 !important;
   }
 }
+
+@media only screen and (max-width: 580px) {
+  .navbar .collapse div {
+    margin: 0 !important;
+  }
+  .navbar .collapse .navbar-nav:first-child .nav-link {
+    background-color: $secondary-light;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .navbar .collapse .navbar-nav:nth-child(2) {
+    display: none;
+  }
+}
+@media only screen and (min-width: 580px) {
+  .responsive-elements {
+    display: none;
+  }
+}

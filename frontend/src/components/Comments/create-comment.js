@@ -5,7 +5,6 @@ import { createComment, getAllComments } from "../../actions/commentActions";
 import { emitter } from "../client/socket";
 import { SingleEventContext } from "../Dashboards/event-dash";
 import CTAButton from "../../layouts/cta-button";
-import { Submit } from "../../layouts/icons";
 import { MentionFilter } from "../Utilities/mention";
 import { SearchParam } from "../Utilities/search-param";
 
@@ -76,10 +75,7 @@ function CreateComment(props) {
                 formValidation={validateFormEmpty}
                 isLoading={load}
                 placeholder={
-                  <div className="d-flex align-items-center">
-                    <Submit />
-                    Send
-                  </div>
+                  <div className="d-flex align-items-center">Send</div>
                 }
               />
             </div>
