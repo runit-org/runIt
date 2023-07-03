@@ -67,22 +67,10 @@ function EventDash() {
               <div className="content">
                 <Container>
                   <Breadcrumbs items={breadcrumbItem} />
-                  {eventData.joinedStatus === OWNER ||
-                  eventData.joinedStatus === ACCEPTED ? (
-                    <CreateComment id={params.id} />
-                  ) : (
-                    <Card className="event-card">
-                      <Card.Body>
-                        <Card.Text>
-                          You will be able collaborate with others via comments
-                          once you are accepted.
-                        </Card.Text>
-                      </Card.Body>
-                    </Card>
-                  )}
-
-                  {commentData.results
-                    ? commentData.results.map((comment, index) => {
+                  {/* comment item */}
+                  {commentData.results ? (
+                    commentData.count > 0 ? (
+                      commentData.results.map((comment, index) => {
                         return (
                           <div key={index}>
                             <CommentItem
@@ -92,7 +80,17 @@ function EventDash() {
                           </div>
                         );
                       })
-                    : ""}
+                    ) : (
+                      <Card className="event-card">
+                        <Card.Body>
+                          <Card.Text>No comments published</Card.Text>
+                        </Card.Body>
+                      </Card>
+                    )
+                  ) : (
+                    ""
+                  )}
+                  {/* end of comment item */}
                   {commentData.count > 10 ? (
                     <Pagination
                       postsPerPage={postPerPage}
@@ -126,8 +124,23 @@ function EventDash() {
                     ) : (
                       ""
                     )}
-
+                    {/* event item card */}
                     <EventItem commentCount={commentData.count} />
+                    {/* publish commnent */}
+                    {eventData.joinedStatus === OWNER ||
+                    eventData.joinedStatus === ACCEPTED ? (
+                      <CreateComment id={params.id} />
+                    ) : (
+                      <Card className="event-card">
+                        <Card.Body>
+                          <Card.Text>
+                            You will be able collaborate with others via
+                            comments once you are accepted.
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
+                    )}
+                    {/* manage members */}
                     {currentUser === eventData.user &&
                     eventData.eventStatus !== CANCELLED &&
                     eventData.eventStatus !== FINISHED ? (

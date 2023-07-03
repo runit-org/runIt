@@ -41,14 +41,7 @@ function RemoveEvent(props) {
           </>
         }
         subBtn={
-          <>
-            <hr />
-            <Button
-              className="me-3 btn-cancel"
-              onClick={() => btnRef.current.setModalShow(false)}
-            >
-              Back
-            </Button>
+          <div className="mt-3">
             <Button
               type="submit"
               onClick={() => btnRef.current.setModalShow(false)}
@@ -61,7 +54,13 @@ function RemoveEvent(props) {
                 }
               })()}
             </Button>
-          </>
+            <Button
+              className="me-3 btn-cancel"
+              onClick={() => btnRef.current.setModalShow(false)}
+            >
+              Back
+            </Button>
+          </div>
         }
         subHandler={handleSubmit}
       />

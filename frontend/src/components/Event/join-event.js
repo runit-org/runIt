@@ -59,14 +59,7 @@ function JoinEvent(props) {
           </>
         }
         subBtn={
-          <div>
-            <hr />
-            <Button
-              className="me-3 btn-cancel"
-              onClick={() => btnRef.current.setModalShow(false)}
-            >
-              Cancel
-            </Button>
+          <div className="mt-3">
             <Button type="submit">
               {(() => {
                 if (load) {
@@ -75,6 +68,12 @@ function JoinEvent(props) {
                   return <>Join</>;
                 }
               })()}
+            </Button>
+            <Button
+              className="me-3 btn-cancel"
+              onClick={() => btnRef.current.setModalShow(false)}
+            >
+              Cancel
             </Button>
           </div>
         }

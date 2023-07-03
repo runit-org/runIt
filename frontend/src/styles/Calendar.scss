@@ -89,6 +89,7 @@
 
 .calendar-days .selectedDay {
   border-radius: 6px;
+  background-color: $theme-light;
 }
 
 .calendar-days .selectedDay p {
@@ -97,12 +98,21 @@
 }
 
 .calendar-days .hasEvent p {
+  display: inline-block;
+  position: relative;
   color: $theme;
   font-weight: bold !important;
-}
-.calendar-days .hasEvent {
-  background-color: $theme-light;
-  border-radius: 6px;
+
+  &::before {
+    content: ".";
+    display: inline-block;
+    position: absolute;
+    bottom: -0.1em;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 35px;
+  }
 }
 
 .calendar .month-controls {

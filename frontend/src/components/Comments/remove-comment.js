@@ -49,14 +49,7 @@ function RemoveComment(props) {
           </>
         }
         subBtn={
-          <>
-            <hr />
-            <Button
-              className="me-3 btn-cancel"
-              onClick={() => btnRef.current.setModalShow(false)}
-            >
-              Cancel
-            </Button>
+          <div className="mt-3">
             <Button
               type="submit"
               onClick={() => btnRef.current.setModalShow(false)}
@@ -69,7 +62,13 @@ function RemoveComment(props) {
                 }
               })()}
             </Button>
-          </>
+            <Button
+              className="me-3 btn-cancel"
+              onClick={() => btnRef.current.setModalShow(false)}
+            >
+              Cancel
+            </Button>
+          </div>
         }
         subHandler={handleSubmit}
       />

@@ -1,12 +1,67 @@
 @import "index.scss";
 
+//create-comment
 .comment-card {
   background-color: $primary-light !important;
   margin: 20px;
   border-radius: 8px !important;
 }
 .comment-card textarea {
-  background-color: transparent !important;
-
+  background-color: transparent;
   resize: none;
+  border: none;
+  line-height: 1.5rem;
+  font-size: $size-md;
+  display: block;
+  border-width: 0px;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.user-img {
+  width: 38px;
+  height: 100%;
+  border-radius: 4px !important;
+}
+
+//comment-item
+.comment-item {
+  background-color: $primary-light;
+  border-radius: 8px !important;
+  margin: 10px 20px 10px 0px;
+  padding: 10px;
+  width: 100%;
+}
+
+.comment-item .card-header {
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+}
+
+.comment-item .card-body {
+  padding: 5px 16px 5px 16px;
+}
+
+.comment-item .cta_button {
+  max-width: fit-content !important;
+}
+
+.dropdown-toggle.btn {
+  padding: 0;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+.comment-item div[aria-labelledby="dropdown-basic"] button {
+  width: 100%;
+  &:hover {
+    background-color: $button-bg !important;
+  }
 }

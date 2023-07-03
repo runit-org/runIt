@@ -66,12 +66,12 @@ body {
 }
 
 .formBtn.btn-primary {
-  @include btn-style(transparent, $button-text, none, 600);
-  border-radius: 8px !important;
-  padding: 10px 20px !important;
+  @include btn-style($button-bg, $button-text, none, 600);
+  padding: 5px 10px !important;
   &:hover {
-    background-color: $button-bg !important;
-    color: $theme !important;
+    background-color: $button-hover !important;
+    color: $primary-light !important;
+    border: none;
   }
 }
 
@@ -109,7 +109,7 @@ body {
 }
 
 div.content {
-  padding: 80px 0;
+  // padding: 80px 0;
   background-color: $secondary-light;
   height: 100%;
 }
@@ -132,8 +132,15 @@ div.content {
 }
 
 #vote_badge {
+  font-weight: 600;
   background-color: #e5edff !important;
   color: #5850ec !important;
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+  --bs-border-opacity: 0.1;
+  border-color: rgba(
+    var(--bs-success-rgb),
+    var(--bs-border-opacity)
+  ) !important;
 }
 
 .username_tags {
@@ -145,8 +152,16 @@ div.content {
 }
 
 #badgeItem {
+  font-size: 11px;
+  font-weight: 600;
   display: inline-flex;
   position: relative;
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+  --bs-border-opacity: 0.1;
+  border-color: rgba(
+    var(--bs-success-rgb),
+    var(--bs-border-opacity)
+  ) !important;
 }
 
 .pulse_dot {
@@ -207,7 +222,7 @@ div.content {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  padding-top: 80px !important;
+  // padding-top: 80px !important;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 
@@ -250,7 +265,7 @@ div.content {
 
 /*------Off-Canvas------*/
 .offcanvas-header {
-  background-color: $theme-light;
+  background-color: $primary-light;
   color: $theme;
   padding: 20px 30px !important;
 }

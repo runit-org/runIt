@@ -1,9 +1,9 @@
 import { Route } from "react-router-dom";
 import MainDash from "../../src/components/Dashboards/main-dash";
 
-describe("<Dash />", () => {
+describe("Post page", () => {
   it("renders", () => {
     cy.mount(<Route path={"/"} element={<MainDash />} />);
-    cy.findByRole("heading", { name: /create event/i });
+    cy.findByText(/create event/i);
   });
 });

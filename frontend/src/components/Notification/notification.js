@@ -35,25 +35,28 @@ function Notifications(props) {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div className="notif-subHeader">
-            <small className="me-auto text-muted">
-              {props.notifs.filter((notif) => notif.statusName === "UNREAD")
-                .length > 0
-                ? props.notifs.filter((notif) => notif.statusName === "UNREAD")
-                    .length
-                : "No"}{" "}
-              new notifications
-            </small>
-            <small className="float-end">
-              <Button
-                size="sm"
-                variant="link p-0"
-                onClick={() => {
-                  handleReadall();
-                }}
-              >
-                Mark all as read
-              </Button>
-            </small>
+            <div className="content">
+              <small className="me-auto text-muted">
+                {props.notifs.filter((notif) => notif.statusName === "UNREAD")
+                  .length > 0
+                  ? props.notifs.filter(
+                      (notif) => notif.statusName === "UNREAD"
+                    ).length
+                  : "No"}{" "}
+                new notifications
+              </small>
+              <small className="float-end">
+                <Button
+                  size="sm"
+                  variant="link p-0"
+                  onClick={() => {
+                    handleReadall();
+                  }}
+                >
+                  Mark all as read
+                </Button>
+              </small>
+            </div>
             <hr />
           </div>
 
@@ -68,23 +71,24 @@ function Notifications(props) {
                         setRead({ read: notif.id, link: notif.link });
                       }}
                     >
-                      <small className="notif-mark float-end">
-                        {notif.statusName === "UNREAD" ? (
-                          <VscCircleFilled />
-                        ) : (
-                          ""
-                        )}
-                      </small>
-                      <div>
+                      <div className="notif-details-header clearfix">
+                        <span className="text-muted float-start">
+                          {notif.humanTimeDiffCreatedAt} ago
+                        </span>
+                        <span className="notif-mark float-end">
+                          {notif.statusName === "UNREAD" ? (
+                            <VscCircleFilled />
+                          ) : (
+                            ""
+                          )}
+                        </span>
+                      </div>
+                      <div className="d-block float-start w-100">
                         <small
                           dangerouslySetInnerHTML={{ __html: notif.details }}
                         />
+                        <hr />
                       </div>
-
-                      <small className="text-muted">
-                        {notif.humanTimeDiffCreatedAt} ago
-                      </small>
-                      <hr />
                     </Button>
                   </div>
                 );
