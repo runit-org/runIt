@@ -48,15 +48,22 @@ function CreateComment(props) {
     }
   }, [error]);
   return (
-    <>
-      <Card className="comment-card">
-        <Card.Body>
-          <Form
-            onSubmit={(e) => {
-              handleSubmit(e);
-            }}
-            ref={formRef}
-          >
+    <Card className="comment-card">
+      <Card.Body>
+        <Form
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+          ref={formRef}
+        >
+          <div className="d-flex justify-content-between">
+            <img
+              src={
+                "https://www.gravatar.com/avatar/b58c6f14d292556214bd64909bcdb118?d=retro"
+              }
+              className="user-img me-3"
+              alt="userimage"
+            />
             <Form.Control
               spellCheck={true}
               placeholder="Add a comment..."
@@ -65,24 +72,24 @@ function CreateComment(props) {
               rows={2}
               required
             />
+          </div>
 
-            <div className="d-flex justify-content-between mt-3">
-              <small className="text-danger">{error}</small>
-              <CTAButton
-                type={"submit"}
-                btnStyle={"formBtn cta_button"}
-                variant={"primary"}
-                formValidation={validateFormEmpty}
-                isLoading={load}
-                placeholder={
-                  <div className="d-flex align-items-center">Send</div>
-                }
-              />
-            </div>
-          </Form>
-        </Card.Body>
-      </Card>
-    </>
+          <div className="d-flex justify-content-between mt-3">
+            <small className="text-danger">{error}</small>
+            <CTAButton
+              type={"submit"}
+              btnStyle={"formBtn cta_button"}
+              variant={"primary"}
+              formValidation={validateFormEmpty}
+              isLoading={load}
+              placeholder={
+                <div className="d-flex align-items-center">Send</div>
+              }
+            />
+          </div>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 }
 

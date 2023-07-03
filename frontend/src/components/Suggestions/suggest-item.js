@@ -32,14 +32,12 @@ function SuggestItem(props) {
           ? suggestData.suggestData.data.map((item, index) => {
               return (
                 <ListGroup.Item key={index} as="li" className="p-3">
-                  <div className="d-flex justify-content-between align-items-start">
+                  <div className="d-flex justify-content-between gap-1 align-items-start">
                     <div className="me-auto">
                       <div className="fw-bold">{item.title}</div>
                     </div>
 
-                    <Badge bg="secondary" pill>
-                      {item.category}
-                    </Badge>
+                    <Badge bg="secondary">{item.category}</Badge>
                   </div>
 
                   <div className="mt-3">

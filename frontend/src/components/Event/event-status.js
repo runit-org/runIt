@@ -80,14 +80,7 @@ function EventStatus(props) {
           </>
         }
         subBtn={
-          <div>
-            <hr />
-            <Button
-              className="me-3 btn-cancel"
-              onClick={() => btnRef.current.setModalShow(false)}
-            >
-              Back
-            </Button>
+          <div className="mt-3">
             <Button type="submit">
               {(() => {
                 if (load) {
@@ -96,6 +89,12 @@ function EventStatus(props) {
                   return <>Update</>;
                 }
               })()}
+            </Button>
+            <Button
+              className="me-3 btn-cancel"
+              onClick={() => btnRef.current.setModalShow(false)}
+            >
+              Cancel
             </Button>
           </div>
         }

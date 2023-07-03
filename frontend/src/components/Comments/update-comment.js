@@ -6,7 +6,7 @@ import { getAllComments, updateComment } from "../../actions/commentActions";
 import { SearchParam } from "../Utilities/search-param";
 import { emitter } from "../client/socket";
 import { MentionFilter } from "../Utilities/mention";
-import { Cross, Submit } from "../../layouts/icons";
+import { Cross } from "../../layouts/icons";
 
 function UpdateComment(props, { handleUpate }) {
   const dispatch = useDispatch();
@@ -33,10 +33,11 @@ function UpdateComment(props, { handleUpate }) {
       onSubmit={(e) => {
         handleSubmit(e);
       }}
+      className="w-100"
     >
-      <Card className={props.cardStyle}>
+      <Card className="editor-card">
         <Card.Header>
-          <h3 className="fw-bold m-0">Edit comment</h3>
+          <h6 className="fw-bold m-0">Edit comment</h6>
         </Card.Header>
         <Card.Body>
           <Form.Control
@@ -63,20 +64,17 @@ function UpdateComment(props, { handleUpate }) {
             />
             <CTAButton
               type={"submit"}
-              btnStyle={"postBtn-placements cta_button"}
+              btnStyle={"formBtn cta_button"}
               variant={"primary"}
               formValidation={content === "" ? true : false}
               isLoading={""}
               placeholder={
-                <div className="d-flex align-items-center">
-                  <Submit />
-                  Update
-                </div>
+                <div className="d-flex align-items-center">Update</div>
               }
             />
           </div>
         </Card.Body>
-      </Card>{" "}
+      </Card>
     </Form>
   );
 }
