@@ -36,7 +36,8 @@ describe("Logout", () => {
         statusCode: 200,
       }).as("logout");
       cy.findByRole("button", { name: /img/i }).click();
-      cy.findByRole("button", { name: /logout/i }).click();
+
+      cy.get('[data-testid="logout-btn"]').click();
       cy.wait("@logout");
       cy.getCookie("token").should("to.be.null");
     });

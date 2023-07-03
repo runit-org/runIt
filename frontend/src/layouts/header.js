@@ -148,6 +148,7 @@ function Header() {
                   onClick={(e) => {
                     handleLogout(e);
                   }}
+                  data-testid="logout-btn"
                 >
                   Sign out
                 </NavDropdown.Item>
