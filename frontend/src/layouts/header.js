@@ -107,7 +107,8 @@ function Header() {
                   onClick={(e) => {
                     handleLogout(e);
                   }}
-                  className="w-100 "
+                  className="w-100"
+                  data-testid="logout-btn-responsive"
                 >
                   Sign out
                 </Nav.Link>
