@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
-    'django_cron',
-    'django_crontab',
+    # 'django_cron',
+    # 'django_crontab',
+    'background_task',
 ]
 
 REST_FRAMEWORK = {
