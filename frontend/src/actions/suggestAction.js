@@ -19,9 +19,6 @@ export const getSuggestions = (id, setIsLoading) => async (dispatch) => {
           type: GET_ERRORS,
           payload: error.response.data,
         });
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   });
 };
