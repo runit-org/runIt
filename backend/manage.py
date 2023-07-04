@@ -12,11 +12,11 @@ def main():
         from django.core.management import execute_from_command_line
         from django.apps import apps
 
-        execute_from_command_line(sys.argv)
+        # execute_from_command_line(sys.argv)
 
         # Delay scheduling the background task until after the application registry is loaded
-        from base.tasks import printTask
-        printTask()
+        # from base.tasks import printTask
+        # printTask()
     except ImportError as exc:
         raise ImportError(
             "Couldn't import Django. Are you sure it's installed and "
@@ -26,6 +26,7 @@ def main():
     # execute_from_command_line(sys.argv)
     # from base.tasks import printTask
     # printTask()
+    execute_from_command_line(sys.argv)
 
 if __name__ == '__main__':
     main()

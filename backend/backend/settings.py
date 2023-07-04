@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import redis
+from redis_cache import RedisCache
+from redis.exceptions import ConnectionError
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,7 +49,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     # 'django_cron',
     # 'django_crontab',
-    'background_task',
+    # 'background_task',
 ]
 
 REST_FRAMEWORK = {
@@ -189,3 +193,14 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'event.matcher.ml.jt@gmail.com'
 EMAIL_HOST_PASSWORD = 'sicr glke lgab yvza'
+
+# Celery Configuration
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+CELERY_BEAT_SCHEDULE = {
+    'print_task': {
+        'task': 'base.tasks.print_a',
+        'schedule': 5.0,
+    },
+}
