@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { createNewEvent, getAllEvents } from "../../actions/eventActions";
 import { emitter } from "../client/socket";
 import CTAButton from "../../layouts/cta-button";
-import { Submit } from "../../layouts/icons";
 import { MentionFilter } from "../Utilities/mention";
 import { SearchParam } from "../Utilities/search-param";
 
@@ -82,7 +81,7 @@ function CreateEvent(props) {
   return (
     <Card className="event-card">
       <Card.Header>
-        <h3 className="fw-bold m-0">Create event</h3>
+        <p className="fw-bold m-0">Create event</p>
       </Card.Header>
       <Card.Body>
         <Form
@@ -98,7 +97,7 @@ function CreateEvent(props) {
                   <Form.Label className="m-1">Event Title</Form.Label>
                   <Form.Control
                     type="title"
-                    placeholder="Christmas social"
+                    placeholder=""
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
@@ -113,7 +112,7 @@ function CreateEvent(props) {
                   <Form.Control
                     type="number"
                     className="mb-3"
-                    placeholder="14"
+                    placeholder=""
                     onChange={(e) => setMaxMembers(parseInt(e.target.value))}
                     min="2"
                     required
@@ -158,7 +157,7 @@ function CreateEvent(props) {
             <Form.Group>
               <Form.Control
                 spellCheck={true}
-                placeholder="Event details..."
+                placeholder="Write event details..."
                 as="textarea"
                 value={details}
                 onChange={(e) => setDetails(e.target.value)}
@@ -177,10 +176,7 @@ function CreateEvent(props) {
               formValidation={validateFormEmpty}
               isLoading={load}
               placeholder={
-                <div className="d-flex align-items-center">
-                  <Submit />
-                  Publish
-                </div>
+                <div className="d-flex align-items-center">Post</div>
               }
             />
           </div>

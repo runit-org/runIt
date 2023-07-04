@@ -34,21 +34,20 @@ function CommentItem(props) {
   };
 
   return (
-    <>
+    <div className="d-flex justify-content-start ms-4">
+      <img
+        src={props.commentData.gravatarImage}
+        className="user-img me-3  mt-3"
+        alt="userimage"
+      />
       {!editorMode ? (
-        <Card className="event-card">
+        <Card className="comment-item">
           <Card.Header>
             <div className="d-flex">
-              <img
-                src={props.commentData.gravatarImage}
-                className="userProf-img me-3"
-                alt="Img"
-              />
-
               <span className="me-auto">
                 <PopoverItem data={props.commentData.username} />
                 <small
-                  className="d-block text-muted fw-semibold"
+                  className="d-block text-muted fw-medium"
                   style={{
                     fontSize: "12px",
                   }}
@@ -88,7 +87,7 @@ function CommentItem(props) {
           </Card.Header>
           <Card.Body>
             <Card.Text
-              className="details_textarea content_sm1"
+              className="content_sm1"
               dangerouslySetInnerHTML={{
                 __html: props.commentData.content
                   ? Mention(props.commentData.content)
@@ -102,7 +101,7 @@ function CommentItem(props) {
             >
               <Button
                 variant="light"
-                className="postBtn-placements cta_button"
+                className="postBtn-placements cta_button p-0"
                 onClick={() => {
                   commentReact();
                 }}
@@ -117,11 +116,10 @@ function CommentItem(props) {
           eventId={eventData.id}
           commentId={props.commentData.id}
           content={props.commentData.content}
-          cardStyle={currentUser === eventData.user ? "editor-card" : ""}
           handleUpate={handleClick}
         />
       )}
-    </>
+    </div>
   );
 }
 

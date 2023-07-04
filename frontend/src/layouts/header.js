@@ -79,9 +79,9 @@ function Header() {
       />
       <Navbar
         collapseOnSelect
-        expand="xl"
+        expand="sm"
         variant="light"
-        fixed="top"
+        // fixed="top"
         className="header-blur"
       >
         <Container>
@@ -89,50 +89,72 @@ function Header() {
             <AppLogo w={"50px"} />
           </Navbar.Brand>
           <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text id="nav-end-items">
-              <Nav className="me-aut align-items-center gap-3">
-                <Nav.Link href="/posts">Dashboard</Nav.Link>
-                <Nav.Link onClick={handleNotifShow} id="notification-icon">
-                  <Notification />
-                  {notifs ? (
-                    unreadCount > 0 ? (
-                      <div className="notification-badge" />
-                    ) : (
-                      ""
-                    )
+          <Navbar.Collapse>
+            <Nav className="me-auto ms-4">
+              <Nav.Link href="/posts">Dashboard</Nav.Link>
+              <Nav.Link
+                href={
+                  currentUser ? `/profile?user=${currentUser.username}` : ""
+                }
+              >
+                Calendar
+              </Nav.Link>
+
+              <div className="responsive-elements">
+                <Nav.Link onClick={handleNotifShow}>Notifications</Nav.Link>
+
+                <Nav.Link
+                  onClick={(e) => {
+                    handleLogout(e);
+                  }}
+                  className="w-100"
+                  data-testid="logout-btn-responsive"
+                >
+                  Sign out
+                </Nav.Link>
+              </div>
+            </Nav>
+            <Nav className=" align-items-center gap-1">
+              <Nav.Link onClick={handleNotifShow} id="notification-icon">
+                <Notification />
+                {notifs ? (
+                  unreadCount > 0 ? (
+                    <div className="notification-badge" />
                   ) : (
                     ""
-                  )}
-                </Nav.Link>
+                  )
+                ) : (
+                  ""
+                )}
+              </Nav.Link>
 
-                <NavDropdown
-                  title={
-                    <img
-                      src={currentUser ? currentUser.gravatarImage : ""}
-                      className="nav_userProf"
-                      alt="Img"
-                    />
+              <NavDropdown
+                title={
+                  <img
+                    src={currentUser ? currentUser.gravatarImage : ""}
+                    className="nav_userProf"
+                    alt="Img"
+                  />
+                }
+                id="basic-nav-dropdown"
+              >
+                <NavDropdown.Item
+                  href={
+                    currentUser ? `/profile?user=${currentUser.username}` : ""
                   }
-                  id="basic-nav-dropdown"
                 >
-                  <NavDropdown.Item
-                    href={
-                      currentUser ? `/profile?user=${currentUser.username}` : ""
-                    }
-                  >
-                    Profile
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    onClick={(e) => {
-                      handleLogout(e);
-                    }}
-                  >
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              </Nav>
-            </Navbar.Text>
+                  Your Profile
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  onClick={(e) => {
+                    handleLogout(e);
+                  }}
+                  data-testid="logout-btn"
+                >
+                  Sign out
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>

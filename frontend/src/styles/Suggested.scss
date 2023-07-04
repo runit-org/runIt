@@ -1,7 +1,7 @@
 @import "index.scss";
 
 .suggested img {
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .suggested li {
@@ -13,5 +13,12 @@
 .suggested .badge {
   font-size: 10px;
   background-color: $theme-light !important;
-  color: $primary-dark;
+  color: #4338ca;
+  align-self: center;
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+  --bs-border-opacity: 0.1;
+  border-color: rgba(
+    var(--bs-success-rgb),
+    var(--bs-border-opacity)
+  ) !important;
 }
