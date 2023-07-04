@@ -105,7 +105,7 @@ function EventDash() {
               </div>
 
               <div className="sidebar_eventDash">
-                <div className="sidebar-wrapper">
+                <div className="sidebar_eventDash-wrapper">
                   <Container>
                     {eventData.eventStatus === CANCELLED ||
                     eventData.eventStatus === FINISHED ? (
