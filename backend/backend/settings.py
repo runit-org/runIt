@@ -48,9 +48,6 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
-    # 'django_cron',
-    # 'django_crontab',
-    # 'background_task',
 ]
 
 REST_FRAMEWORK = {
@@ -201,7 +198,7 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 CELERY_BEAT_SCHEDULE = {
     'print_task': {
-        'task': 'base.tasks.print_a',
-        'schedule': 5.0,
+        'task': 'base.tasks.update_past_24_hour_event_status_to_finished',
+        'schedule': 120,
     },
 }
