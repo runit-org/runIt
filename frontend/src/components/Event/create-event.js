@@ -79,7 +79,7 @@ function CreateEvent(props) {
   }, [props.suggestion]);
 
   return (
-    <Card className="event-card">
+    <Card className="create_event-card">
       <Card.Header>
         <p className="fw-bold m-0">Create event</p>
       </Card.Header>

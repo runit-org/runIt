@@ -24,29 +24,24 @@ function ProfileDash() {
     <div style={{ position: "relative" }}>
       <div className="dash-container" id="calendar">
         <div className="content">
-          <Container>
+          <Container className="content-wrapper">
             <CalendarEventItem calendarEvents={calendarEvents} />
           </Container>
         </div>
 
         <div className="sidebar_calendarDash">
           <div className="sidebar-wrapper">
-            <div className="sidebar_right">
-              <Container>
-                <Card>
-                  <Card.Body>
-                    <UserProfile userData={child_data2} />
-                  </Card.Body>
-                </Card>
+            <Container className="content-wrapper">
+              <Card>
+                <Card.Body>
+                  <UserProfile userData={child_data2} />
+                </Card.Body>
+              </Card>
 
-                <div className="calendar-wrapper">
-                  <Calendar
-                    userId={currUserData.id}
-                    calendarData={child_data}
-                  />
-                </div>
-              </Container>
-            </div>
+              <div className="calendar-wrapper">
+                <Calendar userId={currUserData.id} calendarData={child_data} />
+              </div>
+            </Container>
           </div>
         </div>
       </div>

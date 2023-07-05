@@ -4,10 +4,11 @@
 .calendar-wrapper {
   display: flex;
   justify-content: center;
+  margin-top: 10px;
 }
 .calendar {
-  width: 400px;
-  height: 400px;
+  width: 420px;
+  height: 420px;
   display: flex;
   flex-direction: column;
 }

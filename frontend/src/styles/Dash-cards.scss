@@ -1,6 +1,18 @@
 @import "index.scss";
 
 /*------Dash Cards------*/
+.create_event-card {
+  background-color: $primary-light !important;
+  border-radius: 8px !important;
+  padding: 20px;
+  margin: 20px;
+}
+.create_event-card .card-header {
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  padding: 1rem 1rem;
+}
 .new-post-container {
   color: $primary-dark;
   border-radius: 5px;
@@ -37,11 +49,12 @@
   font-weight: 600;
 }
 
+//event
 .event-card {
   background-color: $primary-light !important;
   border-radius: 8px !important;
-  margin: 20px;
   padding: 20px;
+  margin-top: 20px;
 }
 
 .event-card .card-header {

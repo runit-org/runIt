@@ -210,6 +210,10 @@ div.content {
   width: 100%;
 }
 
+.dash-container .container {
+  max-width: 82rem;
+}
+
 .sidebar {
   // width: 33.33%;
   width: 50%;
@@ -243,7 +247,9 @@ div.content {
   background-color: $primary-light;
   border-radius: 8px !important;
 }
-
+.content-wrapper {
+  margin: 20px 0 20px 0;
+}
 /*------Event Dash------*/
 .sidebar_eventDash-wrapper {
   width: 100%;
@@ -255,7 +261,6 @@ div.content {
 .sidebar_eventDash .card {
   background-color: $primary-light;
   border-radius: 8px;
-  margin: 20px;
 }
 /*------Calendar Dash------*/
 .sidebar_calendarDash {
@@ -264,7 +269,6 @@ div.content {
 .sidebar_calendarDash .card {
   background-color: $primary-light;
   border-radius: 8px;
-  margin: 20px;
 }
 
 /*------Off-Canvas------*/
@@ -398,10 +402,6 @@ div.content {
 }
 
 /*------Breadcrumb------*/
-nav[aria-label="breadcrumb"] {
-  margin: 20px;
-}
-
 .breadcrumb :not(.breadcrumb-item.active) {
   color: $theme !important;
 }

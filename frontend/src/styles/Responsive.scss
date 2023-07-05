@@ -12,6 +12,7 @@
   .calendar {
     width: 400px !important;
     height: 400px !important;
+    padding: 0 20px 0 20px;
   }
   .calendar .body .week {
     width: 50px !important;
@@ -53,8 +54,8 @@
 
 @media only screen and (min-width: 530px) and (max-width: 768px) {
   .calendar {
-    width: 400px !important;
-    height: 400px !important;
+    width: 420px !important;
+    height: 420px !important;
   }
   .calendar .body .week {
     width: 50px !important;
@@ -82,7 +83,8 @@
 }
 
 @media only screen and (max-width: 1024px) {
-  .sidebar {
+  .sidebar,
+  .sidebar_calendarDash .card {
     display: none;
   }
   .dash-container {

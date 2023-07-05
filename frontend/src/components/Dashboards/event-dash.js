@@ -65,7 +65,7 @@ function EventDash() {
           <div style={{ position: "relative" }}>
             <div className="dash-container">
               <div className="content">
-                <Container>
+                <Container className="content-wrapper">
                   <Breadcrumbs items={breadcrumbItem} />
                   {/* comment item */}
                   {commentData.results ? (
@@ -106,7 +106,7 @@ function EventDash() {
 
               <div className="sidebar_eventDash">
                 <div className="sidebar_eventDash-wrapper">
-                  <Container>
+                  <Container className="content-wrapper">
                     {eventData.eventStatus === CANCELLED ||
                     eventData.eventStatus === FINISHED ? (
                       <InfoCard

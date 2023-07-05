@@ -34,7 +34,7 @@ function CommentItem(props) {
   };
 
   return (
-    <div className="d-flex justify-content-start ms-4">
+    <div className="d-flex justify-content-start">
       <img
         src={props.commentData.gravatarImage}
         className="user-img me-3  mt-3"

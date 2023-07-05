@@ -24,6 +24,10 @@
   color: $theme !important;
 }
 
+.navbar .container {
+  max-width: 85rem;
+}
+
 a.dropdown-item:hover {
   background-color: transparent;
   color: $theme !important;
