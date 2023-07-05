@@ -25,6 +25,9 @@ function ProfileDash() {
       <div className="dash-container" id="calendar">
         <div className="content">
           <Container className="content-wrapper">
+            <div className="ps-1">
+              <p className="fw-bold m-0"> {currUserData.username} events</p>
+            </div>
             <CalendarEventItem calendarEvents={calendarEvents} />
           </Container>
         </div>

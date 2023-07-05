@@ -30,7 +30,7 @@ export const MonthlyEventsHandler = (id, month, year) => {
 
 export const DayEventsHandler = (id, date, month, year) => {
   const dispatch = useDispatch();
-  const [monthlyEventsData, setMonthlyEventsData] = useState([]);
+  const [dayEventsData, setDayEventsData] = useState([]);
 
   useEffect(() => {
     if (id && month && year) {
@@ -44,9 +44,9 @@ export const DayEventsHandler = (id, date, month, year) => {
 
   useEffect(() => {
     if (calendarData) {
-      setMonthlyEventsData(calendarData.data);
+      setDayEventsData(calendarData.data);
     }
   }, [calendarData]);
 
-  return monthlyEventsData;
+  return dayEventsData;
 };
