@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import redis
-from redis_cache import RedisCache
+from django_redis import cache
+# from redis_cache import RedisCache
 from redis.exceptions import ConnectionError
 
 
