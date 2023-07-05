@@ -2,13 +2,9 @@
 
 /*------Resposive------*/
 
-@media only screen and (max-width: 640px) {
-  .login-card.card {
-    width: 100% !important;
-  }
-  .footer-links,
-  .footer-logo {
-    text-align: center;
+@media only screen and (min-width: 580px) {
+  .responsive-elements {
+    display: none;
   }
 }
 
@@ -27,6 +23,31 @@
   }
   .calendar-days .day span {
     display: none !important;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .navbar .navbar-collapse div {
+    margin: 0 !important;
+  }
+  .navbar .navbar-collapse .navbar-nav:first-child .nav-link {
+    background-color: $secondary-light;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .navbar .navbar-collapse .navbar-nav:nth-child(2) {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .login-card.card {
+    width: 100% !important;
+  }
+  .footer-links,
+  .footer-logo {
+    text-align: center;
   }
 }
 
@@ -85,22 +106,12 @@
   }
 }
 
-@media only screen and (max-width: 580px) {
-  .navbar .navbar-collapse div {
-    margin: 0 !important;
+@media only screen and (min-width: 1450px) {
+  .dash-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
-  .navbar .navbar-collapse .navbar-nav:first-child .nav-link {
-    background-color: $secondary-light;
-    margin-top: 5px;
-    padding: 10px;
-    border-radius: 8px;
-  }
-  .navbar .navbar-collapse .navbar-nav:nth-child(2) {
-    display: none;
-  }
-}
-@media only screen and (min-width: 580px) {
-  .responsive-elements {
-    display: none;
+  .navbar .container {
+    max-width: 82rem;
   }
 }
