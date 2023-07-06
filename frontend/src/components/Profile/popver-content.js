@@ -15,7 +15,13 @@ const UserPopoverContent = (props) => {
           <div className="d-flex align-items-center userInfo-div">
             <DisplayImage image={user.gravatarImage} />
             <div className="ms-3">
-              <h6 className="m-0">{user.username}</h6>
+              <a
+                className="username_tags-dark"
+                href={`/profile?user=${user.username}`}
+              >
+                {user.username}
+              </a>
+
               <small className="d-block text-muted">{user.email}</small>
             </div>
           </div>
