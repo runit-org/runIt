@@ -578,3 +578,22 @@ class EventTestClass(TestCase):
 
         response = c.get(url, {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_events_past_24_hours_auto_finished_on_call_all_events_success(self):
+        eventObject = self.generateNewEventObject()
+
+        eventObject.startDate = timezone.make_aware(datetime.datetime(2023, 1, 1, 1, 1))
+        eventObject.status = EventStatus.get.ONGOING.value
+        eventObject.save()
+
+        url = self.baseUrl + 'all/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        response = c.get(url, {}, format='json')
+        self.assertTrue(Event.objects.get(id=eventObject.id).status, EventStatus.get.FINISHED.value)

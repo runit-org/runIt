@@ -2,6 +2,7 @@ from base.models import Event
 from base.serializers import AllEventSerializer
 from base.views.baseViews import response, error, paginate
 from base.enums import PaginationSizes
+from base.tasks import update_past_24_hour_event_status_to_finished
 
 def validateFilter(filterField):
     allowedFilters = ['title', 'userName', 'maxMember', 'createdAt']
@@ -33,4 +34,5 @@ def all(request):
     if type(events) == str:
         return error(events)
     context = {'userId' : request.user.id}
+    update_past_24_hour_event_status_to_finished()
     return paginate(request, events, AllEventSerializer, PaginationSizes.get.S.value, context)
