@@ -13,12 +13,17 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import redis
 from django_redis import cache
-# from redis_cache import RedisCache
 from redis.exceptions import ConnectionError
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Import local settings
+try:
+    from .settings_local import *
+except ImportError:
+    pass
 
 
 # Quick-start development settings - unsuitable for production
