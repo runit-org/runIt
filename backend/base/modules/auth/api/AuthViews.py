@@ -2,6 +2,8 @@ from rest_framework.decorators import api_view
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
+from datetime import datetime
 from base.modules.auth.api.validators import (
     RegisterUserValidator,
     LogoutValidator,
@@ -21,6 +23,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         refresh = self.get_token(self.user)
         data['username'] = self.user.username
         data['email'] = self.user.email
+
+        self.user.last_login = timezone.make_aware(datetime.now())
+        self.user.save()
+
         return data
 
 class MyTokenObtainPairView(TokenObtainPairView):
