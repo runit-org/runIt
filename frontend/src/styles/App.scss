@@ -150,6 +150,14 @@ div.content {
     cursor: pointer;
   }
 }
+.username_tags-dark {
+  color: $primary-dark;
+  font-size: 14px;
+  font-weight: 600;
+  &:hover {
+    color: #0d6efd;
+  }
+}
 
 #badgeItem {
   font-size: 11px;
