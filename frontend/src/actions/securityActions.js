@@ -93,6 +93,7 @@ export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
       });
     })
     .catch((error) => {
+      setLoad(false);
       dispatch({
         type: GET_ERRORS,
         payload: error.response,
