@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { ChevronLeft, ChevronRight } from "../../layouts/icons";
 import Days from "./days";
-import {
-  DayEventsHandler,
-  MonthlyEventsHandler,
-} from "./utilities/action-handler";
+import { MonthlyEventsHandler } from "./utilities/action-handler";
 import { Months, WeekDays } from "./utilities/calendar-builder";
+import { CalendarContext } from "../Context/calendar-context";
 
 function Calendar(props) {
   var days = WeekDays();
   var months = Months();
 
-  const [currentDay, setCurrentDay] = useState(new Date());
+  const { currentDay, setCurrentDay } = useContext(CalendarContext);
+
+  const monthlyEvents = MonthlyEventsHandler(
+    props.userId,
+    currentDay.getMonth() + 1,
+    currentDay.getFullYear()
+  );
 
   const changeCurrentDay = (day) => {
     setCurrentDay(new Date(day.year, day.month, day.day));
@@ -25,12 +29,6 @@ function Calendar(props) {
     setCurrentDay(new Date(currentDay.setMonth(currentDay.getMonth() - 1)));
   };
 
-  const monthlyEvents = MonthlyEventsHandler(
-    props.userId,
-    currentDay.getMonth() + 1,
-    currentDay.getFullYear()
-  );
-
   if (monthlyEvents) {
     var indexes = [];
 
@@ -40,19 +38,6 @@ function Calendar(props) {
       }
     }
   }
-
-  const dayEvents = DayEventsHandler(
-    props.userId,
-    currentDay.getDate(),
-    currentDay.getMonth() + 1,
-    currentDay.getFullYear()
-  );
-
-  useEffect(() => {
-    if (props.calendarData && dayEvents) {
-      props.calendarData(dayEvents);
-    }
-  }, [dayEvents, props]);
 
   return (
     <div className="calendar">

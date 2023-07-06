@@ -11,6 +11,7 @@ import UserContext from "./components/Context/user-context";
 import SecurityContext from "./components/Context/security-context";
 import Cookies from "js-cookie";
 import ResponseContext from "./components/Context/response-context";
+import CalendarContext from "./components/Context/calendar-context.js";
 
 const ProfileDash = lazy(() => import("./components/Dashboards/profile-dash"));
 const EventDash = lazy(() => import("./components/Dashboards/event-dash"));
@@ -67,8 +68,10 @@ function App() {
             element={
               <ProtectedRoute>
                 <UserContext>
-                  <Header />
-                  <ProfileDash />
+                  <CalendarContext>
+                    <Header />
+                    <ProfileDash />
+                  </CalendarContext>
                 </UserContext>
               </ProtectedRoute>
             }

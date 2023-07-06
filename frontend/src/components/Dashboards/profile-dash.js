@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Card, Container } from "react-bootstrap";
 import Calendar from "../Calendar/calendar";
 import CalendarEventItem from "../Calendar/calendar-event-item";
 import UserProfile from "../Profile/user-profile";
+import { DayEventsHandler } from "../Calendar/utilities/action-handler";
+import { CalendarContext } from "../Context/calendar-context";
 
 function ProfileDash() {
   const [currUserData, setCurrUserData] = useState([]);
-  const [calendarEvents, setCalendarEvents] = useState([]);
+  const { currentDay } = useContext(CalendarContext);
+
+  const dayEvents = DayEventsHandler(
+    currUserData.id,
+    currentDay.getDate(),
+    currentDay.getMonth() + 1,
+    currentDay.getFullYear()
+  );
 
   const child_data = (data) => {
-    if (data) {
-      setCalendarEvents(data);
-    }
-  };
-
-  const child_data2 = (data) => {
     if (data) {
       setCurrUserData(data);
     }
@@ -26,9 +29,12 @@ function ProfileDash() {
         <div className="content">
           <Container className="content-wrapper">
             <div className="ps-1">
-              <p className="fw-bold m-0"> {currUserData.username} events</p>
+              <p className="fw-bold m-0">
+                {currUserData.username}'s events on{" "}
+                {currentDay.toLocaleDateString()}
+              </p>
             </div>
-            <CalendarEventItem calendarEvents={calendarEvents} />
+            <CalendarEventItem calendarEvents={dayEvents ? dayEvents : ""} />
           </Container>
         </div>
 
@@ -37,12 +43,12 @@ function ProfileDash() {
             <Container className="content-wrapper">
               <Card>
                 <Card.Body>
-                  <UserProfile userData={child_data2} />
+                  <UserProfile userData={child_data} />
                 </Card.Body>
               </Card>
 
               <div className="calendar-wrapper">
-                <Calendar userId={currUserData.id} calendarData={child_data} />
+                <Calendar userId={currUserData.id} />
               </div>
             </Container>
           </div>
