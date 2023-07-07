@@ -9,6 +9,8 @@ from rest_framework.test import force_authenticate
 from base.enums import UserVoteStatus
 import random
 import string
+from django.utils import timezone
+from datetime import datetime
 
 class UserTestClass(TestCase):
     newUser = None
@@ -81,10 +83,15 @@ class UserTestClass(TestCase):
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
 
+        user.last_login = timezone.make_aware(datetime.now())
+        user.save()
+
         response = c.get(url, {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(self.newUser['username'], response.json()['data']['username'])
         self.assertTrue('statusMessage' in response.json()['data'])
+        self.assertTrue('last_login' in response.json()['data'])
+        self.assertEqual(user.last_login, datetime.fromisoformat(response.json()['data']['last_login']))
 
     def test_get_user_profile_username_not_found_fails(self):
         url = self.baseUrl + 'profile/' + ('a'*20) + '/'

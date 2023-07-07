@@ -65,7 +65,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'date_joined', 'totalVote', 'voteStatus', 'gravatarImage', 'friendStatus', 'statusMessage']
+        fields = ['id', 'username', 'email', 'date_joined', 'totalVote', 'voteStatus', 'gravatarImage', 'friendStatus', 'statusMessage', 'last_login']
 
     def get_totalVote(self, obj):
         return getUserTotalVotes(obj.id)
