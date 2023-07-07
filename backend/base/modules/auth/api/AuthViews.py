@@ -21,12 +21,13 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
         refresh = self.get_token(self.user)
-        data['username'] = self.user.username
-        data['email'] = self.user.email
-
+    
         self.user.last_login = timezone.make_aware(datetime.now())
         self.user.save()
 
+        data['username'] = self.user.username
+        data['email'] = self.user.email
+        data['last_login'] = self.user.last_login
         return data
 
 class MyTokenObtainPairView(TokenObtainPairView):
