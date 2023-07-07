@@ -5,6 +5,7 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from rest_framework.test import APIRequestFactory
 from datetime import datetime
+from dateutil import parser
 
 class AuthTestClass(TestCase):
     newUser = None
@@ -270,4 +271,4 @@ class AuthTestClass(TestCase):
         response = c.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
-        self.assertEqual(User.objects.get(id=user.id).last_login, datetime.fromisoformat(response.json()['last_login']))
+        self.assertEqual(User.objects.get(id=user.id).last_login, parser.parse(response.json()['last_login']))
