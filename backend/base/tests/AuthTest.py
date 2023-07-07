@@ -4,7 +4,7 @@ from base.models import User, UserExtend
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from rest_framework.test import APIRequestFactory
-
+from datetime import datetime
 
 class AuthTestClass(TestCase):
     newUser = None
@@ -19,7 +19,7 @@ class AuthTestClass(TestCase):
         }
 
     def createNewUser(self):
-        User.objects.create(
+        return User.objects.create(
             username = self.newUser['username'],
             email    = self.newUser['email'],
             password = make_password(self.newUser['password'])
@@ -257,3 +257,20 @@ class AuthTestClass(TestCase):
         sendResetPassData = {}
         responseSendResetPassEmail = c.post(sendResetPassUrl, sendResetPassData, format='json')
         self.assertEqual(responseSendResetPassEmail.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_last_login_value_on_signing_in_success(self):
+        c = Client()
+        url = self.baseUrl + 'login/'
+
+        user = self.createNewUser()
+        data = {
+            'username': self.newUser['username'],
+            'password': self.newUser['password']
+        }
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+        last_login_str = response.json()['last_login']
+        last_login = datetime.fromisoformat(last_login_str)
+        
+        self.assertEqual(User.objects.get(id=user.id).last_login, last_login)
