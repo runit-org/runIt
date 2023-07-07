@@ -11,6 +11,7 @@ import random
 import string
 from django.utils import timezone
 from datetime import datetime
+from dateutil import parser
 
 class UserTestClass(TestCase):
     newUser = None
@@ -91,7 +92,7 @@ class UserTestClass(TestCase):
         self.assertEqual(self.newUser['username'], response.json()['data']['username'])
         self.assertTrue('statusMessage' in response.json()['data'])
         self.assertTrue('last_login' in response.json()['data'])
-        self.assertEqual(user.last_login, datetime.fromisoformat(response.json()['data']['last_login']))
+        self.assertEqual(user.last_login, parser.parse(response.json()['data']['last_login']))
 
     def test_get_user_profile_username_not_found_fails(self):
         url = self.baseUrl + 'profile/' + ('a'*20) + '/'
