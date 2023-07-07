@@ -270,7 +270,4 @@ class AuthTestClass(TestCase):
         response = c.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
-        last_login_str = response.json()['last_login']
-        last_login = datetime.fromisoformat(last_login_str)
-        
-        self.assertEqual(User.objects.get(id=user.id).last_login, last_login)
+        self.assertEqual(User.objects.get(id=user.id).last_login, datetime.fromisoformat(response.json()['last_login']))
