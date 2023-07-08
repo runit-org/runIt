@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import *
 from base.modules.event.api.serializers.EventCategorySerializer import EventCategorySerializer
-from base.traits import GetHumanTimeDifferenceToNow, EventDateToStringTime
+from base.traits import GetHumanTimeDifferenceToNow, EventDateToStringTime, CreateGravatarProfile
 from base.enums import EventStatus
 
 from datetime import datetime
@@ -15,10 +15,12 @@ class AffiliatedEventSerializer(serializers.ModelSerializer):
     timeToEvent = serializers.SerializerMethodField(read_only=True)
     eventStatus = serializers.SerializerMethodField(read_only=True)
     eventTags = serializers.SerializerMethodField(read_only=True)
+    gravatarImage = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Event
-        fields = ['id', 'userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 'eventDateString', 'eventDate', 'timeToEvent', 'eventStatus', 'eventTags']
+        fields = ['id', 'userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 
+        'eventDateString', 'eventDate', 'timeToEvent', 'eventStatus', 'eventTags', 'gravatarImage']
 
     def get_humanTimeDiffCreatedAt(self, obj):
         return GetHumanTimeDifferenceToNow.get(obj.createdAt)
@@ -54,4 +56,7 @@ class AffiliatedEventSerializer(serializers.ModelSerializer):
         serializer = EventCategorySerializer(tags, many=True)
 
         return serializer.data
+
+    def get_gravatarImage(self, obj):
+        return CreateGravatarProfile.create(obj.user.email)
     

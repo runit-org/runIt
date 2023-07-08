@@ -532,6 +532,7 @@ class EventTestClass(TestCase):
             createdAt = eventObject.createdAt,
             hour   = eventObject.hour,
             minute = eventObject.minute,
+            user   = eventObject.user
         )
         
         # user1 is the owner of eventObject
