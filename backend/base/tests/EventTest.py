@@ -37,7 +37,6 @@ class EventTestClass(TestCase):
 
     def generateNewUserData(self):
         randomUserData = {
-            "name"          : self.generateRandomString(5),
             "username"      : self.generateRandomString(10),
             "email"         : self.generateRandomString(10) + "@gmail.com",
             "password"      : make_password(self.newUser['password'])
@@ -47,7 +46,6 @@ class EventTestClass(TestCase):
     def generateNewUserObject(self):
         randomUserData = self.generateNewUserData()
         return User.objects.create(
-            first_name = randomUserData['name'],
             username   = randomUserData['username'],
             email      = randomUserData['email'],
             password   = randomUserData['password'] 
