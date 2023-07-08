@@ -18,7 +18,6 @@ def register(request):
         return error('Username taken')
 
     user = User.objects.create(
-        first_name=data['name'],
         username=data['username'],
         email=data['email'],
         password=make_password(data['password'])
