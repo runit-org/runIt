@@ -9,6 +9,7 @@ import { receiver } from "../components/client/socket";
 import { getNotifications } from "../actions/notificationActions";
 import { AppLogo, Notification } from "./icons";
 import Cookies from "js-cookie";
+import UserStatus from "../components/Profile/user-status";
 
 function Header() {
   let navigate = useNavigate();
@@ -91,6 +92,12 @@ function Header() {
           <Navbar.Toggle />
           <Navbar.Collapse>
             <Nav className="me-auto ms-4">
+              <div className="responsive-elements">
+                {" "}
+                <Nav.Link className="button-wrapper mb-1" as="div">
+                  <UserStatus />
+                </Nav.Link>
+              </div>
               <Nav.Link href="/posts">Dashboard</Nav.Link>
               <Nav.Link
                 href={
@@ -127,7 +134,6 @@ function Header() {
                   ""
                 )}
               </Nav.Link>
-
               <NavDropdown
                 title={
                   <img
@@ -138,6 +144,9 @@ function Header() {
                 }
                 id="basic-nav-dropdown"
               >
+                <NavDropdown.Item className="button-wrapper mb-1" as="div">
+                  <UserStatus />
+                </NavDropdown.Item>
                 <NavDropdown.Item
                   href={
                     currentUser ? `/profile?user=${currentUser.username}` : ""
@@ -145,6 +154,7 @@ function Header() {
                 >
                   Your Profile
                 </NavDropdown.Item>
+
                 <NavDropdown.Item
                   onClick={(e) => {
                     handleLogout(e);

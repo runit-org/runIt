@@ -34,10 +34,16 @@ function SuggestItem(props) {
                 <ListGroup.Item key={index} as="li" className="p-3">
                   <div className="d-flex justify-content-between gap-1 align-items-start">
                     <div className="me-auto">
-                      <div className="fw-bold">{item.title}</div>
+                      <span className="fw-bold">{item.title}</span>
                     </div>
-
-                    <Badge bg="secondary">{item.category}</Badge>
+                    <PopoverItem
+                      content={{
+                        location: item.location,
+                        timeStamp: item.time,
+                        link: item.link,
+                      }}
+                      icon={<Information />}
+                    />
                   </div>
 
                   <div className="mt-3">
@@ -48,14 +54,7 @@ function SuggestItem(props) {
                     />
                   </div>
                   <div className="d-flex justify-content-between align-items-start mt-4">
-                    <PopoverItem
-                      content={{
-                        location: item.location,
-                        timeStamp: item.time,
-                        link: item.link,
-                      }}
-                      icon={<Information />}
-                    />
+                    <Badge bg="secondary">{item.category}</Badge>
 
                     <Button
                       className="d-block"

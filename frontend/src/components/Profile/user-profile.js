@@ -41,7 +41,10 @@ function UserProfile(props) {
           </div>
           <div className="mt-3 ">
             <VoteBadge votes={user.totalVote} />
-            <UserCardInfo />
+            <UserCardInfo
+              status={user.statusMessage}
+              lastLogin={user.last_login}
+            />
           </div>
           {user.username !== contextUser.user ? (
             <div className="mt-4">

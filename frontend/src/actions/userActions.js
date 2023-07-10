@@ -67,3 +67,24 @@ export const vote = (id, postData) => async (dispatch) => {
       });
   });
 };
+
+export const userStatus = (postData, setLoad, setError) => async (dispatch) => {
+  await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+    setLoad(true);
+    axios
+      .put(`http://localhost:8000/api/user/updateStatusMessage/`, postData)
+      .then((res) => {
+        setLoad(false);
+        setError(res.data);
+      })
+      .catch((error) => {
+        setLoad(false);
+        setError(error.response.data);
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
+      });
+  });
+};
