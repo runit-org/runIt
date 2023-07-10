@@ -116,15 +116,27 @@ class UserTestClass(TestCase):
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
 
-        user.last_login = timezone.make_aware(datetime.datetime.now())
-        user.save()
-
         response = c.get(url, {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(self.newUser['username'], response.json()['data']['username'])
         self.assertTrue('statusMessage' in response.json()['data'])
         self.assertTrue('last_login' in response.json()['data'])
         self.assertTrue('numParticipatedEvents' in response.json()['data'])
+
+    def test_get_user_last_login_time_on_user_profile_success(self):
+        url = self.baseUrl + 'profile/' + self.newUser['username'] + '/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        user.last_login = timezone.make_aware(datetime.datetime.now())
+        user.save()
+
+        response = c.get(url, {}, format='json')
         self.assertEqual(user.last_login, parser.parse(response.json()['data']['last_login']))
 
     def test_get_number_of_participated_events_on_user_profile_success(self):
