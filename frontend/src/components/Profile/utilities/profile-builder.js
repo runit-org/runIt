@@ -25,7 +25,7 @@ export const UserCardInfo = (props) => {
       {props.lastLogin ? (
         <small className="d-block text-muted content_sm5">
           <span className="d-inline-flex align-items-center">
-            Last available: {new Date(props.lastLogin).toLocaleDateString()}
+            Last active: {new Date(props.lastLogin).toLocaleDateString()}
           </span>
         </small>
       ) : (
