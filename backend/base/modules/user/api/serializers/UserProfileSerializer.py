@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from base.models import *
-from base.enums import UserVoteStatus, FriendshipStatus
+from base.enums import UserVoteStatus, FriendshipStatus, EventMemberStatus
 from base.traits import CreateGravatarProfile
 
 from django.db.models import Q
@@ -55,6 +55,11 @@ def getAuthUserFriendshipStatusOnThisUser(targetUser, currentUser):
     if checkRequestExist(currentUser, targetUser):
         return FriendshipStatus.get.AWAITING_CURRENT_USER.name
     return FriendshipStatus.get.NO_REQUESTS.name
+
+def getNumberOfParticipatedEvents(user):
+    numCreatedEvents = len(Event.objects.filter(user=user))
+    numJoinedEvents = len(EventMember.objects.filter(user=user, status=EventMemberStatus.get.ACCEPTED.value))
+    return numCreatedEvents + numJoinedEvents
     
 class UserProfileSerializer(serializers.ModelSerializer):
     totalVote = serializers.SerializerMethodField(read_only=True)
@@ -62,10 +67,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
     gravatarImage = serializers.SerializerMethodField(read_only=True)
     friendStatus = serializers.SerializerMethodField(read_only=True)
     statusMessage = serializers.SerializerMethodField(read_only=True)
+    numParticipatedEvents = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'date_joined', 'totalVote', 'voteStatus', 'gravatarImage', 'friendStatus', 'statusMessage', 'last_login']
+        fields = ['id', 'username', 'email', 'date_joined', 'totalVote', 'voteStatus', 'gravatarImage', 'friendStatus', 'statusMessage', 'last_login', 'numParticipatedEvents']
 
     def get_totalVote(self, obj):
         return getUserTotalVotes(obj.id)
@@ -84,3 +90,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
     
     def get_statusMessage(self, obj):
         return UserExtend.objects.get(userId=obj.id).statusMessage
+
+    def get_numParticipatedEvents(self, obj):
+        return getNumberOfParticipatedEvents(obj)

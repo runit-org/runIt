@@ -1,16 +1,16 @@
 from django.test import TestCase
 from django.test import Client
-from base.models import User, UserExtend, UserVote
+from base.models import User, UserExtend, UserVote, EventMember, Event
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 from rest_framework.test import force_authenticate
-from base.enums import UserVoteStatus
+from base.enums import UserVoteStatus, EventMemberStatus
 import random
 import string
 from django.utils import timezone
-from datetime import datetime
+import datetime
 from dateutil import parser
 
 class UserTestClass(TestCase):
@@ -64,6 +64,40 @@ class UserTestClass(TestCase):
         )
 
         return user
+    
+    def generateNewEventData(self):
+        tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+        newEvent = {
+            "title"       : self.generateRandomString(5),
+            "maxMember"   : 3,
+            "details"     : self.generateRandomString(5),
+            "year"        : tomorrow.year,
+            "month"       : tomorrow.month,
+            "day"         : tomorrow.day,
+            "hour"        : 23,
+            "minute"      : 59,
+            "tags"        : "#hello"
+        }
+        return newEvent
+    
+    def generateNewEventObject(self):
+        newRandomUser = self.generateNewUserObject()
+        randomEventData = self.generateNewEventData()
+        return Event.objects.create(
+            user          = newRandomUser,
+            title         = randomEventData['title'],
+            maxMember     = randomEventData['maxMember'],
+            userName      = newRandomUser.username,
+            details       = randomEventData['details'],
+            year          = randomEventData['year'],
+            month         = randomEventData['month'],
+            day           = randomEventData['day'],
+            hour          = randomEventData['hour'],
+            minute        = randomEventData["minute"],
+
+            startDate   = timezone.make_aware(datetime.datetime(randomEventData['year'], randomEventData['month'], randomEventData['day'], randomEventData['hour'], randomEventData['minute'])),
+            createdAt   = timezone.make_aware(datetime.datetime.now())
+        )
 
     def getUserTotalVotes(self, userId):
         findUserVotes = UserVote.objects.filter(votedUserId = userId)
@@ -82,15 +116,51 @@ class UserTestClass(TestCase):
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
 
-        user.last_login = timezone.make_aware(datetime.now())
-        user.save()
-
         response = c.get(url, {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(self.newUser['username'], response.json()['data']['username'])
         self.assertTrue('statusMessage' in response.json()['data'])
         self.assertTrue('last_login' in response.json()['data'])
+        self.assertTrue('numParticipatedEvents' in response.json()['data'])
+
+    def test_get_user_last_login_time_on_user_profile_success(self):
+        url = self.baseUrl + 'profile/' + self.newUser['username'] + '/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        user.last_login = timezone.make_aware(datetime.datetime.now())
+        user.save()
+
+        response = c.get(url, {}, format='json')
         self.assertEqual(user.last_login, parser.parse(response.json()['data']['last_login']))
+
+    def test_get_number_of_participated_events_on_user_profile_success(self):
+        url = self.baseUrl + 'profile/' + self.newUser['username'] + '/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        EventMember.objects.create(
+            user = user,
+            event = self.generateNewEventObject(),
+            status = EventMemberStatus.get.ACCEPTED.value,
+        )
+        Event.objects.create(
+            user = user
+        )
+
+        response = c.get(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(2, response.json()['data']['numParticipatedEvents'])
 
     def test_get_user_profile_username_not_found_fails(self):
         url = self.baseUrl + 'profile/' + ('a'*20) + '/'
