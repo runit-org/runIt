@@ -29,12 +29,12 @@ const UserPopoverContent = (props) => {
           <div className="mt-3 ">
             <VoteBadge votes={user.totalVote} />
 
-            <small className="d-block text-muted">Melbourne, Australia</small>
-            <small className="d-block text-muted">
+            <small className="d-block text-muted">{user.statusMessage}</small>
+            {/* <small className="d-block text-muted">
               Participated in 4 events
-            </small>
+            </small> */}
             <small className="d-block text-muted">
-              Last event created was in the past week
+              Last available: {new Date(user.last_login).toLocaleDateString()}
             </small>
             <div className="mt-2">
               <a

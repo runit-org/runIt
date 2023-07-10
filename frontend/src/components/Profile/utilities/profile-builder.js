@@ -10,19 +10,27 @@ export const VoteBadge = (props) => {
   );
 };
 
-export const UserCardInfo = () => {
+export const UserCardInfo = (props) => {
   return (
     <>
-      <small className="d-block text-muted content_sm5">
-        <span className="d-inline-flex align-items-center">
-          Melbourne, Australia
-        </span>
-      </small>
-      <small className="d-block text-muted content_sm5">
-        <span className="d-inline-flex align-items-center">
-          Last event created was in the past week
-        </span>
-      </small>
+      {props.status ? (
+        <small className="d-block text-muted content_sm5">
+          <span className="d-inline-flex align-items-center">
+            {props.status}
+          </span>
+        </small>
+      ) : (
+        ""
+      )}
+      {props.lastLogin ? (
+        <small className="d-block text-muted content_sm5">
+          <span className="d-inline-flex align-items-center">
+            Last available: {new Date(props.lastLogin).toLocaleDateString()}
+          </span>
+        </small>
+      ) : (
+        ""
+      )}
     </>
   );
 };

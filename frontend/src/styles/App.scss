@@ -43,6 +43,16 @@ body {
   }
 }
 
+.btn-primary.btn-muted {
+  @include btn-style(rgb(246, 248, 250), $fnt-muted, none, 500);
+  border: 1px solid rgb(208, 215, 222) !important;
+  padding: 0.25rem !important;
+
+  &:hover {
+    color: $fnt-muted !important;
+  }
+}
+
 .btn-cancel {
   @include btn-style(transparent, $primary-dark, none, 600);
 }

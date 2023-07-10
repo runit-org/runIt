@@ -46,7 +46,10 @@ function CurrentUserProfile() {
           </div>
           <div className="mt-3">
             <VoteBadge votes={currUserProfile.totalVote} />
-            <UserCardInfo />
+            <UserCardInfo
+              status={currUserProfile.statusMessage}
+              lastLogin={currUserProfile.last_login}
+            />
           </div>
         </div>
       ) : (

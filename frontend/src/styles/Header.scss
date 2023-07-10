@@ -54,6 +54,11 @@ a.dropdown-item:hover {
   background-color: $secondary-light;
 }
 
+.navbar .button-wrapper {
+  background-color: transparent !important;
+  cursor: auto !important;
+}
+
 //notification
 #notification-icon {
   display: inline-flex;
