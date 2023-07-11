@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Calendar, Geomark } from "../../layouts/icons";
+import { DisplayImage } from "../../layouts/user-displayimg";
 
 function CalendarEventItem(props) {
   return (
@@ -12,7 +13,7 @@ function CalendarEventItem(props) {
               <Card.Body>
                 <div className="row">
                   <div className="col-xl-1 col-lg-2 col-md-2 col-sm-1">
-                    <img src={item.gravatarImage} alt="user-profileImage" />
+                    <DisplayImage image={item.gravatarImage} />
                   </div>
                   <div className="col-xl-11 col-lg-10 col-md-10 col-sm-12">
                     <h6>{item.title}</h6>

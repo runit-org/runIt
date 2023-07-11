@@ -4,16 +4,16 @@ import { Link } from "react-router-dom";
 import PopoverItem from "../Profile/popover-item";
 import { ArrowRight } from "../../layouts/icons";
 import { BadgeItem, RequestBtn, StatusBadge } from "./utilities/event-builder";
+import { DisplayImage } from "../../layouts/user-displayimg";
 
 function EventItemCard(props) {
   return (
     <div className="event-card_dash">
       <div className="d-flex" id="card_header">
-        <img
-          src={props.eventData.gravatarImage}
-          className="userProf-img me-2"
+        <DisplayImage
+          image={props.eventData.gravatarImage}
+          imgClass=" me-2"
           id="card-img"
-          alt="Img"
         />
         <PopoverItem data={props.eventData.userName} />
 

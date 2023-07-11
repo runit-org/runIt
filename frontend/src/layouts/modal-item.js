@@ -1,6 +1,6 @@
 import React, { useState, useImperativeHandle, useEffect } from "react";
 import { Form, Modal } from "react-bootstrap";
-import CTAButton from "../../layouts/cta-button";
+import CTAButton from "./cta-button";
 
 const ModalItem = React.forwardRef(
   (
@@ -51,12 +51,12 @@ const ModalItem = React.forwardRef(
           aria-labelledby="example-modal-sizes-title-lg"
         >
           <Modal.Body>
+            <Modal.Title>{title}</Modal.Title>
             <Form
               onSubmit={(e) => {
                 subHandler(e);
               }}
             >
-              <h4>{title}</h4>
               {error.success === "true" ? (
                 <small className="mb-4 text-success">{error.message}</small>
               ) : error.success === "false" ? (

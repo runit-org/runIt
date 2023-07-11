@@ -310,16 +310,13 @@ div.content {
 }
 
 .modal-title {
-  color: $theme;
-  font-size: 2.5rem !important;
-}
-.modal-body h4 {
-  color: $primary-dark;
+  color: $primary-dark !important;
   font-weight: bold !important;
+  font-size: 1.2rem !important;
 }
+
 .modal-content {
   border-radius: 8px !important;
-  padding: 20px;
   border-color: $primary-light !important;
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
 }

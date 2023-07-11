@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Loading } from "../../layouts/loader";
-import ModalItem from "../Event/modal-item";
+import ModalItem from "../../layouts/modal-item";
 import { SearchParam } from "../Utilities/search-param";
 import { useNavigate } from "react-router-dom";
 import { getAllComments, removeComment } from "../../actions/commentActions";

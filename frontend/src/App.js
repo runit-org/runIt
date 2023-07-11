@@ -58,8 +58,10 @@ function App() {
             path="/posts"
             element={
               <ProtectedRoute>
-                <Header />
-                <Posts />
+                <UserContext>
+                  <Header />
+                  <Posts />
+                </UserContext>
               </ProtectedRoute>
             }
           />

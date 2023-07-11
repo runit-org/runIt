@@ -3,7 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getSingleEvent, updateStatus } from "../../actions/eventActions";
 import { Loading } from "../../layouts/loader";
-import ModalItem from "./modal-item";
+import ModalItem from "../../layouts/modal-item";
 import { useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
 import { PencilSquare } from "../../layouts/icons";
