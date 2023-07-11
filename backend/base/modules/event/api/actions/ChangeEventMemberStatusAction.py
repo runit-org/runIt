@@ -44,7 +44,7 @@ def updateStatus(request):
 
     event = Event.objects.get(id=data['eventId'])
 
-    if not checkEventFull(event):
+    if data['status'] == EventMemberStatus.get.ACCEPTED.value and not checkEventFull(event):
         return error('Event is full')
 
     if event.status != None:
