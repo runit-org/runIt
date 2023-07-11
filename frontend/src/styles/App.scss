@@ -225,16 +225,15 @@ div.content {
 
 .dash-container .content {
   flex: 1 1 auto;
-  width: 100%;
+  width: 60%;
 }
 
-.dash-container .container {
-  max-width: 82rem;
+.dash-container#main .container {
+  max-width: 41rem;
 }
 
 .sidebar {
-  // width: 33.33%;
-  width: 50%;
+  width: 30%;
 }
 
 .sidebar-wrapper {
@@ -244,7 +243,6 @@ div.content {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  // padding-top: 80px !important;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 
@@ -257,7 +255,6 @@ div.content {
   padding-right: 10px;
 }
 .sidebar_left {
-  // margin: 20px 0 0 10px;
   margin-top: 20px;
   padding-left: 10px;
 }
@@ -274,7 +271,7 @@ div.content {
   height: 100%;
 }
 .sidebar_eventDash {
-  width: 50%;
+  width: 40%;
 }
 .sidebar_eventDash .card {
   background-color: $primary-light;
@@ -282,7 +279,7 @@ div.content {
 }
 /*------Calendar Dash------*/
 .sidebar_calendarDash {
-  width: 50%;
+  width: 32%;
 }
 .sidebar_calendarDash .card {
   background-color: $primary-light;

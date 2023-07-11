@@ -5,13 +5,14 @@ function Breadcrumbs(props) {
   return (
     <>
       {props.items ? (
-        <Breadcrumb>
+        <Breadcrumb className="w-100">
           {props.items.map((item, index) => {
             return (
               <Breadcrumb.Item
                 key={index}
                 href={item.path}
                 active={item.current}
+                className="text-truncate"
               >
                 {item.title}
               </Breadcrumb.Item>

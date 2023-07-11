@@ -2,7 +2,7 @@
 
 /*------Resposive------*/
 
-@media only screen and (min-width: 580px) {
+@media only screen and (min-width: 575px) {
   .responsive-elements {
     display: none;
   }
@@ -27,7 +27,7 @@
   }
 }
 
-@media only screen and (max-width: 580px) {
+@media only screen and (max-width: 575px) {
   .navbar .navbar-collapse div {
     margin: 0 !important;
   }
@@ -68,17 +68,33 @@
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
+@media only screen and (min-width: 1024px) and (max-width: 1144px) {
   .calendar {
-    width: 600px !important;
-    height: 600px !important;
+    width: 400px !important;
+    height: 400px !important;
   }
   .calendar .body .week {
-    width: 80px !important;
+    width: 40px !important;
   }
   .calendar-days .day {
-    width: 80px !important;
-    height: 80px !important;
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0px !important;
+  }
+}
+
+@media only screen and (min-width: 1144px) and (max-width: 1237px) {
+  .calendar {
+    width: 420px !important;
+    height: 420px !important;
+  }
+  .calendar .body .week {
+    width: 45px !important;
+  }
+  .calendar-days .day {
+    width: 45px !important;
+    height: 45px !important;
+    padding: 0px !important;
   }
 }
 
@@ -90,6 +106,9 @@
   .dash-container {
     margin: 0 auto !important;
     flex-direction: column-reverse !important;
+  }
+  .dash-container .content {
+    width: 100% !important;
   }
   .sidebar_eventDash,
   .sidebar_calendarDash {
