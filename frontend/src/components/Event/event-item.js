@@ -9,6 +9,7 @@ import { SingleEventContext } from "../Dashboards/event-dash";
 import { SecurityContext } from "../Context/security-context";
 import { Comment, Ellipse } from "../../layouts/icons";
 import { CANCELLED, FINISHED } from "./utilities/types";
+import { DisplayImage } from "../../layouts/user-displayimg";
 
 function EventItem(props) {
   const [editorMode, setEditorMode] = useState(false);
@@ -25,10 +26,10 @@ function EventItem(props) {
         <Card className="event-card">
           <Card.Header>
             <div className="d-flex justify-content-between">
-              <img
-                src={eventData.gravatarImage}
-                className="userProf-img me-3"
-                alt="Img"
+              <DisplayImage
+                image={eventData.gravatarImage}
+                imgClass="userProf-img me-3"
+                id="card-img"
               />
               <StatusBadge joinedStatus={eventData.joinedStatus} />
               {currentUser === eventData.user ? (

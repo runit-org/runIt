@@ -46,6 +46,7 @@ function UserProfile(props) {
             <UserCardInfo
               status={user.statusMessage}
               lastLogin={user.last_login}
+              numParticipatedEvents={user.numParticipatedEvents}
             />
           </div>
           {user.username !== userContext.currentUser.username ? (

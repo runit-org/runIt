@@ -8,6 +8,7 @@ import CTAButton from "../../layouts/cta-button";
 import { MentionFilter } from "../Utilities/mention";
 import { SearchParam } from "../Utilities/search-param";
 import { UserContext } from "../Context/user-context";
+import { DisplayImage } from "../../layouts/user-displayimg";
 
 function CreateComment(props) {
   const dispatch = useDispatch();
@@ -59,10 +60,9 @@ function CreateComment(props) {
           ref={formRef}
         >
           <div className="d-flex justify-content-between">
-            <img
-              src={userContext.currentUser.gravatarImage}
-              className="user-img me-3"
-              alt="userimage"
+            <DisplayImage
+              image={userContext.currentUser.gravatarImage}
+              imgClass="user-img me-3"
             />
             <Form.Control
               spellCheck={true}

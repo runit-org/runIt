@@ -12,6 +12,7 @@ import { SingleEventContext } from "../Dashboards/event-dash";
 import { SecurityContext } from "../Context/security-context";
 import { Ellipse } from "../../layouts/icons";
 import { emitter } from "../client/socket";
+import { DisplayImage } from "../../layouts/user-displayimg";
 
 function CommentItem(props) {
   const dispatch = useDispatch();
@@ -36,11 +37,10 @@ function CommentItem(props) {
   return (
     <div className="event-card_dash m-0 mt-4">
       <div className="d-flex" id="card_header">
-        <img
-          src={props.commentData.gravatarImage}
-          className="userProf-img me-2"
+        <DisplayImage
+          image={props.commentData.gravatarImage}
+          imgClass="me-2"
           id="card-img"
-          alt="Img"
         />
         <PopoverItem data={props.commentData.username} />
 

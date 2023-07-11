@@ -2,7 +2,7 @@ import React from "react";
 import { ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { DisplayImage } from "../../layouts/user-displayimg";
-import ModalItem from "./modal-item";
+import ModalItem from "../../layouts/modal-item";
 import { EventMembersHandler } from "./utilities/action-handlers";
 import { Accepted } from "./utilities/event-builder";
 

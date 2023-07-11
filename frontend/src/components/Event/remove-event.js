@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { removeEvent } from "../../actions/eventActions";
 import { Loading } from "../../layouts/loader";
-import ModalItem from "./modal-item";
+import ModalItem from "../../layouts/modal-item";
 import { useNavigate } from "react-router-dom";
 import { Delete } from "../../layouts/icons";
 
