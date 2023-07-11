@@ -12,10 +12,7 @@ function CalendarEventItem(props) {
               <Card.Body>
                 <div className="row">
                   <div className="col-xl-1 col-lg-2 col-md-2 col-sm-1">
-                    <img
-                      src="https://www.gravatar.com/avatar/04678e8bacf37f21ebfbcdddefad9468?d=retro"
-                      alt="user-profileImage"
-                    />
+                    <img src={item.gravatarImage} alt="user-profileImage" />
                   </div>
                   <div className="col-xl-11 col-lg-10 col-md-10 col-sm-12">
                     <h6>{item.title}</h6>

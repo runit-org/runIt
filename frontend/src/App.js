@@ -82,8 +82,10 @@ function App() {
             element={
               <ProtectedRoute>
                 <SecurityContext>
-                  <Header />
-                  <EventDash />
+                  <UserContext>
+                    <Header />
+                    <EventDash />
+                  </UserContext>
                 </SecurityContext>
               </ProtectedRoute>
             }

@@ -34,57 +34,49 @@ function CommentItem(props) {
   };
 
   return (
-    <div className="d-flex justify-content-start">
-      <img
-        src={props.commentData.gravatarImage}
-        className="user-img me-3  mt-3"
-        alt="userimage"
-      />
+    <div className="event-card_dash m-0 mt-4">
+      <div className="d-flex" id="card_header">
+        <img
+          src={props.commentData.gravatarImage}
+          className="userProf-img me-2"
+          id="card-img"
+          alt="Img"
+        />
+        <PopoverItem data={props.commentData.username} />
+
+        <div className="me-auto">
+          <span className="card-timestamp text-muted align-self-center">
+            {props.commentData.humanTimeDiffCreatedAt} ago
+          </span>
+        </div>
+
+        {currentUser === props.commentData.user ? (
+          <Dropdown>
+            <Dropdown.Toggle variant="light" size="sm" id="dropdown-basic">
+              <Ellipse />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {commentOptions(
+                props.commentData.id,
+                eventData.id,
+                props.commentCount,
+                handleClick
+              ).options_owner.map((i, index) => {
+                return (
+                  <div key={index} className="p-1">
+                    {i.item}
+                  </div>
+                );
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
+        ) : (
+          ""
+        )}
+      </div>
+
       {!editorMode ? (
         <Card className="comment-item">
-          <Card.Header>
-            <div className="d-flex">
-              <span className="me-auto">
-                <PopoverItem data={props.commentData.username} />
-                <small
-                  className="d-block text-muted fw-medium"
-                  style={{
-                    fontSize: "12px",
-                  }}
-                >
-                  {props.commentData.humanTimeDiffCreatedAt} ago
-                </small>
-              </span>
-
-              {currentUser === props.commentData.user ? (
-                <Dropdown>
-                  <Dropdown.Toggle
-                    variant="light"
-                    size="sm"
-                    id="dropdown-basic"
-                  >
-                    <Ellipse />
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {commentOptions(
-                      props.commentData.id,
-                      eventData.id,
-                      props.commentCount,
-                      handleClick
-                    ).options_owner.map((i, index) => {
-                      return (
-                        <div key={index} className="p-1">
-                          {i.item}
-                        </div>
-                      );
-                    })}
-                  </Dropdown.Menu>
-                </Dropdown>
-              ) : (
-                ""
-              )}
-            </div>
-          </Card.Header>
           <Card.Body>
             <Card.Text
               className="content_sm1"

@@ -108,8 +108,10 @@
 .event-card_dash #card_header .card-timestamp {
   font-size: 12px;
   &::before {
-    padding-right: 1.5px;
+    padding: 0 1.5px 0 1.5px;
+    margin: 0 2px 0 2px;
     content: "\2022";
+    font-weight: 700;
   }
 }
 .userProf-img#card-img {

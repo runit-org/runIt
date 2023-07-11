@@ -9,9 +9,11 @@ import Vote from "./vote";
 function UserProfile(props) {
   const [searchParams] = useSearchParams();
   const param = searchParams.get("user");
-  const contextUser = useContext(UserContext);
+  const userContext = useContext(UserContext);
 
-  const user = UserProfileHandler(param ? param : contextUser.user);
+  const user = UserProfileHandler(
+    param ? param : userContext.currentUser.username
+  );
 
   useEffect(() => {
     if (props.userData && user) {
@@ -46,7 +48,7 @@ function UserProfile(props) {
               lastLogin={user.last_login}
             />
           </div>
-          {user.username !== contextUser.user ? (
+          {user.username !== userContext.currentUser.username ? (
             <div className="mt-4">
               <Vote
                 userId={user.id}

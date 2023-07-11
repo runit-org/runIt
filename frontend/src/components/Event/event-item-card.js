@@ -18,7 +18,7 @@ function EventItemCard(props) {
         <PopoverItem data={props.eventData.userName} />
 
         <div className="me-auto">
-          <span className="card-timestamp text-muted align-self-center ms-1">
+          <span className="card-timestamp text-muted align-self-center">
             {props.eventData.humanTimeDiffCreatedAt} ago
           </span>
         </div>
