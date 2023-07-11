@@ -8,6 +8,8 @@ import { DisplayImage } from "../../layouts/user-displayimg";
 const UserPopoverContent = (props) => {
   const user = UserProfileHandler(props.data);
 
+  console.log(user);
+
   return (
     <>
       {user ? (
@@ -31,7 +33,7 @@ const UserPopoverContent = (props) => {
 
             <small className="d-block text-muted">{user.statusMessage}</small>
             <small className="d-block text-muted">
-              Participated in 4 events
+              Participated in {user.numParticipatedEvents} event(s)
             </small>
             <small className="d-block text-muted">
               Last active: {new Date(user.last_login).toLocaleDateString()}
