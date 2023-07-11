@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from base.models import *
 from base.modules.event.api.serializers.EventCategorySerializer import EventCategorySerializer
 from base.traits import GetHumanTimeDifferenceToNow, EventDateToStringTime
-from base.enums import EventStatus
+from base.enums import EventStatus, EventMemberStatus
 
 from datetime import datetime
 from django.utils import timezone
@@ -15,10 +15,12 @@ class OwnedEventSerializer(serializers.ModelSerializer):
     timeToEvent = serializers.SerializerMethodField(read_only=True)
     eventStatus = serializers.SerializerMethodField(read_only=True)
     eventTags = serializers.SerializerMethodField(read_only=True)
+    fullStatus = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Event
-        fields = ['userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 'eventDateString', 'eventDate', 'timeToEvent', 'eventStatus', 'eventTags']
+        fields = ['userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 'eventDateString', 
+                  'eventDate', 'timeToEvent', 'eventStatus', 'eventTags', 'fullStatus']
 
     def get_humanTimeDiffCreatedAt(self, obj):
         return GetHumanTimeDifferenceToNow.get(obj.createdAt)
@@ -54,3 +56,9 @@ class OwnedEventSerializer(serializers.ModelSerializer):
         serializer = EventCategorySerializer(tags, many=True)
 
         return serializer.data
+    
+    def get_fullStatus(self, obj):
+        if len(EventMember.objects.filter(eventId = obj.id, status = EventMemberStatus.get.ACCEPTED.value)) >= obj.maxMember:
+            return True
+        return False
+    
