@@ -7,6 +7,7 @@ import { SingleEventContext } from "../Dashboards/event-dash";
 import CTAButton from "../../layouts/cta-button";
 import { MentionFilter } from "../Utilities/mention";
 import { SearchParam } from "../Utilities/search-param";
+import { UserContext } from "../Context/user-context";
 
 function CreateComment(props) {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function CreateComment(props) {
   const [error, setError] = useState("");
 
   const eventData = useContext(SingleEventContext);
+  const userContext = useContext(UserContext);
 
   let pageId = SearchParam();
 
@@ -58,9 +60,7 @@ function CreateComment(props) {
         >
           <div className="d-flex justify-content-between">
             <img
-              src={
-                "https://www.gravatar.com/avatar/b58c6f14d292556214bd64909bcdb118?d=retro"
-              }
+              src={userContext.currentUser.gravatarImage}
               className="user-img me-3"
               alt="userimage"
             />

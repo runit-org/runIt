@@ -4,25 +4,20 @@ import { useSelector } from "react-redux";
 export const UserContext = createContext();
 
 function UserProvider({ children }) {
-  const [user, setUser] = useState("");
-  const [id, setUserid] = useState();
-
-  useEffect(() => {
-    setUser(localStorage.username);
-  }, []);
+  const [currentUser, setCurrentUser] = useState({});
 
   var getCurrentUser = useSelector(
-    (securityReducer) => securityReducer.security.user
+    (userReducer) => userReducer.users.currProfile
   );
 
   useEffect(() => {
-    if (getCurrentUser != null) {
-      setUserid(getCurrentUser.user_id);
+    if (getCurrentUser.data != null) {
+      setCurrentUser(getCurrentUser.data);
     }
   }, [getCurrentUser]);
 
   return (
-    <UserContext.Provider value={{ user: user, id: id }}>
+    <UserContext.Provider value={{ currentUser: currentUser }}>
       {children}
     </UserContext.Provider>
   );

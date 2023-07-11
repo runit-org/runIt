@@ -20,6 +20,8 @@ function Main() {
   const navigate = useNavigate();
   const [isValid, setIsValid] = useState(false);
   const [currUserProfile, setCurrUserProfile] = useState({});
+  const [currPath, setCurrPath] = useState("");
+
   const localToken = Cookies.get("token");
 
   useEffect(() => {
@@ -49,22 +51,27 @@ function Main() {
     }
   }, [currProfile, error, navigate, isValid]);
 
+  useEffect(() => {
+    if (location) {
+      setCurrPath(location.pathname);
+    }
+  }, [location]);
+
   return (
     <>
       <div id="auth-container">
         <div className="auth-content">
           <Card
             className="login-card"
-            style={location.pathname !== "/signup" ? { width: "28rem" } : {}}
+            style={currPath !== "/signup" ? { width: "28rem" } : {}}
           >
             {!isValid ? <AppLogo w={"80px"} defClass="mb-4" /> : ""}
 
-            {location.pathname === "/signup" ? (
+            {currPath === "/signup" ? (
               <SignUp />
-            ) : location.pathname === "/reset-password-auth" ? (
+            ) : currPath === "/reset-password-auth" ? (
               <ResetPasswordEmail />
-            ) : location.pathname ===
-              `/reset-password/${encodeURIComponent(token)}` ? (
+            ) : currPath === `/reset-password/${encodeURIComponent(token)}` ? (
               <ResetPassword token={encodeURIComponent(token)} />
             ) : isValid ? (
               <SingleClick currUserProfile={currUserProfile} />
@@ -74,7 +81,7 @@ function Main() {
           </Card>
         </div>
         <div className="auth-footer">
-          {window.location.pathname === "/signup" ? (
+          {currPath === "/signup" ? (
             <h6>
               Already have an account? <Link to="/">Log in</Link>
             </h6>
