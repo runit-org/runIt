@@ -177,6 +177,53 @@ class EventTestClass(TestCase):
         self.assertEqual(eventObject.userName, response.json()['data']['userName'])
         self.assertEqual(eventObject.id, response.json()['data']['id'])
 
+    def test_view_event_full_status_true_success(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'view/' + str(eventObject.id) + '/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        eventObject.maxMember = 3
+        eventObject.save()
+        EventMember.objects.bulk_create([
+            EventMember(eventId=eventObject.id, event=eventObject, status=EventMemberStatus.get.ACCEPTED.value),
+            EventMember(eventId=eventObject.id, event=eventObject, status=EventMemberStatus.get.ACCEPTED.value),
+            EventMember(eventId=eventObject.id, event=eventObject, status=EventMemberStatus.get.ACCEPTED.value)
+        ])
+
+        response = c.get(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.json()['data']['fullStatus'])
+        self.assertEqual(eventObject.id, response.json()['data']['id'])
+
+    def test_view_event_full_status_false_success(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'view/' + str(eventObject.id) + '/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        eventObject.maxMember = 3
+        eventObject.save()
+        EventMember.objects.bulk_create([
+            EventMember(eventId=eventObject.id, event=eventObject, status=EventMemberStatus.get.ACCEPTED.value),
+            EventMember(eventId=eventObject.id, event=eventObject, status=EventMemberStatus.get.ACCEPTED.value)
+        ])
+
+        response = c.get(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(response.json()['data']['fullStatus'])
+        self.assertEqual(eventObject.id, response.json()['data']['id'])
+
     def test_view_event_id_not_found_fails(self):
         url = self.baseUrl + 'view/1/'
 

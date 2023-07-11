@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from base.models import *
 from base.modules.event.api.serializers.EventCategorySerializer import EventCategorySerializer
 from base.traits import GetHumanTimeDifferenceToNow, EventDateToStringTime, CreateGravatarProfile
-from base.enums import EventStatus
+from base.enums import EventStatus, EventMemberStatus
 
 from datetime import datetime
 from django.utils import timezone
@@ -16,11 +16,12 @@ class AffiliatedEventSerializer(serializers.ModelSerializer):
     eventStatus = serializers.SerializerMethodField(read_only=True)
     eventTags = serializers.SerializerMethodField(read_only=True)
     gravatarImage = serializers.SerializerMethodField(read_only=True)
+    fullStatus = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Event
         fields = ['id', 'userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 
-        'eventDateString', 'eventDate', 'timeToEvent', 'eventStatus', 'eventTags', 'gravatarImage']
+        'eventDateString', 'eventDate', 'timeToEvent', 'eventStatus', 'eventTags', 'gravatarImage', 'fullStatus']
 
     def get_humanTimeDiffCreatedAt(self, obj):
         return GetHumanTimeDifferenceToNow.get(obj.createdAt)
@@ -59,4 +60,9 @@ class AffiliatedEventSerializer(serializers.ModelSerializer):
 
     def get_gravatarImage(self, obj):
         return CreateGravatarProfile.create(obj.user.email)
+        
+    def get_fullStatus(self, obj):
+        if len(EventMember.objects.filter(eventId = obj.id, status = EventMemberStatus.get.ACCEPTED.value)) >= obj.maxMember:
+            return True
+        return False
     
