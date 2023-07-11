@@ -44,7 +44,7 @@ function MainDash() {
 
   return (
     <div style={{ position: "relative" }}>
-      <div className="dash-container">
+      <div className="dash-container" id="main">
         <div className="sidebar">
           <div className="sidebar-wrapper">
             <div className="sidebar_left">

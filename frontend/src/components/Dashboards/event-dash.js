@@ -81,7 +81,7 @@ function EventDash() {
                         );
                       })
                     ) : (
-                      <Card className="event-card">
+                      <Card className="comment-item">
                         <Card.Body>
                           <Card.Text>No comments published</Card.Text>
                         </Card.Body>
