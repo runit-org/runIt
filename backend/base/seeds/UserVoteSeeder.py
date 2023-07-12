@@ -21,6 +21,5 @@ def create_votes_for_one_user(targetUserId, voteStatus):
         if i != targetUserId:
             create_individual_vote(i, targetUserId, voteStatus)
 
-
 def create_individual_vote(voterUserId, targetUserId, voteStatus):
     UserVote.objects.create(voterId=voterUserId, votedUserId=targetUserId, status=voteStatus)
