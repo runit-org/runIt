@@ -1,6 +1,5 @@
-from base.models import User, UserVote
+from base.models import UserVote
 from base.enums import UserVoteStatus
-from django.contrib.auth.hashers import make_password
 
 def create_seed_data():
     create_votes_for_one_user(1, UserVoteStatus.get.UPVOTE.value)
