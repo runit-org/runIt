@@ -3,15 +3,13 @@ import { Form, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { resetPwEmail } from "../../actions/securityActions";
 import { Link } from "react-router-dom";
-import ErrorToast from "../../layouts/error-toast";
-import { MsgToast } from "../../layouts/msg-toast";
+import { ResponseItem } from "../../layouts/response-items";
 import { FormButton } from "./utilities/auth-builder";
 
 function ResetPasswordEmail() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState({});
   const [load, setLoad] = useState(false);
-  const [show, setShow] = useState(false);
   const [formSwitch, setFormSwitch] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -20,7 +18,7 @@ function ResetPasswordEmail() {
       email: email,
     };
 
-    dispatch(resetPwEmail(userData, setLoad, setShow));
+    dispatch(resetPwEmail(userData, setLoad));
   };
 
   useEffect(() => {
@@ -29,8 +27,6 @@ function ResetPasswordEmail() {
 
   return (
     <>
-      <ErrorToast showToast={show} variant={MsgToast().successVariant} />
-
       <fieldset disabled={formSwitch}>
         <Form
           onSubmit={(e) => {
@@ -39,6 +35,7 @@ function ResetPasswordEmail() {
         >
           <div className="mb-4">
             <h4 className="subTitle">Reset Password</h4>
+            <ResponseItem />
           </div>
 
           <Form.Label className="text-muted visually-hidden">Email</Form.Label>

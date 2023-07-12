@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Toast } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { ResponseContext } from "../components/Context/response-context";
 
-function ErrorToast(props) {
+export const ResponseToast = (props) => {
   const [show, setShow] = useState(props.showToast);
   const [msg, setMsg] = useState("");
 
@@ -44,6 +45,22 @@ function ErrorToast(props) {
       </Toast>
     </div>
   );
-}
+};
 
-export default ErrorToast;
+export const ResponseItem = () => {
+  const { response } = useContext(ResponseContext);
+
+  return (
+    <>
+      {response.status === 200 ? (
+        <small className="text-success">{response.message}</small>
+      ) : response.status === 400 ||
+        response.status === 401 ||
+        response.status === 422 ? (
+        <small className="text-danger">{response.message}</small>
+      ) : (
+        ""
+      )}
+    </>
+  );
+};

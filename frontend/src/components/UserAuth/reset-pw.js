@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { resetPw } from "../../actions/securityActions";
 import { Link } from "react-router-dom";
-import ErrorToast from "../../layouts/error-toast";
-import { useNavigate } from "react-router-dom";
-import { MsgToast } from "../../layouts/msg-toast";
+import { ResponseItem } from "../../layouts/response-items";
+
 import { FormButton } from "./utilities/auth-builder";
 
 function ResetPassword(props) {
   const dispatch = useDispatch();
-  let navigate = useNavigate();
 
   const [c_password, set_c_Password] = useState({});
   const [password, setPassword] = useState({});
   const [load, setLoad] = useState(false);
-  const [show, setShow] = useState(false);
   const [formSwitch, setFormSwitch] = useState(false);
-
-  var errorStatus = useSelector((errorReducer) => errorReducer.errors.errors);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,18 +24,8 @@ function ResetPassword(props) {
       token: props.token,
     };
 
-    dispatch(resetPw(userData, setLoad, setShow));
+    dispatch(resetPw(userData, setLoad));
   };
-
-  useEffect(() => {
-    if (errorStatus && errorStatus.status === 200) {
-      setTimeout(() => {
-        navigate("/", {
-          replace: true,
-        });
-      }, 1000);
-    }
-  }, [navigate, errorStatus]);
 
   useEffect(() => {
     setFormSwitch(load);
@@ -48,15 +33,6 @@ function ResetPassword(props) {
 
   return (
     <>
-      <ErrorToast
-        showToast={show}
-        variant={
-          errorStatus.status === 200
-            ? MsgToast().successVariant
-            : MsgToast().errorVariant
-        }
-      />
-
       <fieldset disabled={formSwitch}>
         <Form
           onSubmit={(e) => {
@@ -91,6 +67,7 @@ function ResetPassword(props) {
               required
             />
           </Form.Group>
+          <ResponseItem />
           <FormButton load={load} name="Confirm" />
           <hr className="divider" />
           <Row className="mt-3">
