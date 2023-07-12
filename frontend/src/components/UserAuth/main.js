@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import Footer from "../../layouts/footer";
 import Login from "./log-in";
 import ResetPassword from "./reset-pw";
@@ -7,55 +7,17 @@ import ResetPasswordEmail from "./resetPw-email";
 import SignUp from "./sign-up";
 import { useParams } from "react-router-dom";
 import SingleClick from "./single-click";
-import { useDispatch, useSelector } from "react-redux";
-import { getCurrentUserProfile } from "../../actions/userActions";
+
 import { Card } from "react-bootstrap";
 import { AppLogo } from "../../layouts/icons";
-import Cookies from "js-cookie";
+import { useCurrentPath } from "../../hooks/useCurrentPath";
+import { useAuthStatus } from "../../hooks/useAuthStatus";
+import { CurrAuthUser } from "../Utilities/current-user-route";
 
 function Main() {
   let { token } = useParams();
-  let location = useLocation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [isValid, setIsValid] = useState(false);
-  const [currUserProfile, setCurrUserProfile] = useState({});
-  const [currPath, setCurrPath] = useState("");
-
-  const localToken = Cookies.get("token");
-
-  useEffect(() => {
-    if (localToken && location.pathname === "/" && location.state === null)
-      setIsValid(localToken);
-  }, [localToken, location.pathname, location.state]);
-
-  useEffect(() => {
-    if (isValid) dispatch(getCurrentUserProfile());
-  }, [dispatch, isValid]);
-
-  var currProfile = useSelector(
-    (securityReducer) => securityReducer.users.currProfile
-  );
-
-  var error = useSelector((errorReducer) => errorReducer.errors.errors.status);
-
-  useEffect(() => {
-    if (isValid) {
-      if (currProfile && !error) {
-        setCurrUserProfile(currProfile.data);
-      } else {
-        localStorage.clear();
-        Cookies.remove("token");
-        navigate(0);
-      }
-    }
-  }, [currProfile, error, navigate, isValid]);
-
-  useEffect(() => {
-    if (location) {
-      setCurrPath(location.pathname);
-    }
-  }, [location]);
+  const currPath = useCurrentPath();
+  const isValid = useAuthStatus();
 
   return (
     <>
@@ -74,7 +36,9 @@ function Main() {
             ) : currPath === `/reset-password/${encodeURIComponent(token)}` ? (
               <ResetPassword token={encodeURIComponent(token)} />
             ) : isValid ? (
-              <SingleClick currUserProfile={currUserProfile} />
+              <CurrAuthUser>
+                <SingleClick currUserProfile={CurrAuthUser.currUserProfile} />
+              </CurrAuthUser>
             ) : (
               <Login />
             )}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Toast } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { ResponseContext } from "../components/Context/response-context";
+import * as ResponseStatus from "../constants/response-status";
 
 export const ResponseToast = (props) => {
   const [show, setShow] = useState(props.showToast);
@@ -52,11 +53,11 @@ export const ResponseItem = () => {
 
   return (
     <>
-      {response.status === 200 ? (
+      {response.status === ResponseStatus.OK ? (
         <small className="text-success">{response.message}</small>
-      ) : response.status === 400 ||
-        response.status === 401 ||
-        response.status === 422 ? (
+      ) : response.status === ResponseStatus.BAD_REQUEST ||
+        response.status === ResponseStatus.UNAUTHORIZED ||
+        response.status === ResponseStatus.UNPROCESSABLE_ENTITY ? (
         <small className="text-danger">{response.message}</small>
       ) : (
         ""

@@ -7,6 +7,7 @@ import {
   GET_SINGLE_EVENT,
 } from "./types";
 import { setToken, refreshToken } from "../securityUtils/setToken";
+import * as ResponseStatus from "../constants/response-status";
 
 export const getSingleEvent = (id) => async (dispatch) => {
   await refreshToken().then((ref) => {
@@ -77,7 +78,7 @@ export const createNewEvent =
       axios
         .post("http://localhost:8000/api/event/create/", postData)
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === ResponseStatus.OK) {
             setLoad(false);
             setError(res.status);
           }
@@ -125,7 +126,7 @@ export const updateStatus =
       axios
         .patch(`http://localhost:8000/api/event/updateStatus/${id}/`, postData)
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === ResponseStatus.OK) {
             setLoad(false);
             setError(res.data);
           }
@@ -155,7 +156,7 @@ export const requestToJoin =
       axios
         .post("http://localhost:8000/api/event/member/requestJoin/", postData)
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === ResponseStatus.OK) {
             setLoad(false);
             setError(res.data);
           }
@@ -184,7 +185,7 @@ export const removeEvent =
       axios
         .delete(`http://localhost:8000/api/event/delete/${id}/`)
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === ResponseStatus.OK) {
             setLoad(false);
             setError(res.data);
             navigate(`/posts`);
@@ -234,7 +235,7 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
     axios
       .post("http://localhost:8000/api/event/member/changeStatus/", postData)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === ResponseStatus.OK) {
           setLoad(false);
           dispatch(getEventMembers(postData.eventId));
         }

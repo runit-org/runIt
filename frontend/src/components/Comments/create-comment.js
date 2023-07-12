@@ -9,6 +9,7 @@ import { MentionFilter } from "../Utilities/mention";
 import { SearchParam } from "../Utilities/search-param";
 import { UserContext } from "../Context/user-context";
 import { DisplayImage } from "../../layouts/user-displayimg";
+import * as ResponseStatus from "../../constants/response-status";
 
 function CreateComment(props) {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ function CreateComment(props) {
   };
 
   useEffect(() => {
-    if (error === 200) {
+    if (error === ResponseStatus.OK) {
       formRef.current.reset();
       setContent("");
       setError("");

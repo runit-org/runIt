@@ -1,6 +1,7 @@
 import axios from "axios";
 import { GET_ALL_COMMENTS, GET_ERRORS } from "./types";
 import { setToken, refreshToken } from "../securityUtils/setToken";
+import * as ResponseStatus from "../constants/response-status";
 
 export const createComment =
   (id, postData, setLoad, setError) => async (dispatch) => {
@@ -11,7 +12,7 @@ export const createComment =
       axios
         .post(`http://localhost:8000/api/event/comment/create/${id}/`, postData)
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === ResponseStatus.OK) {
             setLoad(false);
             setError(res.status);
           }
@@ -39,7 +40,7 @@ export const removeComment = (id, setLoad, setError) => async (dispatch) => {
     axios
       .delete(`http://localhost:8000/api/event/comment/delete/${id}/`)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === ResponseStatus.OK) {
           setLoad(false);
           setError(res.data.message);
         }
