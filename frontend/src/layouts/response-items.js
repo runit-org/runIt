@@ -49,16 +49,20 @@ export const ResponseToast = (props) => {
 };
 
 export const ResponseItem = () => {
-  const { response } = useContext(ResponseContext);
+  const { response } = useContext(ResponseContext) || {};
 
   return (
     <>
-      {response.status === ResponseStatus.OK ? (
-        <small className="text-success">{response.message}</small>
-      ) : response.status === ResponseStatus.BAD_REQUEST ||
-        response.status === ResponseStatus.UNAUTHORIZED ||
-        response.status === ResponseStatus.UNPROCESSABLE_ENTITY ? (
-        <small className="text-danger">{response.message}</small>
+      {response ? (
+        response.status === ResponseStatus.OK ? (
+          <small className="text-success">{response.message}</small>
+        ) : response.status === ResponseStatus.BAD_REQUEST ||
+          response.status === ResponseStatus.UNAUTHORIZED ||
+          response.status === ResponseStatus.UNPROCESSABLE_ENTITY ? (
+          <small className="text-danger">{response.message}</small>
+        ) : (
+          ""
+        )
       ) : (
         ""
       )}

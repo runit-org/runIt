@@ -27,7 +27,7 @@ function ResponseProvider({ children }) {
   //reset response to initial state if route chagnes
   useEffect(() => {
     dispatch({ type: GET_ERRORS, payload: {} });
-    setResponse("");
+    setResponse({});
   }, [location, dispatch]);
 
   return (

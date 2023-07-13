@@ -15,7 +15,7 @@ function UserStatus() {
   const [load, setLoad] = useState(false);
   const [error, setError] = useState({});
   const [message, setMessage] = useState(
-    userContext.currentUser.statusMessage
+    userContext && userContext.currentUser.statusMessage
       ? userContext.currentUser.statusMessage
       : ""
   );
