@@ -18,11 +18,6 @@ function Header() {
   const [currentUser, setCurrentUser] = useState({});
   const [notifs, setNotifData] = useState([]);
   const [unreadCount, setUnreadCount] = useState("");
-
-  useEffect(() => {
-    dispatch(getCurrentUserProfile());
-  }, [dispatch]);
-
   const handleNotifShow = () => setShowNotif(true);
   const handleNotifClose = () => setShowNotif(false);
 
@@ -37,6 +32,11 @@ function Header() {
     dispatch(logout(refToken, navigate));
   };
 
+  // get current user
+  useEffect(() => {
+    dispatch(getCurrentUserProfile());
+  }, [dispatch]);
+
   var currProfile = useSelector(
     (securityReducer) => securityReducer.users.currProfile
   );
@@ -47,6 +47,7 @@ function Header() {
     }
   }, [currProfile]);
 
+  //get notifications
   useEffect(() => {
     dispatch(getNotifications());
   }, [dispatch]);

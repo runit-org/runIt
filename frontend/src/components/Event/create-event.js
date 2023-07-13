@@ -6,6 +6,7 @@ import { emitter } from "../client/socket";
 import CTAButton from "../../layouts/cta-button";
 import { MentionFilter } from "../Utilities/mention";
 import { SearchParam } from "../Utilities/search-param";
+import * as ResponseStatus from "../../constants/response-status";
 
 function CreateEvent(props) {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ function CreateEvent(props) {
   };
 
   useEffect(() => {
-    if (error === 200) {
+    if (error === ResponseStatus.OK) {
       formRef.current.reset();
       setTitle("");
       setDate("");

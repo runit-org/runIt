@@ -1,15 +1,17 @@
 import Cookies from "js-cookie";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, ListGroup } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/securityActions";
 import { Logout } from "../../layouts/icons";
 import { DisplayImage } from "../../layouts/user-displayimg";
+import { getCurrentUserProfile } from "../../actions/userActions";
 
-function SingleClick(props) {
+function SingleClick() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [currUserProfile, setCurrUserProfile] = useState({});
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -21,19 +23,34 @@ function SingleClick(props) {
 
     dispatch(logout(refToken, navigate));
   };
+
+  // get current user
+  useEffect(() => {
+    dispatch(getCurrentUserProfile());
+  }, [dispatch]);
+
+  var currProfile = useSelector(
+    (securityReducer) => securityReducer.users.currProfile
+  );
+  useEffect(() => {
+    if (currProfile) {
+      setCurrUserProfile(currProfile.data);
+    }
+  }, [currProfile, navigate]);
+
   return (
     <>
-      {props.currUserProfile ? (
+      {currUserProfile ? (
         <Card className="current-signedin" style={{ width: "24rem" }}>
           <ListGroup variant="flush">
             <ListGroup.Item className="p-0">
               <Link to="/posts">
                 <div className="d-flex align-items-center userInfo-div p-3">
-                  <DisplayImage image={props.currUserProfile.gravatarImage} />
+                  <DisplayImage image={currUserProfile.gravatarImage} />
                   <div className="ms-3">
-                    <strong>{props.currUserProfile.username}</strong>
+                    <strong>{currUserProfile.username}</strong>
                     <small className="d-block text-muted">
-                      {props.currUserProfile.email}
+                      {currUserProfile.email}
                     </small>
                   </div>
                 </div>

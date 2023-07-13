@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewUser } from "../../actions/securityActions";
 import { useNavigate } from "react-router-dom";
 import { FormButton } from "./utilities/auth-builder";
-import { ResponseContext } from "../Context/response-context";
+import { ResponseItem } from "../../layouts/response-items";
 
 function SignUp() {
   let navigate = useNavigate();
@@ -19,8 +19,6 @@ function SignUp() {
   const [formSwitch, setFormSwitch] = useState(false);
 
   var apiStatus = useSelector((securityReducer) => securityReducer.security);
-
-  const { response, status } = useContext(ResponseContext);
 
   useEffect(() => {
     if (apiStatus.userData) {
@@ -129,11 +127,7 @@ function SignUp() {
                 required
               />
             </Form.Group>
-            {status !== 200 ? (
-              <small className="text-danger">{response}</small>
-            ) : (
-              ""
-            )}
+            <ResponseItem />
             <FormButton load={load} name="Continue" />
           </Row>
         </Form>

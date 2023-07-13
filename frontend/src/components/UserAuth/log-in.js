@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Row, Col, InputGroup, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { login } from "../../actions/securityActions";
@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { FormButton } from "./utilities/auth-builder";
 import { Eye, EyeSlash } from "../../layouts/icons";
-import { ResponseContext } from "../Context/response-context";
+import { ResponseItem } from "../../layouts/response-items";
 
 function Login() {
   let navigate = useNavigate();
@@ -19,8 +19,6 @@ function Login() {
   const [inputType, setInputType] = useState("password");
 
   const { state } = useLocation();
-
-  const { response, status } = useContext(ResponseContext);
 
   useEffect(() => {
     if (state) {
@@ -104,11 +102,7 @@ function Login() {
               </Button>
             </InputGroup>
           </Form.Group>
-          {status !== 200 ? (
-            <small className="text-danger">{response}</small>
-          ) : (
-            ""
-          )}
+          <ResponseItem />
           <FormButton load={load} name="Login" />
           <hr className="divider" />
           <Row className="mt-3">

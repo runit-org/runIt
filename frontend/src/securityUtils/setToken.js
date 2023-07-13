@@ -12,11 +12,14 @@ const setToken = (token) => {
   }
 };
 
-const refreshToken = () => {
+const refreshToken = async () => {
   if (Cookies.get("token")) {
-    const ref = axios.post("http://localhost:8000/api/auth/token/refresh/", {
-      refresh: Cookies.get("token"),
-    });
+    const ref = await axios.post(
+      "http://localhost:8000/api/auth/token/refresh/",
+      {
+        refresh: Cookies.get("token"),
+      }
+    );
     return ref;
   } else {
     store.dispatch({
