@@ -14,7 +14,11 @@ function UserStatus() {
   const userContext = useContext(UserContext);
   const [load, setLoad] = useState(false);
   const [error, setError] = useState({});
-  const [message, setMessage] = useState(userContext.currentUser.statusMessage);
+  const [message, setMessage] = useState(
+    userContext.currentUser.statusMessage
+      ? userContext.currentUser.statusMessage
+      : ""
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +50,6 @@ function UserStatus() {
               placeholder="What's happening?"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              required
             />
           </Form.Group>
         }
