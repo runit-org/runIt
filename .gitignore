@@ -1,5 +1,9 @@
 myenv
 
+# cypress
+/cypress/screenshots
+/cypress/videos
+
 # dependencies
 /node_modules
 .DS_Store

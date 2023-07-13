@@ -115,7 +115,7 @@ function EventDash() {
                           <>
                             This event now has{" "}
                             <BadgeItem eventStatus={eventData.eventStatus} />{" "}
-                            therefore it can not be updated or particapated in.
+                            therefore it can not be updated or participated in.
                           </>
                         }
                         icon={<Information />}

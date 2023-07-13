@@ -32,81 +32,83 @@ function ManageMembers(props) {
   };
 
   return (
-    <Card className="event-card">
-      <Card.Header>New requests</Card.Header>
+    <Card className="event-card pt-2 pb-2">
+      <Card.Header className="fw-bold">
+        New requests ({pendingMembers.length})
+      </Card.Header>
 
       <Card.Body>
-        {pendingMembers.length > 0
-          ? pendingMembers.map((member) => {
-              return (
-                <div
-                  key={member.id}
-                  className="d-flex userInfo-div  justify-content-between"
-                  style={{ padding: " 20px 10px 10px 20px" }}
-                >
-                  <div className="d-flex align-items-center">
-                    <DisplayImage image={member.gravatarImage} />
+        {pendingMembers.length > 0 ? (
+          pendingMembers.map((member) => {
+            return (
+              <div
+                key={member.id}
+                className="userInfo-div row"
+                style={{ padding: " 10px 0 10px 0" }}
+              >
+                <div className="d-flex align-items-center col col-sm-9">
+                  <DisplayImage image={member.gravatarImage} />
 
-                    <div className="ms-4">
-                      <Link
-                        to={{
-                          pathname: "/profile",
-                          search: `user=${member.username}`,
-                        }}
-                      >
-                        @{member.username}
-                      </Link>
-
-                      <small className="d-block text-muted">
-                        {member.email}
-                      </small>
-                    </div>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <ButtonGroup
-                      aria-label="Basic example"
-                      className="w-100 gap-1"
+                  <div className="ms-4">
+                    <Link
+                      to={{
+                        pathname: "/profile",
+                        search: `user=${member.username}`,
+                      }}
                     >
-                      <Button
-                        variant="light"
-                        className="postBtn-placements cta_button"
-                        onClick={() => manageUser(1, member.userId)}
-                      >
-                        {(() => {
-                          if (load) {
-                            return <Loading />;
-                          } else {
-                            return (
-                              <span className="d-flex align-items-center">
-                                <Tick />
-                              </span>
-                            );
-                          }
-                        })()}
-                      </Button>
-                      <Button
-                        variant="light"
-                        className="postBtn-placements cta_button"
-                        onClick={() => manageUser(2, member.userId)}
-                      >
-                        {(() => {
-                          if (load) {
-                            return <Loading />;
-                          } else {
-                            return (
-                              <span className="d-flex align-items-center">
-                                <Cross type="custom" />
-                              </span>
-                            );
-                          }
-                        })()}
-                      </Button>
-                    </ButtonGroup>
+                      @{member.username}
+                    </Link>
+
+                    <small className="d-block text-muted">{member.email}</small>
                   </div>
                 </div>
-              );
-            })
-          : "No new requests.."}
+                <div className="d-flex align-items-center col col-sm-3">
+                  <ButtonGroup
+                    aria-label="Basic example"
+                    className="w-100 gap-1"
+                  >
+                    <Button
+                      variant="light"
+                      className="postBtn-placements cta_button"
+                      onClick={() => manageUser(1, member.userId)}
+                    >
+                      {(() => {
+                        if (load) {
+                          return <Loading />;
+                        } else {
+                          return (
+                            <span className="d-flex align-items-center">
+                              <Tick />
+                            </span>
+                          );
+                        }
+                      })()}
+                    </Button>
+                    <Button
+                      variant="light"
+                      className="postBtn-placements cta_button"
+                      onClick={() => manageUser(2, member.userId)}
+                    >
+                      {(() => {
+                        if (load) {
+                          return <Loading />;
+                        } else {
+                          return (
+                            <span className="d-flex align-items-center">
+                              <Cross type="custom" />
+                            </span>
+                          );
+                        }
+                      })()}
+                    </Button>
+                  </ButtonGroup>
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <Card.Text>No new requests...</Card.Text>
+        )}
       </Card.Body>
     </Card>
   );

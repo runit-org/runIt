@@ -76,7 +76,7 @@ export const StatusBadge = (props) => {
       ) : statusOnEvent === REJECTED ? (
         <div>
           <Badge bg="" style={{ backgroundColor: "#FFD2D2", color: "#D8000C" }}>
-            Unapproved
+            Rejected
           </Badge>
         </div>
       ) : (

@@ -82,24 +82,30 @@ function EventItem(props) {
               />
             </div>
             <div className="details_textarea">
-              <h6>Details</h6>
-              <small className="text-muted">
-                Host:{" "}
-                <a
-                  href={`/profile?user=${eventData.userName}`}
-                  className="text-decoration-none"
-                >
-                  @{eventData.userName}
-                </a>
-              </small>
-              <br />
-              <small className="text-muted">
-                Posted: {eventData.humanTimeDiffCreatedAt} ago
-              </small>
-              <br />
-              <small className="text-muted">
-                Date: {eventData.eventDateString}{" "}
-              </small>
+              <div className="d-flex flex-column gap-1">
+                <h6>Details</h6>
+                <small className="text-muted">
+                  Host:{" "}
+                  <a
+                    href={`/profile?user=${eventData.userName}`}
+                    className="text-decoration-none"
+                  >
+                    @{eventData.userName}
+                  </a>
+                </small>
+
+                <small className="text-muted">
+                  Posted: {eventData.humanTimeDiffCreatedAt} ago
+                </small>
+
+                <small className="text-muted">
+                  Date: {eventData.eventDateString}{" "}
+                </small>
+
+                <small className="text-muted">
+                  Audience Size: {eventData.maxMember}{" "}
+                </small>
+              </div>
 
               <div className="mt-4">
                 <EventMembers
