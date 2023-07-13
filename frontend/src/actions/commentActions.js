@@ -42,7 +42,8 @@ export const removeComment = (id, setLoad, setError) => async (dispatch) => {
       .then((res) => {
         if (res.status === ResponseStatus.OK) {
           setLoad(false);
-          setError(res.data.message);
+
+          setError(res.data);
         }
         dispatch({
           type: GET_ERRORS,
@@ -51,7 +52,7 @@ export const removeComment = (id, setLoad, setError) => async (dispatch) => {
       })
       .catch((error) => {
         setLoad(false);
-        setError(error.response.data.message);
+        setError(error.response.data);
         dispatch({
           type: GET_ERRORS,
           payload: error.response,

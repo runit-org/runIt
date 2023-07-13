@@ -92,7 +92,7 @@ function EventStatus(props) {
             </Button>
             <Button
               className="me-3 btn-cancel"
-              onClick={() => btnRef.current.setModalShow(false)}
+              onClick={() => btnRef.current.setModalShow()}
             >
               Cancel
             </Button>

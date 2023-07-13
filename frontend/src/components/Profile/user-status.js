@@ -41,7 +41,7 @@ function UserStatus() {
             <span className="ms-1">Set status...</span>
           </>
         }
-        error={error.success === "false" ? error : ""}
+        error={error}
         title={"Edit Status"}
         content={
           <Form.Group className="mb-3">
@@ -55,10 +55,7 @@ function UserStatus() {
         }
         subBtn={
           <div className="mt-3">
-            <Button
-              type="submit"
-              onClick={() => btnRef.current.setModalShow(false)}
-            >
+            <Button type="submit" onClick={() => btnRef.current.setModalShow()}>
               {(() => {
                 if (load) {
                   return <Loading />;
@@ -69,7 +66,7 @@ function UserStatus() {
             </Button>
             <Button
               className="me-3 btn-cancel"
-              onClick={() => btnRef.current.setModalShow(false)}
+              onClick={() => btnRef.current.setModalShow()}
             >
               Clear Status
             </Button>

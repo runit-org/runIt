@@ -50,10 +50,7 @@ function RemoveComment(props) {
         }
         subBtn={
           <div className="mt-3">
-            <Button
-              type="submit"
-              onClick={() => btnRef.current.setModalShow(false)}
-            >
+            <Button type="submit">
               {(() => {
                 if (load) {
                   return <Loading />;
@@ -64,7 +61,7 @@ function RemoveComment(props) {
             </Button>
             <Button
               className="me-3 btn-cancel"
-              onClick={() => btnRef.current.setModalShow(false)}
+              onClick={() => btnRef.current.setModalShow()}
             >
               Cancel
             </Button>

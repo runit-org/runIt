@@ -57,9 +57,7 @@ const ModalItem = React.forwardRef(
                 subHandler(e);
               }}
             >
-              {error.success === "true" ? (
-                <small className="mb-4 text-success">{error.message}</small>
-              ) : error.success === "false" ? (
+              {error.success === "false" ? (
                 <small className="mb-4 text-danger">{error.message}</small>
               ) : (
                 ""

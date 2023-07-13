@@ -31,10 +31,6 @@ export const eventOptions = (id, title, user, currUser, handleClick) => {
     {
       item: <RemoveEvent eventId={id} eventTitle={title} />,
     },
-
-    /* {
-      item: <EventMembers eventId={id} userId={user} currentUser={currUser} />,
-    }, */
   ];
 
   const options_user = [

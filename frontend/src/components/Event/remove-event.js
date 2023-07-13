@@ -42,10 +42,7 @@ function RemoveEvent(props) {
         }
         subBtn={
           <div className="mt-3">
-            <Button
-              type="submit"
-              onClick={() => btnRef.current.setModalShow(false)}
-            >
+            <Button type="submit">
               {(() => {
                 if (load) {
                   return <Loading />;
