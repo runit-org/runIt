@@ -1,5 +1,6 @@
 import factory
 from base.models import User
+from django.contrib.auth.hashers import make_password
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -7,5 +8,4 @@ class UserFactory(factory.django.DjangoModelFactory):
 
     username = factory.Sequence(lambda n: f'user{n}')
     email = factory.Sequence(lambda n: f'user{n}@example.com')
-    password = factory.Faker('password')
-    
+    password = make_password('password')
