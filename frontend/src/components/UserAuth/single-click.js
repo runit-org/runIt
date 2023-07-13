@@ -11,6 +11,7 @@ import { getCurrentUserProfile } from "../../actions/userActions";
 function SingleClick(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [currUserProfile, setCurrUserProfile] = useState({});
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -23,8 +24,7 @@ function SingleClick(props) {
     dispatch(logout(refToken, navigate));
   };
 
-  const [currUserProfile, setCurrUserProfile] = useState({});
-
+  // get current user data
   useEffect(() => {
     dispatch(getCurrentUserProfile());
   }, [dispatch]);
