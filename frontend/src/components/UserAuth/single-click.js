@@ -8,7 +8,7 @@ import { Logout } from "../../layouts/icons";
 import { DisplayImage } from "../../layouts/user-displayimg";
 import { getCurrentUserProfile } from "../../actions/userActions";
 
-function SingleClick(props) {
+function SingleClick() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [currUserProfile, setCurrUserProfile] = useState({});
@@ -24,7 +24,7 @@ function SingleClick(props) {
     dispatch(logout(refToken, navigate));
   };
 
-  // get current user data
+  // get current user
   useEffect(() => {
     dispatch(getCurrentUserProfile());
   }, [dispatch]);
