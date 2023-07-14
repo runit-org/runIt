@@ -10,11 +10,6 @@ class EventFactory(factory.Factory):
     class Meta:
         model = Event
 
-    # i want these 2 to be run only during .build(), not .create()
-    # user = UserFactory.create()
-    # userName = user.username
-    # end
-
     title = factory.Faker('sentence', nb_words=5)
     maxMember = factory.Faker('random_int', min=3, max=8)
     details = factory.Faker('sentence', nb_words=15)
