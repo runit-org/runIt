@@ -11,7 +11,7 @@ class EventFactory(factory.Factory):
         model = Event
 
     title = factory.Faker('sentence', nb_words=5)
-    maxMember = factory.Faker('random_int', min=3, max=8)
+    maxMember = factory.Faker('random_int', min=10, max=20)
     details = factory.Faker('sentence', nb_words=15)
     year = (datetime.date.today() + datetime.timedelta(days=1)).year
     month = (datetime.date.today() + datetime.timedelta(days=1)).month
