@@ -7,6 +7,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 from rest_framework.test import force_authenticate
 from base.enums import UserVoteStatus, EventStatus, EventMemberStatus
+from base.factories import EventFactory, UserFactory
 import random
 import string
 import datetime
@@ -36,12 +37,7 @@ class EventTestClass(TestCase):
         )
 
     def generateNewUserData(self):
-        randomUserData = {
-            "username"      : self.generateRandomString(10),
-            "email"         : self.generateRandomString(10) + "@gmail.com",
-            "password"      : make_password(self.newUser['password'])
-        }
-        return randomUserData
+        return UserFactory.build().__dict__
 
     def generateNewUserObject(self):
         randomUserData = self.generateNewUserData()
@@ -52,19 +48,9 @@ class EventTestClass(TestCase):
         )
 
     def generateNewEventData(self):
-        tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-        newEvent = {
-            "title"       : self.generateRandomString(5),
-            "maxMember"   : 3,
-            "details"     : self.generateRandomString(5),
-            "year"        : tomorrow.year,
-            "month"       : tomorrow.month,
-            "day"         : tomorrow.day,
-            "hour"        : 23,
-            "minute"      : 59,
-            "tags"        : "#hello"
-        }
-        return newEvent
+        event = EventFactory.build().__dict__
+        event.pop('_state', None)
+        return event
     
     def generateNewEventObject(self):
         newRandomUser = self.generateNewUserObject()

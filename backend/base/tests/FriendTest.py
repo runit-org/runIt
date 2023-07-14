@@ -7,6 +7,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 from rest_framework.test import force_authenticate
 from base.enums import UserVoteStatus, EventStatus, EventMemberStatus, NotificationStatus
+from base.factories import UserFactory, EventFactory
 import random
 import string
 import datetime
@@ -39,12 +40,7 @@ class FriendTestClass(TestCase):
         )
 
     def generateNewUserData(self):
-        randomUserData = {
-            "username": self.generateRandomString(10),
-            "email": self.generateRandomString(10) + "@gmail.com",
-            "password": make_password(self.newUser['password'])
-        }
-        return randomUserData
+        return UserFactory.build().__dict__
 
     def generateNewUserObject(self):
         randomUserData = self.generateNewUserData()
