@@ -13,3 +13,5 @@ def seed():
 def seed_scenario_1():
     UserSeeder.create_seed_data()
     UserVoteSeeder.create_seed_data()
+    EventSeeder.create_seed_data()
+    
