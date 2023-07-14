@@ -38,12 +38,7 @@ class UserTestClass(TestCase):
         return user
     
     def generateNewUserData(self):
-        randomUserData = {
-            "username"      : self.generateRandomString(10),
-            "email"         : self.generateRandomString(10) + "@gmail.com",
-            "password"      : self.newUser['password']
-        }
-        return randomUserData
+        return UserFactory.build().__dict__
 
     def generateNewUserObject(self):
         randomUserData = self.generateNewUserData()
