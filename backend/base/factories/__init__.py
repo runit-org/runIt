@@ -1,1 +1,1 @@
-from base.factories import UserFactory
+from base.factories.UserFactory import UserFactory

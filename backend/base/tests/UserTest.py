@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 from base.models import User, UserExtend, UserVote, EventMember, Event
-from django.contrib.auth.hashers import make_password
+from base.factories import UserFactory
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
@@ -18,12 +18,7 @@ class UserTestClass(TestCase):
     baseUrl = '/api/user/'
 
     def setUp(self):
-        self.newUser = {
-            "name": "test user",
-            "username": "test",
-            "email": "test@email.com",
-            "password": "password"
-        }
+        self.newUser = UserFactory.build().__dict__
 
     def generateRandomString(self, length):
         letters = string.ascii_lowercase
@@ -34,9 +29,8 @@ class UserTestClass(TestCase):
         user = User.objects.create(
             username = self.newUser['username'],
             email    = self.newUser['email'],
-            password = make_password(self.newUser['password'])
+            password = self.newUser['password']
         )
-
         userExtend = UserExtend.objects.create(
             userId = user.id,
         )
@@ -47,7 +41,7 @@ class UserTestClass(TestCase):
         randomUserData = {
             "username"      : self.generateRandomString(10),
             "email"         : self.generateRandomString(10) + "@gmail.com",
-            "password"      : make_password(self.newUser['password'])
+            "password"      : self.newUser['password']
         }
         return randomUserData
 
@@ -193,7 +187,7 @@ class UserTestClass(TestCase):
         targetVoteUser = User.objects.create(
             username = 'voteduser',
             email    = 'voteduser@email.com',
-            password = make_password(self.newUser['password'])
+            password = self.newUser['password']
         )
         url = self.baseUrl + 'vote/' + str(targetVoteUser.id) + '/'
 
@@ -216,7 +210,7 @@ class UserTestClass(TestCase):
         targetVoteUser = User.objects.create(
             username = 'voteduser',
             email    = 'voteduser@email.com',
-            password = make_password(self.newUser['password'])
+            password = self.newUser['password']
         )
         url = self.baseUrl + 'vote/' + str(targetVoteUser.id) + '/'
 
@@ -242,7 +236,7 @@ class UserTestClass(TestCase):
         targetVoteUser = User.objects.create(
             username = 'voteduser',
             email    = 'voteduser@email.com',
-            password = make_password(self.newUser['password'])
+            password = self.newUser['password']
         )
         url = self.baseUrl + 'vote/' + str(targetVoteUser.id) + '/'
 
@@ -271,7 +265,7 @@ class UserTestClass(TestCase):
         targetVoteUser = User.objects.create(
             username = 'voteduser',
             email    = 'voteduser@email.com',
-            password = make_password(self.newUser['password'])
+            password = self.newUser['password']
         )
         url = self.baseUrl + 'vote/' + str(targetVoteUser.id) + '/'
 

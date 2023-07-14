@@ -1,8 +1,8 @@
 import factory
-from base.models import User
+from base.models import User, UserExtend
 from django.contrib.auth.hashers import make_password
 
-class UserFactory(factory.django.DjangoModelFactory):
+class UserFactory(factory.Factory):
     class Meta:
         model = User
 
