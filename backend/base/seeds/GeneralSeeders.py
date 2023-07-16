@@ -16,3 +16,4 @@ def seed_scenario_1():
     EventSeeder.create_seed_data()
     EventMemberSeeder.create_seed_data()
     EventCommentSeeder.create_seed_data()
+    EventCommentLikeSeeder.create_seed_data()
