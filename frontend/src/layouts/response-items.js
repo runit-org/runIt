@@ -49,7 +49,7 @@ export const ResponseToast = (props) => {
 };
 
 export const ResponseItem = () => {
-  const { response } = useContext(ResponseContext) || {};
+  const { response } = useContext(ResponseContext) || false;
 
   return (
     <>

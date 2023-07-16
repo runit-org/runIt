@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import {
   requestToJoin,
@@ -39,47 +39,48 @@ function JoinEvent(props) {
     });
   };
   return (
-    <>
-      <ModalItem
-        ref={(ref, btnRef)}
-        customBtn={"cta_button"}
-        btnStyleFull={props.btnStyleFull}
-        btnIcon={
-          <div className="d-flex align-items-center">
-            <Plus />
-            Join
-          </div>
-        }
-        error={error}
-        title={"Join Event"}
-        content={
-          <>
-            Request to join <strong>{props.eventTitle}</strong>? The creator of
-            this event will be notified.
-          </>
-        }
-        subBtn={
-          <div className="mt-3">
-            <Button type="submit">
-              {(() => {
-                if (load) {
-                  return <Loading />;
-                } else {
-                  return <>Join</>;
-                }
-              })()}
-            </Button>
-            <Button
-              className="me-3 btn-cancel"
-              onClick={() => btnRef.current.setModalShow()}
-            >
-              Cancel
-            </Button>
-          </div>
-        }
-        subHandler={handleSubmit}
-      />
-    </>
+    <ModalItem
+      ref={(ref, btnRef)}
+      customBtn={"cta_button"}
+      btnStyleFull={props.btnStyleFull}
+      btnIcon={
+        <div className="d-flex align-items-center">
+          <Plus />
+          Join
+        </div>
+      }
+      title={"Join Event"}
+      error={error}
+    >
+      <Form
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+      >
+        <div className="mt-3">
+          Request to join <strong>{props.eventTitle}</strong>? The creator of
+          this event will be notified.
+        </div>
+
+        <div className="mt-3">
+          <Button type="submit">
+            {(() => {
+              if (load) {
+                return <Loading />;
+              } else {
+                return <>Join</>;
+              }
+            })()}
+          </Button>
+          <Button
+            className="me-3 btn-cancel"
+            onClick={() => btnRef.current.setModalShow()}
+          >
+            Cancel
+          </Button>
+        </div>
+      </Form>
+    </ModalItem>
   );
 }
 

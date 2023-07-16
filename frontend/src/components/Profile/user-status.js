@@ -31,19 +31,24 @@ function UserStatus() {
   };
 
   return (
-    <>
-      <ModalItem
-        ref={(ref, btnRef)}
-        customBtn={"w-100 btn-muted text-start"}
-        btnIcon={
-          <>
-            <Smiley />
-            <span className="ms-1">Set status...</span>
-          </>
-        }
-        error={error}
-        title={"Edit Status"}
-        content={
+    <ModalItem
+      ref={(ref, btnRef)}
+      customBtn={"w-100 btn-muted text-start"}
+      btnIcon={
+        <>
+          <Smiley />
+          <span className="ms-1">Set status...</span>
+        </>
+      }
+      title={"Edit Status"}
+      error={error}
+    >
+      <Form
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+      >
+        <div className="mt-3">
           <Form.Group className="mb-3">
             <Form.Control
               type="text"
@@ -52,29 +57,27 @@ function UserStatus() {
               onChange={(e) => setMessage(e.target.value)}
             />
           </Form.Group>
-        }
-        subBtn={
-          <div className="mt-3">
-            <Button type="submit" onClick={() => btnRef.current.setModalShow()}>
-              {(() => {
-                if (load) {
-                  return <Loading />;
-                } else {
-                  return <>Set Status</>;
-                }
-              })()}
-            </Button>
-            <Button
-              className="me-3 btn-cancel"
-              onClick={() => btnRef.current.setModalShow()}
-            >
-              Clear Status
-            </Button>
-          </div>
-        }
-        subHandler={handleSubmit}
-      />
-    </>
+        </div>
+
+        <div className="mt-3">
+          <Button type="submit" onClick={() => btnRef.current.setModalShow()}>
+            {(() => {
+              if (load) {
+                return <Loading />;
+              } else {
+                return <>Set Status</>;
+              }
+            })()}
+          </Button>
+          <Button
+            className="me-3 btn-cancel"
+            onClick={() => btnRef.current.setModalShow()}
+          >
+            Cancel
+          </Button>
+        </div>
+      </Form>
+    </ModalItem>
   );
 }
 
