@@ -18,7 +18,6 @@ class EventFactory(factory.Factory):
     day = (datetime.date.today() + datetime.timedelta(days=1)).day
     hour = factory.LazyFunction(lambda: random.randint(20, 23))
     minute = factory.LazyFunction(lambda: random.randint(10, 59))
-    status = EventStatus.get.PENDING.value
     startDate = factory.LazyAttribute(lambda obj: timezone.make_aware(datetime.datetime(obj.year, obj.month, obj.day, obj.hour, obj.minute)))
     createdAt = factory.LazyFunction(timezone.now)
 
