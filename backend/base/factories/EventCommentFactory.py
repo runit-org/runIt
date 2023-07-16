@@ -1,4 +1,5 @@
 import factory
+from django.utils import timezone
 from base.models import EventComment
 from base.factories import UserFactory, EventFactory
 
@@ -7,6 +8,7 @@ class EventCommentFactory(factory.Factory):
         model = EventComment
 
     content = factory.Faker('sentence', nb_words=15)
+    createdAt = factory.LazyFunction(timezone.now)
 
     @factory.lazy_attribute
     def user(self):
