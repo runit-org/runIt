@@ -1,19 +1,17 @@
 import React, { useState, useImperativeHandle, useEffect } from "react";
-import { Form, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import CTAButton from "./cta-button";
 
 const ModalItem = React.forwardRef(
   (
     {
       btnIcon,
-      error,
       customBtn,
       btnStyleFull,
       title,
-      content,
-      subBtn,
-      subHandler,
       parentCallback,
+      children,
+      error,
     },
     r
   ) => {
@@ -42,7 +40,6 @@ const ModalItem = React.forwardRef(
           placeholder={btnIcon}
           title={title}
         />
-
         <Modal
           ref={r}
           size="md"
@@ -52,23 +49,12 @@ const ModalItem = React.forwardRef(
         >
           <Modal.Body>
             <Modal.Title>{title}</Modal.Title>
-            <Form
-              onSubmit={(e) => {
-                subHandler(e);
-              }}
-            >
-              {error.success === "true" ? (
-                <small className="mb-4 text-success">{error.message}</small>
-              ) : error.success === "false" ? (
-                <small className="mb-4 text-danger">{error.message}</small>
-              ) : (
-                ""
-              )}
-              <div>
-                <div className="mt-3"> {content}</div>
-              </div>
-              {subBtn}
-            </Form>
+            {error && error.success === "false" ? (
+              <small className="mb-4 text-danger">{error.message}</small>
+            ) : (
+              ""
+            )}
+            {children}
           </Modal.Body>
         </Modal>
       </>

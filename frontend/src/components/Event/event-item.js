@@ -29,7 +29,6 @@ function EventItem(props) {
               <DisplayImage
                 image={eventData.gravatarImage}
                 imgClass="userProf-img me-3"
-                id="card-img"
               />
               <StatusBadge joinedStatus={eventData.joinedStatus} />
               {currentUser === eventData.user ? (
@@ -86,10 +85,7 @@ function EventItem(props) {
                 <h6>Details</h6>
                 <small className="text-muted">
                   Host:{" "}
-                  <a
-                    href={`/profile?user=${eventData.userName}`}
-                    className="text-decoration-none"
-                  >
+                  <a href={`/profile?user=${eventData.userName}`}>
                     @{eventData.userName}
                   </a>
                 </small>

@@ -37,70 +37,71 @@ function EventStatus(props) {
     );
   };
   return (
-    <>
-      <ModalItem
-        ref={(ref, btnRef)}
-        customBtn={""}
-        btnIcon={
-          <div className="d-flex align-items-center">
-            <PencilSquare />
-            Status
+    <ModalItem
+      ref={(ref, btnRef)}
+      customBtn={""}
+      btnIcon={
+        <div className="d-flex align-items-center">
+          <PencilSquare />
+          Status
+        </div>
+      }
+      title={"Update Status"}
+      error={error}
+    >
+      <Form
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+      >
+        <div className="mt-3">
+          <Form.Group className="mb-3">
+            <Form.Label className="m-1">
+              Mark your event as <strong>FINISHED</strong> or{" "}
+              <strong>CANCELLED</strong>
+            </Form.Label>
+            <Form.Control
+              type="title"
+              placeholder="Christmas social"
+              pattern="(FINISHED|CANCELLED)"
+              onChange={(e) =>
+                setStatus(
+                  e.target.value === FINISHED
+                    ? 2
+                    : e.target.value === CANCELLED
+                    ? 3
+                    : ""
+                )
+              }
+              required
+            />
+          </Form.Group>
+          <div className="mt-2">
+            <small className="text-muted">
+              Note: The event status can only be updated once.
+            </small>
           </div>
-        }
-        error={error}
-        title={"Update Status"}
-        content={
-          <>
-            <Form.Group className="mb-3">
-              <Form.Label className="m-1">
-                Mark your event as <strong>FINISHED</strong> or{" "}
-                <strong>CANCELLED</strong>
-              </Form.Label>
-              <Form.Control
-                type="title"
-                placeholder="Christmas social"
-                pattern="(FINISHED|CANCELLED)"
-                onChange={(e) =>
-                  setStatus(
-                    e.target.value === FINISHED
-                      ? 2
-                      : e.target.value === CANCELLED
-                      ? 3
-                      : ""
-                  )
-                }
-                required
-              />
-            </Form.Group>
-            <div className="mt-2">
-              <small className="text-muted">
-                Note: The event status can only be updated once.
-              </small>
-            </div>
-          </>
-        }
-        subBtn={
-          <div className="mt-3">
-            <Button type="submit">
-              {(() => {
-                if (load) {
-                  return <Loading />;
-                } else {
-                  return <>Update</>;
-                }
-              })()}
-            </Button>
-            <Button
-              className="me-3 btn-cancel"
-              onClick={() => btnRef.current.setModalShow(false)}
-            >
-              Cancel
-            </Button>
-          </div>
-        }
-        subHandler={handleSubmit}
-      />
-    </>
+        </div>
+
+        <div className="mt-3">
+          <Button type="submit">
+            {(() => {
+              if (load) {
+                return <Loading />;
+              } else {
+                return <>Update</>;
+              }
+            })()}
+          </Button>
+          <Button
+            className="me-3 btn-cancel"
+            onClick={() => btnRef.current.setModalShow()}
+          >
+            Cancel
+          </Button>
+        </div>
+      </Form>
+    </ModalItem>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modal-item";
@@ -30,49 +30,46 @@ function RemoveComment(props) {
   };
 
   return (
-    <div>
-      <ModalItem
-        ref={(ref, btnRef)}
-        customBtn={""}
-        btnIcon={
-          <div className="d-flex align-items-center">
-            <Delete />
-            Delete
-          </div>
-        }
-        error={error}
-        title={"Delete Comment"}
-        content={
-          <>
-            {" "}
-            Are you sure you want to delete this comment? This can't be undone.
-          </>
-        }
-        subBtn={
-          <div className="mt-3">
-            <Button
-              type="submit"
-              onClick={() => btnRef.current.setModalShow(false)}
-            >
-              {(() => {
-                if (load) {
-                  return <Loading />;
-                } else {
-                  return <>Remove</>;
-                }
-              })()}
-            </Button>
-            <Button
-              className="me-3 btn-cancel"
-              onClick={() => btnRef.current.setModalShow(false)}
-            >
-              Cancel
-            </Button>
-          </div>
-        }
-        subHandler={handleSubmit}
-      />
-    </div>
+    <ModalItem
+      ref={(ref, btnRef)}
+      customBtn={""}
+      btnIcon={
+        <div className="d-flex align-items-center">
+          <Delete />
+          Delete
+        </div>
+      }
+      title={"Delete Comment"}
+      error={error}
+    >
+      <Form
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+      >
+        <div className="mt-3">
+          Are you sure you want to delete this comment? This can't be undone.
+        </div>
+
+        <div className="mt-3">
+          <Button type="submit">
+            {(() => {
+              if (load) {
+                return <Loading />;
+              } else {
+                return <>Remove</>;
+              }
+            })()}
+          </Button>
+          <Button
+            className="me-3 btn-cancel"
+            onClick={() => btnRef.current.setModalShow()}
+          >
+            Cancel
+          </Button>
+        </div>
+      </Form>
+    </ModalItem>
   );
 }
 

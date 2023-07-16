@@ -8,8 +8,6 @@ import { DisplayImage } from "../../layouts/user-displayimg";
 const UserPopoverContent = (props) => {
   const user = UserProfileHandler(props.data);
 
-  console.log(user);
-
   return (
     <>
       {user ? (
