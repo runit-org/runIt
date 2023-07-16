@@ -14,9 +14,11 @@ def create_events_for_one_user(userId, count=2):
 
 def create_individual_event(userId):
     user = User.objects.get(id=userId)
+
     eventData = EventFactory.build().__dict__
-    eventData['user'] = user
-    eventData['userName'] = user.username
     eventData.pop('_state', None)
 
-    Event.objects.create(**eventData)
+    event = Event.objects.create(**eventData)
+    event.user = user
+    event.userName = user.username
+    event.save()
