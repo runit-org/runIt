@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   notificationRead,
   notificationRead_all,
-} from "../../actions/notificationActions";
+} from "../../services/actions/notificationActions";
 import { VscCircleFilled } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 

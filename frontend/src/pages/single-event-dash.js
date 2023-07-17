@@ -1,25 +1,30 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Card, Container } from "react-bootstrap";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
-import EventItem from "../Event/event-item";
-import ManageMembers from "../Event/manage-members";
-import CommentItem from "../Comments/comment-item";
-import CreateComment from "../Comments/create-comment";
-import { SearchParam } from "../Utilities/search-param";
-import Pagination from "../../layouts/pagination";
-import Breadcrumbs from "../../layouts/breadcrumbs";
-import { ACCEPTED, CANCELLED, FINISHED, OWNER } from "../Event/utilities/types";
-import { SingleEventHandler } from "../Event/utilities/action-handlers";
+import EventItem from "../components/Event/event-item";
+import ManageMembers from "../components/Event/manage-members";
+import CommentItem from "../components/Comments/comment-item";
+import CreateComment from "../components/Comments/create-comment";
+import { usePageId } from "../hooks/usePageId";
+import Pagination from "../layouts/pagination";
+import Breadcrumbs from "../layouts/breadcrumbs";
+import {
+  ACCEPTED,
+  CANCELLED,
+  FINISHED,
+  OWNER,
+} from "../components/Event/utilities/types";
+import { SingleEventHandler } from "../components/Event/utilities/action-handlers";
 import { SecurityContext } from "../Context/security-context";
-import { BadgeItem } from "../Event/utilities/event-builder";
-import { Information } from "../../layouts/icons";
-import { InfoCard } from "../../layouts/info-cards";
+import { BadgeItem } from "../components/Event/utilities/event-builder";
+import { Information } from "../layouts/icons";
+import { InfoCard } from "../layouts/info-cards";
 
 export const SingleEventContext = createContext();
 
-function EventDash() {
+function SingleEventDash() {
   const params = useParams();
-  let pageId = SearchParam();
+  let pageId = usePageId();
 
   const eventData = SingleEventHandler(params, pageId).eventData;
   const commentData = SingleEventHandler(params, pageId).commentData;
@@ -161,4 +166,4 @@ function EventDash() {
   );
 }
 
-export default EventDash;
+export default SingleEventDash;

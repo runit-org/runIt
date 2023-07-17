@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Card, Form } from "react-bootstrap";
-import { updateEvent, getSingleEvent } from "../../actions/eventActions";
+import {
+  updateEvent,
+  getSingleEvent,
+} from "../../services/actions/eventActions";
 import { useDispatch } from "react-redux";
 import CTAButton from "../../layouts/cta-button";
 import { useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
-import { MentionFilter } from "../Utilities/mention";
+import { MentionFilter } from "../../utilities/utility-service";
 import { Cross, Submit } from "../../layouts/icons";
 
 function UpdateEvent(props, { handleUpate }) {

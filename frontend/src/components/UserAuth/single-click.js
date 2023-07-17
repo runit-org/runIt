@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../../actions/securityActions";
+import { logout } from "../../services/actions/securityActions";
 import { Logout } from "../../layouts/icons";
 import { DisplayImage } from "../../layouts/user-displayimg";
-import { getCurrentUserProfile } from "../../actions/userActions";
+import { getCurrentUserProfile } from "../../services/actions/userActions";
 
 function SingleClick() {
   const dispatch = useDispatch();

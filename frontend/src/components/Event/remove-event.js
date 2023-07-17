@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { removeEvent } from "../../actions/eventActions";
+import { removeEvent } from "../../services/actions/eventActions";
 import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modal-item";
 import { useNavigate } from "react-router-dom";

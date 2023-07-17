@@ -3,9 +3,12 @@ import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modal-item";
-import { SearchParam } from "../Utilities/search-param";
+import { usePageId } from "../../hooks/usePageId";
 import { useNavigate } from "react-router-dom";
-import { getAllComments, removeComment } from "../../actions/commentActions";
+import {
+  getAllComments,
+  removeComment,
+} from "../../services/actions/commentActions";
 import { Delete } from "../../layouts/icons";
 
 function RemoveComment(props) {
@@ -16,7 +19,7 @@ function RemoveComment(props) {
   const [load, setLoad] = useState(false);
   const [error, setError] = useState("");
 
-  let pageId = SearchParam(props.commentCount);
+  let pageId = usePageId(props.commentCount);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +31,6 @@ function RemoveComment(props) {
       });
     });
   };
-
   return (
     <ModalItem
       ref={(ref, btnRef)}
@@ -52,7 +54,14 @@ function RemoveComment(props) {
         </div>
 
         <div className="mt-3">
-          <Button type="submit">
+          <Button
+            type="submit"
+            onClick={
+              error.success === "true"
+                ? () => btnRef.current.setModalShow()
+                : null
+            }
+          >
             {(() => {
               if (load) {
                 return <Loading />;

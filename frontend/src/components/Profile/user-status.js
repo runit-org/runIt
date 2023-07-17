@@ -3,9 +3,12 @@ import ModalItem from "../../layouts/modal-item";
 import { Button, Form } from "react-bootstrap";
 import { Loading } from "../../layouts/loader";
 import { useDispatch } from "react-redux";
-import { getCurrentUserProfile, userStatus } from "../../actions/userActions";
+import {
+  getCurrentUserProfile,
+  userStatus,
+} from "../../services/actions/userActions";
 import { Smiley } from "../../layouts/icons";
-import { UserContext } from "../Context/user-context";
+import { UserContext } from "../../Context/user-context";
 
 function UserStatus() {
   const dispatch = useDispatch();

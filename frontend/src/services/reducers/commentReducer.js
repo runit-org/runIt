@@ -1,4 +1,4 @@
-import { GET_ALL_COMMENTS } from "../actions/types";
+import { GET_ALL_COMMENTS } from "../constants/types";
 
 const initialState = {
   events: {},

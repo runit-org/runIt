@@ -1,7 +1,7 @@
 import axios from "axios";
 import store from "../store";
 import jwt_decode from "jwt-decode";
-import { GET_ERRORS, SET_CURRENT_USER } from "../actions/types";
+import { GET_ERRORS, SET_CURRENT_USER } from "../services/constants/types";
 import Cookies from "js-cookie";
 
 const setToken = (token) => {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSuggestions } from "../../../actions/suggestAction";
+import { getSuggestions } from "../../../services/actions/suggestAction";
 
 export const EventSuggestHandler = (pageId) => {
   const dispatch = useDispatch();

@@ -1,6 +1,11 @@
 import axios from "axios";
-import { GET_USERS, GET_ERRORS, SET_CURRENT_USER, SET_NEW_USER } from "./types";
-import { setToken, refreshToken } from "../securityUtils/setToken";
+import {
+  GET_USERS,
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  SET_NEW_USER,
+} from "../constants/types";
+import { setToken, refreshToken } from "../../securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import * as ResponseStatus from "../constants/response-status";

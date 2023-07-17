@@ -1,23 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Footer from "../../layouts/footer";
-import Login from "./log-in";
-import ResetPassword from "./reset-pw";
-import ResetPasswordEmail from "./resetPw-email";
-import SignUp from "./sign-up";
+import Footer from "../layouts/footer";
+import Login from "../components/UserAuth/log-in";
+import ResetPassword from "../components/UserAuth/reset-pw";
+import ResetPasswordEmail from "../components/UserAuth/resetPw-email";
+import SignUp from "../components/UserAuth/sign-up";
 import { useParams } from "react-router-dom";
-import SingleClick from "./single-click";
+import SingleClick from "../components/UserAuth/single-click";
 
 import { Card } from "react-bootstrap";
-import { AppLogo } from "../../layouts/icons";
-import { useCurrentPath } from "../../hooks/useCurrentPath";
-import { useAuthStatus } from "../../hooks/useAuthStatus";
-import { CurrAuthUser } from "../Utilities/current-user-route";
+import { AppLogo } from "../layouts/icons";
+import { useCurrentPath } from "../hooks/useCurrentPath";
+import { useAuthStatus } from "../hooks/useAuthStatus";
+import { CurrAuthUser } from "../routes/current-user-route";
 
 function Main() {
   let { token } = useParams();
   const currPath = useCurrentPath();
   const isValid = useAuthStatus();
+
+  console.log(isValid);
 
   return (
     <>

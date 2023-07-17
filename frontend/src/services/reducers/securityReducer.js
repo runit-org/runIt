@@ -3,7 +3,7 @@ import {
   GET_USERS,
   GET_USER,
   SET_NEW_USER,
-} from "../actions/types";
+} from "../constants/types";
 
 const initialState = {
   user: {},

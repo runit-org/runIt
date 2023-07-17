@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Card, Container } from "react-bootstrap";
-import Calendar from "../Calendar/calendar";
-import CalendarEventItem from "../Calendar/calendar-event-item";
-import UserProfile from "../Profile/user-profile";
-import { DayEventsHandler } from "../Calendar/utilities/action-handler";
+import Calendar from "../components/Calendar/calendar";
+import CalendarEventItem from "../components/Calendar/calendar-event-item";
+import UserProfile from "../components/Profile/user-profile";
+import { DayEventsHandler } from "../components/Calendar/utilities/action-handler";
 import { CalendarContext } from "../Context/calendar-context";
 
 function ProfileDash() {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, Row, Col, InputGroup, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { login } from "../../actions/securityActions";
+import { login } from "../../services/actions/securityActions";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { FormButton } from "./utilities/auth-builder";

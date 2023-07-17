@@ -5,8 +5,8 @@ import {
   GET_AFFILIATED_EVENTS,
   GET_EVENT_MEMBERS,
   GET_SINGLE_EVENT,
-} from "./types";
-import { setToken, refreshToken } from "../securityUtils/setToken";
+} from "../constants/types";
+import { setToken, refreshToken } from "../../securityUtils/setToken";
 import * as ResponseStatus from "../constants/response-status";
 
 export const getSingleEvent = (id) => async (dispatch) => {

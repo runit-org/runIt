@@ -1,6 +1,6 @@
 import axios from "axios";
-import { GET_ALL_COMMENTS, GET_ERRORS } from "./types";
-import { setToken, refreshToken } from "../securityUtils/setToken";
+import { GET_ALL_COMMENTS, GET_ERRORS } from "../constants/types";
+import { setToken, refreshToken } from "../../securityUtils/setToken";
 import * as ResponseStatus from "../constants/response-status";
 
 export const createComment =

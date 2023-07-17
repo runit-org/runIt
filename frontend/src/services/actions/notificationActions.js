@@ -1,6 +1,6 @@
 import axios from "axios";
-import { GET_ERRORS, GET_ALL_NOTIFS } from "./types";
-import { setToken, refreshToken } from "../securityUtils/setToken";
+import { GET_ERRORS, GET_ALL_NOTIFS } from "../constants/types";
+import { setToken, refreshToken } from "../../securityUtils/setToken";
 
 export const getNotifications = () => async (dispatch) => {
   await refreshToken().then((ref) => {

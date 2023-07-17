@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { memberStatus } from "../../actions/eventActions";
+import { memberStatus } from "../../services/actions/eventActions";
 import { Loading } from "../../layouts/loader";
 import { Link } from "react-router-dom";
 import { emitter } from "../client/socket";
 import { EventMembersHandler } from "./utilities/action-handlers";
 import { Pending } from "./utilities/event-builder";
-import { SingleEventContext } from "../Dashboards/event-dash";
+import { SingleEventContext } from "../../pages/single-event-dash";
 import { Cross, Tick } from "../../layouts/icons";
 import { DisplayImage } from "../../layouts/user-displayimg";
 

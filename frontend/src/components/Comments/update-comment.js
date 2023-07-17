@@ -2,17 +2,20 @@ import React, { useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import CTAButton from "../../layouts/cta-button";
-import { getAllComments, updateComment } from "../../actions/commentActions";
-import { SearchParam } from "../Utilities/search-param";
+import {
+  getAllComments,
+  updateComment,
+} from "../../services/actions/commentActions";
+import { usePageId } from "../../hooks/usePageId";
 import { emitter } from "../client/socket";
-import { MentionFilter } from "../Utilities/mention";
+import { MentionFilter } from "../../utilities/utility-service";
 import { Cross } from "../../layouts/icons";
 
 function UpdateComment(props, { handleUpate }) {
   const dispatch = useDispatch();
   const [content, setContent] = useState(props.content);
 
-  let pageId = SearchParam();
+  let pageId = usePageId();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

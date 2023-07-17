@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
-import CreatePost from "../Event/create-event";
-import Pagination from "../../layouts/pagination";
+import CreatePost from "../components/Event/create-event";
+import Pagination from "../layouts/pagination";
 import { useSearchParams, useLocation } from "react-router-dom";
-import { SearchParam } from "../Utilities/search-param";
-import EventItemCard from "../Event/event-item-card";
-import CurrentUserProfile from "../Profile/current-user-profile";
-import { EventHandler } from "../Event/utilities/action-handlers";
-import SuggestItem from "../Suggestions/suggest-item";
+import EventItemCard from "../components/Event/event-item-card";
+import CurrentUserProfile from "../components/Profile/current-user-profile";
+import { EventHandler } from "../components/Event/utilities/action-handlers";
+import SuggestItem from "../components/Suggestions/suggest-item";
+import { usePageId } from "../hooks/usePageId";
 
 function MainDash() {
   //pagination and event api
@@ -17,7 +17,7 @@ function MainDash() {
   const [searchParams, setSearchParams] = useSearchParams({});
   const { state } = useLocation();
 
-  let pageId = SearchParam();
+  let pageId = usePageId();
   const eventData = EventHandler(pageId);
 
   useEffect(() => {

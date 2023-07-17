@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 
-export const SearchParam = (count) => {
+export function usePageId(count) {
   const [searchParams] = useSearchParams({});
 
   var page = searchParams.get("page");
@@ -13,4 +13,4 @@ export const SearchParam = (count) => {
   }
 
   return page;
-};
+}

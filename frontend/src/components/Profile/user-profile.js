@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { UserContext } from "../Context/user-context";
+import { UserContext } from "../../Context/user-context";
 import { DisplayImage } from "../../layouts/user-displayimg";
 import UserProfileHandler from "./utilities/action-handlers";
 import { UserCardInfo, VoteBadge } from "./utilities/profile-builder.js";

@@ -4,8 +4,8 @@ import {
   GET_USER_PROFILE,
   GET_CURRENT_USER_PROFILE,
   SET_CURRENT_USER,
-} from "./types";
-import { setToken, refreshToken } from "../securityUtils/setToken";
+} from "../constants/types";
+import { setToken, refreshToken } from "../../securityUtils/setToken";
 
 export const getUserProfile = (userName) => async (dispatch) => {
   await refreshToken().then((ref) => {
