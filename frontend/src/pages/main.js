@@ -19,8 +19,6 @@ function Main() {
   const currPath = useCurrentPath();
   const isValid = useAuthStatus();
 
-  console.log(isValid);
-
   return (
     <>
       <div id="auth-container">

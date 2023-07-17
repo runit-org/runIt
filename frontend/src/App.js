@@ -42,7 +42,7 @@ function App() {
           <Route path="/reset-password-auth" element={<Main />} />
 
           <Route
-            path="/EventsDash"
+            path="/posts"
             element={
               <ProtectedRoute>
                 <UserContext>
@@ -81,7 +81,7 @@ function App() {
           />
 
           {token ? (
-            <Route path="*" element={<Navigate to="/EventsDash" />} />
+            <Route path="*" element={<Navigate to="/posts" />} />
           ) : (
             <Route path="*" element={<Navigate to="/" />} />
           )}
