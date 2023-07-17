@@ -5,10 +5,10 @@ import {
   requestToJoin,
   getAllEvents,
   getSingleEvent,
-} from "../../actions/eventActions";
+} from "../../services/actions/eventActions";
 import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modal-item";
-import { SearchParam } from "../Utilities/search-param";
+import { usePageId } from "../../hooks/usePageId";
 import { useLocation, useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
 import { Plus } from "../../layouts/icons";
@@ -20,7 +20,7 @@ function JoinEvent(props) {
   const [load, setLoad] = useState(false);
   const [error, setError] = useState({});
 
-  let pageId = SearchParam();
+  let pageId = usePageId();
   const params = useParams();
   const location = useLocation();
 

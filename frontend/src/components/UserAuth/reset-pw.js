@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { resetPw } from "../../actions/securityActions";
+import { resetPw } from "../../services/actions/securityActions";
 import { Link } from "react-router-dom";
 import { ResponseItem } from "../../layouts/response-items";
 

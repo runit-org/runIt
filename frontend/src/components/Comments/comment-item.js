@@ -1,18 +1,21 @@
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
-import { Mention } from "../Utilities/mention";
+import { Mention } from "../../utilities/utility-service";
 import { commentOptions } from "./utilities/comment-options";
 import UpdateComment from "./update-comment";
-import { getAllComments, likeUnlike } from "../../actions/commentActions";
-import { SearchParam } from "../Utilities/search-param";
+import {
+  getAllComments,
+  likeUnlike,
+} from "../../services/actions/commentActions";
 import PopoverItem from "../Profile/popover-item";
 import { CommentReacts } from "./utilities/comment-builder";
-import { SingleEventContext } from "../Dashboards/event-dash";
-import { SecurityContext } from "../Context/security-context";
+import { SingleEventContext } from "../../pages/single-event-dash";
+import { SecurityContext } from "../../Context/security-context";
 import { Ellipse } from "../../layouts/icons";
 import { emitter } from "../client/socket";
 import { DisplayImage } from "../../layouts/user-displayimg";
+import { usePageId } from "../../hooks/usePageId";
 
 function CommentItem(props) {
   const dispatch = useDispatch();
@@ -21,7 +24,7 @@ function CommentItem(props) {
   const eventData = useContext(SingleEventContext);
   const currentUser = useContext(SecurityContext);
 
-  let pageId = SearchParam();
+  const pageId = usePageId();
 
   function handleClick() {
     setEditorMode(!editorMode);

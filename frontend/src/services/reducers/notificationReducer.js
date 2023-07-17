@@ -1,4 +1,4 @@
-import { GET_ALL_NOTIFS } from "../actions/types";
+import { GET_ALL_NOTIFS } from "../constants/types";
 
 const initialState = {
   notifs: [],

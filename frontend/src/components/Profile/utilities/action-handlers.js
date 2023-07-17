@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserProfile } from "../../../actions/userActions";
+import { getUserProfile } from "../../../services/actions/userActions";
 
 const UserProfileHandler = (data) => {
   const dispatch = useDispatch();

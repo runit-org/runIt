@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllComments } from "../../../actions/commentActions";
+import { getAllComments } from "../../../services/actions/commentActions";
 import {
   getAllEvents,
   getEventMembers,
   getSingleEvent,
-} from "../../../actions/eventActions";
+} from "../../../services/actions/eventActions";
 
 export const EventMembersHandler = (eventId) => {
   const dispatch = useDispatch();

@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { getNotifications } from "../../actions/notificationActions";
+import { getNotifications } from "../../services/actions/notificationActions";
 
 export const connection = () => {
   const socket = io("ws://localhost:4001");

@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Col, Row, Form, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { createNewEvent, getAllEvents } from "../../actions/eventActions";
+import {
+  createNewEvent,
+  getAllEvents,
+} from "../../services/actions/eventActions";
 import { emitter } from "../client/socket";
 import CTAButton from "../../layouts/cta-button";
-import { MentionFilter } from "../Utilities/mention";
-import { SearchParam } from "../Utilities/search-param";
-import * as ResponseStatus from "../../constants/response-status";
+import { MentionFilter } from "../../utilities/utility-service";
+import { usePageId } from "../../hooks/usePageId";
+import * as ResponseStatus from "../../services/constants/response-status";
 
 function CreateEvent(props) {
   const dispatch = useDispatch();
@@ -22,7 +25,7 @@ function CreateEvent(props) {
 
   const eventDate = new Date(date);
 
-  let pageId = SearchParam();
+  let pageId = usePageId();
 
   useEffect(() => {
     if (details === "" || details === "<p><br></p>") {

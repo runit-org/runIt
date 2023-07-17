@@ -1,6 +1,6 @@
 import axios from "axios";
-import { refreshToken, setToken } from "../securityUtils/setToken";
-import { GET_ERRORS, GET_EVENT_SUGGESTIONS } from "./types";
+import { refreshToken, setToken } from "../../securityUtils/setToken";
+import { GET_ERRORS, GET_EVENT_SUGGESTIONS } from "../constants/types";
 
 export const getSuggestions = (id, setIsLoading) => async (dispatch) => {
   setIsLoading(true);

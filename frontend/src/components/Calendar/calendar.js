@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from "../../layouts/icons";
 import Days from "./days";
 import { MonthlyEventsHandler } from "./utilities/action-handler";
 import { Months, WeekDays } from "./utilities/calendar-builder";
-import { CalendarContext } from "../Context/calendar-context";
+import { CalendarContext } from "../../Context/calendar-context";
 
 function Calendar(props) {
   var days = WeekDays();

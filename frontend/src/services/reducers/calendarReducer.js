@@ -1,4 +1,4 @@
-import { GET_DAY_EVENTS, GET_MONTHLY_EVENTS } from "../actions/types";
+import { GET_DAY_EVENTS, GET_MONTHLY_EVENTS } from "../constants/types";
 
 const initialState = {
   monthly: {},

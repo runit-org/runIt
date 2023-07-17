@@ -1,4 +1,4 @@
-import { GET_EVENT_SUGGESTIONS } from "../actions/types";
+import { GET_EVENT_SUGGESTIONS } from "../constants/types";
 
 const initialState = {
   suggestEvent: {},

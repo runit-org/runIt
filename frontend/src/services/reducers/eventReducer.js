@@ -3,7 +3,7 @@ import {
   GET_AFFILIATED_EVENTS,
   GET_EVENT_MEMBERS,
   GET_SINGLE_EVENT,
-} from "../actions/types";
+} from "../constants/types";
 
 const initialState = {
   events: {},

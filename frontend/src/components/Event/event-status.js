@@ -1,7 +1,10 @@
 import React, { useState, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { getSingleEvent, updateStatus } from "../../actions/eventActions";
+import {
+  getSingleEvent,
+  updateStatus,
+} from "../../services/actions/eventActions";
 import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modal-item";
 import { useParams } from "react-router-dom";

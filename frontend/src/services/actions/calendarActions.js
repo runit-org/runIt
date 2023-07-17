@@ -1,6 +1,10 @@
 import axios from "axios";
-import { refreshToken, setToken } from "../securityUtils/setToken";
-import { GET_ERRORS, GET_MONTHLY_EVENTS, GET_DAY_EVENTS } from "./types";
+import { refreshToken, setToken } from "../../securityUtils/setToken";
+import {
+  GET_ERRORS,
+  GET_MONTHLY_EVENTS,
+  GET_DAY_EVENTS,
+} from "../constants/types";
 
 export const getMonthlyEvents = (id, month, year) => async (dispatch) => {
   await refreshToken().then((ref) => {

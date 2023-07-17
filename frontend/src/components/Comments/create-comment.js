@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { createComment, getAllComments } from "../../actions/commentActions";
+import {
+  createComment,
+  getAllComments,
+} from "../../services/actions/commentActions";
 import { emitter } from "../client/socket";
-import { SingleEventContext } from "../Dashboards/event-dash";
+import { SingleEventContext } from "../../pages/single-event-dash";
 import CTAButton from "../../layouts/cta-button";
-import { MentionFilter } from "../Utilities/mention";
-import { SearchParam } from "../Utilities/search-param";
-import { UserContext } from "../Context/user-context";
+import { MentionFilter } from "../../utilities/utility-service";
+import { usePageId } from "../../hooks/usePageId";
+import { UserContext } from "../../Context/user-context";
 import { DisplayImage } from "../../layouts/user-displayimg";
-import * as ResponseStatus from "../../constants/response-status";
+import * as ResponseStatus from "../../services/constants/response-status";
 
 function CreateComment(props) {
   const dispatch = useDispatch();
@@ -22,7 +25,7 @@ function CreateComment(props) {
   const eventData = useContext(SingleEventContext);
   const userContext = useContext(UserContext);
 
-  let pageId = SearchParam();
+  let pageId = usePageId();
 
   useEffect(() => {
     if (content === "") {
@@ -51,6 +54,7 @@ function CreateComment(props) {
       setError("");
     }
   }, [error]);
+
   return (
     <Card className="comment-card">
       <Card.Body>

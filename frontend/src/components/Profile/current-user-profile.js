@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getCurrentUserProfile } from "../../actions/userActions";
+import { getCurrentUserProfile } from "../../services/actions/userActions";
 import { DisplayImage } from "../../layouts/user-displayimg";
 import { UserCardInfo, VoteBadge } from "./utilities/profile-builder";
 

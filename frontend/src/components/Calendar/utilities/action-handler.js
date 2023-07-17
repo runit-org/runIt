@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getDayEvents,
   getMonthlyEvents,
-} from "../../../actions/calendarActions";
+} from "../../../services/actions/calendarActions";
 
 export const MonthlyEventsHandler = (id, month, year) => {
   const dispatch = useDispatch();

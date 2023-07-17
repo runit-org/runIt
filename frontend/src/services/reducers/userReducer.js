@@ -1,4 +1,4 @@
-import { GET_CURRENT_USER_PROFILE, GET_USER_PROFILE } from "../actions/types";
+import { GET_CURRENT_USER_PROFILE, GET_USER_PROFILE } from "../constants/types";
 
 const initialState = {
   userProfile: [],

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Toast } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { ResponseContext } from "../components/Context/response-context";
-import * as ResponseStatus from "../constants/response-status";
+import { ResponseContext } from "../Context/response-context";
+import * as ResponseStatus from "../services/constants/response-status";
 
 export const ResponseToast = (props) => {
   const [show, setShow] = useState(props.showToast);
