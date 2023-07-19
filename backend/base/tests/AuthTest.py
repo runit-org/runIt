@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 from base.models import User, UserExtend
+from base.factories import UserFactory
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from rest_framework.test import APIRequestFactory

@@ -25,7 +25,7 @@ class FriendTestClass(TestCase):
             "name": "test user",
             "username": "test",
             "email": "test@email.com",
-            "password": "password"
+            "password": "password123*"
         }
 
     def generateRandomString(self, length):
