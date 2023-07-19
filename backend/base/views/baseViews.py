@@ -14,8 +14,8 @@ def error(message):
     retVal = {'success' : 'false', 'message' : message}
     return Response(retVal, status = status.HTTP_400_BAD_REQUEST)
 
-def validationError(message='Required fields not met'):
-    retVal = {'success' : 'false', 'message' : message}
+def validationError(message='Required fields not met', info=None):
+    retVal = {'success' : 'false', 'message' : message, 'info' : info}
     return Response(retVal, status = status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 def paginate(request, objects, objectSerializer, paginationSize, context=None):

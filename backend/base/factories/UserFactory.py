@@ -8,4 +8,4 @@ class UserFactory(factory.Factory):
 
     username = factory.Sequence(lambda n: f'user{n}')
     email = factory.Sequence(lambda n: f'user{n}@example.com')
-    password = make_password('password')
+    password = make_password('password123*')
