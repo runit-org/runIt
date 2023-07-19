@@ -16,7 +16,7 @@ class AuthTestClass(TestCase):
             "name": "test user",
             "username": "test",
             "email": "test@email.com",
-            "password": "password"
+            "password": "password123*"
         }
 
     def createNewUser(self):
@@ -103,6 +103,46 @@ class AuthTestClass(TestCase):
         self.createNewUser()
         data = self.newUser
         data['username'] = 'everyone'
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_register_user_with_password_too_short_fails(self):
+        c = Client()
+        url = self.baseUrl + 'register/'
+
+        self.createNewUser()
+        data = self.newUser
+        data['password'] = 'p12*'
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_register_user_without_numbers_in_password_fails(self):
+        c = Client()
+        url = self.baseUrl + 'register/'
+
+        self.createNewUser()
+        data = self.newUser
+        data['password'] = 'password*'
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_register_user_without_alphabetical_letters_in_password_fails(self):
+        c = Client()
+        url = self.baseUrl + 'register/'
+
+        self.createNewUser()
+        data = self.newUser
+        data['password'] = '12341234*'
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_register_user_without_special_characters_in_password_fails(self):
+        c = Client()
+        url = self.baseUrl + 'register/'
+
+        self.createNewUser()
+        data = self.newUser
+        data['password'] = 'password123'
         response = c.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
 
