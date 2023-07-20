@@ -8,7 +8,7 @@ import {
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
-import * as ResponseStatus from "../constants/response-status";
+import * as ResponseStatus from "../constants/responseStatus";
 
 export const getUsers = () => async (dispatch) => {
   await axios

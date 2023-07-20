@@ -5,17 +5,17 @@ import Header from "./layouts/header";
 import Main from "./pages/main";
 import { getAccessToken } from "./securityUtils/setToken";
 import React, { lazy, Suspense } from "react";
-import { ProtectedRoute } from "./routes/protected-route";
+import { ProtectedRoute } from "./routes/protectedRoute";
 import { Spinner } from "react-bootstrap";
-import UserContext from "./Context/user-context";
-import SecurityContext from "./Context/security-context";
+import UserContext from "./context/userProvider";
+import SecurityContext from "./context/securityProvider";
 import Cookies from "js-cookie";
-import CalendarContext from "./Context/calendar-context.js";
-import { RoutesContainer } from "./routes/routes-container";
+import CalendarContext from "./context/calendarProvider.js";
+import { RoutesContainer } from "./routes/routesContainer";
 
-const ProfileDash = lazy(() => import("./pages/profile-dash"));
-const SingleEventDash = lazy(() => import("./pages/single-event-dash"));
-const EventsDash = lazy(() => import("./pages/events-dash"));
+const ProfileDash = lazy(() => import("./pages/profileDash"));
+const SingleEventDash = lazy(() => import("./pages/singleEventDash"));
+const EventsDash = lazy(() => import("./pages/eventsDash"));
 
 function App() {
   const token = Cookies.get("token");

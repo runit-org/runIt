@@ -3,13 +3,13 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../services/actions/securityActions";
-import Notifications from "../components/Notification/notification";
+import Notifications from "../components/notification/notification";
 import { getCurrentUserProfile } from "../services/actions/userActions";
 import { receiver } from "../components/client/socket";
 import { getNotifications } from "../services/actions/notificationActions";
 import { AppLogo, Notification } from "./icons";
 import Cookies from "js-cookie";
-import UserStatus from "../components/Profile/user-status";
+import UserStatus from "../components/profile/userStatus";
 
 function Header() {
   let navigate = useNavigate();
