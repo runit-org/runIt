@@ -9,7 +9,6 @@ import { ResponseItem } from "../../layouts/responseItems";
 function SignUp() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  const [name, setName] = useState({});
   const [username, setUsername] = useState({});
   const [email, setEmail] = useState({});
   const [password, setPassword] = useState({});
@@ -30,7 +29,6 @@ function SignUp() {
     e.preventDefault();
     setFormSwitch(true);
     const userData = {
-      name: name,
       username: username,
       email: email,
       password: password,
@@ -55,74 +53,47 @@ function SignUp() {
           }}
         >
           <div className="mb-4">
-            <h4 className="subTitle">Create an account</h4>
+            <h4 className="subTitle">Create your account</h4>
           </div>
           <Row>
-            <Form.Group
-              as={Col}
-              md="6"
-              controlId="formBasicEmail"
-              className="mb-3"
-            >
-              <Form.Label className="text-muted visually-hidden">
-                Name
-              </Form.Label>
+            <Form.Group as={Col} md="6" controlId="formBasicEmail1">
+              <Form.Label className="text-muted small">Username</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Name"
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group
-              as={Col}
-              md="6"
-              controlId="formBasicEmail1"
-              className="mb-3"
-            >
-              <Form.Label className="text-muted visually-hidden">
-                Username
-              </Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Username"
                 onChange={(e) => setUsername(e.target.value)}
                 required
               />
             </Form.Group>
 
-            <Form.Group controlId="formBasicEmail2" className="mb-3">
-              <Form.Label className="text-muted visually-hidden">
-                Email
-              </Form.Label>
+            <Form.Group
+              as={Col}
+              md="6"
+              controlId="formBasicEmail2"
+              className="mb-2"
+            >
+              <Form.Label className="text-muted small">Email</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </Form.Group>
 
-            <Form.Group controlId="formBasicPassword" className="mb-3">
-              <Form.Label className="text-muted visually-hidden">
-                Password
-              </Form.Label>
+            <Form.Group controlId="formBasicPassword" className="mb-2">
+              <Form.Label className="text-muted small">Password</Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </Form.Group>
 
             <Form.Group controlId="formBasic_CPassword" className="mb-3">
-              <Form.Label className="text-muted visually-hidden">
+              <Form.Label className="text-muted small">
                 Confirm Password
               </Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Confirm Password"
                 onChange={(e) => setc_Password(e.target.value)}
                 required
               />

@@ -54,7 +54,7 @@ function Login() {
             handleSubmit(e);
           }}
         >
-          <span className="mb-4">
+          <div className="mb-4">
             <h4 className="subTitle">
               {signupData !== "" ? (
                 <span>
@@ -62,18 +62,15 @@ function Login() {
                   <span style={{ color: "#5865f2" }}>{signupData}!</span>
                 </span>
               ) : (
-                <span>Sign in</span>
+                <span>Sign in to your account</span>
               )}
             </h4>
-          </span>
+          </div>
 
-          <Form.Label className="text-muted visually-hidden">
-            Username
-          </Form.Label>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label className="text-muted small">Username</Form.Label>
+          <Form.Group className="mb-2" controlId="formBasicEmail">
             <Form.Control
               type="username"
-              placeholder="Username"
               value={Object.keys(username).length !== 0 ? username : ""}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -81,13 +78,10 @@ function Login() {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label className="text-muted visually-hidden">
-              Password
-            </Form.Label>
-            <InputGroup className="mb-3">
+            <Form.Label className="text-muted small">Password</Form.Label>
+            <InputGroup>
               <Form.Control
                 type={inputType}
-                placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
