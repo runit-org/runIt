@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Card, Dropdown } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import UpdateEvent from "./updateEvent";
 import { eventOptions } from "./utilities/eventOptions";
 import { Mention } from "../../utilities/utility-service";
@@ -7,9 +7,9 @@ import EventMembers from "./eventMembers";
 import { RequestBtn, StatusBadge } from "./utilities/eventBuilder";
 import { SingleEventContext } from "../../pages/singleEventDash";
 import { SecurityContext } from "../../context/securityProvider";
-import { Ellipse } from "../../layouts/icons";
 import { CANCELLED, FINISHED } from "./utilities/eventTypes";
 import { DisplayImage } from "../../layouts/userDisplayImg";
+import CustomDropdown from "../../layouts/customDropdown";
 
 function EventItem() {
   const [editorMode, setEditorMode] = useState(false);
@@ -32,37 +32,28 @@ function EventItem() {
               />
               <StatusBadge eventData={eventData} />
               {currentUser === eventData.user ? (
-                <Dropdown>
-                  <Dropdown.Toggle
-                    variant="light"
-                    size="sm"
-                    id="dropdown-basic"
-                  >
-                    <Ellipse />
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {eventOptions(
-                      eventData.id,
-                      eventData.title,
-                      eventData.user,
-                      currentUser,
-                      handleClick
+                <CustomDropdown>
+                  {eventOptions(
+                    eventData.id,
+                    eventData.title,
+                    eventData.user,
+                    currentUser,
+                    handleClick
+                  )
+                    .options_owner.slice(
+                      eventData.eventStatus === CANCELLED ||
+                        eventData.eventStatus === FINISHED
+                        ? (0, 2)
+                        : ""
                     )
-                      .options_owner.slice(
-                        eventData.eventStatus === CANCELLED ||
-                          eventData.eventStatus === FINISHED
-                          ? (0, 2)
-                          : ""
-                      )
-                      .map((i, index) => {
-                        return (
-                          <div key={index} className="p-1">
-                            {i.item}
-                          </div>
-                        );
-                      })}
-                  </Dropdown.Menu>
-                </Dropdown>
+                    .map((i, index) => {
+                      return (
+                        <div key={index} className="p-1">
+                          {i.item}
+                        </div>
+                      );
+                    })}
+                </CustomDropdown>
               ) : (
                 <RequestBtn eventData={eventData} />
               )}

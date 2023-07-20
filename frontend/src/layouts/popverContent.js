@@ -1,9 +1,9 @@
 import React from "react";
-import { VoteBadge } from "./utilities/profileBuilder";
-import Vote from "./vote";
-import UserProfileHandler from "./utilities/actionHandlers.js";
-import { ArrowRight } from "../../layouts/icons";
-import { DisplayImage } from "../../layouts/userDisplayImg";
+import { VoteBadge } from "../components/profile/utilities/profileBuilder";
+import Vote from "../components/profile/vote";
+import UserProfileHandler from "../components/profile/utilities/actionHandlers.js";
+import { ArrowRight } from "./icons";
+import { DisplayImage } from "./userDisplayImg";
 
 const UserPopoverContent = (props) => {
   const user = UserProfileHandler(props.data);

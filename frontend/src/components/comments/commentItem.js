@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
-import { Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
+import { Button, ButtonGroup, Card } from "react-bootstrap";
 import { Mention } from "../../utilities/utility-service";
 import { commentOptions } from "./utilities/commentOptions";
 import UpdateComment from "./updateComment";
@@ -8,14 +8,14 @@ import {
   getAllComments,
   likeUnlike,
 } from "../../services/actions/commentActions";
-import PopoverItem from "../profile/popoverItem";
+import PopoverItem from "../../layouts/popoverItem";
 import { CommentReacts } from "./utilities/commentBuilder";
 import { SingleEventContext } from "../../pages/singleEventDash";
 import { SecurityContext } from "../../context/securityProvider";
-import { Ellipse } from "../../layouts/icons";
 import { emitter } from "../client/socket";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import { usePageId } from "../../hooks/usePageId";
+import CustomDropdown from "../../layouts/customDropdown";
 
 function CommentItem(props) {
   const dispatch = useDispatch();
@@ -54,25 +54,20 @@ function CommentItem(props) {
         </div>
 
         {currentUser === props.commentData.user ? (
-          <Dropdown>
-            <Dropdown.Toggle variant="light" size="sm" id="dropdown-basic">
-              <Ellipse />
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {commentOptions(
-                props.commentData.id,
-                eventData.id,
-                props.commentCount,
-                handleClick
-              ).options_owner.map((i, index) => {
-                return (
-                  <div key={index} className="p-1">
-                    {i.item}
-                  </div>
-                );
-              })}
-            </Dropdown.Menu>
-          </Dropdown>
+          <CustomDropdown>
+            {commentOptions(
+              props.commentData.id,
+              eventData.id,
+              props.commentCount,
+              handleClick
+            ).options_owner.map((i, index) => {
+              return (
+                <div key={index} className="p-1">
+                  {i.item}
+                </div>
+              );
+            })}
+          </CustomDropdown>
         ) : (
           ""
         )}

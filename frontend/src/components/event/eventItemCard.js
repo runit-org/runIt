@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import PopoverItem from "../profile/popoverItem";
+import PopoverItem from "../../layouts/popoverItem";
 import { ArrowRight } from "../../layouts/icons";
 import { BadgeItem, RequestBtn, StatusBadge } from "./utilities/eventBuilder";
 import { DisplayImage } from "../../layouts/userDisplayImg";

@@ -7,7 +7,7 @@ import {
 } from "../../services/actions/notificationActions";
 import { VscCircleFilled } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
-import CustomOffCanvas from "../../layouts/ customOffCanvas";
+import CustomOffCanvas from "../../layouts/customOffCanvas";
 
 function Notifications(props) {
   const dispatch = useDispatch();
