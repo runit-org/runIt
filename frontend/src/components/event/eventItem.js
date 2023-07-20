@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Button, ButtonGroup, Card, Dropdown } from "react-bootstrap";
+import { Card, Dropdown } from "react-bootstrap";
 import UpdateEvent from "./updateEvent";
 import { eventOptions } from "./utilities/eventOptions";
 import { Mention } from "../../utilities/utility-service";
@@ -7,11 +7,11 @@ import EventMembers from "./eventMembers";
 import { RequestBtn, StatusBadge } from "./utilities/eventBuilder";
 import { SingleEventContext } from "../../pages/singleEventDash";
 import { SecurityContext } from "../../context/securityProvider";
-import { Comment, Ellipse } from "../../layouts/icons";
+import { Ellipse } from "../../layouts/icons";
 import { CANCELLED, FINISHED } from "./utilities/eventTypes";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 
-function EventItem(props) {
+function EventItem() {
   const [editorMode, setEditorMode] = useState(false);
   const eventData = useContext(SingleEventContext);
   const currentUser = useContext(SecurityContext);
@@ -30,7 +30,7 @@ function EventItem(props) {
                 image={eventData.gravatarImage}
                 imgClass="userProf-img me-3"
               />
-              <StatusBadge joinedStatus={eventData.joinedStatus} />
+              <StatusBadge eventData={eventData} />
               {currentUser === eventData.user ? (
                 <Dropdown>
                   <Dropdown.Toggle
@@ -64,7 +64,7 @@ function EventItem(props) {
                   </Dropdown.Menu>
                 </Dropdown>
               ) : (
-                ""
+                <RequestBtn eventData={eventData} />
               )}
             </div>
           </Card.Header>
@@ -112,21 +112,6 @@ function EventItem(props) {
                 />
               </div>
             </div>
-            <ButtonGroup
-              aria-label="Basic example"
-              className="mt-3 w-100 justify-content-between"
-            >
-              <Button variant="light" className="postBtn-placements cta_button">
-                <span className="d-flex align-items-center fw-normal small text-muted">
-                  <Comment />
-                  {props.commentCount}
-                </span>
-              </Button>
-              <RequestBtn
-                JoinEvent={eventData}
-                joinedStatus={eventData.joinedStatus}
-              />
-            </ButtonGroup>
           </Card.Body>
         </Card>
       ) : (

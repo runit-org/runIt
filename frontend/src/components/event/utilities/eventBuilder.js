@@ -57,23 +57,23 @@ export const BadgeItem = (props) => {
 };
 
 export const StatusBadge = (props) => {
-  const statusOnEvent = props.joinedStatus;
+  const status = props.eventData.joinedStatus;
 
   return (
     <>
-      {statusOnEvent === ACCEPTED ? (
+      {status === ACCEPTED ? (
         <div>
           <Badge bg="" style={{ backgroundColor: "#DFF2BF", color: "#4F8A10" }}>
             Joined
           </Badge>
         </div>
-      ) : statusOnEvent === PENDING ? (
+      ) : status === PENDING ? (
         <div>
           <Badge bg="" style={{ backgroundColor: "#e5edff", color: "#5850ec" }}>
             Requested
           </Badge>
         </div>
-      ) : statusOnEvent === REJECTED ? (
+      ) : status === REJECTED ? (
         <div>
           <Badge bg="" style={{ backgroundColor: "#FFD2D2", color: "#D8000C" }}>
             Rejected
@@ -87,8 +87,8 @@ export const StatusBadge = (props) => {
 };
 
 export const RequestBtn = (props) => {
-  const userStatusOnEvent = props.joinedStatus;
-  const statusOnEvent = props.JoinEvent.eventStatus;
+  const userStatusOnEvent = props.eventData.joinedStatus;
+  const statusOnEvent = props.eventData.eventStatus;
 
   return (
     <>
@@ -99,11 +99,17 @@ export const RequestBtn = (props) => {
       statusOnEvent !== FINISHED &&
       statusOnEvent !== CANCELLED ? (
         <JoinEvent
-          eventId={props.JoinEvent.id}
-          eventTitle={props.JoinEvent.title}
+          eventId={props.eventData.id}
+          eventTitle={props.eventData.title}
           btnStyleFull={props.btnStyleFull}
-          userName={props.JoinEvent.userName}
+          userName={props.eventData.userName}
         />
+      ) : props.eventData.fullStatus ? (
+        <div>
+          <Badge bg="" style={{ backgroundColor: "#e2e8f0", color: "#475569" }}>
+            Full
+          </Badge>
+        </div>
       ) : (
         ""
       )}

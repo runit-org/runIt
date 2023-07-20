@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Card, Container } from "react-bootstrap";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import EventItem from "../components/event/eventItem";
@@ -15,7 +15,6 @@ import {
   OWNER,
 } from "../components/event/utilities/eventTypes";
 import { SingleEventHandler } from "../components/event/utilities/actionHandlers";
-import { SecurityContext } from "../context/securityProvider";
 import { BadgeItem } from "../components/event/utilities/eventBuilder";
 import { Information } from "../layouts/icons";
 import { InfoCard } from "../layouts/infoCards";
@@ -28,7 +27,6 @@ function SingleEventDash() {
 
   const eventData = SingleEventHandler(params, pageId).eventData;
   const commentData = SingleEventHandler(params, pageId).commentData;
-  const currentUser = useContext(SecurityContext);
 
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -130,7 +128,7 @@ function SingleEventDash() {
                       ""
                     )}
                     {/* event item card */}
-                    <EventItem commentCount={commentData.count} />
+                    <EventItem />
                     {/* publish commnent */}
                     {eventData.joinedStatus === OWNER ||
                     eventData.joinedStatus === ACCEPTED ? (
@@ -146,10 +144,11 @@ function SingleEventDash() {
                       </Card>
                     )}
                     {/* manage members */}
-                    {currentUser === eventData.user &&
+                    {eventData.joinedStatus === OWNER &&
+                    !eventData.fullStatus &&
                     eventData.eventStatus !== CANCELLED &&
                     eventData.eventStatus !== FINISHED ? (
-                      <ManageMembers currentUser={currentUser} />
+                      <ManageMembers />
                     ) : (
                       ""
                     )}
