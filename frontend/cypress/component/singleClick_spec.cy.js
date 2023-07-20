@@ -1,7 +1,7 @@
 import { Route } from "react-router-dom";
-import ResponseProvider from "../../src/Context/response-context";
-import Login from "../../src/components/UserAuth/log-in";
-import SingleClick from "../../src/components/UserAuth/single-click";
+import ResponseProvider from "../../src/context/responseProvider";
+import Login from "../../src/components/userAuth/logIn";
+import SingleClick from "../../src/components/userAuth/singleClick";
 
 describe("Single click login", () => {
   it("renders", () => {

@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import ResetPwEmail from "../../src/components/UserAuth/resetPw-email";
+import ResetPwEmail from "../../src/components/userAuth/resetPwEmail";
 
 describe("Reset password form", () => {
   it("renders", () => {

@@ -1,6 +1,6 @@
 import { Route } from "react-router-dom";
-import ResponseProvider from "../../src/Context/response-context";
-import Login from "../../src/components/UserAuth/log-in";
+import ResponseProvider from "../../src/context/responseProvider";
+import Login from "../../src/components/userAuth/logIn";
 
 describe("Login form", () => {
   const response = "";

@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import MainDash from "../../src/pages/events-dash";
+import MainDash from "../../src/pages/eventsDash";
 
 describe("Post page", () => {
   it("renders", () => {
