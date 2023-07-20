@@ -23,12 +23,8 @@ function EventItemCard(props) {
           </span>
         </div>
 
-        <StatusBadge joinedStatus={props.eventData.joinedStatus} />
-        <RequestBtn
-          JoinEvent={props.eventData}
-          joinedStatus={props.eventData.joinedStatus}
-          btnStyleFull={false}
-        />
+        <StatusBadge eventData={props.eventData} />
+        <RequestBtn eventData={props.eventData} btnStyleFull={false} />
       </div>
 
       <Card>

@@ -1,7 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { memberStatus } from "../../services/actions/eventActions";
+import {
+  getSingleEvent,
+  memberStatus,
+} from "../../services/actions/eventActions";
 import { Loading } from "../../layouts/loader";
 import { Link } from "react-router-dom";
 import { emitter } from "../client/socket";
@@ -11,13 +14,13 @@ import { SingleEventContext } from "../../pages/singleEventDash";
 import { Cross, Tick } from "../../layouts/icons";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 
-function ManageMembers(props) {
+function ManageMembers() {
   const dispatch = useDispatch();
   const eventData = useContext(SingleEventContext);
 
   const [load, setLoad] = useState(false);
   const eventMembers = EventMembersHandler(eventData.id);
-  const pendingMembers = Pending(eventMembers, props.currentUser);
+  const pendingMembers = Pending(eventMembers, eventData.user);
 
   const manageUser = async (status, memberId) => {
     const postData = {
@@ -27,6 +30,7 @@ function ManageMembers(props) {
     };
 
     dispatch(memberStatus(postData, setLoad)).then(() => {
+      dispatch(getSingleEvent(eventData.id));
       emitter(pendingMembers.map((member) => member.username));
     });
   };

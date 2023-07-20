@@ -152,8 +152,8 @@ export const Comment = () => {
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       stroke="currentColor"
-      width="20"
-      height="20"
+      width="18"
+      height="18"
       className="me-2"
     >
       <path
