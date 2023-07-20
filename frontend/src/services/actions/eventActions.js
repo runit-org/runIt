@@ -7,7 +7,7 @@ import {
   GET_SINGLE_EVENT,
 } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
-import * as ResponseStatus from "../constants/response-status";
+import * as ResponseStatus from "../constants/responseStatus";
 
 export const getSingleEvent = (id) => async (dispatch) => {
   await refreshToken().then((ref) => {

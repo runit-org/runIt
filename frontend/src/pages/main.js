@@ -1,18 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "../layouts/footer";
-import Login from "../components/UserAuth/log-in";
-import ResetPassword from "../components/UserAuth/reset-pw";
-import ResetPasswordEmail from "../components/UserAuth/resetPw-email";
-import SignUp from "../components/UserAuth/sign-up";
+import Login from "../components/userAuth/logIn";
+import ResetPassword from "../components/userAuth/resetPw";
+import ResetPasswordEmail from "../components/userAuth/resetPwEmail";
+import SignUp from "../components/userAuth/signUp";
 import { useParams } from "react-router-dom";
-import SingleClick from "../components/UserAuth/single-click";
+import SingleClick from "../components/userAuth/singleClick";
 
 import { Card } from "react-bootstrap";
 import { AppLogo } from "../layouts/icons";
 import { useCurrentPath } from "../hooks/useCurrentPath";
 import { useAuthStatus } from "../hooks/useAuthStatus";
-import { CurrAuthUser } from "../routes/current-user-route";
+import { CurrAuthUser } from "../routes/currentUserRoute";
 
 function Main() {
   let { token } = useParams();
