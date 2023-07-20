@@ -34,16 +34,18 @@ function ResetPasswordEmail() {
           }}
         >
           <div className="mb-4">
-            <h4 className="subTitle">Reset Password</h4>
+            <h4 className="subTitle">
+              {" "}
+              <h4 className="subTitle">Forgot your password?</h4>
+            </h4>
             <ResponseItem />
           </div>
 
-          <Form.Label className="text-muted visually-hidden">Email</Form.Label>
+          <Form.Label className="text-muted small">Email</Form.Label>
           <Form.Group controlId="formBasicEmail2">
             <Form.Control
               className="p-2"
               type="email"
-              placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
               required
             />

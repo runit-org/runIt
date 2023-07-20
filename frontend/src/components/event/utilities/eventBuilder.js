@@ -97,14 +97,15 @@ export const RequestBtn = (props) => {
       userStatusOnEvent !== REJECTED &&
       userStatusOnEvent !== OWNER &&
       statusOnEvent !== FINISHED &&
-      statusOnEvent !== CANCELLED ? (
+      statusOnEvent !== CANCELLED &&
+      !props.eventData.fullStatus ? (
         <JoinEvent
           eventId={props.eventData.id}
           eventTitle={props.eventData.title}
           btnStyleFull={props.btnStyleFull}
           userName={props.eventData.userName}
         />
-      ) : props.eventData.fullStatus ? (
+      ) : props.eventData.fullStatus && userStatusOnEvent !== ACCEPTED ? (
         <div>
           <Badge bg="" style={{ backgroundColor: "#e2e8f0", color: "#475569" }}>
             Full

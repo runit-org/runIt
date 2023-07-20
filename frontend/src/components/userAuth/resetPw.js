@@ -40,29 +40,25 @@ function ResetPassword(props) {
           }}
         >
           <div className="mb-4">
-            <h4 className="subTitle">Reset Password</h4>
+            <h4 className="subTitle">Reset your password</h4>
           </div>
 
-          <Form.Group className="mb-3" controlId="password">
-            <Form.Label className="text-muted visually-hidden">
-              Password
-            </Form.Label>
+          <Form.Group className="mb-2" controlId="password">
+            <Form.Label className="text-muted small">Password</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label className="text-muted visually-hidden">
+            <Form.Label className="text-muted small">
               Confirm Password
             </Form.Label>
 
             <Form.Control
               type="password"
-              placeholder="Confirm Password"
               onChange={(e) => set_c_Password(e.target.value)}
               required
             />
