@@ -31,7 +31,7 @@ body {
 }
 
 .subTitle {
-  @include title-text($primary-dark, 1.5rem, normal, 600);
+  @include title-text($primary-dark, 1.5rem, normal, 700);
 }
 
 .btn-primary {
