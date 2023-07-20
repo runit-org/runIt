@@ -16,6 +16,7 @@ function ResponseProvider({ children }) {
   useEffect(() => {
     if (reducer.data) {
       setResponse({
+        info: reducer.data.info ? reducer.data.info : {},
         status: reducer.status,
         message: reducer.data.detail
           ? reducer.data.detail

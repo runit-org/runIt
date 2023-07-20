@@ -59,7 +59,20 @@ export const ResponseItem = () => {
         ) : response.status === ResponseStatus.BAD_REQUEST ||
           response.status === ResponseStatus.UNAUTHORIZED ||
           response.status === ResponseStatus.UNPROCESSABLE_ENTITY ? (
-          <small className="text-danger">{response.message}</small>
+          response.info.password ? (
+            <>
+              <small className="text-danger fw-bold">{response.message}</small>
+              {response.info.password.map((item, index) => {
+                return (
+                  <small className="text-danger" key={index}>
+                    {item}
+                  </small>
+                );
+              })}
+            </>
+          ) : (
+            <small className="text-danger">{response.message}</small>
+          )
         ) : (
           ""
         )
