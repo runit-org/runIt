@@ -84,6 +84,7 @@ function SignUp() {
               <Form.Control
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
+                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
                 required
               />
             </Form.Group>
