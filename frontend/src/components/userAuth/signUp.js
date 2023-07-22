@@ -9,13 +9,15 @@ import { ResponseItem } from "../../layouts/responseItems";
 function SignUp() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  const [username, setUsername] = useState({});
-  const [email, setEmail] = useState({});
-  const [password, setPassword] = useState({});
-  const [c_password, setc_Password] = useState({});
   const [load, setLoad] = useState(false);
   const [signUpStatus, setSignUpStatus] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
+  const [credentials, setCredentials] = useState({
+    username: "",
+    email: "",
+    password: "",
+    c_password: "",
+  });
 
   var apiStatus = useSelector((securityReducer) => securityReducer.security);
 
@@ -28,14 +30,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormSwitch(true);
-    const userData = {
-      username: username,
-      email: email,
-      password: password,
-      c_password: c_password,
-    };
-
-    dispatch(createNewUser(userData, setLoad, navigate));
+    dispatch(createNewUser(credentials, setLoad, navigate));
   };
 
   useEffect(() => {
@@ -43,6 +38,10 @@ function SignUp() {
       setFormSwitch(false);
     }
   }, [signUpStatus, navigate, apiStatus]);
+
+  const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
 
   return (
     <>
@@ -60,7 +59,8 @@ function SignUp() {
               <Form.Label className="text-muted small">Username</Form.Label>
               <Form.Control
                 type="text"
-                onChange={(e) => setUsername(e.target.value)}
+                name="username"
+                onChange={handleChange}
                 required
               />
             </Form.Group>
@@ -74,7 +74,8 @@ function SignUp() {
               <Form.Label className="text-muted small">Email</Form.Label>
               <Form.Control
                 type="email"
-                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                onChange={handleChange}
                 required
               />
             </Form.Group>
@@ -83,7 +84,8 @@ function SignUp() {
               <Form.Label className="text-muted small">Password</Form.Label>
               <Form.Control
                 type="password"
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                onChange={handleChange}
                 pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
                 required
               />
@@ -95,7 +97,8 @@ function SignUp() {
               </Form.Label>
               <Form.Control
                 type="password"
-                onChange={(e) => setc_Password(e.target.value)}
+                name="c_password"
+                onChange={handleChange}
                 required
               />
             </Form.Group>

@@ -11,8 +11,11 @@ import { ResponseItem } from "../../layouts/responseItems";
 function Login() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  const [username, setUsername] = useState({});
-  const [password, setPassword] = useState({});
+
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+  });
   const [load, setLoad] = useState(false);
   const [signupData, setSignupData] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
@@ -24,18 +27,13 @@ function Login() {
     if (state) {
       const { id } = state;
       setSignupData(id.data.username);
-      setUsername(id.data.username);
+      setCredentials({ username: id.data.username });
     }
   }, [state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const LoginRequest = {
-      username: username,
-      password: password,
-    };
-    dispatch(login(LoginRequest, navigate, setLoad));
+    dispatch(login(credentials, navigate, setLoad));
   };
 
   const handleInputType = () => {
@@ -45,6 +43,10 @@ function Login() {
   useEffect(() => {
     setFormSwitch(load);
   }, [load]);
+
+  const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
 
   return (
     <>
@@ -71,8 +73,13 @@ function Login() {
           <Form.Group className="mb-2" controlId="formBasicEmail">
             <Form.Control
               type="username"
-              value={Object.keys(username).length !== 0 ? username : ""}
-              onChange={(e) => setUsername(e.target.value)}
+              name="username"
+              value={
+                Object.keys(credentials.username).length !== 0
+                  ? credentials.username
+                  : ""
+              }
+              onChange={handleChange}
               required
             />
           </Form.Group>
@@ -82,7 +89,8 @@ function Login() {
             <InputGroup>
               <Form.Control
                 type={inputType}
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                onChange={handleChange}
                 required
               />
               <Button

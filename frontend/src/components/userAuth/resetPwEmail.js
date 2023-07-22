@@ -8,17 +8,14 @@ import { FormButton } from "./utilities/auth-builder";
 
 function ResetPasswordEmail() {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState({});
+  const [email, setEmail] = useState({ email: "" });
   const [load, setLoad] = useState(false);
   const [formSwitch, setFormSwitch] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = {
-      email: email,
-    };
 
-    dispatch(resetPwEmail(userData, setLoad));
+    dispatch(resetPwEmail({ email }, setLoad));
   };
 
   useEffect(() => {
@@ -34,10 +31,7 @@ function ResetPasswordEmail() {
           }}
         >
           <div className="mb-4">
-            <h4 className="subTitle">
-              {" "}
-              <h4 className="subTitle">Forgot your password?</h4>
-            </h4>
+            <h4 className="subTitle">Forgot your password?</h4>
             <ResponseItem />
           </div>
 
