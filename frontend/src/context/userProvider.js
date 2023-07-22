@@ -1,7 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-export const UserContext = createContext();
+export const UserContext = createContext({
+  currentUser: {},
+  setCurrentUser: () => {},
+});
 
 function UserProvider({ children }) {
   const [currentUser, setCurrentUser] = useState({});

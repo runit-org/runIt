@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { GET_ERRORS } from "../services/constants/types";
 
-export const ResponseContext = createContext();
+export const ResponseContext = createContext({
+  response: {},
+  setResponse: () => {},
+});
 
 function ResponseProvider({ children }) {
   const [response, setResponse] = useState({});

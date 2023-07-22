@@ -1,6 +1,9 @@
 import React, { createContext, useState } from "react";
 
-export const CalendarContext = createContext();
+export const CalendarContext = createContext({
+  currentDay: {},
+  setCurrentDay: () => {},
+});
 
 function CalendarProvider({ children }) {
   const [currentDay, setCurrentDay] = useState(new Date());
