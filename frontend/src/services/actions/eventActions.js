@@ -69,34 +69,30 @@ export const affiliatedEvents = (id) => async (dispatch) => {
   });
 };
 
-export const createNewEvent =
-  (postData, setLoad, setError) => async (dispatch) => {
-    await refreshToken().then((ref) => {
-      setToken(ref.data.access);
-
-      setLoad(true);
-      axios
-        .post("http://localhost:8000/api/event/create/", postData)
-        .then((res) => {
-          if (res.status === ResponseStatus.OK) {
-            setLoad(false);
-            setError(res.status);
-          }
-          dispatch({
-            type: GET_ERRORS,
-            payload: res.data,
-          });
-        })
-        .catch((error) => {
-          setLoad(false);
-          setError(error.response.data.message);
-          dispatch({
-            type: GET_ERRORS,
-            payload: error.response.data,
-          });
+export const createNewEvent = (postData, setFormStatus) => async (dispatch) => {
+  await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+    setFormStatus({ load: true });
+    axios
+      .post("http://localhost:8000/api/event/create/", postData)
+      .then((res) => {
+        if (res.status === ResponseStatus.OK) {
+          setFormStatus({ load: false, error: res.status });
+        }
+        dispatch({
+          type: GET_ERRORS,
+          payload: res.data,
         });
-    });
-  };
+      })
+      .catch((error) => {
+        setFormStatus({ load: false, error: error.response.data.message });
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
+      });
+  });
+};
 
 export const updateEvent = (id, postData) => async (dispatch) => {
   await refreshToken().then((ref) => {

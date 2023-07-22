@@ -24,9 +24,11 @@ function CreateEvent(props) {
   };
 
   const [eventData, setEventData] = useState(initialState);
-  const [load, setLoad] = useState(false);
-  const [validateFormEmpty, setValidateFormEmpty] = useState(false);
-  const [error, setError] = useState("");
+  const [formStatus, setFormStatus] = useState({
+    load: false,
+    validateFormEmpty: false,
+    error: "",
+  });
 
   const eventDate = new Date(eventData.date);
 
@@ -34,9 +36,9 @@ function CreateEvent(props) {
 
   useEffect(() => {
     if (eventData.details === "" || eventData.details === "\n") {
-      setValidateFormEmpty(true);
+      setFormStatus({ validateFormEmpty: true });
     } else {
-      setValidateFormEmpty(false);
+      setFormStatus({ validateFormEmpty: false });
     }
   }, [eventData.details]);
 
@@ -52,20 +54,20 @@ function CreateEvent(props) {
       minute:
         eventData.time !== "" ? parseInt(eventData.time.split(":")[1]) : "",
     };
-    dispatch(createNewEvent(postData, setLoad, setError)).then(() => {
+    dispatch(createNewEvent(postData, setFormStatus)).then(() => {
       dispatch(getAllEvents(pageId));
       emitter(MentionFilter(eventData.details));
     });
   };
 
   useEffect(() => {
-    if (error === ResponseStatus.OK) {
+    if (formStatus.error === ResponseStatus.OK) {
       formRef.current.reset();
       setEventData(initialState);
-      setError("");
+      setFormStatus({ error: "" });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error]);
+  }, [formStatus.error]);
 
   //data from suggestions
   useEffect(() => {
@@ -184,13 +186,13 @@ function CreateEvent(props) {
           </div>
 
           <div className="d-flex justify-content-between mt-3">
-            <small className="text-danger">{error}</small>
+            <small className="text-danger">{formStatus.error}</small>
             <CTAButton
               type={"submit"}
               btnStyle={"formBtn cta_button"}
               variant={"primary"}
-              formValidation={validateFormEmpty}
-              isLoading={load}
+              formValidation={formStatus.validateFormEmpty}
+              isLoading={formStatus.load}
               placeholder={
                 <div className="d-flex align-items-center">Post</div>
               }
