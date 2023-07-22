@@ -16,6 +16,7 @@ import { emitter } from "../client/socket";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import { usePageId } from "../../hooks/usePageId";
 import CustomDropdown from "../../layouts/customDropdown";
+import { Username } from "../../layouts/username";
 
 function CommentItem(props) {
   const dispatch = useDispatch();
@@ -40,12 +41,14 @@ function CommentItem(props) {
   return (
     <div className="event-card_dash m-0 mt-4">
       <div className="d-flex" id="card_header">
-        <DisplayImage
-          image={props.commentData.gravatarImage}
-          imgClass="me-2"
-          id="card-img"
-        />
-        <PopoverItem data={props.commentData.username} />
+        <PopoverItem data={props.commentData.username}>
+          <DisplayImage
+            image={props.commentData.gravatarImage}
+            imgClass="me-2 cursor-event"
+            id="card-img"
+          />
+        </PopoverItem>
+        <Username username={props.commentData.username} size={"sm"} />
 
         <div className="me-auto">
           <span className="card-timestamp text-muted align-self-center">

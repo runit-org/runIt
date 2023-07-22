@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { getCurrentUserProfile } from "../../services/actions/userActions";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import { UserCardInfo, VoteBadge } from "./utilities/profileBuilder";
+import { Username } from "../../layouts/username";
 
 function CurrentUserProfile() {
   const dispatch = useDispatch();
@@ -30,15 +30,7 @@ function CurrentUserProfile() {
           <div className="d-flex align-items-center userInfo-div">
             <DisplayImage image={currUserProfile.gravatarImage} />
             <div className="ms-3">
-              <Link
-                to={{
-                  pathname: "/profile",
-                  search: `user=${currUserProfile.username}`,
-                }}
-              >
-                @{currUserProfile.username}
-              </Link>
-
+              <Username username={currUserProfile.username} />
               <small className="d-block text-muted">
                 {currUserProfile.email}
               </small>

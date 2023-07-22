@@ -5,7 +5,7 @@ export const VoteBadge = (props) => {
     <>
       <Badge id="vote_badge" className="mb-2">
         <>
-          {props.votes > 0 ? "+" : props.votes < 0 ? "-" : ""}
+          {props.votes > 0 ? "+" : ""}
           {props.votes} rating
         </>
       </Badge>

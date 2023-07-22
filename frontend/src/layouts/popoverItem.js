@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import UserPopoverContent from "./popverContent";
 
-const PopoverItem = (props) => {
+const PopoverItem = ({ children, data }) => {
   const [show, setShow] = useState(false);
   const ref = useRef(null);
 
@@ -20,12 +20,12 @@ const PopoverItem = (props) => {
       container={ref}
       overlay={
         <Popover
-          id="popover-basic"
+          id="profile-popover"
           onMouseEnter={handleOnMouseEnter}
           onMouseLeave={handleOnMouseLeave}
         >
           <Popover.Body>
-            <UserPopoverContent data={props.data} />
+            <UserPopoverContent data={data} />
           </Popover.Body>
         </Popover>
       }
@@ -34,9 +34,8 @@ const PopoverItem = (props) => {
         onMouseEnter={handleOnMouseEnter}
         onMouseLeave={handleOnMouseLeave}
         ref={ref}
-        className="username_tags align-self-center"
       >
-        @{props.data}
+        {children}
       </span>
     </OverlayTrigger>
   );
