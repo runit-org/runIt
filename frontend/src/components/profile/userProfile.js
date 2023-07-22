@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { UserContext } from "../../context/userProvider";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import UserProfileHandler from "./utilities/actionHandlers";
 import { UserCardInfo, VoteBadge } from "./utilities/profileBuilder.js";
 import Vote from "./vote";
+import { Username } from "../../layouts/username";
 
 function UserProfile(props) {
   const [searchParams] = useSearchParams();
@@ -29,15 +30,7 @@ function UserProfile(props) {
             <DisplayImage image={user.gravatarImage} />
 
             <div className="ms-3">
-              <Link
-                to={{
-                  pathname: "/profile",
-                  search: `user=${user.username}`,
-                }}
-              >
-                @{user.username}
-              </Link>
-
+              <Username username={user.username} />
               <small className="d-block text-muted">{user.email}</small>
             </div>
           </div>

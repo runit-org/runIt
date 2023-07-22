@@ -5,17 +5,21 @@ import PopoverItem from "../../layouts/popoverItem";
 import { ArrowRight } from "../../layouts/icons";
 import { BadgeItem, RequestBtn, StatusBadge } from "./utilities/eventBuilder";
 import { DisplayImage } from "../../layouts/userDisplayImg";
+import { Username } from "../../layouts/username";
 
 function EventItemCard(props) {
   return (
     <div className="event-card_dash">
       <div className="d-flex" id="card_header">
-        <DisplayImage
-          image={props.eventData.gravatarImage}
-          imgClass=" me-2"
-          id="card-img"
-        />
-        <PopoverItem data={props.eventData.userName} />
+        <PopoverItem data={props.eventData.userName}>
+          <DisplayImage
+            image={props.eventData.gravatarImage}
+            imgClass="me-2 cursor-event"
+            id="card-img"
+          />
+        </PopoverItem>
+
+        <Username username={props.eventData.userName} size={"sm"} />
 
         <div className="me-auto">
           <span className="card-timestamp text-muted align-self-center">

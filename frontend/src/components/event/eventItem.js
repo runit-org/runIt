@@ -10,6 +10,7 @@ import { SecurityContext } from "../../context/securityProvider";
 import { CANCELLED, FINISHED } from "./utilities/eventTypes";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import CustomDropdown from "../../layouts/customDropdown";
+import PopoverItem from "../../layouts/popoverItem";
 
 function EventItem() {
   const [editorMode, setEditorMode] = useState(false);
@@ -26,10 +27,12 @@ function EventItem() {
         <Card className="event-card">
           <Card.Header>
             <div className="d-flex justify-content-between">
-              <DisplayImage
-                image={eventData.gravatarImage}
-                imgClass="userProf-img me-3"
-              />
+              <PopoverItem data={eventData.userName}>
+                <DisplayImage
+                  image={eventData.gravatarImage}
+                  imgClass="userProf-img me-3 cursor-event"
+                />
+              </PopoverItem>
               <StatusBadge eventData={eventData} />
               {currentUser === eventData.user ? (
                 <CustomDropdown>
