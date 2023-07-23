@@ -24,9 +24,9 @@ function CreateEvent(props) {
   };
 
   const [eventData, setEventData] = useState(initialState);
+  const [validateFormEmpty, setValidateFormEmpty] = useState(false);
   const [formStatus, setFormStatus] = useState({
     load: false,
-    validateFormEmpty: false,
     error: "",
   });
 
@@ -35,10 +35,10 @@ function CreateEvent(props) {
   let pageId = usePageId();
 
   useEffect(() => {
-    if (eventData.details === "" || eventData.details === "\n") {
-      setFormStatus({ validateFormEmpty: true });
+    if (!/\S/.test(eventData.details)) {
+      setValidateFormEmpty(true);
     } else {
-      setFormStatus({ validateFormEmpty: false });
+      setValidateFormEmpty(false);
     }
   }, [eventData.details]);
 
@@ -191,7 +191,7 @@ function CreateEvent(props) {
               type={"submit"}
               btnStyle={"formBtn cta_button"}
               variant={"primary"}
-              formValidation={formStatus.validateFormEmpty}
+              formValidation={validateFormEmpty}
               isLoading={formStatus.load}
               placeholder={
                 <div className="d-flex align-items-center">Post</div>
