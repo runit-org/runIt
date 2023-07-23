@@ -5,6 +5,7 @@ import { createNewUser } from "../../services/actions/securityActions";
 import { useNavigate } from "react-router-dom";
 import { FormButton } from "./utilities/auth-builder";
 import { ResponseItem } from "../../layouts/responseItems";
+import { useHandleChange } from "../../hooks/useHandleChange";
 
 function SignUp() {
   let navigate = useNavigate();
@@ -12,7 +13,7 @@ function SignUp() {
   const [load, setLoad] = useState(false);
   const [signUpStatus, setSignUpStatus] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
-  const [credentials, setCredentials] = useState({
+  const { formValue, handleFieldChange } = useHandleChange({
     username: "",
     email: "",
     password: "",
@@ -30,7 +31,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormSwitch(true);
-    dispatch(createNewUser(credentials, setLoad, navigate));
+    dispatch(createNewUser(formValue, setLoad, navigate));
   };
 
   useEffect(() => {
@@ -38,10 +39,6 @@ function SignUp() {
       setFormSwitch(false);
     }
   }, [signUpStatus, navigate, apiStatus]);
-
-  const handleChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
-  };
 
   return (
     <>
@@ -60,7 +57,7 @@ function SignUp() {
               <Form.Control
                 type="text"
                 name="username"
-                onChange={handleChange}
+                onChange={handleFieldChange}
                 required
               />
             </Form.Group>
@@ -75,7 +72,7 @@ function SignUp() {
               <Form.Control
                 type="email"
                 name="email"
-                onChange={handleChange}
+                onChange={handleFieldChange}
                 required
               />
             </Form.Group>
@@ -85,7 +82,7 @@ function SignUp() {
               <Form.Control
                 type="password"
                 name="password"
-                onChange={handleChange}
+                onChange={handleFieldChange}
                 pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
                 required
               />
@@ -98,7 +95,7 @@ function SignUp() {
               <Form.Control
                 type="password"
                 name="c_password"
-                onChange={handleChange}
+                onChange={handleFieldChange}
                 required
               />
             </Form.Group>

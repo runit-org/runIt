@@ -7,19 +7,21 @@ import { useLocation } from "react-router-dom";
 import { FormButton } from "./utilities/auth-builder";
 import { Eye, EyeSlash } from "../../layouts/icons";
 import { ResponseItem } from "../../layouts/responseItems";
+import { useHandleChange } from "../../hooks/useHandleChange";
 
 function Login() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: "",
-  });
   const [load, setLoad] = useState(false);
   const [signupData, setSignupData] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
   const [inputType, setInputType] = useState("password");
+
+  const { formValue, setFormValue, handleFieldChange } = useHandleChange({
+    username: "",
+    password: "",
+  });
 
   const { state } = useLocation();
 
@@ -27,13 +29,13 @@ function Login() {
     if (state) {
       const { id } = state;
       setSignupData(id.data.username);
-      setCredentials({ username: id.data.username });
+      setFormValue({ username: id.data.username });
     }
-  }, [state]);
+  }, [state, setFormValue]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login(credentials, navigate, setLoad));
+    dispatch(login(formValue, navigate, setLoad));
   };
 
   const handleInputType = () => {
@@ -43,10 +45,6 @@ function Login() {
   useEffect(() => {
     setFormSwitch(load);
   }, [load]);
-
-  const handleChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
-  };
 
   return (
     <>
@@ -75,11 +73,11 @@ function Login() {
               type="username"
               name="username"
               value={
-                Object.keys(credentials.username).length !== 0
-                  ? credentials.username
+                Object.keys(formValue.username).length !== 0
+                  ? formValue.username
                   : ""
               }
-              onChange={handleChange}
+              onChange={handleFieldChange}
               required
             />
           </Form.Group>
@@ -90,7 +88,7 @@ function Login() {
               <Form.Control
                 type={inputType}
                 name="password"
-                onChange={handleChange}
+                onChange={handleFieldChange}
                 required
               />
               <Button

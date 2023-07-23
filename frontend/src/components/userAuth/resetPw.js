@@ -6,10 +6,12 @@ import { Link } from "react-router-dom";
 import { ResponseItem } from "../../layouts/responseItems";
 
 import { FormButton } from "./utilities/auth-builder";
+import { useHandleChange } from "../../hooks/useHandleChange";
 
 function ResetPassword(props) {
   const dispatch = useDispatch();
-  const [credentials, setCredentials] = useState({
+
+  const { formValue, handleFieldChange } = useHandleChange({
     password: "",
     c_password: "",
     token: props.token,
@@ -20,17 +22,13 @@ function ResetPassword(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch(resetPw(credentials, setLoad));
+    dispatch(resetPw(formValue, setLoad));
   };
 
   useEffect(() => {
     setFormSwitch(load);
   }, [load]);
-
-  const handleChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
-  };
-
+  console.log(formValue);
   return (
     <fieldset disabled={formSwitch}>
       <Form
@@ -47,7 +45,7 @@ function ResetPassword(props) {
           <Form.Control
             type="password"
             name="password"
-            onChange={handleChange}
+            onChange={handleFieldChange}
             required
           />
         </Form.Group>
@@ -58,7 +56,7 @@ function ResetPassword(props) {
           <Form.Control
             type="password"
             name="c_password"
-            onChange={handleChange}
+            onChange={handleFieldChange}
             required
           />
         </Form.Group>

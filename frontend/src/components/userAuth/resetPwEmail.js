@@ -5,17 +5,20 @@ import { resetPwEmail } from "../../services/actions/securityActions";
 import { Link } from "react-router-dom";
 import { ResponseItem } from "../../layouts/responseItems";
 import { FormButton } from "./utilities/auth-builder";
+import { useHandleChange } from "../../hooks/useHandleChange";
 
 function ResetPasswordEmail() {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState({ email: "" });
+  const { formValue, handleFieldChange } = useHandleChange({
+    email: "",
+  });
   const [load, setLoad] = useState(false);
   const [formSwitch, setFormSwitch] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch(resetPwEmail({ email }, setLoad));
+    dispatch(resetPwEmail(formValue, setLoad));
   };
 
   useEffect(() => {
@@ -40,7 +43,8 @@ function ResetPasswordEmail() {
             <Form.Control
               className="p-2"
               type="email"
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              onChange={handleFieldChange}
               required
             />
           </Form.Group>
