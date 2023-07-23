@@ -10,77 +10,82 @@ import CTAButton from "../../layouts/ctaButton";
 import { MentionFilter } from "../../utilities/utility-service";
 import { usePageId } from "../../hooks/usePageId";
 import * as ResponseStatus from "../../services/constants/responseStatus";
+import { useHandleChange } from "../../hooks/useHandleChange";
 
 function CreateEvent(props) {
   const dispatch = useDispatch();
   const formRef = useRef(0);
-  const [title, setTitle] = useState("");
-  const [maxMembers, setMaxMembers] = useState("");
-  const [details, setDetails] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [load, setLoad] = useState(false);
-  const [validateFormEmpty, setValidateFormEmpty] = useState(false);
-  const [error, setError] = useState("");
 
-  const eventDate = new Date(date);
+  const initialState = {
+    title: "",
+    maxMember: 0,
+    details: "",
+    date: "",
+    time: "",
+  };
+
+  const { formValue, setFormValue, handleFieldChange } =
+    useHandleChange(initialState);
+
+  const [validateFormEmpty, setValidateFormEmpty] = useState(false);
+  const [formStatus, setFormStatus] = useState({
+    load: false,
+    error: "",
+  });
+
+  const eventDate = new Date(formValue.date);
 
   let pageId = usePageId();
 
   useEffect(() => {
-    if (details === "" || details === "<p><br></p>") {
+    if (!/\S/.test(formValue.details)) {
       setValidateFormEmpty(true);
     } else {
       setValidateFormEmpty(false);
     }
-  }, [details]);
+  }, [formValue.details]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const postData = {
-      title: title,
-      maxMember: maxMembers,
-      details: details,
+      ...formValue,
       year: eventDate.getFullYear(),
       month: eventDate.getMonth() + 1,
       day: eventDate.getDate(),
-      hour: time !== "" ? parseInt(time.split(":")[0]) : "",
-      minute: time !== "" ? parseInt(time.split(":")[1]) : "",
+      hour: formValue.time !== "" ? parseInt(formValue.time.split(":")[0]) : "",
+      minute:
+        formValue.time !== "" ? parseInt(formValue.time.split(":")[1]) : "",
     };
-    dispatch(createNewEvent(postData, setLoad, setError)).then(() => {
+    dispatch(createNewEvent(postData, setFormStatus)).then(() => {
       dispatch(getAllEvents(pageId));
-      emitter(MentionFilter(details));
+      emitter(MentionFilter(formValue.details));
     });
   };
 
   useEffect(() => {
-    if (error === ResponseStatus.OK) {
+    if (formStatus.error === ResponseStatus.OK) {
       formRef.current.reset();
-      setTitle("");
-      setDate("");
-      setTime("");
-      setDetails("");
-      setError("");
+      setFormValue(initialState);
+      setFormStatus({ error: "" });
     }
-  }, [error]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formStatus.error]);
 
   //data from suggestions
   useEffect(() => {
     if (Object.keys(props.suggestion).length !== 0) {
-      setTitle(`${props.suggestion.title} - ${props.suggestion.category}`);
-      setDetails(
-        `Location: ${props.suggestion.location} \nLink: ${props.suggestion.link}\n\n`
-      );
-      setDate(new Date(props.suggestion.time).toISOString().split("T")[0]);
-      setTime(
-        new Date(props.suggestion.time).toLocaleTimeString("en-US", {
+      setFormValue({
+        title: `${props.suggestion.title} - ${props.suggestion.category}`,
+        details: `Location: ${props.suggestion.location} \nLink: ${props.suggestion.link}\n\n`,
+        date: new Date(props.suggestion.time).toISOString().split("T")[0],
+        time: new Date(props.suggestion.time).toLocaleTimeString("en-US", {
           timeStyle: "short",
           hour12: false,
-        })
-      );
+        }),
+      });
     }
-  }, [props.suggestion]);
+  }, [props.suggestion, setFormValue]);
 
   return (
     <Card className="create_event-card">
@@ -101,9 +106,9 @@ function CreateEvent(props) {
                   <Form.Label className="m-1">Event Title</Form.Label>
                   <Form.Control
                     type="title"
-                    placeholder=""
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    name="title"
+                    value={formValue.title}
+                    onChange={handleFieldChange}
                     required
                   />
                 </Form.Group>
@@ -115,9 +120,9 @@ function CreateEvent(props) {
                   <Form.Label className="m-1">Size</Form.Label>
                   <Form.Control
                     type="number"
+                    name="maxMember"
                     className="mb-3"
-                    placeholder=""
-                    onChange={(e) => setMaxMembers(parseInt(e.target.value))}
+                    onChange={handleFieldChange}
                     min="2"
                     required
                   />
@@ -130,8 +135,9 @@ function CreateEvent(props) {
                   <Form.Control
                     type="time"
                     placeholder="Time"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
+                    name="time"
+                    value={formValue.time}
+                    onChange={handleFieldChange}
                     required
                   />
                 </Form.Group>
@@ -143,8 +149,9 @@ function CreateEvent(props) {
                   <Form.Control
                     type="date"
                     placeholder="Date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
+                    name="date"
+                    value={formValue.date}
+                    onChange={handleFieldChange}
                     min={
                       new Date(
                         Date.now() - new Date().getTimezoneOffset() * 60000
@@ -161,10 +168,11 @@ function CreateEvent(props) {
             <Form.Group>
               <Form.Control
                 spellCheck={true}
+                name="details"
                 placeholder="Write event details..."
                 as="textarea"
-                value={details}
-                onChange={(e) => setDetails(e.target.value)}
+                value={formValue.details}
+                onChange={handleFieldChange}
                 rows={4}
                 required
               />
@@ -172,13 +180,13 @@ function CreateEvent(props) {
           </div>
 
           <div className="d-flex justify-content-between mt-3">
-            <small className="text-danger">{error}</small>
+            <small className="text-danger">{formStatus.error}</small>
             <CTAButton
               type={"submit"}
               btnStyle={"formBtn cta_button"}
               variant={"primary"}
               formValidation={validateFormEmpty}
-              isLoading={load}
+              isLoading={formStatus.load}
               placeholder={
                 <div className="d-flex align-items-center">Post</div>
               }

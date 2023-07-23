@@ -5,17 +5,20 @@ import { createNewUser } from "../../services/actions/securityActions";
 import { useNavigate } from "react-router-dom";
 import { FormButton } from "./utilities/auth-builder";
 import { ResponseItem } from "../../layouts/responseItems";
+import { useHandleChange } from "../../hooks/useHandleChange";
 
 function SignUp() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  const [username, setUsername] = useState({});
-  const [email, setEmail] = useState({});
-  const [password, setPassword] = useState({});
-  const [c_password, setc_Password] = useState({});
   const [load, setLoad] = useState(false);
   const [signUpStatus, setSignUpStatus] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
+  const { formValue, handleFieldChange } = useHandleChange({
+    username: "",
+    email: "",
+    password: "",
+    c_password: "",
+  });
 
   var apiStatus = useSelector((securityReducer) => securityReducer.security);
 
@@ -28,14 +31,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormSwitch(true);
-    const userData = {
-      username: username,
-      email: email,
-      password: password,
-      c_password: c_password,
-    };
-
-    dispatch(createNewUser(userData, setLoad, navigate));
+    dispatch(createNewUser(formValue, setLoad, navigate));
   };
 
   useEffect(() => {
@@ -60,7 +56,8 @@ function SignUp() {
               <Form.Label className="text-muted small">Username</Form.Label>
               <Form.Control
                 type="text"
-                onChange={(e) => setUsername(e.target.value)}
+                name="username"
+                onChange={handleFieldChange}
                 required
               />
             </Form.Group>
@@ -74,7 +71,8 @@ function SignUp() {
               <Form.Label className="text-muted small">Email</Form.Label>
               <Form.Control
                 type="email"
-                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                onChange={handleFieldChange}
                 required
               />
             </Form.Group>
@@ -83,7 +81,8 @@ function SignUp() {
               <Form.Label className="text-muted small">Password</Form.Label>
               <Form.Control
                 type="password"
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                onChange={handleFieldChange}
                 pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
                 required
               />
@@ -95,7 +94,8 @@ function SignUp() {
               </Form.Label>
               <Form.Control
                 type="password"
-                onChange={(e) => setc_Password(e.target.value)}
+                name="c_password"
+                onChange={handleFieldChange}
                 required
               />
             </Form.Group>
