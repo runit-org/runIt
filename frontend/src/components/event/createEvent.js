@@ -10,6 +10,7 @@ import CTAButton from "../../layouts/ctaButton";
 import { MentionFilter } from "../../utilities/utility-service";
 import { usePageId } from "../../hooks/usePageId";
 import * as ResponseStatus from "../../services/constants/responseStatus";
+import { useHandleChange } from "../../hooks/useHandleChange";
 
 function CreateEvent(props) {
   const dispatch = useDispatch();
@@ -23,47 +24,49 @@ function CreateEvent(props) {
     time: "",
   };
 
-  const [eventData, setEventData] = useState(initialState);
+  const { formValue, setFormValue, handleFieldChange } =
+    useHandleChange(initialState);
+
   const [validateFormEmpty, setValidateFormEmpty] = useState(false);
   const [formStatus, setFormStatus] = useState({
     load: false,
     error: "",
   });
 
-  const eventDate = new Date(eventData.date);
+  const eventDate = new Date(formValue.date);
 
   let pageId = usePageId();
 
   useEffect(() => {
-    if (!/\S/.test(eventData.details)) {
+    if (!/\S/.test(formValue.details)) {
       setValidateFormEmpty(true);
     } else {
       setValidateFormEmpty(false);
     }
-  }, [eventData.details]);
+  }, [formValue.details]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const postData = {
-      ...eventData,
+      ...formValue,
       year: eventDate.getFullYear(),
       month: eventDate.getMonth() + 1,
       day: eventDate.getDate(),
-      hour: eventData.time !== "" ? parseInt(eventData.time.split(":")[0]) : "",
+      hour: formValue.time !== "" ? parseInt(formValue.time.split(":")[0]) : "",
       minute:
-        eventData.time !== "" ? parseInt(eventData.time.split(":")[1]) : "",
+        formValue.time !== "" ? parseInt(formValue.time.split(":")[1]) : "",
     };
     dispatch(createNewEvent(postData, setFormStatus)).then(() => {
       dispatch(getAllEvents(pageId));
-      emitter(MentionFilter(eventData.details));
+      emitter(MentionFilter(formValue.details));
     });
   };
 
   useEffect(() => {
     if (formStatus.error === ResponseStatus.OK) {
       formRef.current.reset();
-      setEventData(initialState);
+      setFormValue(initialState);
       setFormStatus({ error: "" });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,7 +75,7 @@ function CreateEvent(props) {
   //data from suggestions
   useEffect(() => {
     if (Object.keys(props.suggestion).length !== 0) {
-      setEventData({
+      setFormValue({
         title: `${props.suggestion.title} - ${props.suggestion.category}`,
         details: `Location: ${props.suggestion.location} \nLink: ${props.suggestion.link}\n\n`,
         date: new Date(props.suggestion.time).toISOString().split("T")[0],
@@ -82,16 +85,7 @@ function CreateEvent(props) {
         }),
       });
     }
-  }, [props.suggestion]);
-
-  const handleChange = (e) => {
-    let targetValue = e.target.value;
-
-    if (e.target.name === "maxMember") {
-      targetValue = parseInt(targetValue);
-    }
-    setEventData({ ...eventData, [e.target.name]: targetValue });
-  };
+  }, [props.suggestion, setFormValue]);
 
   return (
     <Card className="create_event-card">
@@ -113,8 +107,8 @@ function CreateEvent(props) {
                   <Form.Control
                     type="title"
                     name="title"
-                    value={eventData.title}
-                    onChange={handleChange}
+                    value={formValue.title}
+                    onChange={handleFieldChange}
                     required
                   />
                 </Form.Group>
@@ -128,7 +122,7 @@ function CreateEvent(props) {
                     type="number"
                     name="maxMember"
                     className="mb-3"
-                    onChange={handleChange}
+                    onChange={handleFieldChange}
                     min="2"
                     required
                   />
@@ -142,8 +136,8 @@ function CreateEvent(props) {
                     type="time"
                     placeholder="Time"
                     name="time"
-                    value={eventData.time}
-                    onChange={handleChange}
+                    value={formValue.time}
+                    onChange={handleFieldChange}
                     required
                   />
                 </Form.Group>
@@ -156,8 +150,8 @@ function CreateEvent(props) {
                     type="date"
                     placeholder="Date"
                     name="date"
-                    value={eventData.date}
-                    onChange={handleChange}
+                    value={formValue.date}
+                    onChange={handleFieldChange}
                     min={
                       new Date(
                         Date.now() - new Date().getTimezoneOffset() * 60000
@@ -177,8 +171,8 @@ function CreateEvent(props) {
                 name="details"
                 placeholder="Write event details..."
                 as="textarea"
-                value={eventData.details}
-                onChange={handleChange}
+                value={formValue.details}
+                onChange={handleFieldChange}
                 rows={4}
                 required
               />

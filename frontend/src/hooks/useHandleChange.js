@@ -4,16 +4,12 @@ export function useHandleChange(initialValue) {
   const [formValue, setFormValue] = useState(initialValue);
 
   const handleChange = (e) => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.value });
+    let targetValue = e.target.value;
+    if (e.target.name === "maxMember") {
+      targetValue = parseInt(targetValue);
+    }
+    setFormValue({ ...formValue, [e.target.name]: targetValue });
   };
-
-  /* return [
-    formValue,
-    setFormValue,
-    function (e) {
-      setFormValue({ ...formValue, [e.target.name]: e.target.value });
-    },
-  ]; */
 
   return {
     formValue,
