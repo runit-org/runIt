@@ -249,7 +249,7 @@ class UserTestClass(TestCase):
 
         # Send a different vote to update the vote
         data = {
-            'status': UserVoteStatus.get.DOWNVOTE.value
+            'status': UserVoteStatus.get.UPVOTE.value
         }
         response = c.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
