@@ -227,34 +227,35 @@ class UserTestClass(TestCase):
         self.assertEqual('Vote removed', response.json()['message'])
         self.assertEqual(0, self.getUserTotalVotes(targetVoteUser.id))
 
-    def test_update_vote_on_user_success(self):
-        targetVoteUser = User.objects.create(
-            username = 'voteduser',
-            email    = 'voteduser@email.com',
-            password = self.newUser['password']
-        )
-        url = self.baseUrl + 'vote/' + str(targetVoteUser.id) + '/'
+    # REMOVED DOWNVOTE
+    # def test_update_vote_on_user_success(self):
+    #     targetVoteUser = User.objects.create(
+    #         username = 'voteduser',
+    #         email    = 'voteduser@email.com',
+    #         password = self.newUser['password']
+    #     )
+    #     url = self.baseUrl + 'vote/' + str(targetVoteUser.id) + '/'
 
-        # Authenticate user-------------------------------------------
-        self.createNewUser()
-        user = User.objects.get(username=self.newUser['username'])
-        c = APIClient()
-        c.force_authenticate(user=user)
-        # ------------------------------------------------------------
+    #     # Authenticate user-------------------------------------------
+    #     self.createNewUser()
+    #     user = User.objects.get(username=self.newUser['username'])
+    #     c = APIClient()
+    #     c.force_authenticate(user=user)
+    #     # ------------------------------------------------------------
 
-        data = {
-            'status': UserVoteStatus.get.UPVOTE.value
-        }
-        response = c.post(url, data, format='json')
+    #     data = {
+    #         'status': UserVoteStatus.get.UPVOTE.value
+    #     }
+    #     response = c.post(url, data, format='json')
 
-        # Send a different vote to update the vote
-        data = {
-            'status': UserVoteStatus.get.UPVOTE.value
-        }
-        response = c.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual('Vote updated', response.json()['message'])
-        self.assertEqual(-1, self.getUserTotalVotes(targetVoteUser.id))
+    #     # Send a different vote to update the vote
+    #     data = {
+    #         'status': UserVoteStatus.get.DOWNVOTE.value
+    #     }
+    #     response = c.post(url, data, format='json')
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #     self.assertEqual('Vote updated', response.json()['message'])
+    #     self.assertEqual(-1, self.getUserTotalVotes(targetVoteUser.id))
 
     def test_vote_user_invalid_vote_status_fails(self):
         targetVoteUser = User.objects.create(
