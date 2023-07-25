@@ -2,7 +2,10 @@ from base.models import Event, EventMember
 from base.serializers import EventSerializer
 from base.views.baseViews import response, error
 from base.traits import NotifyUser
-from base.enums import EventMemberStatus
+from base.enums import EventMemberStatus, EventStatus
+
+from datetime import datetime
+from django.utils import timezone
 
 def checkEventId(pk):
     checkEventExist = Event.objects.filter(id = pk)
@@ -27,6 +30,12 @@ def checkEventFull(event):
         return False
     return True
 
+def checkOngoingEvent(event):
+    currentTime = timezone.make_aware(datetime.now())
+    if currentTime >= event.startDate:
+        return True
+    return False
+
 def request(request):
     data = request.data
     user = request.user
@@ -44,6 +53,9 @@ def request(request):
 
     if user.id == event.user.id:
         return error('You cannot request to join your own event')
+    
+    if checkOngoingEvent(event):
+        return error('Event has already started')
 
     checkMemberStatus = checkEventMemberStatus(data['eventId'], user.id)
 
