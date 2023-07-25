@@ -146,6 +146,27 @@ class EventMemberTestClass(TestCase):
         self.assertFalse(response.status_code == status.HTTP_200_OK)
         self.assertTrue(len(EventMember.objects.filter(user=user, event=eventObject)) < 1)
 
+    def test_request_join_an_ongoing_event_fails(self):
+        eventObject = self.generateNewEventObject()
+        eventObject.startDate = timezone.make_aware(datetime.datetime.now())
+        eventObject.save()
+        url = self.baseUrl + 'member/requestJoin/'
+
+        # The authenticated user wouldn't be the event owner
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+        
+        data = {
+            "eventId" : eventObject.id
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+        self.assertTrue(len(EventMember.objects.filter(user=user, event=eventObject)) < 1)
+
     def test_request_join_a_full_event_fails(self):
         eventObject = self.generateNewEventObject()
         url = self.baseUrl + 'member/requestJoin/'
