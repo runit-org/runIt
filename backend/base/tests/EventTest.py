@@ -59,7 +59,6 @@ class EventTestClass(TestCase):
             user          = newRandomUser,
             title         = randomEventData['title'],
             maxMember     = randomEventData['maxMember'],
-            userName      = newRandomUser.username,
             details       = randomEventData['details'],
             year          = randomEventData['year'],
             month         = randomEventData['month'],
@@ -160,7 +159,7 @@ class EventTestClass(TestCase):
 
         response = c.get(url, {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(eventObject.userName, response.json()['data']['userName'])
+        self.assertEqual(eventObject.user.username, response.json()['data']['userName'])
         self.assertEqual(eventObject.id, response.json()['data']['id'])
 
     def test_view_event_full_status_true_success(self):
@@ -229,7 +228,7 @@ class EventTestClass(TestCase):
 
         # The authenticated user must be the event creator
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
@@ -261,7 +260,7 @@ class EventTestClass(TestCase):
 
         # The authenticated user must be the event creator
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
@@ -276,7 +275,7 @@ class EventTestClass(TestCase):
 
         # The authenticated user must be the event creator
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
@@ -292,7 +291,7 @@ class EventTestClass(TestCase):
 
         # The authenticated user must be the event creator
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
@@ -309,7 +308,7 @@ class EventTestClass(TestCase):
 
         # The authenticated user must be the event creator
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
@@ -346,7 +345,7 @@ class EventTestClass(TestCase):
 
         # The authenticated user must be the event creator
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
@@ -362,7 +361,7 @@ class EventTestClass(TestCase):
 
         # The authenticated user must be the event creator
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
@@ -379,7 +378,7 @@ class EventTestClass(TestCase):
 
         # The authenticated user must be the event creator
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
@@ -427,7 +426,7 @@ class EventTestClass(TestCase):
 
         # The authenticated user must be the event creator
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
@@ -447,7 +446,7 @@ class EventTestClass(TestCase):
 
         # The authenticated user must be the event creator
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
@@ -473,7 +472,7 @@ class EventTestClass(TestCase):
 
         # The authenticated user must be the event creator
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------

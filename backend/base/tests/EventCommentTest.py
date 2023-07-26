@@ -59,7 +59,6 @@ class EventCommentTestClass(TestCase):
             user          = newRandomUser,
             title         = randomEventData['title'],
             maxMember     = randomEventData['maxMember'],
-            userName      = newRandomUser.username,
             details       = randomEventData['details'],
             year          = randomEventData['year'],
             month         = randomEventData['month'],
@@ -77,7 +76,7 @@ class EventCommentTestClass(TestCase):
 
         # Authenticated user is event owner
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
@@ -122,7 +121,7 @@ class EventCommentTestClass(TestCase):
 
         # Authenticated user is event owner
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
@@ -210,7 +209,7 @@ class EventCommentTestClass(TestCase):
 
         # Authenticated user is event owner
         # Authenticate user-------------------------------------------
-        user = User.objects.get(username=eventObject.userName)
+        user = User.objects.get(username=eventObject.user.username)
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
