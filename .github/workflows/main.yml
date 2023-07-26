@@ -21,7 +21,6 @@ jobs:
         with:
           # Disable running of tests within install job
           runTests: false
-          working-directory: ./frontend
           build: npm run build
 
       - name: Save build folder
@@ -29,10 +28,13 @@ jobs:
         with:
           name: build
           if-no-files-found: error
-          path: build
+          path: frontend/build
 
   cypress-run:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
     needs: install
     container: cypress/browsers:node16.16.0-chrome107-ff107-edge
     steps:
@@ -48,7 +50,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-          working-directory: ./frontend
           start: npm run dev & npx wait-on http://localhost:3000
           component: true
           browser: chrome
