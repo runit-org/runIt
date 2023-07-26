@@ -72,7 +72,6 @@ def create(request):
         user        = user,
         title       = data['title'],
         maxMember   = data['maxMember'],
-        userName    = user.username,
         details     = data['details'],
         year        = data['year'],
         month       = data['month'],

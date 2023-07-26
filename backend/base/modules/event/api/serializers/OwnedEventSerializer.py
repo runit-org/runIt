@@ -9,6 +9,7 @@ from datetime import datetime
 from django.utils import timezone
 
 class OwnedEventSerializer(serializers.ModelSerializer):
+    userName = serializers.SerializerMethodField(read_only=True)
     humanTimeDiffCreatedAt = serializers.SerializerMethodField(read_only=True)
     eventDateString = serializers.SerializerMethodField(read_only=True)
     eventDate = serializers.SerializerMethodField(read_only=True)
@@ -21,6 +22,9 @@ class OwnedEventSerializer(serializers.ModelSerializer):
         model = Event
         fields = ['userName', 'title', 'maxMember', 'details', 'createdAt', 'humanTimeDiffCreatedAt', 'eventDateString', 
                   'eventDate', 'timeToEvent', 'eventStatus', 'eventTags', 'fullStatus']
+
+    def get_userName(self, obj):
+        return obj.user.username
 
     def get_humanTimeDiffCreatedAt(self, obj):
         return GetHumanTimeDifferenceToNow.get(obj.createdAt)

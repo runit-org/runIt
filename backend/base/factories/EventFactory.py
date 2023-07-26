@@ -24,7 +24,3 @@ class EventFactory(factory.Factory):
     @factory.lazy_attribute
     def user(self):
         return UserFactory.create()
-
-    @factory.lazy_attribute
-    def userName(self):
-        return self.user.username

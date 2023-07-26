@@ -20,5 +20,4 @@ def create_individual_event(userId):
 
     event = Event.objects.create(**eventData)
     event.user = user
-    event.userName = user.username
     event.save()

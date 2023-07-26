@@ -76,7 +76,6 @@ class UserTestClass(TestCase):
             user          = newRandomUser,
             title         = randomEventData['title'],
             maxMember     = randomEventData['maxMember'],
-            userName      = newRandomUser.username,
             details       = randomEventData['details'],
             year          = randomEventData['year'],
             month         = randomEventData['month'],
