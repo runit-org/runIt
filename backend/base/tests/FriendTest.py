@@ -23,7 +23,7 @@ class FriendTestClass(TestCase):
     def setUp(self):
         self.newUser = {
             "name": "test user",
-            "username": "test",
+            "username": "testuser",
             "email": "test@email.com",
             "password": "password123*"
         }
