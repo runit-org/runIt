@@ -15,7 +15,7 @@ class AuthTestClass(TestCase):
     def setUp(self):
         self.newUser = {
             "name": "test user",
-            "username": "test",
+            "username": "testuser",
             "email": "test@email.com",
             "password": "password123*"
         }
@@ -143,6 +143,36 @@ class AuthTestClass(TestCase):
 
         self.createNewUser()
         data = self.newUser
+        data['password'] = 'password123'
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_register_user_username_too_short_fails(self):
+        c = Client()
+        url = self.baseUrl + 'register/'
+
+        data = self.newUser
+        data['username'] = 'test'
+        data['password'] = 'password123'
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_register_user_username_too_long_fails(self):
+        c = Client()
+        url = self.baseUrl + 'register/'
+
+        data = self.newUser
+        data['username'] = 'a' * 31
+        data['password'] = 'password123'
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_register_user_invalid_email_format_fails(self):
+        c = Client()
+        url = self.baseUrl + 'register/'
+
+        data = self.newUser
+        data['email'] = 'test@'
         data['password'] = 'password123'
         response = c.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
