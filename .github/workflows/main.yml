@@ -9,6 +9,9 @@ on:
 jobs:
   install:
     runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./frontend
     steps:
       - name: Checkout
         uses: actions/checkout@v3
