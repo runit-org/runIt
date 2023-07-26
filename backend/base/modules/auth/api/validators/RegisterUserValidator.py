@@ -7,6 +7,10 @@ def validate(request):
     if data.get('email') == None or data.get('username') == None or data.get('password') == None or data.get('c_password') == None:
         return validationError('Required fields not met')
     
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(email_regex, data['email']):
+        return validationError('Invalid email format')
+    
     if len(data['username']) < 5:
         return validationError('Username is too short (5 chars min)')
 
