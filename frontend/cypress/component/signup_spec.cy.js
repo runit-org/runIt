@@ -25,6 +25,9 @@ describe("Signup form", () => {
       cy.findByLabelText(/^password/i).type(user.password);
       cy.findByLabelText(/confirm password/i).type(user.c_password);
       cy.findByRole("button", { name: /continue/i }).click();
+      cy.wait("@signup").then((interception) => {
+        expect(interception.response.statusCode).equal(200);
+      });
     });
   });
 });

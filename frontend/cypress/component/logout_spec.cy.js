@@ -25,8 +25,11 @@ describe("Logout", () => {
       cy.findByRole("textbox").type(user.username);
       cy.findByLabelText(/password/i).type(user.password);
       cy.findByRole("button", { name: /login/i }).click();
-      cy.wait("@login");
-      cy.getCookie("token").should("exist");
+      cy.wait("@login").then((interception) => {
+        cy.getCookie("token").should("exist");
+        expect(interception.response.statusCode).equal(200);
+      });
+
       //logout
       cy.mount(<Route path={"/"} element={<Header />} />);
       cy.intercept("POST", "/api/auth/token/refresh/", {
@@ -36,10 +39,11 @@ describe("Logout", () => {
         statusCode: 200,
       }).as("logout");
       cy.findByRole("button", { name: /img/i }).click();
-
       cy.get('[data-testid="logout-btn"]').click();
-      cy.wait("@logout");
-      cy.getCookie("token").should("to.be.null");
+      cy.wait("@logout").then((interception) => {
+        cy.getCookie("token").should("to.be.null");
+        expect(interception.response.statusCode).equal(200);
+      });
     });
   });
 });

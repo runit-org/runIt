@@ -25,6 +25,9 @@ describe("Login form", () => {
       cy.findByRole("textbox").type(user.username);
       cy.findByLabelText(/password/i).type(user.password);
       cy.findByRole("button", { name: /login/i }).click();
+      cy.wait("@login").then((interception) => {
+        expect(interception.response.statusCode).equal(200);
+      });
     });
   });
 });

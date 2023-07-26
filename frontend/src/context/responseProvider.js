@@ -17,7 +17,7 @@ function ResponseProvider({ children }) {
   const reducer = useSelector((errorReducer) => errorReducer.errors.errors);
 
   useEffect(() => {
-    if (reducer.data) {
+    if (reducer && reducer.data) {
       setResponse({
         info: reducer.data.info ? reducer.data.info : {},
         status: reducer.status,

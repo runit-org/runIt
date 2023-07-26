@@ -2,6 +2,6 @@
   "name": "testuser",
   "username": "testuser",
   "email": "user@email.com",
-  "password": "password123",
-  "c_password": "password123"
+  "password": "Password123!",
+  "c_password": "Password123!"
 }
