@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: ["main"]
 
+env:
+  CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+  CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORDING_KEY }}
+
 jobs:
   install:
     runs-on: ubuntu-22.04
