@@ -1,4 +1,4 @@
-name: Cypress CI
+name: Cypress Tests
 
 on:
   push:
@@ -51,6 +51,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
+          record: true
           parallel: true
           working-directory: ./frontend
           start: npm run dev & npx wait-on http://localhost:3000
