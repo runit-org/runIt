@@ -248,7 +248,7 @@ class AuthTestClass(TestCase):
         # Check if access token is returned from the refresh token api
         self.assertTrue('access' in response.json())
 
-    def test_fresh_token_empty_fields_fails(self):
+    def test_refresh_token_empty_fields_fails(self):
         c = Client()
         url = self.baseUrl + 'token/refresh/'
         loginUrl = self.baseUrl + 'login/'
