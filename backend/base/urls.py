@@ -26,6 +26,7 @@ urlpatterns = [
     path('user/profile/<str:username>/', UserViews.userProfile, name="get_user_profile"),
     path('user/me/', UserViews.currentUserProfile, name="get_current_user_profile"),
     path('user/updateStatusMessage/', UserViews.updateStatusMessage, name="update_my_status_message"),
+    path('user/changePassword/', UserViews.changePassword, name="change_my_password"),
 
     path('event/all/', EventViews.allEvent, name="all_event"),
     path('event/create/', EventViews.createEvent, name="create_event"),
