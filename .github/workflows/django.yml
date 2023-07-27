@@ -24,6 +24,12 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
+
+    - name: Rename settings.py
+      run: |
+        rm backend/settings.py
+        cp backend/settings_testing.py backend/settings.py
+        
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
