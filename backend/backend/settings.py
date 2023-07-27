@@ -141,15 +141,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'runit',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-    }
-}
+# CONFIGURE THIS LOCALLY backend/settings_local.py:
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'runit',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#     }
+# }
 
 
 # Password validation
