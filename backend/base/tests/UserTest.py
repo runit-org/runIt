@@ -6,12 +6,13 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 from rest_framework.test import force_authenticate
-from base.enums import UserVoteStatus, EventMemberStatus
+from base.enums import UserVoteStatus, EventMemberStatus, Utils
 import random
 import string
 from django.utils import timezone
 import datetime
 from dateutil import parser
+from django.contrib.auth.hashers import check_password
 
 class UserTestClass(TestCase):
     newUser = None
@@ -296,3 +297,81 @@ class UserTestClass(TestCase):
         response = c.put(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(message, UserExtend.objects.get(userId=user.id).statusMessage)
+
+    def test_change_password_success(self):
+        user = self.generateNewUserObject()
+        url = self.baseUrl + 'changePassword/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        newPassword = 'newPassword123*'
+        data = {
+            'current_password': Utils.get.TEST_USER_PASSWORD.value,
+            'password': newPassword,
+            'c_password': newPassword
+        }
+        response = c.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(check_password(newPassword, User.objects.get(id=user.id).password))
+
+    def test_change_password_wrong_current_password_fails(self):
+        user = self.generateNewUserObject()
+        url = self.baseUrl + 'changePassword/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        newPassword = 'newPassword123*'
+        data = {
+            'current_password': Utils.get.TEST_USER_PASSWORD.value + 'password',
+            'password': newPassword,
+            'c_password': newPassword
+        }
+        response = c.put(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+        self.assertFalse(check_password(newPassword, User.objects.get(id=user.id).password))
+
+    def test_change_password_with_empty_array_fails(self):
+        user = self.generateNewUserObject()
+        url = self.baseUrl + 'changePassword/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        newPassword = 'newPassword123*'
+        data = {}
+        response = c.put(url, data, format='json')
+        self.assertTrue(response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_change_password_confirm_password_does_not_match_fails(self):
+        user = self.generateNewUserObject()
+        url = self.baseUrl + 'changePassword/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        newPassword = 'newPassword123*'
+        data = {
+            'current_password': Utils.get.TEST_USER_PASSWORD.value + 'password',
+            'password': newPassword,
+            'c_password': newPassword + 'password'
+        }
+        response = c.put(url, data, format='json')
+        self.assertTrue(response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY)
