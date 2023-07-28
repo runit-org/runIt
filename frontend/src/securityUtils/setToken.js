@@ -4,6 +4,12 @@ import jwt_decode from "jwt-decode";
 import { GET_ERRORS, SET_CURRENT_USER } from "../services/constants/types";
 import Cookies from "js-cookie";
 
+axios.defaults.baseURL = `${
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_PROD
+    : process.env.REACT_APP_DEV
+}/api`;
+
 const setToken = (token) => {
   if (token) {
     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
@@ -14,12 +20,9 @@ const setToken = (token) => {
 
 const refreshToken = async () => {
   if (Cookies.get("token")) {
-    const ref = await axios.post(
-      "http://localhost:8000/api/auth/token/refresh/",
-      {
-        refresh: Cookies.get("token"),
-      }
-    );
+    const ref = await axios.post("/auth/token/refresh/", {
+      refresh: Cookies.get("token"),
+    });
     return ref;
   } else {
     store.dispatch({
