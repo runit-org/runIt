@@ -7,11 +7,17 @@ import {
 } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 
+axios.defaults.baseURL = `${
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_PROD
+    : process.env.REACT_APP_DEV
+}/api`;
+
 export const getUserProfile = (userName) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`http://localhost:8000/api/user/profile/${userName}/`)
+      .get(`/user/profile/${userName}/`)
       .then((res) => {
         dispatch({
           type: GET_USER_PROFILE,
@@ -31,7 +37,7 @@ export const getCurrentUserProfile = () => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`http://localhost:8000/api/user/me/`)
+      .get(`/user/me/`)
       .then((res) => {
         dispatch({
           type: GET_CURRENT_USER_PROFILE,
@@ -55,7 +61,7 @@ export const vote = (id, postData) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .post(`http://localhost:8000/api/user/vote/${id}/`, postData)
+      .post(`/user/vote/${id}/`, postData)
       .then((res) => {
         console.log(res);
       })
@@ -73,7 +79,7 @@ export const userStatus = (postData, setLoad, setError) => async (dispatch) => {
     setToken(ref.data.access);
     setLoad(true);
     axios
-      .put(`http://localhost:8000/api/user/updateStatusMessage/`, postData)
+      .put(`/user/updateStatusMessage/`, postData)
       .then((res) => {
         setLoad(false);
         setError(res.data);
