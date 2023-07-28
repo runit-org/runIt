@@ -32,7 +32,6 @@ const refreshToken = async () => {
 const getAccessToken = async () => {
   await refreshToken()
     .then((res) => {
-      console.log(res);
       setToken(res.data.access);
       const decoded_token = jwt_decode(res.data.access);
       store.dispatch({

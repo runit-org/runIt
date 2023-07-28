@@ -6,13 +6,17 @@ import {
   GET_DAY_EVENTS,
 } from "../constants/types";
 
+axios.defaults.baseURL = `${
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_PROD
+    : process.env.REACT_APP_DEV
+}/api`;
+
 export const getMonthlyEvents = (id, month, year) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(
-        `http://localhost:8000/api/event/getMonthYear/${id}/${month}-${year}/`
-      )
+      .get(`/event/getMonthYear/${id}/${month}-${year}/`)
       .then((res) => {
         dispatch({
           type: GET_MONTHLY_EVENTS,
@@ -32,9 +36,7 @@ export const getDayEvents = (id, date, month, year) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(
-        `http://localhost:8000/api/event/getPerDate/${id}/${date}-${month}-${year}/`
-      )
+      .get(`/event/getPerDate/${id}/${date}-${month}-${year}/`)
       .then((res) => {
         dispatch({
           type: GET_DAY_EVENTS,

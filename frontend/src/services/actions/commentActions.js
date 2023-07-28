@@ -3,6 +3,12 @@ import { GET_ALL_COMMENTS, GET_ERRORS } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 import * as ResponseStatus from "../constants/responseStatus";
 
+axios.defaults.baseURL = `${
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_PROD
+    : process.env.REACT_APP_DEV
+}/api`;
+
 export const createComment =
   (id, postData, setLoad, setError) => async (dispatch) => {
     await refreshToken().then((ref) => {
@@ -10,7 +16,7 @@ export const createComment =
 
       setLoad(true);
       axios
-        .post(`http://localhost:8000/api/event/comment/create/${id}/`, postData)
+        .post(`/event/comment/create/${id}/`, postData)
         .then((res) => {
           if (res.status === ResponseStatus.OK) {
             setLoad(false);
@@ -38,7 +44,7 @@ export const removeComment = (id, setLoad, setError) => async (dispatch) => {
 
     setLoad(true);
     axios
-      .delete(`http://localhost:8000/api/event/comment/delete/${id}/`)
+      .delete(`/event/comment/delete/${id}/`)
       .then((res) => {
         if (res.status === ResponseStatus.OK) {
           setLoad(false);
@@ -66,7 +72,7 @@ export const updateComment = (id, postData) => async (dispatch) => {
     setToken(ref.data.access);
 
     axios
-      .put(`http://localhost:8000/api/event/comment/update/${id}/`, postData)
+      .put(`/event/comment/update/${id}/`, postData)
       .then((res) => {
         dispatch({
           type: GET_ERRORS,
@@ -86,7 +92,7 @@ export const getAllComments = (id, page) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`http://localhost:8000/api/event/comment/show/${id}/?page=${page}`)
+      .get(`/event/comment/show/${id}/?page=${page}`)
       .then((res) => {
         dispatch({
           type: GET_ALL_COMMENTS,
@@ -106,7 +112,7 @@ export const likeUnlike = (id) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .post(`http://localhost:8000/api/event/comment/likeUnlike/${id}/`)
+      .post(`/event/comment/likeUnlike/${id}/`)
       .then((res) => {
         // console.log(res);
       })
