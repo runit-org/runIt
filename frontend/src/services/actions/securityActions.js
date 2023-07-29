@@ -78,7 +78,7 @@ export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
       const refToken = res.data.refresh;
       const accessToken = res.data.access;
       //store token in local storage
-      Cookies.set("token", refToken,);
+      Cookies.set("token", refToken, { sameSite: "strict" });
       //set token in header
       setToken(accessToken);
       //get data from response
