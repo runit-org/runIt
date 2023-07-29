@@ -7,6 +7,7 @@ import requests
 import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 
@@ -45,7 +46,9 @@ def get(request, page):
     options = Options()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
-    driver = webdriver.Chrome(chrome_options=options)
+
+    # driver = webdriver.Chrome(chrome_options=options)
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     driver.get(url_to_scrape)
     time.sleep(2)
     page = driver.page_source
