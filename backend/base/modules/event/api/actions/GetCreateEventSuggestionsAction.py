@@ -1,6 +1,7 @@
 from base.models import Event, EventMember
 from base.serializers import EventSerializer, EventMemberSerializer
 from base.views.baseViews import response, error
+from backend import settings_local
 
 from bs4 import BeautifulSoup
 import requests
@@ -48,7 +49,11 @@ def get(request, page):
     options.add_argument('--disable-gpu')
 
     # driver = webdriver.Chrome(chrome_options=options)
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    # driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    # driver = webdriver.Chrome(executable_path=settings_local.webdriver_executable_path, options=options)
+
+    driver = webdriver.Chrome(executable_path=settings_local.WEBDRIVER_EXECUTABLE_PATH, options=options)
+    
     driver.get(url_to_scrape)
     time.sleep(2)
     page = driver.page_source
