@@ -199,5 +199,3 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': 120,
     },
 }
-
-WEBDRIVER_EXECUTABLE_PATH = ''

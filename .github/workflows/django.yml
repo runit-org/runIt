@@ -29,7 +29,11 @@ jobs:
       run: |
         rm backend/settings.py
         cp backend/settings_testing.py backend/settings.py
-        
+
+    - name: Create settings_local.py
+      run: |
+        echo "WEBDRIVER_EXECUTABLE_PATH = ''" > backend/settings_local.py
+
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
