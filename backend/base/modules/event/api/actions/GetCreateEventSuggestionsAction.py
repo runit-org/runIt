@@ -52,7 +52,10 @@ def get(request, page):
     # driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     # driver = webdriver.Chrome(executable_path=settings_local.webdriver_executable_path, options=options)
 
-    driver = webdriver.Chrome(executable_path=settings_local.WEBDRIVER_EXECUTABLE_PATH, options=options)
+    if settings_local.WEBDRIVER_EXECUTABLE_PATH != '':
+        driver = webdriver.Chrome(executable_path=settings_local.WEBDRIVER_EXECUTABLE_PATH, options=options)
+    else:
+        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     
     driver.get(url_to_scrape)
     time.sleep(2)
