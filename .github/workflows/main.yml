@@ -17,6 +17,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Create .env
+        run: |
+          cp .env.example .env
+
       - name: Cypress install
         uses: cypress-io/github-action@v5
         with:
@@ -45,6 +49,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Create .env
+        run: |
+          cp .env.example .env
 
       - name: Download the build folder
         uses: actions/download-artifact@v3
