@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modalItem";
 import { usePageId } from "../../hooks/usePageId";
@@ -54,14 +54,7 @@ function RemoveComment(props) {
         </div>
 
         <div className="mt-3">
-          <Button
-            type="submit"
-            onClick={
-              error.success === "true"
-                ? () => btnRef.current.setModalShow()
-                : null
-            }
-          >
+          <Button type="submit" onClick={() => btnRef.current.setModalShow()}>
             {(() => {
               if (load) {
                 return <Loading />;

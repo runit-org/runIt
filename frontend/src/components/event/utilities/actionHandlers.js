@@ -42,7 +42,7 @@ export const SingleEventHandler = (params, pageId) => {
 
   var event = useSelector((securityReducer) => securityReducer.events.events);
   var comments = useSelector(
-    (commentReducer) => commentReducer.comments.events
+    (commentReducer) => commentReducer.comments.comments
   );
 
   useEffect(() => {

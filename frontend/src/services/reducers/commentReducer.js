@@ -1,7 +1,7 @@
 import { GET_ALL_COMMENTS } from "../constants/types";
 
 const initialState = {
-  events: {},
+  comments: {},
 };
 
 export default function setComments(state = initialState, action) {
@@ -9,7 +9,7 @@ export default function setComments(state = initialState, action) {
     case GET_ALL_COMMENTS:
       return {
         ...state,
-        events: action.payload,
+        comments: action.payload,
       };
 
     default:
