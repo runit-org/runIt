@@ -24,11 +24,16 @@ auth_patterns = [
 
 user_patterns = [
     path('all/', UserViews.getAllUsers, name='all_users'),
-    path('vote/<str:userId>/', UserVoteViews.vote, name="vote_user"),
+    # path('vote/<str:userId>/', UserVoteViews.vote, name="vote_user"),
     path('profile/<str:username>/', UserViews.userProfile, name="get_user_profile"),
     path('me/', UserViews.currentUserProfile, name="get_current_user_profile"),
     path('updateStatusMessage/', UserViews.updateStatusMessage, name="update_my_status_message"),
     path('changePassword/', UserViews.changePassword, name="change_my_password"),
+]
+
+user_vote_patterns = [
+    path('<str:userId>/', UserVoteViews.vote, name="vote_user"),
+    path('', UserVoteViews.listVotedUsers, name="list_voted_users"),
 ]
 
 event_patterns = [
@@ -83,6 +88,7 @@ feedback_patterns = [
 urlpatterns = [
     path('auth/', include(auth_patterns)),
     path('user/', include(user_patterns)),
+    path('user/vote/', include(user_vote_patterns)),
     path('event/', include(event_patterns)),
     path('event/member/', include(event_member_patterns)),
     path('event/comment/', include(event_comment_patterns)),
