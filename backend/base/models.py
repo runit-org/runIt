@@ -11,4 +11,4 @@ from base.modules.notification.data.Notification import Notification
 from base.modules.userVote.data.UserVote import UserVote
 from base.modules.friend.data.Friend import Friend
 from base.modules.friend.data.FriendRequest import FriendRequest
-
+from base.modules.feedback.data.Feedback import Feedback
