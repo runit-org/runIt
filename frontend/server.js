@@ -1,4 +1,4 @@
-require("“dotenv”").config();
+require("dotenv-extended").load();
 const express = require("express");
 const app = express();
 const http = require("http");
@@ -6,7 +6,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: process.env.REACT_APP_SOCKET_SERVER,
+    origin: process.env.SOCKET_SERVER,
     methods: ["GET", "POST"],
   },
 });
