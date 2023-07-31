@@ -4,7 +4,6 @@ import { Card, ListGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../services/actions/securityActions";
-import { Logout } from "../../layouts/icons";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import { getCurrentUserProfile } from "../../services/actions/userActions";
 
@@ -41,7 +40,7 @@ function SingleClick() {
   return (
     <>
       {currUserProfile ? (
-        <Card className="current-signedin" style={{ width: "24rem" }}>
+        <Card className="current-signedin">
           <ListGroup variant="flush">
             <ListGroup.Item className="p-0">
               <Link to="/posts">
@@ -63,9 +62,10 @@ function SingleClick() {
                 }}
                 to="#"
               >
-                <div className="p-3 text-muted">
-                  <Logout />
-                  Logout
+                <div className="d-flex align-items-center userInfo-div p-3">
+                  <small className="d-block text-muted ">
+                    Sign in using another account
+                  </small>
                 </div>
               </Link>
             </ListGroup.Item>
