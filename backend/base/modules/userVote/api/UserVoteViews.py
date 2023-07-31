@@ -5,6 +5,7 @@ from base.modules.userVote.api.validators import (
 )
 from base.modules.userVote.api.actions import (
     VoteUserAction,
+    ListVotedUsersAction,
 )
 
 @api_view(['POST'])
@@ -14,3 +15,8 @@ def vote(request, userId):
         return VoteUserValidator.validate(request)
     
     return VoteUserAction.vote(request, userId)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def listVotedUsers(request):
+    return ListVotedUsersAction.get(request)
