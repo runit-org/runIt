@@ -6,6 +6,7 @@ from base.modules.user.api import UserViews
 from base.modules.auth.api import AuthViews
 from base.modules.userVote.api import UserVoteViews
 from base.modules.friend.api import FriendViews
+from base.modules.feedback.api import FeedbackViews
 
 
 from rest_framework_simplejwt.views import (
@@ -62,4 +63,6 @@ urlpatterns = [
     path('friends/show/', FriendViews.showFriends, name="show_current_user_friends"),
     path('friends/showRequests/', FriendViews.showFriendRequests, name="show_current_user_friend_requests"),
     path('friends/delete/<str:userId>/', FriendViews.deleteFriendship, name="delete_friendship"),
+
+    path('feedback/create/', FeedbackViews.sendFeedback, name="send_feedback"),
 ]

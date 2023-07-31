@@ -8,10 +8,9 @@ class Feedback(models.Model):
     # Whenever the user that created this product got deleted, we set it to null so the product dont just dissapear
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
-    rating = models.IntegerField(null=True, blank=True)
     details = models.TextField(null=True, blank=True)
 
     createdAt = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return self.title
+        return self.details
