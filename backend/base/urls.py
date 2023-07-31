@@ -24,7 +24,6 @@ auth_patterns = [
 
 user_patterns = [
     path('all/', UserViews.getAllUsers, name='all_users'),
-    # path('vote/<str:userId>/', UserVoteViews.vote, name="vote_user"),
     path('profile/<str:username>/', UserViews.userProfile, name="get_user_profile"),
     path('me/', UserViews.currentUserProfile, name="get_current_user_profile"),
     path('updateStatusMessage/', UserViews.updateStatusMessage, name="update_my_status_message"),
