@@ -2,11 +2,17 @@ import axios from "axios";
 import { GET_ERRORS, GET_ALL_NOTIFS } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 
+axios.defaults.baseURL = `${
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_PROD
+    : process.env.REACT_APP_DEV
+}/api`;
+
 export const getNotifications = () => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`http://localhost:8000/api/notifications/all/`)
+      .get(`/notifications/all/`)
       .then((res) => {
         dispatch({
           type: GET_ALL_NOTIFS,
@@ -26,7 +32,7 @@ export const notificationRead = (id) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .patch(`http://localhost:8000/api/notifications/read/${id}/`)
+      .patch(`/notifications/read/${id}/`)
       .then((res) => {
         dispatch(getNotifications());
       })
@@ -43,7 +49,7 @@ export const notificationRead_all = () => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .patch(`http://localhost:8000/api/notifications/readAll/`)
+      .patch(`/notifications/readAll/`)
       .then((res) => {
         dispatch(getNotifications());
       })

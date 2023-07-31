@@ -10,9 +10,15 @@ import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import * as ResponseStatus from "../constants/responseStatus";
 
+axios.defaults.baseURL = `${
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_PROD
+    : process.env.REACT_APP_DEV
+}/api`;
+
 export const getUsers = () => async (dispatch) => {
   await axios
-    .get(`http://localhost:8000/api/user/all/`)
+    .get(`/user/all/`)
     .then((res) => {
       dispatch({
         type: GET_USERS,
@@ -31,7 +37,7 @@ export const createNewUser =
   (userData, setLoad, navigate) => async (dispatch) => {
     setLoad(true);
     await axios
-      .post("http://localhost:8000/api/auth/register/", userData)
+      .post("/auth/register/", userData)
       .then((res) => {
         if (res.status === ResponseStatus.OK) {
           navigate("/", {
@@ -66,13 +72,13 @@ export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
   //post => login request
   setLoad(true);
   await axios
-    .post("http://localhost:8000/api/auth/login/", LoginRequest)
+    .post("/auth/login/", LoginRequest)
     .then((res) => {
       //extract token from data
       const refToken = res.data.refresh;
       const accessToken = res.data.access;
       //store token in local storage
-      Cookies.set("token", refToken, { secure: true, sameSite: "strict" });
+      Cookies.set("token", refToken, { sameSite: "strict" });
       //set token in header
       setToken(accessToken);
       //get data from response
@@ -108,7 +114,7 @@ export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
 export const logout = (refToken, navigate) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
-    return axios.post("http://localhost:8000/api/auth/logout/", refToken);
+    return axios.post("/auth/logout/", refToken);
   });
 
   setToken(false);
@@ -130,7 +136,7 @@ export const logout = (refToken, navigate) => async (dispatch) => {
 export const resetPwEmail = (userData, setLoad) => async (dispatch) => {
   setLoad(true);
   await axios
-    .post("http://localhost:8000/api/auth/sendResetPasswordEmail/", userData)
+    .post("/auth/sendResetPasswordEmail/", userData)
     .then((res) => {
       if (res.status === ResponseStatus.OK) {
         setLoad(false);
@@ -154,7 +160,7 @@ export const resetPwEmail = (userData, setLoad) => async (dispatch) => {
 export const resetPw = (userData, setLoad) => async (dispatch) => {
   setLoad(true);
   await axios
-    .post(`http://localhost:8000/api/auth/resetPassword/`, userData)
+    .post(`/auth/resetPassword/`, userData)
     .then((res) => {
       if (res.status === ResponseStatus.OK) {
         setLoad(false);

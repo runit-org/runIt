@@ -9,11 +9,17 @@ import {
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 import * as ResponseStatus from "../constants/responseStatus";
 
+axios.defaults.baseURL = `${
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_PROD
+    : process.env.REACT_APP_DEV
+}/api`;
+
 export const getSingleEvent = (id) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`http://localhost:8000/api/event/view/${id}/`)
+      .get(`/event/view/${id}/`)
       .then((res) => {
         dispatch({
           type: GET_SINGLE_EVENT,
@@ -33,7 +39,7 @@ export const getAllEvents = (id) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`http://localhost:8000/api/event/all/?page=${id}`)
+      .get(`/event/all/?page=${id}`)
       .then((res) => {
         dispatch({
           type: GET_ALL_EVENTS,
@@ -53,7 +59,7 @@ export const affiliatedEvents = (id) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`http://localhost:8000/api/event/affiliated/?page=${id}`)
+      .get(`/event/affiliated/?page=${id}`)
       .then((res) => {
         dispatch({
           type: GET_AFFILIATED_EVENTS,
@@ -74,7 +80,7 @@ export const createNewEvent = (postData, setFormStatus) => async (dispatch) => {
     setToken(ref.data.access);
     setFormStatus({ load: true });
     axios
-      .post("http://localhost:8000/api/event/create/", postData)
+      .post("/event/create/", postData)
       .then((res) => {
         if (res.status === ResponseStatus.OK) {
           setFormStatus({ load: false, error: res.status });
@@ -98,7 +104,7 @@ export const updateEvent = (id, postData) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .put(`http://localhost:8000/api/event/update/${id}/`, postData)
+      .put(`/event/update/${id}/`, postData)
       .then((res) => {
         dispatch({
           type: GET_ERRORS,
@@ -120,7 +126,7 @@ export const updateStatus =
       setToken(ref.data.access);
       setLoad(true);
       axios
-        .patch(`http://localhost:8000/api/event/updateStatus/${id}/`, postData)
+        .patch(`/event/updateStatus/${id}/`, postData)
         .then((res) => {
           if (res.status === ResponseStatus.OK) {
             setLoad(false);
@@ -150,7 +156,7 @@ export const requestToJoin =
 
       setLoad(true);
       axios
-        .post("http://localhost:8000/api/event/member/requestJoin/", postData)
+        .post("/event/member/requestJoin/", postData)
         .then((res) => {
           if (res.status === ResponseStatus.OK) {
             setLoad(false);
@@ -179,7 +185,7 @@ export const removeEvent =
 
       setLoad(true);
       axios
-        .delete(`http://localhost:8000/api/event/delete/${id}/`)
+        .delete(`/event/delete/${id}/`)
         .then((res) => {
           if (res.status === ResponseStatus.OK) {
             setLoad(false);
@@ -207,14 +213,12 @@ export const getEventMembers = (id) => async (dispatch) => {
   await refreshToken()
     .then((ref) => {
       setToken(ref.data.access);
-      axios
-        .get(`http://localhost:8000/api/event/member/getMembers/${id}/`)
-        .then((res) => {
-          dispatch({
-            type: GET_EVENT_MEMBERS,
-            payload: res.data,
-          });
+      axios.get(`/event/member/getMembers/${id}/`).then((res) => {
+        dispatch({
+          type: GET_EVENT_MEMBERS,
+          payload: res.data,
         });
+      });
     })
     .catch((error) => {
       dispatch({
@@ -229,7 +233,7 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
     setToken(ref.data.access);
     setLoad(true);
     axios
-      .post("http://localhost:8000/api/event/member/changeStatus/", postData)
+      .post("/event/member/changeStatus/", postData)
       .then((res) => {
         if (res.status === ResponseStatus.OK) {
           setLoad(false);

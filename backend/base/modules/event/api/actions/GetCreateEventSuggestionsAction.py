@@ -1,12 +1,14 @@
 from base.models import Event, EventMember
 from base.serializers import EventSerializer, EventMemberSerializer
 from base.views.baseViews import response, error
+from backend import settings_local
 
 from bs4 import BeautifulSoup
 import requests
 import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 
@@ -45,7 +47,18 @@ def get(request, page):
     options = Options()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
-    driver = webdriver.Chrome(chrome_options=options)
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+
+    # driver = webdriver.Chrome(chrome_options=options)
+    # driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    # driver = webdriver.Chrome(executable_path=settings_local.webdriver_executable_path, options=options)
+
+    if settings_local.WEBDRIVER_EXECUTABLE_PATH != '':
+        driver = webdriver.Chrome(executable_path=settings_local.WEBDRIVER_EXECUTABLE_PATH, options=options)
+    else:
+        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    
     driver.get(url_to_scrape)
     time.sleep(2)
     page = driver.page_source
