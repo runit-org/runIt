@@ -5,3 +5,4 @@ from base.tests.EventCommentTest import EventCommentTestClass
 from base.tests.EventMemberTest import EventMemberTestClass
 from base.tests.NotificationTest import NotificationTestClass
 from base.tests.FriendTest import FriendTestClass
+from base.tests.FeedbackTest import FeedbackTestClass
