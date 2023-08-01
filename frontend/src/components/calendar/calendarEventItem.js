@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card } from "react-bootstrap";
 import { Calendar, Geomark } from "../../layouts/icons";
 import { DisplayImage } from "../../layouts/userDisplayImg";
+import { DayEventsHandler } from "./utilities/actionHandler";
+import { CalendarContext } from "../../context/calendarProvider";
 
 function CalendarEventItem(props) {
+  const { currentDay } = useContext(CalendarContext);
+
+  const calendarEvents = DayEventsHandler(
+    props.userId,
+    currentDay.getDate(),
+    currentDay.getMonth() + 1,
+    currentDay.getFullYear()
+  );
+
   return (
     <>
-      {props.calendarEvents.length > 0 ? (
-        props.calendarEvents.map((item, i) => {
+      {calendarEvents && calendarEvents.length > 0 ? (
+        calendarEvents.map((item, i) => {
           return (
             <Card key={i} className="calender-event-card">
               <Card.Body>

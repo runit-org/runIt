@@ -56,7 +56,60 @@ function App() {
                 </UserContext>
               </ProtectedRoute>
             }
-          />
+          >
+            <Route
+              path="calendar"
+              element={
+                <ProtectedRoute>
+                  <UserContext>
+                    <CalendarContext>
+                      <Header />
+                      <ProfileDash />
+                    </CalendarContext>
+                  </UserContext>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="settings"
+              element={
+                <ProtectedRoute>
+                  <UserContext>
+                    <CalendarContext>
+                      <Header />
+                      <ProfileDash />
+                    </CalendarContext>
+                  </UserContext>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="history"
+              element={
+                <ProtectedRoute>
+                  <UserContext>
+                    <CalendarContext>
+                      <Header />
+                      <ProfileDash />
+                    </CalendarContext>
+                  </UserContext>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="feedback-support"
+              element={
+                <ProtectedRoute>
+                  <UserContext>
+                    <CalendarContext>
+                      <Header />
+                      <ProfileDash />
+                    </CalendarContext>
+                  </UserContext>
+                </ProtectedRoute>
+              }
+            />
+          </Route>
 
           <Route
             path="/event/:id"

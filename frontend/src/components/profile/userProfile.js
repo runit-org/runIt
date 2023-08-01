@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useSearchParams } from "react-router-dom";
 import { UserContext } from "../../context/userProvider";
 import { DisplayImage } from "../../layouts/userDisplayImg";
@@ -7,7 +7,7 @@ import { UserCardInfo, VoteBadge } from "./utilities/profileBuilder.js";
 import Vote from "./vote";
 import { Username } from "../../layouts/username";
 
-function UserProfile(props) {
+function UserProfile() {
   const [searchParams] = useSearchParams();
   const param = searchParams.get("user");
   const userContext = useContext(UserContext);
@@ -15,12 +15,6 @@ function UserProfile(props) {
   const user = UserProfileHandler(
     param ? param : userContext.currentUser.username
   );
-
-  useEffect(() => {
-    if (props.userData && user) {
-      props.userData(user);
-    }
-  }, [user, props]);
 
   return (
     <>
