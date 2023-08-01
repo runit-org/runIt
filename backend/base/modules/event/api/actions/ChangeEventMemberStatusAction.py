@@ -73,6 +73,7 @@ def updateStatus(request):
             if (data['status'] != EventMemberStatus.get.DELETED.value):
                 return error('This user has been rejected. You may only delete their request')
             
+        if data['status'] == EventMemberStatus.get.DELETED.value:
             eventMember.delete()
         else:
             eventMember.status = data['status']
