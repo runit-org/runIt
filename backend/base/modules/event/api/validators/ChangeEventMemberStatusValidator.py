@@ -12,7 +12,7 @@ def validate(request):
     if data.get('status') == None:
         return validationError('Please provide a status')
 
-    if data['status'] != 1 and data['status'] != 2:
-        return validationError('Invalid status code (1=accept, 2=reject)')
+    if data['status'] != 1 and data['status'] != 2 and data['status'] != 3:
+        return validationError('Invalid status code (1=accept, 2=reject, 3=delete)')
 
     return None
