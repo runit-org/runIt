@@ -62,22 +62,39 @@ def updateStatus(request):
         return error('No existing join request record from this user')
 
     if checkMemberStatus == EventMemberStatus.get.PENDING.value or checkMemberStatus == EventMemberStatus.get.REJECTED.value:
-        # If the user have a pending request or was rejected, event creator can approve/re-approve it
+        """ 
+        If the user have a pending request, event creator can approve/reject/delete the request. 
+        If the request has been rejected, event owner may only remove the request
+        """
         findEventMember = EventMember.objects.filter(eventId=data['eventId'], userId = data['userId'])
 
         eventMember = findEventMember[0]
-        eventMember.status = data['status']
-        eventMember.save()
+        if checkMemberStatus == EventMemberStatus.get.REJECTED.value:
+            if (data['status'] != EventMemberStatus.get.DELETED.value):
+                return error('This user has been rejected. You may only delete their request')
+            
+        if data['status'] == EventMemberStatus.get.DELETED.value:
+            eventMember.delete()
+        else:
+            eventMember.status = data['status']
+            eventMember.save()
 
         link = '/event/' + str(event.id)
+
         if (data['status']) == EventMemberStatus.get.ACCEPTED.value:
             notifContent = 'Your request to join event <b>' + event.title + '</b> has been ' + EventMemberStatus.get.ACCEPTED.name
             NotifyUser.notify(data['userId'], notifContent, link)
             return response('Request approved')
 
-        else:
+        elif (data['status']) == EventMemberStatus.get.REJECTED.value:
             notifContent = 'Your request to join event <b>' + event.title + '</b> has been ' + EventMemberStatus.get.REJECTED.name
             NotifyUser.notify(data['userId'], notifContent, link)
             return response('Request rejected')
+        
+        else:
+            notifContent = 'Your request to join event <b>' + event.title + '</b> has been removed by the event creator. You may re-apply if you wish.'
+            NotifyUser.notify(data['userId'], notifContent, link)
+            return response('Request removed')
+            
     else:
         return error('This user has already been accepted into the event')
