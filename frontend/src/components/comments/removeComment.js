@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modalItem";
 import { usePageId } from "../../hooks/usePageId";
