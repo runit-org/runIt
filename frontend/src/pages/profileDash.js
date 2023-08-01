@@ -9,6 +9,7 @@ import { NavigationObj } from "../utilities/navigationObj";
 import { useLocation, useSearchParams } from "react-router-dom";
 import UserProfileHandler from "../components/profile/utilities/actionHandlers";
 import { UserContext } from "../context/userProvider";
+import CustomTable from "../layouts/customTable";
 
 function ProfileDash() {
   const { currentDay } = useContext(CalendarContext);
