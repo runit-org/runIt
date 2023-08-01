@@ -377,6 +377,64 @@ class EventMemberTestClass(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(EventMember.objects.get(user=member1, event=eventObject).status == EventMemberStatus.get.ACCEPTED.value)
 
+    def test_remove_pending_event_member_request_success(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/changeStatus/'
+
+        # Authenticated user is event owner
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=eventObject.user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        member1 = self.generateNewUserObject()
+        EventMember.objects.create(
+            user = member1,
+            userId = member1.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.PENDING.value
+        )
+
+        data = {
+            "eventId" : eventObject.id,
+            "userId" : member1.id,
+            "status" : EventMemberStatus.get.DELETED.value
+        }
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(len(EventMember.objects.filter(user=member1, event=eventObject)) == 0)
+
+    def test_approve_event_member_request_on_previously_rejected_user_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'member/changeStatus/'
+
+        # Authenticated user is event owner
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=eventObject.user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        member1 = self.generateNewUserObject()
+        EventMember.objects.create(
+            user = member1,
+            userId = member1.id,
+            event = eventObject,
+            eventId = eventObject.id,
+            status = EventMemberStatus.get.REJECTED.value
+        )
+
+        data = {
+            "eventId" : eventObject.id,
+            "userId" : member1.id,
+            "status" : EventMemberStatus.get.ACCEPTED.value
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+        self.assertTrue(EventMember.objects.get(user=member1, event=eventObject).status == EventMemberStatus.get.REJECTED.value)
+
     def test_change_event_member_status_with_empty_data_array_fails(self):
         eventObject = self.generateNewEventObject()
         url = self.baseUrl + 'member/changeStatus/'
