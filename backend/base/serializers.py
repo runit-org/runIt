@@ -16,3 +16,5 @@ from base.modules.eventComment.api.serializers.EventCommentSerializer import Eve
 from base.modules.eventComment.api.serializers.AllEventCommentSerializer import AllEventCommentSerializer
 
 from base.modules.friend.api.serializers.FriendRequestsSerializer import FriendRequestsSerializer
+
+from base.modules.userVote.api.serializers.ListVotedUsersSerializer import ListVotedUsersSerializer

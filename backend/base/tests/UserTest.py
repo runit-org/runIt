@@ -279,6 +279,28 @@ class UserTestClass(TestCase):
         self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
         self.assertEqual(0, self.getUserTotalVotes(targetVoteUser.id))
 
+    def test_show_voted_users_success(self):
+        url = self.baseUrl + 'vote/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        votedUser = self.generateNewUserObject()
+        UserVote.objects.create(
+            votedUserId = votedUser.id,
+            voterId = user.id,
+            status = UserVoteStatus.get.UPVOTE.value
+        )
+
+        response = c.get(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.json()['count'] == 1)
+        self.assertEqual(response.json()['results'][0]['userId'], votedUser.id)
+
     def test_update_my_status_message_success(self):
         user = self.generateNewUserObject()
         url = self.baseUrl + 'updateStatusMessage/'
