@@ -466,6 +466,44 @@ class EventTestClass(TestCase):
         # Check if the user gets three events (2 owned + 1 joined)
         self.assertEqual(3, response.json()['count'])
 
+    def test_get_user_past_events_success(self):
+        # Create 2 event objects under the same user
+        eventObject = self.generateNewEventObject()
+        eventObject2 = self.generateNewEventObject()
+        eventObject2.user = eventObject.user
+        
+        # Set status to finished
+        eventObject.status = EventStatus.get.FINISHED.value
+        eventObject2.status = EventStatus.get.FINISHED.value
+
+        eventObject.save()
+        eventObject2.save()
+        url = self.baseUrl + 'affiliated/?filter=status-' + str(EventStatus.get.FINISHED.value)
+
+        # The authenticated user must be the event creator
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=eventObject.user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        # Create an event member object with this user being assigned to a different event
+        eventObjectAnother = self.generateNewEventObject()
+        eventObjectAnother.status = EventStatus.get.FINISHED.value
+        eventObjectAnother.save()
+        EventMember.objects.create(
+            userId = user.id,
+            user = user,
+            eventId = eventObjectAnother.id,
+            event = eventObjectAnother,
+            status = EventMemberStatus.get.ACCEPTED.value,
+        )
+
+        response = c.get(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Check if the user gets three events (2 owned + 1 joined)
+        self.assertEqual(3, response.json()['count'])
+
     def test_event_owner_make_announcement_success(self):
         eventObject = self.generateNewEventObject()
         url = self.baseUrl + 'announce/' + str(eventObject.id) + '/'
