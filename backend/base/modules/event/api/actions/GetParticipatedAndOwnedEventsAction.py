@@ -5,7 +5,7 @@ from base.views.baseViews import response, error, paginate
 from base.enums import EventMemberStatus, PaginationSizes
 
 def validateFilter(filterField):
-    allowedFilters = ['title', 'userName', 'maxMember', 'createdAt']
+    allowedFilters = ['title', 'maxMember', 'createdAt', 'status']
     if filterField not in allowedFilters:
         return False
     return True
@@ -33,8 +33,8 @@ def filter(request):
         filterFieldContains = filterField + '__icontains'
         eventsFiltered = Event.objects.filter(**{filterFieldContains: filterValue})
         for eachEvent in eventsFiltered:
-            if (eachEvent in participatedEventDatas) or (eachEvent.user == user):
-                affiliatedEventsFiltered = affiliatedEventsFiltered | Event.objects.filter(id = eachEvent.eventId)
+            if participatedEventDatas.filter(event=eachEvent).exists() or eachEvent.user == user:
+                affiliatedEventsFiltered = affiliatedEventsFiltered | Event.objects.filter(id = eachEvent.id)
 
         return affiliatedEventsFiltered
 
