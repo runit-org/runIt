@@ -77,14 +77,14 @@
   max-width: fit-content !important;
 }
 
-.dropdown-toggle.btn {
+.event-card_dash .dropdown-toggle.btn {
   padding: 0;
   justify-content: center;
   background-color: transparent;
   border: none;
 }
 
-.dropdown-toggle::after {
+.event-card_dash .dropdown-toggle::after {
   display: none !important;
 }
 .event-card div[aria-labelledby="dropdown-basic"] button {

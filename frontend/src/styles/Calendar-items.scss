@@ -1,42 +1,48 @@
 @import "index.scss";
 
-.calender-event-card {
-  background-color: $primary-light !important;
+.calender_events-table {
+  border: 1px solid #dee2e6 !important;
+  overflow: hidden;
   border-radius: 8px !important;
-  margin-top: 20px;
+}
+.calender_events-table table {
+  margin-bottom: 0 !important;
 }
 
-.calender-event-card .card-body {
-  display: flow-root;
-  margin: 0 20px 0 20px;
+.calender_events-table th {
+  background-color: $theme-light !important;
+  font-weight: 600;
+  font-size: 14px;
 }
 
-.calender-event-card .row {
-  padding: 15px;
+.calender_events-table tbody tr:hover td {
+  background-color: $theme-light;
 }
 
-.calender-event-card .row .col-1 {
-  display: flex;
-  align-items: center;
+.calender_events-table tbody tr:nth-last-of-type(1) {
+  border-bottom: transparent;
+}
+.calender_events-table .badge {
+  background-color: $theme !important;
+  padding: 10px;
 }
 
-.calender-event-card img {
-  width: 3.5rem;
-  width: 45px;
-  border-radius: 4px !important;
+.calender_events-table .table-content {
+  padding: 5px 2px 5px 2px;
 }
 
-.calender-event-card .details_textarea {
-  display: flex;
-  flex-direction: row;
+.calender_events-table .table-content h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 0;
 }
-
-.calender-event-card .details_textarea span:nth-child(2) {
-  padding-left: 10px;
-  margin-left: 10px;
-  border-left: 1px solid #d1d5db;
+.calender_events-table .table-content h4 a {
+  color: $primary-dark;
+  &:hover {
+    color: #0d6efd;
+  }
 }
-
-.calender-event-card .details_textarea span svg {
-  margin: 2.8px 5px 0 0;
+.calender_events-table .dropdown button {
+  border: 1px solid #dee2e6;
+  color: $primary-dark;
 }

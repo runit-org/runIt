@@ -9,7 +9,7 @@ import { NavigationObj } from "../utilities/navigationObj";
 import { useLocation, useSearchParams } from "react-router-dom";
 import UserProfileHandler from "../components/profile/utilities/actionHandlers";
 import { UserContext } from "../context/userProvider";
-import CustomTable from "../layouts/customTable";
+import { SectionHeader } from "../layouts/sectionHeader.js";
 
 function ProfileDash() {
   const { currentDay } = useContext(CalendarContext);
@@ -28,12 +28,9 @@ function ProfileDash() {
         return {
           center: (
             <>
-              {" "}
-              <div className="ps-1">
-                <p className="fw-bold m-0">
-                  {param.username}'s events on {currentDay.toLocaleDateString()}
-                </p>
-              </div>
+              <SectionHeader>
+                {param.username}'s events on {currentDay.toLocaleDateString()}
+              </SectionHeader>
               <CalendarEventItem userId={param.id} />
             </>
           ),

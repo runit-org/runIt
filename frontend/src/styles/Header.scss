@@ -54,6 +54,10 @@ a.dropdown-item:hover {
   background-color: $secondary-light;
 }
 
+.navbar .dropdown-toggle::after {
+  display: none !important;
+}
+
 .navbar .button-wrapper {
   background-color: transparent !important;
   cursor: auto !important;

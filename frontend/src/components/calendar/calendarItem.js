@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { ChevronLeft, ChevronRight } from "../../layouts/icons";
 import Days from "./days";
 import { MonthlyEventsHandler } from "./utilities/actionHandler";
-import { Months, WeekDays } from "./utilities/calendarBuilder";
 import { CalendarContext } from "../../context/calendarProvider";
+import { Months, WeekDays } from "../../utilities/utility-service";
 
 function Calendar(props) {
   var days = WeekDays();

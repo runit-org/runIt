@@ -49,16 +49,6 @@
   max-width: fit-content !important;
 }
 
-.dropdown-toggle.btn {
-  padding: 0;
-  justify-content: center;
-  background-color: transparent;
-  border: none;
-}
-
-.dropdown-toggle::after {
-  display: none !important;
-}
 .comment-item div[aria-labelledby="dropdown-basic"] button {
   width: 100%;
   &:hover {
