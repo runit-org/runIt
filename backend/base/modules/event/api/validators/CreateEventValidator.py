@@ -51,12 +51,12 @@ def validate(request):
 
     eventDate = datetime(data['year'], data['month'], data['day'], data['hour'], data['minute'])
 
-    # if eventDate < datetime.now():
-    #     return validationError('Event date must be in the future!!!')
+    if eventDate < datetime.now():
+        return validationError('Event date must be in the future!!!')
 
     differenceToNowSeconds = (eventDate - datetime.now()).total_seconds()
 
-    # if differenceToNowSeconds < 3600:
-    #     return validationError('Event must be at least an hour from now')
+    if differenceToNowSeconds < 3600:
+        return validationError('Event must be at least an hour from now')
 
     return None
