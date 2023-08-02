@@ -1,15 +1,13 @@
 import "./styles/App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Header from "./layouts/header";
 import Main from "./pages/main";
-import { getAccessToken } from "./securityUtils/setToken";
 import React, { lazy, Suspense } from "react";
 import { ProtectedRoute } from "./routes/protectedRoute";
 import { Spinner } from "react-bootstrap";
 import UserContext from "./context/userProvider";
 import SecurityContext from "./context/securityProvider";
-import Cookies from "js-cookie";
 import CalendarContext from "./context/calendarProvider.js";
 import { RoutesContainer } from "./routes/routesContainer";
 
@@ -18,12 +16,6 @@ const SingleEventDash = lazy(() => import("./pages/singleEventDash"));
 const EventsDash = lazy(() => import("./pages/eventsDash"));
 
 function App() {
-  const token = Cookies.get("token");
-
-  if (token) {
-    getAccessToken();
-  }
-
   return (
     <Suspense
       fallback={
@@ -79,12 +71,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-          {token ? (
-            <Route path="*" element={<Navigate to="/posts" />} />
-          ) : (
-            <Route path="*" element={<Navigate to="/" />} />
-          )}
         </Routes>
       </RoutesContainer>
     </Suspense>
