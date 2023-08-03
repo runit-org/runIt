@@ -3,7 +3,7 @@ from base.views.baseViews import response, error
 from django.contrib.auth.hashers import make_password
 from base.serializers import UserSerializer
 from base.mail.AuthMail import userRegistered
-import SendEmailOTP
+from base.modules.auth.api.actions import SendEmailOTP
 from base.traits import NotifyUser
 
 def sendNotification(user):

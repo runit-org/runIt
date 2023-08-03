@@ -13,18 +13,15 @@ def generateOTP():
     return ''.join(random.choice('0123456789') for _ in range(6))
 
 def send(user):
-    newUser = True
-    if EmailVerify.objects.filter(user=user).exists():
-        newUser = False
 
     token = generateOTP()
 
-    emailVerify = EmailVerify.objects.get_or_create(user=user)
+    emailVerify, created = EmailVerify.objects.get_or_create(user=user)
     emailVerify.createdAt = timezone.make_aware(datetime.now())
     emailVerify.token = token
     emailVerify.save()
 
-    if newUser:
+    if created:
         userRegistered(
             user.username,
             token,
