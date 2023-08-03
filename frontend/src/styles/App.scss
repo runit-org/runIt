@@ -8,7 +8,6 @@
 @import "Comment.scss";
 @import "Suggested.scss";
 @import "Calendar.scss";
-@import "Calendar-items.scss";
 
 /*------General Components------*/
 html,
@@ -423,6 +422,54 @@ div.content {
 /*------Breadcrumb------*/
 .breadcrumb :not(.breadcrumb-item.active) {
   color: $theme !important;
+}
+
+/*------Table------*/
+.custom-table {
+  border: 1px solid #dee2e6 !important;
+  overflow: hidden;
+  border-radius: 8px !important;
+}
+.custom-table table {
+  margin-bottom: 0 !important;
+}
+
+.custom-table th {
+  background-color: $theme-light !important;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.custom-table tbody tr:hover td {
+  background-color: $theme-light;
+}
+
+.custom-table tbody tr:nth-last-of-type(1) {
+  border-bottom: transparent;
+}
+.custom-table .badge {
+  background-color: $theme !important;
+  padding: 10px;
+}
+
+.custom-table .table-content {
+  padding: 5px 2px 5px 2px;
+}
+
+.custom-table .table-content h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.custom-table .table-content h4 a {
+  color: $primary-dark;
+  &:hover {
+    color: #0d6efd;
+  }
+}
+.custom-table .dropdown button {
+  border: 1px solid #dee2e6;
+  color: $primary-dark;
 }
 
 /*------Loaders------*/

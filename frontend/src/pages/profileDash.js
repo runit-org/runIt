@@ -18,9 +18,7 @@ function ProfileDash() {
   const [searchParams] = useSearchParams();
   const param = searchParams.get("user");
   const { currentUser } = useContext(UserContext);
-  const user = UserProfileHandler(
-    param ? param : currentUser.currentUser.username
-  );
+  const user = UserProfileHandler(param ? param : currentUser.username);
 
   const renderSwitch = (param) => {
     switch (true) {
@@ -72,7 +70,13 @@ function ProfileDash() {
         <div className="sidebar">
           <div className="sidebar-wrapper">
             <div className="sidebar_left">
-              <VerticalNav navObj={NavigationObj(user).profileNav} />
+              <VerticalNav
+                navObj={
+                  currentUser.username === param
+                    ? NavigationObj(user).profileNavCurrUser
+                    : NavigationObj(user).profileNav
+                }
+              />
             </div>
           </div>
         </div>

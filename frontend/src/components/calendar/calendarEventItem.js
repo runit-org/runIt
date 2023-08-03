@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { Badge, Table } from "react-bootstrap";
+import { Badge } from "react-bootstrap";
 import { DayEventsHandler } from "./utilities/actionHandler";
 import { CalendarContext } from "../../context/calendarProvider";
 import SortDropdown from "../../layouts/sortDropdown";
 import { Link } from "react-router-dom";
+import { CustomTable, CustomTableCells } from "../../layouts/customTable";
 
 function CalendarEventItem(props) {
   const { currentDay } = useContext(CalendarContext);
@@ -20,45 +21,39 @@ function CalendarEventItem(props) {
   );
 
   return (
-    <div className="calender_events-table">
-      <Table responsive>
-        <thead>
-          <tr>
-            <th colSpan={3}>
-              <div className="d-flex justify-content-between align-items-center mx-2">
-                {calendarEvents ? <>{calendarEvents.length} events</> : ""}
-                <SortDropdown />
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {calendarEvents && calendarEvents.length > 0 ? (
+    <>
+      <CustomTable
+        headerItems={
+          <th colSpan={3}>
+            <div className="d-flex justify-content-between align-items-center mx-2">
+              {calendarEvents ? <>{calendarEvents.length} events</> : ""}
+              <SortDropdown />
+            </div>
+          </th>
+        }
+        tableItems={
+          calendarEvents && calendarEvents.length > 0 ? (
             <>
               {calendarEvents.map((item, i) => {
                 return (
                   <tr key={i} className="table_row">
-                    <td className="text-center">
-                      <div className="table-content">
-                        <Badge>
-                          {new Date(item.eventDate).getDate()}{" "}
-                          <span className="d-block">
-                            {formatter.format(new Date(item.eventDate))}
-                          </span>
-                        </Badge>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="table-content">
-                        <h4>
-                          <Link to={`/event/${item.id}`}>{item.title}</Link>
-                        </h4>
-                        <small className="d-block card-timestamp text-muted align-self-center">
-                          in {item.timeToEvent}
-                        </small>
-                      </div>
-                    </td>
-                    <td>
+                    <CustomTableCells>
+                      <Badge>
+                        {new Date(item.eventDate).getDate()}{" "}
+                        <span className="d-block">
+                          {formatter.format(new Date(item.eventDate))}
+                        </span>
+                      </Badge>
+                    </CustomTableCells>
+                    <CustomTableCells>
+                      <h4>
+                        <Link to={`/event/${item.id}`}>{item.title}</Link>
+                      </h4>
+                      <small className="d-block card-timestamp text-muted align-self-center">
+                        in {item.timeToEvent}
+                      </small>
+                    </CustomTableCells>
+                    <CustomTableCells>
                       <div className="d-flex img-group">
                         <img
                           src={item.gravatarImage}
@@ -66,7 +61,7 @@ function CalendarEventItem(props) {
                           alt="Img"
                         />
                       </div>
-                    </td>
+                    </CustomTableCells>
                   </tr>
                 );
               })}
@@ -79,10 +74,10 @@ function CalendarEventItem(props) {
                 </div>
               </td>
             </tr>
-          )}
-        </tbody>
-      </Table>
-    </div>
+          )
+        }
+      />
+    </>
   );
 }
 
