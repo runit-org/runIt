@@ -4,6 +4,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 from datetime import datetime
+from base.models import UserExtend
 from base.modules.auth.api.validators import (
     RegisterUserValidator,
     LogoutValidator,
@@ -29,6 +30,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['username'] = self.user.username
         data['email'] = self.user.email
         data['last_login'] = self.user.last_login
+        data['is_email_verified'] = UserExtend.objects.get(userId=self.user.id).isEmailVerified
         return data
 
 class MyTokenObtainPairView(TokenObtainPairView):
