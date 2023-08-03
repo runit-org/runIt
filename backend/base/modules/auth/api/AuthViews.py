@@ -15,6 +15,7 @@ from base.modules.auth.api.actions import (
     LogoutAction,
     SendResetPasswordEmailAction,
     ResetPasswordAction,
+    ResendVerificationEmailAction,
 )
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -61,3 +62,7 @@ def resetPassword(request):
         return ResetPasswordValidator.validate(request)
 
     return ResetPasswordAction.reset(request)
+
+@api_view(['POST'])
+def resendVerificationEmail(request):
+    return ResendVerificationEmailAction.send(request)

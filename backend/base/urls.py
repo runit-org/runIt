@@ -20,6 +20,7 @@ auth_patterns = [
     path('logout/', AuthViews.logout, name='logout'),
     path('sendResetPasswordEmail/', AuthViews.sendResetPasswordEmail, name='send_reset_password_email'),
     path('resetPassword/', AuthViews.resetPassword, name='reset_password'),
+    path('resendVerifyEmail/', AuthViews.resendVerificationEmail, name='resend_verification_email'),
 ]
 
 user_patterns = [
