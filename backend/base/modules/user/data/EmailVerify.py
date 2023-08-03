@@ -1,6 +1,7 @@
 from django.db import models
 from base.models import *
-from datetime import datetime, timezone
+from datetime import datetime
+from django.utils import timezone
 from base.enums import Utils
 
 class EmailVerify(models.Model):
@@ -12,8 +13,8 @@ class EmailVerify(models.Model):
         return self.id
     
     def isTokenExpired(self):
-        timeNow = datetime.now(timezone.utc)
+        timeNow = timezone.make_aware(datetime.now())
         timeTokenWasCreated = self.createdAt
         timeDifference = (timeNow - timeTokenWasCreated).seconds
-
-        return timeDifference > Utils.get.PASSWORD_RESET_EXPIRY_TIME.value
+        print(timeDifference)
+        return timeDifference > Utils.get.EMAIL_VERIFICATION_TOKEN_EXPIRY_TIME.value

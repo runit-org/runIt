@@ -10,7 +10,7 @@ def verify(request):
     data = request.data
     user = request.user
 
-    userExtend = UserExtend.objects.get(user=user)
+    userExtend = UserExtend.objects.get(userId=user.id)
     
     if userExtend.isEmailVerified:
         return error('User has already verified their email')

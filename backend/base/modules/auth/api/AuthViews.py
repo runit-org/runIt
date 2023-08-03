@@ -1,3 +1,5 @@
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -68,10 +70,12 @@ def resetPassword(request):
     return ResetPasswordAction.reset(request)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def resendVerificationEmail(request):
     return ResendVerificationEmailAction.send(request)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def verifyEmail(request):
     if (VerifyEmailValidator.validate(request) != None):
         return VerifyEmailValidator.validate(request)
