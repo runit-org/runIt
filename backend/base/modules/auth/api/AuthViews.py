@@ -10,6 +10,7 @@ from base.modules.auth.api.validators import (
     LogoutValidator,
     SendResetPasswordEmailValidator,
     ResetPasswordValidator,
+    VerifyEmailValidator,
 )
 from base.modules.auth.api.actions import (
     RegisterUserAction,
@@ -17,6 +18,7 @@ from base.modules.auth.api.actions import (
     SendResetPasswordEmailAction,
     ResetPasswordAction,
     ResendVerificationEmailAction,
+    VerifyEmailAction,
 )
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -68,3 +70,10 @@ def resetPassword(request):
 @api_view(['POST'])
 def resendVerificationEmail(request):
     return ResendVerificationEmailAction.send(request)
+
+@api_view(['POST'])
+def verifyEmail(request):
+    if (VerifyEmailValidator.validate(request) != None):
+        return VerifyEmailValidator.validate(request)
+
+    return VerifyEmailAction.verify(request)
