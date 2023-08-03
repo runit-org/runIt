@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.test import Client
-from base.models import User, Friend, FriendRequest
+from base.models import User, Friend, FriendRequest, UserExtend
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -33,11 +33,17 @@ class FriendTestClass(TestCase):
         return ''.join(random.choice(letters) for i in range(10))
 
     def createNewUser(self):
-        return User.objects.create(
-            username=self.newUser['username'],
-            email=self.newUser['email'],
-            password=make_password(self.newUser['password'])
+        user = User.objects.create(
+            username = self.newUser['username'],
+            email    = self.newUser['email'],
+            password = make_password(self.newUser['password'])
         )
+
+        UserExtend.objects.create(
+            userId = user.id
+        )
+
+        return user
 
     def generateNewUserData(self):
         return UserFactory.build().__dict__

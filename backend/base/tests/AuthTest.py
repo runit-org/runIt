@@ -1,12 +1,14 @@
 from django.test import TestCase
 from django.test import Client
-from base.models import User, UserExtend
+from base.models import User, UserExtend, EmailVerify
 from base.factories import UserFactory
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
+from rest_framework.test import APIClient
 from rest_framework.test import APIRequestFactory
 from datetime import datetime
 from dateutil import parser
+from django.utils import timezone
 
 class AuthTestClass(TestCase):
     newUser = None
@@ -21,11 +23,34 @@ class AuthTestClass(TestCase):
         }
 
     def createNewUser(self):
-        return User.objects.create(
+        user = User.objects.create(
             username = self.newUser['username'],
             email    = self.newUser['email'],
             password = make_password(self.newUser['password'])
         )
+
+        UserExtend.objects.create(
+            userId = user.id
+        )
+
+        return user
+
+    def generateNewUserData(self):
+        return UserFactory.build().__dict__
+    
+    def generateNewUserObject(self):
+        randomUserData = self.generateNewUserData()
+        user = User.objects.create(
+            username   = randomUserData['username'],
+            email      = randomUserData['email'],
+            password   = randomUserData['password'] 
+        )
+
+        userExtend = UserExtend.objects.create(
+            userId = user.id,
+        )
+
+        return user
 
     def test_login_success(self):
         c = Client()
@@ -343,3 +368,100 @@ class AuthTestClass(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
         self.assertEqual(User.objects.get(id=user.id).last_login, parser.parse(response.json()['last_login']))
+
+    def test_verification_code_created_during_registration_success(self):
+        c = Client()
+        url = self.baseUrl + 'register/'
+
+        data = self.newUser
+        data['c_password'] = data['password']
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        user = User.objects.get(email=self.newUser['email'])
+        self.assertTrue(EmailVerify.objects.filter(user=user).exists())
+
+    def test_resend_verification_email_success(self):
+        url = self.baseUrl + 'resendVerifyEmail/'
+
+        # Authenticate user-------------------------------------------
+        user = self.generateNewUserObject()
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        response = c.post(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_resend_verification_email_user_already_verified_fails(self):
+        url = self.baseUrl + 'resendVerifyEmail/'
+
+        user = self.generateNewUserObject()
+        userExtend = UserExtend.objects.get(userId=user.id)
+        userExtend.isEmailVerified = True
+        userExtend.save()
+        
+        # Authenticate user-------------------------------------------
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        response = c.post(url, {}, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+
+    def test_verify_email_success(self):
+        url = self.baseUrl + 'verifyEmail/'
+
+        user = self.generateNewUserObject()
+        # Authenticate user-------------------------------------------
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        token = '555555'
+        tokenObject = EmailVerify.objects.create(user=user, createdAt=timezone.make_aware(datetime.now()), token=token)
+
+        data = {
+            'token': token
+        }
+        response = c.post(url, data, format='json')
+        self.assertTrue(response.status_code == status.HTTP_200_OK)
+        self.assertTrue(UserExtend.objects.get(userId=user.id).isEmailVerified)
+
+    def test_verify_email_invalid_token_fails(self):
+        url = self.baseUrl + 'verifyEmail/'
+
+        user = self.generateNewUserObject()
+        # Authenticate user-------------------------------------------
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        token = '555555'
+        tokenObject = EmailVerify.objects.create(user=user, createdAt=timezone.make_aware(datetime.now()), token=token)
+
+        data = {
+            'token': '888888'
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+        self.assertFalse(UserExtend.objects.get(userId=user.id).isEmailVerified)
+
+    def test_verify_email_user_already_verified_fails(self):
+        url = self.baseUrl + 'verifyEmail/'
+
+        user = self.generateNewUserObject()
+        userExtend = UserExtend.objects.get(userId=user.id)
+        userExtend.isEmailVerified = True
+        userExtend.save()
+
+        # Authenticate user-------------------------------------------
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        token = '555555'
+        data = {
+            'token': token
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)

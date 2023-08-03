@@ -6,6 +6,7 @@ class UserExtend(models.Model):
     userId = models.IntegerField(null=True, blank=True, default=0)
     resetToken = models.CharField(max_length=200, null=True, blank=True)
     resetTokenTime = models.DateTimeField(null=True)
+    isEmailVerified = models.BooleanField(default=False)
 
     statusMessage = models.CharField(max_length=200, null=True, blank=True)
 

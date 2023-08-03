@@ -16,4 +16,4 @@ def create_seed_data():
 
 def create_individual_user(username, email, password):
     user = User.objects.create(username=username, email=email, password=make_password(password))
-    userExtend = UserExtend.objects.create(userId=user.id)
+    userExtend = UserExtend.objects.create(userId=user.id, isEmailVerified=True)

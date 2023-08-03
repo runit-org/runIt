@@ -1,20 +1,26 @@
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 from datetime import datetime
+from base.models import UserExtend
 from base.modules.auth.api.validators import (
     RegisterUserValidator,
     LogoutValidator,
     SendResetPasswordEmailValidator,
     ResetPasswordValidator,
+    VerifyEmailValidator,
 )
 from base.modules.auth.api.actions import (
     RegisterUserAction,
     LogoutAction,
     SendResetPasswordEmailAction,
     ResetPasswordAction,
+    ResendVerificationEmailAction,
+    VerifyEmailAction,
 )
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -28,6 +34,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['username'] = self.user.username
         data['email'] = self.user.email
         data['last_login'] = self.user.last_login
+        data['is_email_verified'] = UserExtend.objects.get(userId=self.user.id).isEmailVerified
         return data
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -61,3 +68,16 @@ def resetPassword(request):
         return ResetPasswordValidator.validate(request)
 
     return ResetPasswordAction.reset(request)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def resendVerificationEmail(request):
+    return ResendVerificationEmailAction.send(request)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def verifyEmail(request):
+    if (VerifyEmailValidator.validate(request) != None):
+        return VerifyEmailValidator.validate(request)
+
+    return VerifyEmailAction.verify(request)
