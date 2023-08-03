@@ -1,3 +1,8 @@
 {% extends 'base-template.html' %} {% block child %}
-<div>Here is your OTP: {{token}} (expires in 3 minutes)</div>
+<div>
+    Here is your OTP: 
+    <br>
+    <h2>{{token}}</h2> 
+    <small>(expires in 3 minutes)</small>
+</div>
 {% endblock %}
