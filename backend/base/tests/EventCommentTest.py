@@ -30,11 +30,17 @@ class EventCommentTestClass(TestCase):
         return ''.join(random.choice(letters) for i in range(10))
     
     def createNewUser(self):
-        return User.objects.create(
+        user = User.objects.create(
             username = self.newUser['username'],
             email    = self.newUser['email'],
             password = make_password(self.newUser['password'])
         )
+
+        UserExtend.objects.create(
+            userId = user.id
+        )
+
+        return user
 
     def generateNewUserData(self):
         return UserFactory.build().__dict__
