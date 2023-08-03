@@ -4,6 +4,7 @@ from base.models import User, UserExtend
 from base.factories import UserFactory
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
+from rest_framework.test import APIClient
 from rest_framework.test import APIRequestFactory
 from datetime import datetime
 from dateutil import parser
@@ -21,11 +22,34 @@ class AuthTestClass(TestCase):
         }
 
     def createNewUser(self):
-        return User.objects.create(
+        user = User.objects.create(
             username = self.newUser['username'],
             email    = self.newUser['email'],
             password = make_password(self.newUser['password'])
         )
+
+        UserExtend.objects.create(
+            userId = user.id
+        )
+
+        return user
+
+    def generateNewUserData(self):
+        return UserFactory.build().__dict__
+    
+    def generateNewUserObject(self):
+        randomUserData = self.generateNewUserData()
+        user = User.objects.create(
+            username   = randomUserData['username'],
+            email      = randomUserData['email'],
+            password   = randomUserData['password'] 
+        )
+
+        userExtend = UserExtend.objects.create(
+            userId = user.id,
+        )
+
+        return user
 
     def test_login_success(self):
         c = Client()
@@ -343,3 +367,15 @@ class AuthTestClass(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
         self.assertEqual(User.objects.get(id=user.id).last_login, parser.parse(response.json()['last_login']))
+
+    def test_resend_verification_email_success(self):
+        url = self.baseUrl + 'resendVerifyEmail/'
+
+        # Authenticate user-------------------------------------------
+        user = self.generateNewUserObject()
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        response = c.post(url, {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
