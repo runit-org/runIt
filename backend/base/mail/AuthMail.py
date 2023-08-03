@@ -3,11 +3,23 @@ from django.template.loader import render_to_string
 from base.enums import Utils
 from django.utils.html import strip_tags
 
-def userRegistered(username, to):
-    html_message = render_to_string('user-registered-template.html', {'username': username})
+def userRegistered(username, token, to):
+    html_message = render_to_string('user-registered-template.html', {'username': username, 'token': token})
     text_content = strip_tags(html_message)
     send_mail(
         'Account Created',
+        text_content,
+        Utils.get.DEFAULT_EMAIL_SENDER.value,
+        [to],
+        fail_silently=False,
+        html_message=html_message
+    )
+
+def resendOTPSent(username, token, to):
+    html_message = render_to_string('resend-email-otp-template.html', {'username': username, 'token': token})
+    text_content = strip_tags(html_message)
+    send_mail(
+        'Verification token',
         text_content,
         Utils.get.DEFAULT_EMAIL_SENDER.value,
         [to],
