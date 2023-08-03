@@ -369,6 +369,17 @@ class AuthTestClass(TestCase):
         
         self.assertEqual(User.objects.get(id=user.id).last_login, parser.parse(response.json()['last_login']))
 
+    def test_verification_code_created_during_registration_success(self):
+        c = Client()
+        url = self.baseUrl + 'register/'
+
+        data = self.newUser
+        data['c_password'] = data['password']
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        user = User.objects.get(email=self.newUser['email'])
+        self.assertTrue(EmailVerify.objects.filter(user=user).exists())
+
     def test_resend_verification_email_success(self):
         url = self.baseUrl + 'resendVerifyEmail/'
 
