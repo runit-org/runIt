@@ -1,4 +1,5 @@
 from django.test import TestCase
+from base.tests import BaseTestClass
 from django.test import Client
 from base.models import User, UserExtend, Notification
 from django.contrib.auth.hashers import make_password
@@ -13,7 +14,7 @@ import string
 import datetime
 from django.utils import timezone
 
-class NotificationTestClass(TestCase):
+class NotificationTestClass(BaseTestClass):
     newUser = None
     baseUrl = '/api/notifications/'
 
@@ -24,51 +25,6 @@ class NotificationTestClass(TestCase):
             "email": "test@email.com",
             "password": "password123*"
         }
-
-    def generateRandomString(self, length):
-        letters = string.ascii_lowercase
-        return ''.join(random.choice(letters) for i in range(10))
-    
-    def createNewUser(self):
-        user = User.objects.create(
-            username = self.newUser['username'],
-            email    = self.newUser['email'],
-            password = make_password(self.newUser['password'])
-        )
-
-        UserExtend.objects.create(
-            userId = user.id,
-            isEmailVerified = True
-        )
-
-        return user
-
-    def generateNewUserData(self):
-        return UserFactory.build().__dict__
-
-    def generateNewUserObject(self):
-        randomUserData = self.generateNewUserData()
-        user = User.objects.create(
-            username   = randomUserData['username'],
-            email      = randomUserData['email'],
-            password   = randomUserData['password'] 
-        )
-
-        UserExtend.objects.create(
-            userId = user.id,
-            isEmailVerified = True
-        )
-
-        return user
-
-    def generateNewNotificationObject(self, user):
-        return Notification.objects.create(
-            userId = user.id,
-            details = 'Hello World',
-            link = '',
-
-            createdAt = timezone.make_aware(datetime.datetime.now())
-        )
     
     def test_get_current_user_notifications_success(self):
         url = self.baseUrl + 'all/'

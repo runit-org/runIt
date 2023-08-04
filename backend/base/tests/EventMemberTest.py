@@ -12,8 +12,9 @@ import random
 import string
 import datetime
 from django.utils import timezone
+from base.tests import BaseTestClass
 
-class EventMemberTestClass(TestCase):
+class EventMemberTestClass(BaseTestClass):
     newUser = None
     baseUrl = '/api/event/'
 
@@ -24,65 +25,6 @@ class EventMemberTestClass(TestCase):
             "email": "test@email.com",
             "password": "password123*"
         }
-
-    def generateRandomString(self, length):
-        letters = string.ascii_lowercase
-        return ''.join(random.choice(letters) for i in range(10))
-    
-    def createNewUser(self):
-        user = User.objects.create(
-            username = self.newUser['username'],
-            email    = self.newUser['email'],
-            password = make_password(self.newUser['password'])
-        )
-
-        UserExtend.objects.create(
-            userId = user.id,
-            isEmailVerified = True
-        )
-
-        return user
-
-    def generateNewUserData(self):
-        return UserFactory.build().__dict__
-
-    def generateNewUserObject(self):
-        randomUserData = self.generateNewUserData()
-        user = User.objects.create(
-            username   = randomUserData['username'],
-            email      = randomUserData['email'],
-            password   = randomUserData['password'] 
-        )
-
-        UserExtend.objects.create(
-            userId = user.id,
-            isEmailVerified = True
-        )
-
-        return user
-
-    def generateNewEventData(self):
-        event = EventFactory.build().__dict__
-        event.pop('_state', None)
-        return event
-    
-    def generateNewEventObject(self):
-        newRandomUser = self.generateNewUserObject()
-        randomEventData = self.generateNewEventData()
-        return Event.objects.create(
-            user          = newRandomUser,
-            title         = randomEventData['title'],
-            maxMember     = randomEventData['maxMember'],
-            details       = randomEventData['details'],
-            year          = randomEventData['year'],
-            month         = randomEventData['month'],
-            day           = randomEventData['day'],
-            hour          = randomEventData['hour'],
-            minute        = randomEventData["minute"],
-
-            startDate   = timezone.make_aware(datetime.datetime(randomEventData['year'], randomEventData['month'], randomEventData['day'], randomEventData['hour'], randomEventData['minute'])),
-            createdAt   = timezone.make_aware(datetime.datetime.now())
-        )
 
     def test_request_join_event_success(self):
         eventObject = self.generateNewEventObject()

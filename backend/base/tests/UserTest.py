@@ -1,4 +1,5 @@
 from django.test import TestCase
+from base.tests import BaseTestClass
 from django.test import Client
 from base.models import User, UserExtend, UserVote, EventMember, Event
 from base.factories import UserFactory
@@ -14,88 +15,12 @@ import datetime
 from dateutil import parser
 from django.contrib.auth.hashers import check_password
 
-class UserTestClass(TestCase):
+class UserTestClass(BaseTestClass):
     newUser = None
     baseUrl = '/api/user/'
 
     def setUp(self):
         self.newUser = UserFactory.build().__dict__
-
-    def generateRandomString(self, length):
-        letters = string.ascii_lowercase
-        return ''.join(random.choice(letters) for i in range(10))
-    
-    
-    def createNewUser(self):
-        user = User.objects.create(
-            username = self.newUser['username'],
-            email    = self.newUser['email'],
-            password = self.newUser['password']
-        )
-        userExtend = UserExtend.objects.create(
-            userId = user.id,
-            isEmailVerified = True
-        )
-
-        return user
-    
-    def generateNewUserData(self):
-        return UserFactory.build().__dict__
-
-    def generateNewUserObject(self):
-        randomUserData = self.generateNewUserData()
-        user = User.objects.create(
-            username   = randomUserData['username'],
-            email      = randomUserData['email'],
-            password   = randomUserData['password'] 
-        )
-
-        userExtend = UserExtend.objects.create(
-            userId = user.id,
-            isEmailVerified = True
-        )
-
-        return user
-    
-    def generateNewEventData(self):
-        tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-        newEvent = {
-            "title"       : self.generateRandomString(5),
-            "maxMember"   : 3,
-            "details"     : self.generateRandomString(5),
-            "year"        : tomorrow.year,
-            "month"       : tomorrow.month,
-            "day"         : tomorrow.day,
-            "hour"        : 23,
-            "minute"      : 59,
-            "tags"        : "#hello"
-        }
-        return newEvent
-    
-    def generateNewEventObject(self):
-        newRandomUser = self.generateNewUserObject()
-        randomEventData = self.generateNewEventData()
-        return Event.objects.create(
-            user          = newRandomUser,
-            title         = randomEventData['title'],
-            maxMember     = randomEventData['maxMember'],
-            details       = randomEventData['details'],
-            year          = randomEventData['year'],
-            month         = randomEventData['month'],
-            day           = randomEventData['day'],
-            hour          = randomEventData['hour'],
-            minute        = randomEventData["minute"],
-
-            startDate   = timezone.make_aware(datetime.datetime(randomEventData['year'], randomEventData['month'], randomEventData['day'], randomEventData['hour'], randomEventData['minute'])),
-            createdAt   = timezone.make_aware(datetime.datetime.now())
-        )
-
-    def getUserTotalVotes(self, userId):
-        findUserVotes = UserVote.objects.filter(votedUserId = userId)
-        totalVotes = 0
-        for i in findUserVotes:
-            totalVotes += i.status
-        return totalVotes
 
     def test_get_user_profile_success(self):
         url = self.baseUrl + 'profile/' + self.newUser['username'] + '/'

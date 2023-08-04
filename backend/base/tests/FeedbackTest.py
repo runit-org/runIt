@@ -1,4 +1,5 @@
 from django.test import TestCase
+from base.tests import BaseTestClass
 from django.test import Client
 from base.models import User, Feedback, UserExtend
 from django.contrib.auth.hashers import make_password
@@ -15,7 +16,7 @@ from django.utils import timezone
 from django.db.models import Q
 
 
-class FeedbackTestClass(TestCase):
+class FeedbackTestClass(BaseTestClass):
     newUser = None
     baseUrl = '/api/feedback/'
 
@@ -26,42 +27,6 @@ class FeedbackTestClass(TestCase):
             "email": "test@email.com",
             "password": "password123*"
         }
-
-    def generateRandomString(self, length):
-        letters = string.ascii_lowercase
-        return ''.join(random.choice(letters) for i in range(10))
-
-    def createNewUser(self):
-        user = User.objects.create(
-            username = self.newUser['username'],
-            email    = self.newUser['email'],
-            password = make_password(self.newUser['password'])
-        )
-
-        UserExtend.objects.create(
-            userId = user.id,
-            isEmailVerified = True
-        )
-
-        return user
-
-    def generateNewUserData(self):
-        return UserFactory.build().__dict__
-
-    def generateNewUserObject(self):
-        randomUserData = self.generateNewUserData()
-        user = User.objects.create(
-            username   = randomUserData['username'],
-            email      = randomUserData['email'],
-            password   = randomUserData['password'] 
-        )
-
-        UserExtend.objects.create(
-            userId = user.id,
-            isEmailVerified = True
-        )
-
-        return user
 
     def test_create_feedback_success(self):
         url = self.baseUrl + 'create/'
