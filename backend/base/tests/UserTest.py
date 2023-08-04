@@ -34,6 +34,7 @@ class UserTestClass(TestCase):
         )
         userExtend = UserExtend.objects.create(
             userId = user.id,
+            isEmailVerified = True
         )
 
         return user
@@ -51,6 +52,7 @@ class UserTestClass(TestCase):
 
         userExtend = UserExtend.objects.create(
             userId = user.id,
+            isEmailVerified = True
         )
 
         return user

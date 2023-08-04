@@ -40,7 +40,8 @@ class FriendTestClass(TestCase):
         )
 
         UserExtend.objects.create(
-            userId = user.id
+            userId = user.id,
+            isEmailVerified = True
         )
 
         return user
@@ -50,11 +51,18 @@ class FriendTestClass(TestCase):
 
     def generateNewUserObject(self):
         randomUserData = self.generateNewUserData()
-        return User.objects.create(
-            username=randomUserData['username'],
-            email=randomUserData['email'],
-            password=randomUserData['password']
+        user = User.objects.create(
+            username   = randomUserData['username'],
+            email      = randomUserData['email'],
+            password   = randomUserData['password'] 
         )
+
+        UserExtend.objects.create(
+            userId = user.id,
+            isEmailVerified = True
+        )
+
+        return user
 
     def generateNewFriendsObject(self, user1=None, user2=None):
         return Friend.objects.create(
