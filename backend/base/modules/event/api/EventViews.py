@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from base.permissions import IsEmailVerified
 from base.modules.event.api.validators import (
     CreateEventValidator,
     UpdateEventValidator,
@@ -31,7 +32,7 @@ from base.modules.event.api.actions import (
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def createEvent(request):
     if (CreateEventValidator.validate(request) != None):
         return CreateEventValidator.validate(request)
@@ -47,7 +48,7 @@ def viewEvent(request, pk):
 
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def updateEvent(request, pk):
     if (UpdateEventValidator.validate(request) != None):
         return UpdateEventValidator.validate(request)
@@ -56,7 +57,7 @@ def updateEvent(request, pk):
 
 
 @api_view(['PATCH'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def updateEventStatus(request, pk):
     if (UpdateEventStatusValidator.validate(request) != None):
         return UpdateEventStatusValidator.validate(request)
@@ -65,7 +66,7 @@ def updateEventStatus(request, pk):
 
 
 @api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def deleteEvent(request, pk):
     return DeleteEventAction.delete(request, pk)
 
@@ -76,7 +77,7 @@ def allEvent(request):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def requestJoinEvent(request):
     if (RequestJoinEventValidator.validate(request) != None):
         return RequestJoinEventValidator.validate(request)
@@ -91,7 +92,7 @@ def getEventMembers(request, pk):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def changeEventMemberStatus(request):
     if (ChangeEventMemberStatusValidator.validate(request) != None):
         return ChangeEventMemberStatusValidator.validate(request)
@@ -114,7 +115,7 @@ def participatedAndOwnedEvent(request):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def announce(request, eventId):
     if (AnnounceMembersValidator.validate(request) != None):
         return AnnounceMembersValidator.validate(request)
@@ -129,13 +130,13 @@ def createEventSuggestions(request, page):
 
 
 @api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def deleteEventCategory(request, pk):
     return DeleteEventCategoryAction.delete(request, pk)
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def inviteFriendToEvent(request, userId):
     if (InviteFriendToEventValidator.validate(request) != None):
         return InviteFriendToEventValidator.validate(request)
