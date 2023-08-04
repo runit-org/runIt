@@ -1,4 +1,5 @@
 from django.test import TestCase
+from base.tests import BaseTestClass
 from django.test import Client
 from base.models import User, Friend, FriendRequest, UserExtend
 from django.contrib.auth.hashers import make_password
@@ -16,7 +17,7 @@ from django.utils import timezone
 from django.db.models import Q
 
 
-class FriendTestClass(TestCase):
+class FriendTestClass(BaseTestClass):
     newUser = None
     baseUrl = '/api/friends/'
 
@@ -27,65 +28,6 @@ class FriendTestClass(TestCase):
             "email": "test@email.com",
             "password": "password123*"
         }
-
-    def generateRandomString(self, length):
-        letters = string.ascii_lowercase
-        return ''.join(random.choice(letters) for i in range(10))
-
-    def createNewUser(self):
-        user = User.objects.create(
-            username = self.newUser['username'],
-            email    = self.newUser['email'],
-            password = make_password(self.newUser['password'])
-        )
-
-        UserExtend.objects.create(
-            userId = user.id,
-            isEmailVerified = True
-        )
-
-        return user
-
-    def generateNewUserData(self):
-        return UserFactory.build().__dict__
-
-    def generateNewUserObject(self):
-        randomUserData = self.generateNewUserData()
-        user = User.objects.create(
-            username   = randomUserData['username'],
-            email      = randomUserData['email'],
-            password   = randomUserData['password'] 
-        )
-
-        UserExtend.objects.create(
-            userId = user.id,
-            isEmailVerified = True
-        )
-
-        return user
-
-    def generateNewFriendsObject(self, user1=None, user2=None):
-        return Friend.objects.create(
-            user1=user1 if user1 else self.generateNewUserObject(),
-            user2=user2 if user2 else self.generateNewUserObject()
-        )
-
-    def generateNewFriendRequestObject(self, main=None, requester=None):
-        return FriendRequest.objects.create(
-            main=main if main else self.generateNewUserObject(),
-            requester=requester if requester else self.generateNewUserObject()
-        )
-
-    def checkAlreadyFriends(self, user1, user2):
-        checkFriendshipExist = Friend.objects.filter(
-            Q(user1=user1) | Q(user1=user2),
-            Q(user2=user1) | Q(user2=user2)
-        )
-
-        if len(checkFriendshipExist) > 0:
-            return True
-        else:
-            return False
 
     def test_send_friend_request_success(self):
         requester = self.generateNewUserObject()
