@@ -10,6 +10,8 @@ import UserContext from "./context/userProvider";
 import SecurityContext from "./context/securityProvider";
 import CalendarContext from "./context/calendarProvider.js";
 import { RoutesContainer } from "./routes/routesContainer";
+import CalendarDash from "./pages/calendarDash";
+import UserDash from "./pages/userDash";
 
 const ProfileDash = lazy(() => import("./pages/profileDash"));
 const SingleEventDash = lazy(() => import("./pages/singleEventDash"));
@@ -57,10 +59,10 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route path="calendar" element={<ProfileDash />} />
-            <Route path="settings" element={<ProfileDash />} />
-            <Route path="history" element={<ProfileDash />} />
-            <Route path="feedback-support" element={<ProfileDash />} />
+            <Route path="calendar" element={<CalendarDash />} />
+            <Route path="settings" element={<UserDash />} />
+            {/*  <Route path="history" element={<ProfileDash />} />
+            <Route path="feedback-support" element={<ProfileDash />} /> */}
           </Route>
 
           <Route

@@ -10,6 +10,11 @@
   }
 }
 
+.nav-link.active {
+  font-weight: bold;
+  background-color: $theme-light;
+}
+
 #profile_sidebar {
   width: 20%;
 }
