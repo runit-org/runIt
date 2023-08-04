@@ -8,6 +8,7 @@
 @import "Comment.scss";
 @import "Suggested.scss";
 @import "Calendar.scss";
+@import "Vertical-nav.scss";
 
 /*------General Components------*/
 html,
@@ -262,7 +263,7 @@ div.content {
 }
 .sidebar_left {
   margin-top: 20px;
-  padding-left: 10px;
+  padding-left: 5px;
 }
 .sidebar .card {
   background-color: $primary-light;

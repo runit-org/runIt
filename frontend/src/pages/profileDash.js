@@ -67,7 +67,7 @@ function ProfileDash() {
   return (
     <div style={{ position: "relative" }}>
       <div className="dash-container" id="calendar">
-        <div className="sidebar">
+        <div className="sidebar" id="profile_sidebar">
           <div className="sidebar-wrapper">
             <div className="sidebar_left">
               <VerticalNav

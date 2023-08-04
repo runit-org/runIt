@@ -1,0 +1,19 @@
+@import "index.scss";
+
+.verticalNav .nav-link {
+  padding-block: 6px;
+  padding-inline: 8px;
+  border-radius: 6px;
+  color: $primary-dark !important;
+  &:hover {
+    background-color: $theme-light;
+  }
+}
+
+#profile_sidebar {
+  width: 20%;
+}
+
+#profile_sidebar .sidebar_left {
+  padding-left: 0;
+}

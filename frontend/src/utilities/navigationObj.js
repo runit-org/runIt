@@ -4,6 +4,10 @@ export const NavigationObj = (user) => {
       title: "Calendar",
       href: user ? `/profile/calendar?user=${user.username}` : "",
     },
+    {
+      title: "Settings",
+      href: user ? `/profile/settings?user=${user.username}` : "",
+    },
   ];
 
   const profileNavCurrUser = [
