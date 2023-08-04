@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from base.permissions import IsEmailVerified
 from base.modules.friend.api.validators import (
     RespondFriendshipRequestValidator,
 )
@@ -13,13 +14,13 @@ from base.modules.friend.api.actions import (
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def requestFriendship(request, userId):
     return RequestFriendshipAction.request(request, userId)
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def respondFriendshipRequest(request, userId):
     if (RespondFriendshipRequestValidator.validate(request) != None):
         return RespondFriendshipRequestValidator.validate(request)
