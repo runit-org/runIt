@@ -1,0 +1,1 @@
+from base.permissions.IsEmailVerified import IsEmailVerified

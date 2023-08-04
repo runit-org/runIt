@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from base.permissions import IsEmailVerified
 from base.modules.userVote.api.validators import (
     VoteUserValidator,
 )
@@ -9,7 +10,7 @@ from base.modules.userVote.api.actions import (
 )
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def vote(request, userId):
     if (VoteUserValidator.validate(request) != None):
         return VoteUserValidator.validate(request)

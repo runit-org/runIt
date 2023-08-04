@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from base.permissions import IsEmailVerified
 from base.modules.eventComment.api.validators import (
     CreateEventCommentValidator,
     UpdateEventCommentValidator,
@@ -13,7 +14,7 @@ from base.modules.eventComment.api.actions import (
 )
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def createComment(request, eventId):
     if (CreateEventCommentValidator.validate(request) != None):
         return CreateEventCommentValidator.validate(request)
@@ -26,7 +27,7 @@ def viewEventComments(request, eventId):
     return ViewCommentFromEventAction.view(request, eventId)
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def updateComment(request, commentId):
     if (UpdateEventCommentValidator.validate(request) != None):
         return UpdateEventCommentValidator.validate(request)
@@ -34,11 +35,11 @@ def updateComment(request, commentId):
     return UpdateEventCommentAction.update(request, commentId)
 
 @api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def deleteComment(request, commentId):
     return DeleteEventCommentAction.delete(request, commentId)
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, IsEmailVerified])
 def likeOrUnlike(request, commentId):
     return LikeUnlikeEventCommentAction.update(request, commentId)

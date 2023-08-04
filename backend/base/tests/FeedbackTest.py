@@ -39,7 +39,8 @@ class FeedbackTestClass(TestCase):
         )
 
         UserExtend.objects.create(
-            userId = user.id
+            userId = user.id,
+            isEmailVerified = True
         )
 
         return user
@@ -49,11 +50,18 @@ class FeedbackTestClass(TestCase):
 
     def generateNewUserObject(self):
         randomUserData = self.generateNewUserData()
-        return User.objects.create(
-            username=randomUserData['username'],
-            email=randomUserData['email'],
-            password=randomUserData['password']
+        user = User.objects.create(
+            username   = randomUserData['username'],
+            email      = randomUserData['email'],
+            password   = randomUserData['password'] 
         )
+
+        UserExtend.objects.create(
+            userId = user.id,
+            isEmailVerified = True
+        )
+
+        return user
 
     def test_create_feedback_success(self):
         url = self.baseUrl + 'create/'

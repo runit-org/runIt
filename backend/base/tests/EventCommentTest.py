@@ -37,7 +37,8 @@ class EventCommentTestClass(TestCase):
         )
 
         UserExtend.objects.create(
-            userId = user.id
+            userId = user.id,
+            isEmailVerified = True
         )
 
         return user
@@ -47,11 +48,18 @@ class EventCommentTestClass(TestCase):
 
     def generateNewUserObject(self):
         randomUserData = self.generateNewUserData()
-        return User.objects.create(
+        user = User.objects.create(
             username   = randomUserData['username'],
             email      = randomUserData['email'],
             password   = randomUserData['password'] 
         )
+
+        UserExtend.objects.create(
+            userId = user.id,
+            isEmailVerified = True
+        )
+
+        return user
 
     def generateNewEventData(self):
         event = EventFactory.build().__dict__
