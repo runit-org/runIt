@@ -12,7 +12,6 @@ function VerticalNav({ navObj }) {
                     isActive ? "nav-link active" : "nav-link inactive"
                   }
                   to={item.href}
-                  eventKey={item.id}
                   end
                 >
                   {item.title}

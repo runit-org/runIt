@@ -31,6 +31,7 @@ export default UserProfileHandler;
 export const GetVotes = (pageId) => {
   const dispatch = useDispatch();
   const [votesList, setVotesList] = useState({});
+  const [userList, setUserList] = useState([]);
 
   useEffect(() => {
     dispatch(getVotes(pageId));
@@ -39,10 +40,11 @@ export const GetVotes = (pageId) => {
   var votes = useSelector((userReducer) => userReducer.users.votes);
 
   useEffect(() => {
-    if (votes) {
+    if (votes && votes.results) {
       setVotesList(votes);
+      if (pageId) setUserList([...new Set([...userList, ...votes.results])]);
     }
-  }, [pageId, votes]);
+  }, [pageId, votes.next]);
 
-  return votesList;
+  return userList;
 };
