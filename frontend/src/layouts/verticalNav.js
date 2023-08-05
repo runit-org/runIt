@@ -1,29 +1,27 @@
-import { useState } from "react";
-import Nav from "react-bootstrap/Nav";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function VerticalNav({ navObj }) {
-  const [active, setActive] = useState(0);
-
   return (
-    <Nav
-      className="flex-column verticalNav"
-      defaultActiveKey={active}
-      onSelect={(event) => setActive(event)}
-      activeKey={active}
-    >
+    <div className="flex-column verticalNav nav">
       {navObj
         ? navObj.map((item, index) => {
             return (
               <div key={index}>
-                <Nav.Link as={Link} to={item.href} eventKey={index}>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link inactive"
+                  }
+                  to={item.href}
+                  eventKey={item.id}
+                  end
+                >
                   {item.title}
-                </Nav.Link>
+                </NavLink>
               </div>
             );
           })
         : ""}
-    </Nav>
+    </div>
   );
 }
 

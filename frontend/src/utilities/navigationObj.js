@@ -13,15 +13,18 @@ export const NavigationObj = (user) => {
   const profileNavCurrUser = [
     {
       title: "Calendar",
-      href: user ? `/profile/calendar?user=${user.username}` : "",
+      id: "calendar",
+      href: user ? `calendar?user=${user.username}` : "",
     },
     {
       title: "Settings",
-      href: user ? `/profile/settings?user=${user.username}` : "",
+      id: "settings",
+      href: user ? `settings?user=${user.username}` : "",
     },
     {
       title: "History",
-      href: user ? `/profile/history?user=${user.username}` : "",
+      id: "history",
+      href: user ? `history?user=${user.username}` : "",
     },
     /*   {
       title: "Feedback & Support",

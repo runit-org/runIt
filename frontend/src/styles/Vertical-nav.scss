@@ -11,7 +11,7 @@
   }
 }
 
-.nav-link.active {
+.verticalNav .nav-link.active {
   font-weight: bold;
   background-color: $theme-light;
   border: 1px solid darken($theme-light, 10);
