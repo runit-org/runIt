@@ -45,7 +45,7 @@ function Days(props) {
   return (
     <>
       {arrayOfArrays.map((x, i) => (
-        <tr>
+        <tr key={i}>
           {x.map((days, index) => {
             return (
               <td

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserProfile } from "../../../services/actions/userActions";
+import {
+  getUserProfile,
+  getVotes,
+} from "../../../services/actions/userActions";
 
 const UserProfileHandler = (data) => {
   const dispatch = useDispatch();
@@ -24,3 +27,21 @@ const UserProfileHandler = (data) => {
 };
 
 export default UserProfileHandler;
+
+export const GetVotes = (pageId) => {
+  const dispatch = useDispatch();
+  const [votesList, setVotesList] = useState([]);
+
+  useEffect(() => {
+    dispatch(getVotes(pageId ? pageId : 1));
+  }, [dispatch, pageId]);
+
+  var votes = useSelector((userReducer) => userReducer.users.votes);
+  useEffect(() => {
+    if (votes) {
+      setVotesList(votes);
+    }
+  }, [votes]);
+
+  return votesList;
+};
