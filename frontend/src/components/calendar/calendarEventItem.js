@@ -34,7 +34,7 @@ function CalendarEventItem(props) {
               {calendarEvents.map((item, i) => {
                 return (
                   <tr key={i} className="table_row">
-                    <CustomTableCells>
+                    <CustomTableCells cols={"col-1"}>
                       <Badge>
                         {new Date(item.eventDate).getDate()}{" "}
                         <span className="d-block">
@@ -42,7 +42,7 @@ function CalendarEventItem(props) {
                         </span>
                       </Badge>
                     </CustomTableCells>
-                    <CustomTableCells>
+                    <CustomTableCells cols={"col-10"}>
                       <h4>
                         <Link to={`/event/${item.id}`}>{item.title}</Link>
                       </h4>
@@ -50,7 +50,7 @@ function CalendarEventItem(props) {
                         in {item.timeToEvent}
                       </small>
                     </CustomTableCells>
-                    <CustomTableCells>
+                    <CustomTableCells cols={"col-1"}>
                       <div className="d-flex img-group">
                         <img
                           src={item.gravatarImage}

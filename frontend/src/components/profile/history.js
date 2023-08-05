@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Card, Container } from "react-bootstrap";
 
 import UserProfile from "./userProfile";
@@ -7,29 +7,13 @@ import SortDropdown from "../../layouts/sortDropdown";
 import { GetVotes } from "./utilities/actionHandlers";
 import { Username } from "../../layouts/username";
 import Pagination from "../../layouts/pagination";
-import { useLocation, useSearchParams } from "react-router-dom";
-import { usePageId } from "../../hooks/usePageId";
 
 function History() {
-  //pagination
-  let pageId = usePageId();
-  const { state } = useLocation();
-  const [postPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchParams, setSearchParams] = useSearchParams({});
-  const { count, results } = GetVotes(pageId);
+  const [postPerPage] = useState(10);
+  const { count, results } = GetVotes(currentPage);
 
-  useEffect(() => {
-    if (state) {
-      const { id } = state;
-      setCurrentPage(id);
-    }
-  }, [state]);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  useEffect(() => {
-    setSearchParams({ page: currentPage });
-  }, [setSearchParams, currentPage]);
 
   return (
     <>
@@ -51,14 +35,14 @@ function History() {
                     {results.map((item, i) => {
                       return (
                         <tr key={i} className="table_row">
-                          <CustomTableCells>
+                          <CustomTableCells cols={"col-11"}>
                             <Username username={item.username} />
                             <small className="d-block card-timestamp text-muted align-self-center">
                               {item.email}
                             </small>
                           </CustomTableCells>
 
-                          <CustomTableCells>
+                          <CustomTableCells cols={"col-1"}>
                             <div className="d-flex img-group justify-content-center">
                               <img
                                 src={item.gravatarImage}
@@ -82,12 +66,14 @@ function History() {
                 )
               }
               tablePagination={
-                <Pagination
-                  postsPerPage={postPerPage}
-                  totalPosts={count}
-                  paginate={paginate}
-                  currentPage={currentPage}
-                />
+                <>
+                  <Pagination
+                    postsPerPage={postPerPage}
+                    totalPosts={count}
+                    paginate={paginate}
+                    currentPage={currentPage}
+                  />
+                </>
               }
             />
           </>

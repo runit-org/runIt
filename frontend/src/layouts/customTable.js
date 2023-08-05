@@ -16,9 +16,9 @@ function CustomTable({ headerItems, tableItems, tablePagination }) {
   );
 }
 
-function CustomTableCells({ children }) {
+function CustomTableCells({ children, cols }) {
   return (
-    <td>
+    <td className={cols}>
       <div className="table-content">{children}</div>
     </td>
   );

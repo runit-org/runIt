@@ -8,7 +8,6 @@ import {
 import { emitter } from "../client/socket";
 import CTAButton from "../../layouts/ctaButton";
 import { MentionFilter } from "../../utilities/utility-service";
-import { usePageId } from "../../hooks/usePageId";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 import { useHandleChange } from "../../hooks/useHandleChange";
 
@@ -35,8 +34,6 @@ function CreateEvent(props) {
 
   const eventDate = new Date(formValue.date);
 
-  let pageId = usePageId();
-
   useEffect(() => {
     if (!/\S/.test(formValue.details)) {
       setValidateFormEmpty(true);
@@ -58,7 +55,7 @@ function CreateEvent(props) {
         formValue.time !== "" ? parseInt(formValue.time.split(":")[1]) : "",
     };
     dispatch(createNewEvent(postData, setFormStatus)).then(() => {
-      dispatch(getAllEvents(pageId));
+      dispatch(getAllEvents(1));
       emitter(MentionFilter(formValue.details));
     });
   };
