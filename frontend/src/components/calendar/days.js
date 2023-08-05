@@ -35,6 +35,7 @@ function Days(props) {
     currentCalendarDays.push(calendarDay);
   }
 
+  //split events array into chunks of 6
   var size = 7;
   var arrayOfArrays = [];
   for (var i = 0; i < currentCalendarDays.length; i += size) {
