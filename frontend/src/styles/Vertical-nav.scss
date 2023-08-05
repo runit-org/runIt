@@ -4,6 +4,7 @@
   padding-block: 6px;
   padding-inline: 8px;
   border-radius: 6px;
+  margin: 1px;
   color: $primary-dark !important;
   &:hover {
     background-color: $theme-light;
@@ -13,10 +14,11 @@
 .nav-link.active {
   font-weight: bold;
   background-color: $theme-light;
+  border: 1px solid darken($theme-light, 10);
 }
 
 #profile_sidebar {
-  width: 20%;
+  max-width: 20%;
 }
 
 #profile_sidebar .sidebar_left {

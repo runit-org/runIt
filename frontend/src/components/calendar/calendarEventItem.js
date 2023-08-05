@@ -5,13 +5,10 @@ import { CalendarContext } from "../../context/calendarProvider";
 import SortDropdown from "../../layouts/sortDropdown";
 import { Link } from "react-router-dom";
 import { CustomTable, CustomTableCells } from "../../layouts/customTable";
+import { DateFormat } from "../../utilities/utility-service";
 
 function CalendarEventItem(props) {
   const { currentDay } = useContext(CalendarContext);
-
-  const formatter = new Intl.DateTimeFormat("en", {
-    month: "short",
-  });
 
   const calendarEvents = DayEventsHandler(
     props.userId,
@@ -41,7 +38,7 @@ function CalendarEventItem(props) {
                       <Badge>
                         {new Date(item.eventDate).getDate()}{" "}
                         <span className="d-block">
-                          {formatter.format(new Date(item.eventDate))}
+                          {DateFormat("short").format(new Date(item.eventDate))}
                         </span>
                       </Badge>
                     </CustomTableCells>

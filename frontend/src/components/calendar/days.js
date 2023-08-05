@@ -35,31 +35,42 @@ function Days(props) {
     currentCalendarDays.push(calendarDay);
   }
 
+  var size = 7;
+  var arrayOfArrays = [];
+  for (var i = 0; i < currentCalendarDays.length; i += size) {
+    arrayOfArrays.push(currentCalendarDays.slice(i, i + size));
+  }
+
   return (
-    <div className="calendar-days">
-      {currentCalendarDays.map((days, index) => {
-        return (
-          <div
-            key={index}
-            className={`day ${days.isCurrMonth ? `currMonth` : ``} ${
-              days.selected ? `selectedDay` : ``
-            } ${
-              props.eventIndexes
-                ? props.eventIndexes.some(
-                    (data) =>
-                      data.day === days.day && props.currentMonth === days.month
-                  )
-                  ? `hasEvent`
-                  : ``
-                : ``
-            } `}
-            onClick={() => props.changeCurrentDay(days)}
-          >
-            <p>{days.day}</p>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      {arrayOfArrays.map((x, i) => (
+        <tr>
+          {x.map((days, index) => {
+            return (
+              <td
+                key={index}
+                className={` day ${days.isCurrMonth ? `currMonth` : ``} ${
+                  days.selected ? `selectedDay` : ``
+                } ${
+                  props.eventIndexes
+                    ? props.eventIndexes.some(
+                        (data) =>
+                          data.day === days.day &&
+                          props.currentMonth === days.month
+                      )
+                      ? `hasEvent`
+                      : ``
+                    : ``
+                } `}
+                onClick={() => props.changeCurrentDay(days)}
+              >
+                <p>{days.day}</p>
+              </td>
+            );
+          })}
+        </tr>
+      ))}
+    </>
   );
 }
 

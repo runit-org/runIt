@@ -1,3 +1,4 @@
+//mentions
 export const Mention = (text) => {
   const regex = /\B@[a-zA-Z0-9_-]+/gm;
   return (text = text.replace(regex, (match) => {
@@ -20,6 +21,7 @@ export const MentionFilter = (text, username) => {
   return parse;
 };
 
+//calendar
 export const WeekDays = () => {
   const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
@@ -43,4 +45,11 @@ export const Months = () => {
   ];
 
   return months;
+};
+
+export const DateFormat = (monthFormat) => {
+  const formatter = new Intl.DateTimeFormat("en", {
+    month: monthFormat,
+  });
+  return formatter;
 };

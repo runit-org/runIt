@@ -8,7 +8,6 @@ function CustomTable({ headerItems, tableItems }) {
           <tr>{headerItems}</tr>
         </thead>
         <tbody>{tableItems}</tbody>
-        <tbody></tbody>
       </Table>
     </div>
   );

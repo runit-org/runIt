@@ -427,7 +427,7 @@ div.content {
 
 /*------Table------*/
 .custom-table {
-  border: 1px solid #dee2e6 !important;
+  border: 1px solid darken($primary-light, 10) !important;
   overflow: hidden;
   border-radius: 8px !important;
 }

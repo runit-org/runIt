@@ -8,25 +8,6 @@
   }
 }
 
-@media only screen and (max-width: 530px) {
-  .calendar {
-    width: 400px !important;
-    height: 400px !important;
-    padding: 0 20px 0 20px;
-  }
-  .calendar .body .week {
-    width: 50px !important;
-  }
-  .calendar-days .day {
-    width: 50px !important;
-    height: 40px !important;
-    padding: 0px !important;
-  }
-  .calendar-days .day span {
-    display: none !important;
-  }
-}
-
 @media only screen and (max-width: 575px) {
   .navbar .navbar-collapse div {
     margin: 0 !important;
@@ -49,52 +30,6 @@
   .footer-links,
   .footer-logo {
     text-align: center;
-  }
-}
-
-@media only screen and (min-width: 530px) and (max-width: 768px) {
-  .calendar {
-    width: 420px !important;
-    height: 420px !important;
-  }
-  .calendar .body .week {
-    width: 50px !important;
-  }
-  .calendar-days .day {
-    width: 50px !important;
-    height: 50px !important;
-    padding: 0px !important;
-    padding-right: 4px !important;
-  }
-}
-
-@media only screen and (min-width: 1024px) and (max-width: 1144px) {
-  .calendar {
-    width: 400px !important;
-    height: 400px !important;
-  }
-  .calendar .body .week {
-    width: 40px !important;
-  }
-  .calendar-days .day {
-    width: 40px !important;
-    height: 40px !important;
-    padding: 0px !important;
-  }
-}
-
-@media only screen and (min-width: 1144px) and (max-width: 1237px) {
-  .calendar {
-    width: 420px !important;
-    height: 420px !important;
-  }
-  .calendar .body .week {
-    width: 45px !important;
-  }
-  .calendar-days .day {
-    width: 45px !important;
-    height: 45px !important;
-    padding: 0px !important;
   }
 }
 

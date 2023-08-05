@@ -1,9 +1,9 @@
 import React from "react";
 import { Card, Container } from "react-bootstrap";
 
-import UserProfile from "../components/profile/userProfile";
+import UserProfile from "./userProfile";
 
-function UserDash() {
+function ProfileMain() {
   return (
     <>
       <div className="content">
@@ -31,4 +31,4 @@ function UserDash() {
   );
 }
 
-export default UserDash;
+export default ProfileMain;

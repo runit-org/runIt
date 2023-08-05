@@ -3,12 +3,12 @@ import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
 
 function VerticalNav({ navObj }) {
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(0);
 
   return (
     <Nav
       className="flex-column verticalNav"
-      defaultActiveKey={1}
+      defaultActiveKey={active}
       onSelect={(event) => setActive(event)}
       activeKey={active}
     >

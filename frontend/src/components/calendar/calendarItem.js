@@ -4,6 +4,7 @@ import Days from "./days";
 import { MonthlyEventsHandler } from "./utilities/actionHandler";
 import { CalendarContext } from "../../context/calendarProvider";
 import { Months, WeekDays } from "../../utilities/utility-service";
+import { Table } from "react-bootstrap";
 
 function Calendar(props) {
   var days = WeekDays();
@@ -40,7 +41,7 @@ function Calendar(props) {
   }
 
   return (
-    <div className="calendar">
+    <div className="calendar_container">
       <div className="head">
         <span> {currentDay.getFullYear()}</span>
         <div className="month-controls">
@@ -53,24 +54,29 @@ function Calendar(props) {
           </div>
         </div>
       </div>
+      <div className="calendar">
+        <Table responsive>
+          <thead>
+            <tr>
+              {days.map((i, index) => {
+                return (
+                  <th key={index} className="week">
+                    {i}
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
 
-      <div className="body">
-        <div className="header">
-          {days.map((i, index) => {
-            return (
-              <div key={index} className="week">
-                {i}
-              </div>
-            );
-          })}
-        </div>
-
-        <Days
-          day={currentDay}
-          changeCurrentDay={changeCurrentDay}
-          eventIndexes={indexes}
-          currentMonth={currentDay.getMonth()}
-        />
+          <tbody>
+            <Days
+              day={currentDay}
+              changeCurrentDay={changeCurrentDay}
+              eventIndexes={indexes}
+              currentMonth={currentDay.getMonth()}
+            />
+          </tbody>
+        </Table>
       </div>
     </div>
   );
