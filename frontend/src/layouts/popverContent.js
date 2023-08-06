@@ -1,8 +1,11 @@
 import React from "react";
-import { VoteBadge } from "../components/profile/utilities/profileBuilder";
+import {
+  UserCardInfo,
+  VoteBadge,
+} from "../components/profile/utilities/profileBuilder";
 import Vote from "../components/profile/vote";
 import UserProfileHandler from "../components/profile/utilities/actionHandlers.js";
-import { ArrowRight } from "./icons";
+import { ArrowRight, Smiley } from "./icons";
 import { DisplayImage } from "./userDisplayImg";
 
 const UserPopoverContent = (props) => {
@@ -29,13 +32,21 @@ const UserPopoverContent = (props) => {
           <div className="mt-3 ">
             <VoteBadge votes={user.totalVote} />
 
-            <small className="d-block text-muted">{user.statusMessage}</small>
-            <small className="d-block text-muted">
-              Participated in {user.numParticipatedEvents} event(s)
+            <small className="d-block text-muted mt-2">
+              {user.statusMessage ? (
+                <>
+                  <Smiley /> {user.statusMessage}
+                </>
+              ) : (
+                ""
+              )}
             </small>
-            <small className="d-block text-muted">
-              Last active: {new Date(user.last_login).toLocaleDateString()}
-            </small>
+            <UserCardInfo
+              lastLogin={user.last_login}
+              numParticipatedEvents={user.numParticipatedEvents}
+              size={"sm"}
+            />
+
             <div className="mt-2">
               <a
                 href={`/profile?user=${user.username}`}
@@ -48,11 +59,7 @@ const UserPopoverContent = (props) => {
 
           {user.username !== localStorage.getItem("username") ? (
             <div className="mt-4">
-              <Vote
-                userId={user.id}
-                username={user.username}
-                voteStatus={user.voteStatus}
-              />
+              <Vote user={user} fullW={true} />
             </div>
           ) : (
             ""

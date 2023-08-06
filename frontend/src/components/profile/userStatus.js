@@ -38,10 +38,14 @@ function UserStatus() {
       ref={(ref, btnRef)}
       customBtn={"w-100 btn-muted text-start"}
       btnIcon={
-        <>
-          <Smiley />
-          <span className="ms-1">Set status...</span>
-        </>
+        <span className="d-grid">
+          <span className="ms-1 text-truncate" style={{ maxWidth: "100%" }}>
+            <Smiley />
+            {userContext !== ""
+              ? userContext.currentUser.statusMessage
+              : "Set status..."}
+          </span>
+        </span>
       }
       title={"Edit Status"}
       error={error}

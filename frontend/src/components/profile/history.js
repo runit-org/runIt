@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Card, Container } from "react-bootstrap";
-
 import UserProfile from "./userProfile";
 import { CustomTable, CustomTableCells } from "../../layouts/customTable";
 import SortDropdown from "../../layouts/sortDropdown";
@@ -11,8 +10,7 @@ import Pagination from "../../layouts/pagination";
 function History() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(10);
-  // const { count, results } = GetVotes(currentPage);
-  const userList = GetVotes(currentPage);
+  const { count, results } = GetVotes(currentPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -25,15 +23,15 @@ function History() {
               headerItems={
                 <th colSpan={2}>
                   <div className="d-flex justify-content-between align-items-center mx-2">
-                    {/* {count} votes */}
+                    {count} votes
                     <SortDropdown />
                   </div>
                 </th>
               }
               tableItems={
-                userList && userList.length > 0 ? (
+                results && count > 0 ? (
                   <>
-                    {userList.map((item, i) => {
+                    {results.map((item, i) => {
                       return (
                         <tr key={i} className="table_row">
                           <CustomTableCells cols={"col-11"}>
@@ -67,20 +65,12 @@ function History() {
                 )
               }
               tablePagination={
-                <>
-                  <button
-                    className="btn-load-more"
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                  >
-                    More
-                  </button>
-                  {/*   <Pagination
-                    postsPerPage={postPerPage}
-                    totalPosts={count}
-                    paginate={paginate}
-                    currentPage={currentPage}
-                  /> */}
-                </>
+                <Pagination
+                  postsPerPage={postPerPage}
+                  totalPosts={count}
+                  paginate={paginate}
+                  currentPage={currentPage}
+                />
               }
             />
           </>

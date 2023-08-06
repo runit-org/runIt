@@ -135,25 +135,41 @@ div.content {
   padding: 0;
 }
 
-.vote_btnGroup {
-  display: flex !important;
-  justify-content: space-between !important;
+%vote_btn-interactive {
+  color: #5850ec !important;
+  background-color: #e5edff !important;
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+  --bs-border-opacity: 0.1;
+  border-color: rgba(#5850ec, var(--bs-border-opacity)) !important;
 }
-.vote_btnGroup button.user_vote {
-  background-color: $button-hover !important;
-  color: $primary-light !important;
+.vote_btn {
+  padding: 0.2rem 0.4rem 0.2rem 0.4rem !important;
+  font-size: 12px !important;
+  font-weight: 600;
+  background-color: #f9fafb !important;
+  color: #475569 !important;
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+  --bs-border-opacity: 0.1;
+  border-color: rgba(#475569, var(--bs-border-opacity)) !important;
+
+  &:hover {
+    @extend %vote_btn-interactive;
+  }
+}
+.vote_btn.user_vote {
+  @extend %vote_btn-interactive;
 }
 
 #vote_badge {
+  display: inline-flex;
+  align-items: center;
   font-weight: 600;
   background-color: #e5edff !important;
   color: #5850ec !important;
   border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
   --bs-border-opacity: 0.1;
-  border-color: rgba(
-    var(--bs-success-rgb),
-    var(--bs-border-opacity)
-  ) !important;
+  border-color: rgba(#5850ec, var(--bs-border-opacity)) !important;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
 }
 
 .username_tags {

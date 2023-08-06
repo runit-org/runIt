@@ -7,7 +7,7 @@ function ProfileMain() {
   return (
     <>
       <div className="content">
-        <Container className="content-wrapper">
+        <Container className="content-wrapper ">
           <Card>
             <Card.Body>
               <UserProfile />
