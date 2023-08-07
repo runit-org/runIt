@@ -11,6 +11,9 @@ def validate(request):
     if not re.match(email_regex, data['email']):
         return validationError('Invalid email format')
     
+    if ' ' in data['username']:
+        return validationError('Username cannot contain spaces')
+    
     if len(data['username']) < 5:
         return validationError('Username is too short (5 chars min)')
 
