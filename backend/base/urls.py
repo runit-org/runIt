@@ -30,6 +30,7 @@ user_patterns = [
     path('me/', UserViews.currentUserProfile, name="get_current_user_profile"),
     path('updateStatusMessage/', UserViews.updateStatusMessage, name="update_my_status_message"),
     path('changePassword/', UserViews.changePassword, name="change_my_password"),
+    path('updateDetails/', UserViews.updateDetails, name="update_my_details"),
 ]
 
 user_vote_patterns = [
