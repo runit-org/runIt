@@ -324,3 +324,69 @@ class UserTestClass(BaseTestClass):
         }
         response = c.put(url, data, format='json')
         self.assertTrue(response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def test_update_my_details_success(self):
+        user = self.generateNewUserObject()
+        url = self.baseUrl + 'updateDetails/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        newUsername = self.generateRandomString(50)
+        message = 'New Status Message'
+        data = {
+            'username' : newUsername,
+            'message': message
+        }
+        response = c.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(newUsername, User.objects.get(id=user.id).username)
+        self.assertEqual(message, UserExtend.objects.get(userId=user.id).statusMessage)
+
+    def test_update_my_details_success(self):
+        user = self.generateNewUserObject()
+        url = self.baseUrl + 'updateDetails/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        newUsername = self.generateRandomString(50)
+        message = 'New Status Message'
+        data = {
+            'username' : newUsername,
+            'message': message
+        }
+        response = c.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(newUsername, User.objects.get(id=user.id).username)
+        self.assertEqual(message, UserExtend.objects.get(userId=user.id).statusMessage)
+
+    def test_update_my_details_username_taken_fails(self):
+        user = self.generateNewUserObject()
+        url = self.baseUrl + 'updateDetails/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        newUsername = User.objects.create().username
+        message = 'New Status Message'
+        data = {
+            'username' : newUsername,
+            'message': message
+        }
+        response = c.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+        self.assertFalse(newUsername == User.objects.get(id=user.id).username)
+        self.assertFalse(message == UserExtend.objects.get(userId=user.id).statusMessage)
