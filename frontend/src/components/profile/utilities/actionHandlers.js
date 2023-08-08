@@ -44,5 +44,13 @@ export const GetVotes = (pageId) => {
     }
   }, [pageId, votes]);
 
+  /* useEffect(() => {
+    if (test && votes.results) {
+      // setTest([...test, ...votes.results.splice(0, pageId * 10)]);
+    }
+  }, [pageId, votes.results]);
+
+; */
+
   return votesList;
 };

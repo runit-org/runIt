@@ -11,8 +11,19 @@ function History() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(10);
   const { count, results } = GetVotes(currentPage);
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  /*   useEffect(() => {
+    const getUserList = () => {
+      axios
+        .get(`http://localhost:8000/api/user/vote/?page=${currentPage}`)
+
+        .then((res) => {
+          setTest([...test, ...res.data.results]);
+        });
+    };
+    getUserList();
+  }, [currentPage]); */
 
   return (
     <>

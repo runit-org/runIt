@@ -100,7 +100,7 @@ export const getVotes = (page) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`/user/vote/?page=${page}`)
+      .get(`/user/vote/?page=${page}/`)
       .then((res) => {
         dispatch({
           type: GET_VOTES,
@@ -108,6 +108,28 @@ export const getVotes = (page) => async (dispatch) => {
         });
       })
       .catch((error) => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response,
+        });
+      });
+  });
+};
+
+export const updateDetails = (postData, setLoad) => async (dispatch) => {
+  await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+    setLoad(true);
+    axios
+      .put(`/user/updateDetails/`, postData)
+      .then((res) => {
+        if (res.status === 200) {
+          setLoad(false);
+        }
+      })
+      .catch((error) => {
+        setLoad(false);
+
         dispatch({
           type: GET_ERRORS,
           payload: error.response.data,
