@@ -16,7 +16,7 @@ function UpdateDetails(props) {
   const { currentUser } = useContext(UserContext);
   const { formValue, handleFieldChange } = useHandleChange({
     username: currentUser.username,
-    message: currentUser.statusMessage,
+    message: currentUser.statusMessage === "" ? " " : currentUser.statusMessage,
   });
 
   const handleSubmit = async (e) => {

@@ -100,7 +100,7 @@ export const getVotes = (page) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`/user/vote/?page=${page}/`)
+      .get(`/user/vote/?page=${page}`)
       .then((res) => {
         dispatch({
           type: GET_VOTES,

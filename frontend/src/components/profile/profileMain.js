@@ -3,6 +3,7 @@ import { Button, Card, Container } from "react-bootstrap";
 
 import UserProfile from "./userProfile";
 import UpdateDetails from "./updateDetails";
+import Timeline from "../../layouts/timeline";
 
 function ProfileMain() {
   const [editorMode, setEditorMode] = useState(false);
@@ -14,11 +15,7 @@ function ProfileMain() {
     <>
       <div className="content">
         <Container className="content-wrapper ">
-          <Card>
-            <Card.Body>
-              <UserProfile />
-            </Card.Body>
-          </Card>
+          <Timeline />
         </Container>
       </div>
 
