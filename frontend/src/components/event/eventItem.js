@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Card } from "react-bootstrap";
 import UpdateEvent from "./updateEvent";
 import { eventOptions } from "./utilities/eventOptions";
@@ -11,15 +11,12 @@ import { CANCELLED, FINISHED } from "./utilities/eventTypes";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import CustomDropdown from "../../layouts/customDropdown";
 import PopoverItem from "../../layouts/popoverItem";
+import { useEditor } from "../../hooks/useEditor";
 
 function EventItem() {
-  const [editorMode, setEditorMode] = useState(false);
   const eventData = useContext(SingleEventContext);
   const currentUser = useContext(SecurityContext);
-
-  function handleClick() {
-    setEditorMode(!editorMode);
-  }
+  const { editorMode, handleClick } = useEditor(false);
 
   return (
     <>
@@ -79,7 +76,7 @@ function EventItem() {
                 <h6>Details</h6>
                 <small className="text-muted">
                   Host:{" "}
-                  <a href={`/profile?user=${eventData.userName}`}>
+                  <a href={`/profile/settings?user=${eventData.userName}`}>
                     @{eventData.userName}
                   </a>
                 </small>

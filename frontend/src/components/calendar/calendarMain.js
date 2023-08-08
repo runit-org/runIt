@@ -8,6 +8,7 @@ import { useSearchParams } from "react-router-dom";
 import { UserContext } from "../../context/userProvider";
 import UserProfileHandler from "../profile/utilities/actionHandlers";
 import { CalendarContext } from "../../context/calendarProvider";
+import { DateFormat, DateOrdinal } from "../../utilities/utility-service";
 
 function CalendarMain() {
   const { currentDay } = useContext(CalendarContext);
@@ -16,6 +17,9 @@ function CalendarMain() {
   const { currentUser } = useContext(UserContext);
   const user = UserProfileHandler(param ? param : currentUser.username);
 
+  //date
+  var currDay = new Date(currentDay).getDate();
+
   return (
     <>
       {user ? (
@@ -23,7 +27,9 @@ function CalendarMain() {
           <div className="content">
             <Container className="content-wrapper">
               <SectionHeader>
-                {user.username}'s events on {currentDay.toLocaleDateString()}
+                {user.username}'s events on{" "}
+                {DateFormat("short").format(new Date(currentDay))} {currDay}
+                {DateOrdinal(currDay)}
               </SectionHeader>
               <CalendarEventItem userId={user.id} />
             </Container>

@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Card, Container } from "react-bootstrap";
 
 import UserProfile from "./userProfile";
 import UpdateDetails from "./updateDetails";
 import Timeline from "../../layouts/timeline";
+import { useEditor } from "../../hooks/useEditor";
 
 function ProfileMain() {
-  const [editorMode, setEditorMode] = useState(false);
-  function handleClick() {
-    setEditorMode(!editorMode);
-  }
+  const { editorMode, handleClick } = useEditor(false);
 
   return (
     <>

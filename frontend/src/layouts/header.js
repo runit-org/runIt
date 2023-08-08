@@ -99,7 +99,9 @@ function Header() {
                 </Nav.Link>
                 <Nav.Link
                   href={
-                    currentUser ? `/profile?user=${currentUser.username}` : ""
+                    currentUser
+                      ? `/profile/settings?user=${currentUser.username}`
+                      : ""
                   }
                 >
                   Your Profile
@@ -150,7 +152,9 @@ function Header() {
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   href={
-                    currentUser ? `/profile?user=${currentUser.username}` : ""
+                    currentUser
+                      ? `/profile/settings?user=${currentUser.username}`
+                      : ""
                   }
                 >
                   Your Profile

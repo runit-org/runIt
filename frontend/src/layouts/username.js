@@ -4,7 +4,7 @@ export const Username = ({ username, size }) => {
   return (
     <Link
       to={{
-        pathname: "/profile",
+        pathname: "/profile/settings",
         search: `user=${username}`,
       }}
     >

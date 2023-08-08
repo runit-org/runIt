@@ -20,7 +20,7 @@ const UserPopoverContent = (props) => {
             <div className="ms-3">
               <a
                 className="username_tags-dark"
-                href={`/profile?user=${user.username}`}
+                href={`/profile/settings?user=${user.username}`}
               >
                 {user.username}
               </a>
@@ -49,7 +49,7 @@ const UserPopoverContent = (props) => {
 
             <div className="mt-2">
               <a
-                href={`/profile?user=${user.username}`}
+                href={`/profile/settings?user=${user.username}`}
                 className="text-decoration-none"
               >
                 View profile <ArrowRight />
