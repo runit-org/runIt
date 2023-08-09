@@ -18,3 +18,5 @@ from base.modules.eventComment.api.serializers.AllEventCommentSerializer import 
 from base.modules.friend.api.serializers.FriendRequestsSerializer import FriendRequestsSerializer
 
 from base.modules.userVote.api.serializers.ListVotedUsersSerializer import ListVotedUsersSerializer
+
+from base.modules.userActivity.api.serializers.UserActivitySerializer import UserActivitySerializer
