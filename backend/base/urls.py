@@ -5,6 +5,7 @@ from base.modules.notification.api import NotificationViews
 from base.modules.user.api import UserViews
 from base.modules.auth.api import AuthViews
 from base.modules.userVote.api import UserVoteViews
+from base.modules.userActivity.api import UserActivityViews
 from base.modules.friend.api import FriendViews
 from base.modules.feedback.api import FeedbackViews
 
@@ -36,6 +37,10 @@ user_patterns = [
 user_vote_patterns = [
     path('<str:userId>/', UserVoteViews.vote, name="vote_user"),
     path('', UserVoteViews.listVotedUsers, name="list_voted_users"),
+]
+
+user_activity_patterns = [
+    path('', UserActivityViews.index, name="list_current_user_activities"),
 ]
 
 event_patterns = [
@@ -91,6 +96,7 @@ urlpatterns = [
     path('auth/', include(auth_patterns)),
     path('user/', include(user_patterns)),
     path('user/vote/', include(user_vote_patterns)),
+    path('user/activity/', include(user_activity_patterns)),
     path('event/', include(event_patterns)),
     path('event/member/', include(event_member_patterns)),
     path('event/comment/', include(event_comment_patterns)),

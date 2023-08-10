@@ -13,3 +13,4 @@ from base.modules.userVote.data.UserVote import UserVote
 from base.modules.friend.data.Friend import Friend
 from base.modules.friend.data.FriendRequest import FriendRequest
 from base.modules.feedback.data.Feedback import Feedback
+from base.modules.userActivity.data.UserActivity import UserActivity
