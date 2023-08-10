@@ -4,11 +4,8 @@ from django.contrib.auth.hashers import make_password
 from base.serializers import UserSerializer
 from base.mail.AuthMail import userRegistered
 from base.modules.auth.api.actions import SendEmailOTPAction
-from base.traits import NotifyUser
-
-def sendNotification(user):
-    message = 'Welcome to runIt, <b>' + user.username + '</b>! Please verify your email for full access.'
-    NotifyUser.notify(user.id, message)
+from base.events.api import UserRegistered
+from events import Dispatcher
 
 def register(request):
     data = request.data
@@ -30,7 +27,7 @@ def register(request):
 
     SendEmailOTPAction.send(user)
 
-    sendNotification(user)
+    UserRegistered.dispatch(user = user)
 
     serializer = UserSerializer(user, many=False)
     return response('User registered', serializer.data)
