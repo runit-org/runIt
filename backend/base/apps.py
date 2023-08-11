@@ -6,8 +6,7 @@ class BaseConfig(AppConfig):
     name = 'base'
 
     def ready(self):
-        from base.events.api.UserRegistered import UserRegistered
-        from base.listeners.api.UserRegisteredListener import UserRegisteredListener
+        from base.event_registration import register_events
 
-        UserRegistered.register(UserRegisteredListener)
+        register_events()
 
