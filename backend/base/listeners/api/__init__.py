@@ -1,1 +1,2 @@
 from base.listeners.api.UserRegisteredListener import UserRegisteredListener
+from base.listeners.api.UserVerifiedEmailListener import UserVerifiedEmailListener

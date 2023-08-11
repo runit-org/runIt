@@ -1,5 +1,12 @@
-from base.events.api.UserRegistered import UserRegistered
-from base.listeners.api.UserRegisteredListener import UserRegisteredListener
+from base.events.api import (
+    UserRegistered,
+    UserVerifiedEmail,
+)
+from base.listeners.api import (
+    UserRegisteredListener,
+    UserVerifiedEmailListener,
+)
 
 def register_events():
     UserRegistered.register(UserRegisteredListener)
+    UserVerifiedEmail.register(UserVerifiedEmailListener)
