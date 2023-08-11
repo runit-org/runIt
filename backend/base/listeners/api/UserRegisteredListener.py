@@ -16,5 +16,3 @@ class UserRegisteredListener(EventListener):
         sendNotification(user)
         pass
     pass
-
-        
