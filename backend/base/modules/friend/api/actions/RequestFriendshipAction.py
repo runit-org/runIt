@@ -3,6 +3,7 @@ from base.serializers import EventCommentSerializer
 from base.views.baseViews import response, error, paginate
 from base.enums import EventMemberStatus
 from base.traits import NotifyUser
+from base.events.api import FriendRequestSent
 
 from django.db.models import Q
 from datetime import datetime
@@ -38,13 +39,6 @@ def checkRequestExist(main, requester):
     else:
         return False
 
-def sendNotification(target, user):
-    link = '/friend-request/'
-    notificationMessage = 'You have a pending friend request from <b>' + user.username + '</b>. Click to manage your friend requests.'  
-    NotifyUser.notify(
-        target.id, notificationMessage, link
-    )
-
 def request(request, userId):
     data = request.data
     user = request.user
@@ -71,6 +65,6 @@ def request(request, userId):
             return error('This user has requested to be your friend')
 
         FriendRequest.objects.create(main=targetUser, requester=user)
-        sendNotification(targetUser, user)
+        FriendRequestSent.dispatch(targetUser, user)
 
         return response('Request sent')

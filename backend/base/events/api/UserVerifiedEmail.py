@@ -1,4 +1,3 @@
-from events import Event
 from base.models import User
 from base.events.BaseEvent import BaseEvent
 

@@ -3,12 +3,14 @@ from base.events.api import (
     UserVerifiedEmail,
     EventInvitationSentToFriend,
     EventStatusUpdated,
+    FriendRequestSent,
 )
 from base.listeners.api import (
     UserRegisteredListener,
     UserVerifiedEmailListener,
     EventInvitationSentToFriendListener,
     EventStatusUpdatedListener,
+    FriendRequestSentListener,
 )
 
 def register_events():
@@ -16,3 +18,4 @@ def register_events():
     UserVerifiedEmail.register(UserVerifiedEmailListener)
     EventInvitationSentToFriend.register(EventInvitationSentToFriendListener)
     EventStatusUpdated.register(EventStatusUpdatedListener)
+    FriendRequestSent.register(FriendRequestSentListener)
