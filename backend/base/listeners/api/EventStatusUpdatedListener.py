@@ -13,7 +13,7 @@ def sendNotification(user, event, status):
                 notificationMessage = 'User <b>' + user.username + '</b> has updated the status of an event you are affiliated with: <b>' + event.title + '</b>. New status: ' + status
                 NotifyUser.notify(eventMember.user.id, notificationMessage, link)
 
-class UserRegisteredListener(EventListener):
+class EventStatusUpdatedListener(EventListener):
     listensFor = [
         EventStatusUpdated,
     ]

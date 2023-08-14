@@ -4,6 +4,7 @@ from base.events.api import (
     EventInvitationSentToFriend,
     EventStatusUpdated,
     FriendRequestSent,
+    FriendRequestResponded,
 )
 from base.listeners.api import (
     UserRegisteredListener,

@@ -3,3 +3,4 @@ from base.events.api.UserVerifiedEmail import UserVerifiedEmail
 from base.events.api.EventInvitationSentToFriend import EventInvitationSentToFriend
 from base.events.api.EventStatusUpdated import EventStatusUpdated
 from base.events.api.FriendRequestSent import FriendRequestSent
+from base.events.api.FriendRequestResponded import FriendRequestResponded
