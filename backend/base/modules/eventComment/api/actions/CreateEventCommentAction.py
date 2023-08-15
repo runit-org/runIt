@@ -3,6 +3,7 @@ from base.serializers import EventCommentSerializer
 from base.views.baseViews import response, error, paginate
 from base.enums import EventMemberStatus
 from base.traits import NotifyUser
+from base.events.api import EventCommentCreated
 
 from datetime import datetime
 from django.utils import timezone
@@ -82,12 +83,8 @@ def create(request, eventId):
         createdAt = timezone.make_aware(datetime.now())
     )
 
-    eventCreatorUserId = event.user.id
-    notificationMessage = 'User <b>' + user.username + '</b> commented on your event ' + '<b>' + event.title + '</b>'
-
-    if eventCreatorUserId != user.id:
-        link = '/event/' + str(event.id)
-        NotifyUser.notify(eventCreatorUserId, notificationMessage, link)
+    if event.user.id != user.id:
+        EventCommentCreated.dispatch(user, event)
 
     mention(event, data['content'], user)
 

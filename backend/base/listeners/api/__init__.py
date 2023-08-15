@@ -8,3 +8,4 @@ from base.listeners.api.EventAnnouncementSentListener import EventAnnouncementSe
 from base.listeners.api.EventMemberStatusChangedListener import EventMemberStatusChangedListener
 from base.listeners.api.EventJoinRequestSentListener import EventJoinRequestSentListener
 from base.listeners.api.EventCommentLikedListener import EventCommentLikedListener
+from base.listeners.api.EventCommentCreatedListener import EventCommentCreatedListener
