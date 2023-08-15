@@ -3,6 +3,7 @@ from base.serializers import EventSerializer
 from base.views.baseViews import response, error
 from base.traits import NotifyUser
 from base.enums import EventMemberStatus, EventStatus
+from base.events.api import EventJoinRequestSent
 
 from datetime import datetime
 from django.utils import timezone
@@ -69,10 +70,7 @@ def request(request):
             status = 0
         )
 
-        eventCreatorUserId = event.user.id
-        link = '/event/' + str(event.id)
-        notificationMessage = 'User <b>' + user.username + '</b> has requested to join your event ' + '<b>' + event.title + '</b>'
-        NotifyUser.notify(eventCreatorUserId, notificationMessage, link)
+        EventJoinRequestSent.dispatch(user, event)
 
         return response('Your request to join this event have been submitted. Please wait for approval from the event creator')
     
