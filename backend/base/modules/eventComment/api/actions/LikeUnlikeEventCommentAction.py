@@ -3,6 +3,7 @@ from base.serializers import EventCommentSerializer
 from base.views.baseViews import response, error, paginate
 from base.enums import EventMemberStatus
 from base.traits import NotifyUser
+from base.events.api import EventCommentLiked
 
 def checkCommentId(id):
     checkCommentExist = EventComment.objects.filter(id = id)
@@ -38,7 +39,7 @@ def update(request, commentId):
 
     if event.user != user:
         if checkEventMemberStatus(event.id, user.id) != EventMemberStatus.get.ACCEPTED.value:
-            return error('Can only create comments as an accepted member of an event')
+            return error('Can only like comments as an accepted member of an event')
 
     if comment.event.status != None:
         return error('Event status is FINISHED/CANCELLED')
@@ -56,9 +57,7 @@ def update(request, commentId):
         )
 
         if user != comment.user:
-            link = '/event/' + str(comment.event.id)
-            notifDetails = 'User <b>' + user.username + '</b> liked your comment: <i>' + comment.content + '</i>' 
-            NotifyUser.notify(comment.user.id, notifDetails, link)
+            EventCommentLiked.dispatch(user, comment)
 
         return response('Comment liked', [])
     

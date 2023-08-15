@@ -7,3 +7,4 @@ from base.events.api.FriendRequestResponded import FriendRequestResponded
 from base.events.api.EventAnnouncementSent import EventAnnouncementSent
 from base.events.api.EventMemberStatusChanged import EventMemberStatusChanged
 from base.events.api.EventJoinRequestSent import EventJoinRequestSent
+from base.events.api.EventCommentLiked import EventCommentLiked

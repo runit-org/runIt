@@ -8,6 +8,7 @@ from base.events.api import (
     EventAnnouncementSent,
     EventMemberStatusChanged,
     EventJoinRequestSent,
+    EventCommentLiked,
 )
 from base.listeners.api import (
     UserRegisteredListener,
@@ -19,6 +20,7 @@ from base.listeners.api import (
     EventAnnouncementSentListener,
     EventMemberStatusChangedListener,
     EventJoinRequestSentListener,
+    EventCommentLikedListener,
 )
 
 def register_events():
@@ -31,3 +33,4 @@ def register_events():
     EventAnnouncementSent.register(EventAnnouncementSentListener)
     EventMemberStatusChanged.register(EventMemberStatusChangedListener)
     EventJoinRequestSent.register(EventJoinRequestSentListener)
+    EventCommentLiked.register(EventCommentLikedListener)
