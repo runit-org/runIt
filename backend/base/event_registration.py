@@ -12,6 +12,7 @@ from base.listeners.api import (
     EventInvitationSentToFriendListener,
     EventStatusUpdatedListener,
     FriendRequestSentListener,
+    FriendRequestRespondedListener,
 )
 
 def register_events():
@@ -20,3 +21,4 @@ def register_events():
     EventInvitationSentToFriend.register(EventInvitationSentToFriendListener)
     EventStatusUpdated.register(EventStatusUpdatedListener)
     FriendRequestSent.register(FriendRequestSentListener)
+    FriendRequestResponded.register(FriendRequestRespondedListener)
