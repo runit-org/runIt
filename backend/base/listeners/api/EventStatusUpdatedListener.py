@@ -20,8 +20,8 @@ class EventStatusUpdatedListener(EventListener):
 
     def handle_event(self, event):
         user = event.user
-        event = event.event
         status = event.status
-        sendNotification(user, event, status)
+        eventObject = event.event
+        sendNotification(user, eventObject, status)
         pass
     pass

@@ -20,7 +20,7 @@ class EventAnnouncementSentListener(EventListener):
     def handle_event(self, event):
         user = event.user
         content = event.content
-        event = event.event
-        sendNotification(user, event, content)
+        eventObject = event.event
+        sendNotification(user, eventObject, content)
         pass
     pass

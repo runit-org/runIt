@@ -19,7 +19,7 @@ class EventInvitationSentToFriendListener(EventListener):
     def handle_event(self, event):
         currUser = event.currUser
         target = event.target
-        event = event.event
-        sendNotification(currUser, target, event)
+        eventObject = event.event
+        sendNotification(currUser, target, eventObject)
         pass
     pass

@@ -5,3 +5,4 @@ from base.listeners.api.EventStatusUpdatedListener import EventStatusUpdatedList
 from base.listeners.api.FriendRequestSentListener import FriendRequestSentListener
 from base.listeners.api.FriendRequestRespondedListener import FriendRequestRespondedListener
 from base.listeners.api.EventAnnouncementSentListener import EventAnnouncementSentListener
+from base.listeners.api.EventMemberStatusChangedListener import EventMemberStatusChangedListener
