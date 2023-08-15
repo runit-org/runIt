@@ -5,6 +5,7 @@ from base.events.api import (
     EventStatusUpdated,
     FriendRequestSent,
     FriendRequestResponded,
+    EventAnnouncementSent,
 )
 from base.listeners.api import (
     UserRegisteredListener,
@@ -13,6 +14,7 @@ from base.listeners.api import (
     EventStatusUpdatedListener,
     FriendRequestSentListener,
     FriendRequestRespondedListener,
+    EventAnnouncementSentListener,
 )
 
 def register_events():
@@ -22,3 +24,4 @@ def register_events():
     EventStatusUpdated.register(EventStatusUpdatedListener)
     FriendRequestSent.register(FriendRequestSentListener)
     FriendRequestResponded.register(FriendRequestRespondedListener)
+    EventAnnouncementSent.register(EventAnnouncementSentListener)

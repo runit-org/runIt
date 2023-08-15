@@ -1,5 +1,5 @@
 from events import EventListener
-from base.events.api import UserVerifiedEmail
+from base.events.api import FriendRequestSent
 from base.traits import NotifyUser
 
 def sendNotification(target, user):
@@ -11,7 +11,7 @@ def sendNotification(target, user):
 
 class FriendRequestSentListener(EventListener):
     listensFor = [
-        UserVerifiedEmail,
+        FriendRequestSent,
     ]
 
     def handle_event(self, event):

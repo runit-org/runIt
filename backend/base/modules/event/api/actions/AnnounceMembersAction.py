@@ -1,6 +1,6 @@
 from base.models import Event, EventMember
 from base.views.baseViews import response, error
-from base.traits import NotifyUser
+from base.events.api import EventAnnouncementSent
 
 def checkEventId(eventId):
     checkEventExist = Event.objects.filter(id = eventId)
@@ -23,13 +23,8 @@ def send(request, eventId):
         return error('Event status is FINISHED/CANCELLED')
 
     if user.id != event.user.id:
-        return error('Can only delete your own events')
+        return error('Can only announce on your own events')
 
-    members = EventMember.objects.filter(event=event)
-
-    message = '<b>' + user.username + '</b> made an announcement on event <b>' + event.title + '</b>: ' + '<i>' + data['content'] + '</i>'
-    link = '/event/' + str(event.id)
-    for member in members:
-        NotifyUser.notify(member.id, message, link)
+    EventAnnouncementSent.dispatch(user, event, data['content'])
 
     return response('Announcement sent')
