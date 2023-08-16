@@ -55,16 +55,18 @@ export const getAllEvents = (id) => async (dispatch) => {
   });
 };
 
-export const affiliatedEvents = (id) => async (dispatch) => {
+export const affiliatedEvents = (filter) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`/event/affiliated/?page=${id}`)
+      .get(`/event/affiliated/${filter ? `?filter=status-${filter}` : ""}`)
       .then((res) => {
-        dispatch({
-          type: GET_AFFILIATED_EVENTS,
-          payload: res.data,
-        });
+        if (res.status === ResponseStatus.OK) {
+          dispatch({
+            type: GET_AFFILIATED_EVENTS,
+            payload: res.data,
+          });
+        }
       })
       .catch((error) => {
         dispatch({

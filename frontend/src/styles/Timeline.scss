@@ -2,9 +2,11 @@
 
 .timeline {
   position: relative;
-  border-left: 1px solid black;
+  border-left: 1px solid darken($primary-light, 20);
   list-style: none;
   padding: 0 !important;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .timeline li {
@@ -33,9 +35,9 @@
   display: flex;
   justify-self: center;
   align-self: center;
-  width: 0.625rem;
-  height: 0.625rem;
-  color: blue;
+  width: 0.725rem;
+  height: 0.725rem;
+  color: $theme;
 }
 
 .timeline li h5 {

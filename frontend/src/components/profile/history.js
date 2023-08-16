@@ -10,7 +10,7 @@ import Pagination from "../../layouts/pagination";
 function History() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(10);
-  const { count, results, next } = GetVotes(currentPage);
+  const { count, results } = GetVotes(currentPage);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   /*   useEffect(() => {
@@ -76,16 +76,12 @@ function History() {
                 )
               }
               tablePagination={
-                next ? (
-                  <Pagination
-                    postsPerPage={postPerPage}
-                    totalPosts={count}
-                    paginate={paginate}
-                    currentPage={currentPage}
-                  />
-                ) : (
-                  ""
-                )
+                <Pagination
+                  postsPerPage={postPerPage}
+                  totalPosts={count}
+                  paginate={paginate}
+                  currentPage={currentPage}
+                />
               }
             />
           </>

@@ -1,7 +1,19 @@
-export const SectionHeader = ({ children }) => {
+export const SectionHeader = ({ children, size }) => {
   return (
     <div className="section-header">
-      <p>{children}</p>
+      <p
+        className={
+          size === "sm"
+            ? "sm"
+            : size === "md"
+            ? "md"
+            : size === "lg"
+            ? "lg"
+            : ""
+        }
+      >
+        {children}
+      </p>
     </div>
   );
 };

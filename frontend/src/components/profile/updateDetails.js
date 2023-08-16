@@ -52,7 +52,7 @@ function UpdateDetails(props) {
           <Form.Label className="text-muted small">Status</Form.Label>
           <Form.Control
             type="text"
-            value={formValue.message}
+            placeholder="What's happening?"
             onChange={handleFieldChange}
           />
         </Form.Group>
