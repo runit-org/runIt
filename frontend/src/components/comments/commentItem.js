@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
 import { Mention } from "../../utilities/utility-service";
@@ -17,19 +17,14 @@ import { DisplayImage } from "../../layouts/userDisplayImg";
 import { usePageId } from "../../hooks/usePageId";
 import CustomDropdown from "../../layouts/customDropdown";
 import { Username } from "../../layouts/username";
+import { useEditor } from "../../hooks/useEditor";
 
 function CommentItem(props) {
   const dispatch = useDispatch();
-
-  const [editorMode, setEditorMode] = useState(false);
   const eventData = useContext(SingleEventContext);
   const currentUser = useContext(SecurityContext);
-
+  const { editorMode, handleClick } = useEditor(false);
   const pageId = usePageId();
-
-  function handleClick() {
-    setEditorMode(!editorMode);
-  }
 
   const commentReact = () => {
     dispatch(likeUnlike(props.commentData.id)).then(() => {

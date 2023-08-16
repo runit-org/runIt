@@ -1,58 +1,33 @@
-import React, { useContext, useState } from "react";
-import { Card, Container } from "react-bootstrap";
-import Calendar from "../components/calendar/calendarItem";
-import CalendarEventItem from "../components/calendar/calendarEventItem";
-import UserProfile from "../components/profile/userProfile";
-import { DayEventsHandler } from "../components/calendar/utilities/actionHandler";
-import { CalendarContext } from "../context/calendarProvider";
+import React, { useContext } from "react";
+import VerticalNav from "../layouts/verticalNav";
+import { NavigationObj } from "../utilities/navigationObj";
+import { Outlet, useSearchParams } from "react-router-dom";
+import UserProfileHandler from "../components/profile/utilities/actionHandlers";
+import { UserContext } from "../context/userProvider";
 
 function ProfileDash() {
-  const [currUserData, setCurrUserData] = useState([]);
-  const { currentDay } = useContext(CalendarContext);
-
-  const dayEvents = DayEventsHandler(
-    currUserData.id,
-    currentDay.getDate(),
-    currentDay.getMonth() + 1,
-    currentDay.getFullYear()
-  );
-
-  const child_data = (data) => {
-    if (data) {
-      setCurrUserData(data);
-    }
-  };
+  const [searchParams] = useSearchParams();
+  const param = searchParams.get("user");
+  const { currentUser } = useContext(UserContext);
+  const user = UserProfileHandler(param ? param : currentUser.username);
 
   return (
     <div style={{ position: "relative" }}>
       <div className="dash-container" id="calendar">
-        <div className="content">
-          <Container className="content-wrapper">
-            <div className="ps-1">
-              <p className="fw-bold m-0">
-                {currUserData.username}'s events on{" "}
-                {currentDay.toLocaleDateString()}
-              </p>
-            </div>
-            <CalendarEventItem calendarEvents={dayEvents ? dayEvents : ""} />
-          </Container>
-        </div>
-
-        <div className="sidebar_calendarDash">
+        <div className="sidebar" id="profile_sidebar">
           <div className="sidebar-wrapper">
-            <Container className="content-wrapper">
-              <Card>
-                <Card.Body>
-                  <UserProfile userData={child_data} />
-                </Card.Body>
-              </Card>
-
-              <div className="calendar-wrapper">
-                <Calendar userId={currUserData.id} />
-              </div>
-            </Container>
+            <div className="sidebar_left">
+              <VerticalNav
+                navObj={
+                  currentUser.username === param
+                    ? NavigationObj(user).profileNavCurrUser
+                    : NavigationObj(user).profileNav
+                }
+              />
+            </div>
           </div>
         </div>
+        <Outlet />
       </div>
     </div>
   );

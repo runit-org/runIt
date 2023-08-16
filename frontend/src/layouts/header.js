@@ -94,19 +94,19 @@ function Header() {
           <Navbar.Collapse>
             <Nav className="me-auto ms-4">
               <div className="responsive-elements">
-                {" "}
                 <Nav.Link className="button-wrapper mb-1" as="div">
                   <UserStatus />
                 </Nav.Link>
+                <Nav.Link
+                  href={
+                    currentUser
+                      ? `/profile/settings?user=${currentUser.username}`
+                      : ""
+                  }
+                >
+                  Your Profile
+                </Nav.Link>
               </div>
-              <Nav.Link href="/posts">Dashboard</Nav.Link>
-              <Nav.Link
-                href={
-                  currentUser ? `/profile?user=${currentUser.username}` : ""
-                }
-              >
-                Calendar
-              </Nav.Link>
 
               <div className="responsive-elements">
                 <Nav.Link onClick={handleNotifShow}>Notifications</Nav.Link>
@@ -122,6 +122,7 @@ function Header() {
                 </Nav.Link>
               </div>
             </Nav>
+            {/* notification */}
             <Nav className=" align-items-center gap-1">
               <Nav.Link onClick={handleNotifShow} id="notification-icon">
                 <Notification />
@@ -135,6 +136,7 @@ function Header() {
                   ""
                 )}
               </Nav.Link>
+              {/* dropdown */}
               <NavDropdown
                 title={
                   <img
@@ -150,7 +152,9 @@ function Header() {
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   href={
-                    currentUser ? `/profile?user=${currentUser.username}` : ""
+                    currentUser
+                      ? `/profile/settings?user=${currentUser.username}`
+                      : ""
                   }
                 >
                   Your Profile

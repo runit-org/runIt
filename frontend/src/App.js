@@ -2,7 +2,7 @@ import "./styles/App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes } from "react-router-dom";
 import Header from "./layouts/header";
-import Main from "./pages/main";
+import AuthDash from "./pages/authDash";
 import React, { lazy, Suspense } from "react";
 import { ProtectedRoute } from "./routes/protectedRoute";
 import { Spinner } from "react-bootstrap";
@@ -10,6 +10,9 @@ import UserContext from "./context/userProvider";
 import SecurityContext from "./context/securityProvider";
 import CalendarContext from "./context/calendarProvider.js";
 import { RoutesContainer } from "./routes/routesContainer";
+import CalendarMain from "./components/calendar/calendarMain";
+import ProfileMain from "./components/profile/profileMain";
+import History from "./components/profile/history";
 
 const ProfileDash = lazy(() => import("./pages/profileDash"));
 const SingleEventDash = lazy(() => import("./pages/singleEventDash"));
@@ -28,10 +31,10 @@ function App() {
     >
       <RoutesContainer>
         <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/signup" element={<Main />} />
-          <Route path="/reset-password/:token" element={<Main />} />
-          <Route path="/reset-password-auth" element={<Main />} />
+          <Route path="/" element={<AuthDash />} />
+          <Route path="/signup" element={<AuthDash />} />
+          <Route path="/reset-password/:token" element={<AuthDash />} />
+          <Route path="/reset-password-auth" element={<AuthDash />} />
 
           <Route
             path="/posts"
@@ -56,7 +59,12 @@ function App() {
                 </UserContext>
               </ProtectedRoute>
             }
-          />
+          >
+            <Route path="calendar" element={<CalendarMain />} />
+            <Route path="settings" element={<ProfileMain />} />
+            <Route path="history" element={<History />} />
+            {/*   <Route path="feedback-support" element={<ProfileDash />} /> */}
+          </Route>
 
           <Route
             path="/event/:id"

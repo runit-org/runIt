@@ -14,13 +14,13 @@ function UserStatus() {
   const dispatch = useDispatch();
   const ref = React.createRef();
   const btnRef = useRef();
-  const userContext = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
   const [load, setLoad] = useState(false);
   const [error, setError] = useState({});
   const [message, setMessage] = useState(
-    userContext && userContext.currentUser.statusMessage
-      ? userContext.currentUser.statusMessage
-      : ""
+    currentUser && currentUser.statusMessage
+      ? currentUser.statusMessage
+      : "Set status..."
   );
 
   const handleSubmit = async (e) => {
@@ -38,10 +38,12 @@ function UserStatus() {
       ref={(ref, btnRef)}
       customBtn={"w-100 btn-muted text-start"}
       btnIcon={
-        <>
-          <Smiley />
-          <span className="ms-1">Set status...</span>
-        </>
+        <span className="d-grid">
+          <span className="ms-1 text-truncate" style={{ maxWidth: "100%" }}>
+            <Smiley />
+            {message}
+          </span>
+        </span>
       }
       title={"Edit Status"}
       error={error}
@@ -56,7 +58,6 @@ function UserStatus() {
             <Form.Control
               type="text"
               placeholder="What's happening?"
-              value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
           </Form.Group>

@@ -56,7 +56,7 @@ function ManageMembers() {
                   <div className="ms-4">
                     <Link
                       to={{
-                        pathname: "/profile",
+                        pathname: "/profile/settings",
                         search: `user=${member.username}`,
                       }}
                     >

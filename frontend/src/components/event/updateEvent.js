@@ -11,7 +11,7 @@ import { emitter } from "../client/socket";
 import { MentionFilter } from "../../utilities/utility-service";
 import { Cross, Submit } from "../../layouts/icons";
 
-function UpdateEvent(props, { handleUpate }) {
+function UpdateEvent(props) {
   const dispatch = useDispatch();
   const params = useParams();
   const [title, setTitle] = useState(props.title);

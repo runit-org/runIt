@@ -1,52 +1,79 @@
-import React from "react";
-import { Card } from "react-bootstrap";
-import { Calendar, Geomark } from "../../layouts/icons";
-import { DisplayImage } from "../../layouts/userDisplayImg";
+import React, { useContext } from "react";
+import { Badge } from "react-bootstrap";
+import { DayEventsHandler } from "./utilities/actionHandler";
+import { CalendarContext } from "../../context/calendarProvider";
+import SortDropdown from "../../layouts/sortDropdown";
+import { Link } from "react-router-dom";
+import { CustomTable, CustomTableCells } from "../../layouts/customTable";
+import { DateFormat } from "../../utilities/utility-service";
 
 function CalendarEventItem(props) {
+  const { currentDay } = useContext(CalendarContext);
+
+  const calendarEvents = DayEventsHandler(
+    props.userId,
+    currentDay.getDate(),
+    currentDay.getMonth() + 1,
+    currentDay.getFullYear()
+  );
+
   return (
     <>
-      {props.calendarEvents.length > 0 ? (
-        props.calendarEvents.map((item, i) => {
-          return (
-            <Card key={i} className="calender-event-card">
-              <Card.Body>
-                <div className="row">
-                  <div className="col-xl-1 col-lg-2 col-md-2 col-sm-1">
-                    <DisplayImage image={item.gravatarImage} />
-                  </div>
-                  <div className="col-xl-11 col-lg-10 col-md-10 col-sm-12">
-                    <h6>{item.title}</h6>
-                    <div className="details_textarea">
-                      <span className="d-flex">
-                        <Calendar />
-                        <small className="text-muted">
-                          {item.eventDateString}
-                        </small>
-                      </span>
-
-                      <span className="d-flex">
-                        <Geomark />
-                        <small className="text-muted">
-                          {item.timeToEvent}{" "}
-                        </small>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Card.Body>
-            </Card>
-          );
-        })
-      ) : (
-        <Card className="calender-event-card">
-          <Card.Body>
-            <div className="details_textarea">
-              <h6 className="p-0 m-0">No events scheduled</h6>
+      <CustomTable
+        headerItems={
+          <th colSpan={3}>
+            <div className="d-flex justify-content-between align-items-center mx-2">
+              {calendarEvents ? <>{calendarEvents.length} events</> : ""}
+              <SortDropdown />
             </div>
-          </Card.Body>
-        </Card>
-      )}
+          </th>
+        }
+        tableItems={
+          calendarEvents && calendarEvents.length > 0 ? (
+            <>
+              {calendarEvents.map((item, i) => {
+                return (
+                  <tr key={i} className="table_row">
+                    <CustomTableCells cols={"col-1"}>
+                      <Badge>
+                        {new Date(item.eventDate).getDate()}{" "}
+                        <span className="d-block">
+                          {DateFormat("short").format(new Date(item.eventDate))}
+                        </span>
+                      </Badge>
+                    </CustomTableCells>
+                    <CustomTableCells cols={"col-10"}>
+                      <h4>
+                        <Link to={`/event/${item.id}`}>{item.title}</Link>
+                      </h4>
+                      <small className="d-block card-timestamp text-muted align-self-center">
+                        in {item.timeToEvent}
+                      </small>
+                    </CustomTableCells>
+                    <CustomTableCells cols={"col-1"}>
+                      <div className="d-flex img-group">
+                        <img
+                          src={item.gravatarImage}
+                          className="members-img "
+                          alt="Img"
+                        />
+                      </div>
+                    </CustomTableCells>
+                  </tr>
+                );
+              })}
+            </>
+          ) : (
+            <tr className="table_row">
+              <td className="text-center">
+                <div className="table-content">
+                  <h6 className="p-0 m-0">No events scheduled</h6>
+                </div>
+              </td>
+            </tr>
+          )
+        }
+      />
     </>
   );
 }

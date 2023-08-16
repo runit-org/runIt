@@ -8,7 +8,8 @@
 @import "Comment.scss";
 @import "Suggested.scss";
 @import "Calendar.scss";
-@import "Calendar-items.scss";
+@import "Vertical-nav.scss";
+@import "Timeline.scss";
 
 /*------General Components------*/
 html,
@@ -32,6 +33,14 @@ body {
 
 .subTitle {
   @include title-text($primary-dark, 1.5rem, normal, 700);
+}
+
+.section-header p {
+  margin-left: 0.25rem;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  margin-bottom: 8px;
+  color: lighten($primary-dark, 20);
 }
 
 .btn-primary {
@@ -128,25 +137,41 @@ div.content {
   padding: 0;
 }
 
-.vote_btnGroup {
-  display: flex !important;
-  justify-content: space-between !important;
+%vote_btn-interactive {
+  color: #5850ec !important;
+  background-color: #e5edff !important;
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+  --bs-border-opacity: 0.1;
+  border-color: rgba(#5850ec, var(--bs-border-opacity)) !important;
 }
-.vote_btnGroup button.user_vote {
-  background-color: $button-hover !important;
-  color: $primary-light !important;
+.vote_btn {
+  padding: 0.2rem 0.4rem 0.2rem 0.4rem !important;
+  font-size: 12px !important;
+  font-weight: 600;
+  background-color: #f9fafb !important;
+  color: #475569 !important;
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+  --bs-border-opacity: 0.1;
+  border-color: rgba(#475569, var(--bs-border-opacity)) !important;
+
+  &:hover {
+    @extend %vote_btn-interactive;
+  }
+}
+.vote_btn.user_vote {
+  @extend %vote_btn-interactive;
 }
 
 #vote_badge {
+  display: inline-flex;
+  align-items: center;
   font-weight: 600;
   background-color: #e5edff !important;
   color: #5850ec !important;
   border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
   --bs-border-opacity: 0.1;
-  border-color: rgba(
-    var(--bs-success-rgb),
-    var(--bs-border-opacity)
-  ) !important;
+  border-color: rgba(#5850ec, var(--bs-border-opacity)) !important;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
 }
 
 .username_tags {
@@ -256,7 +281,7 @@ div.content {
 }
 .sidebar_left {
   margin-top: 20px;
-  padding-left: 10px;
+  padding-left: 5px;
 }
 .sidebar .card {
   background-color: $primary-light;
@@ -418,10 +443,59 @@ div.content {
   color: $theme !important;
 }
 
+/*------Table------*/
+.custom-table {
+  border: 1px solid darken($primary-light, 10) !important;
+  overflow: hidden;
+  border-radius: 8px !important;
+}
+.custom-table table {
+  margin-bottom: 0 !important;
+}
+
+.custom-table th {
+  background-color: $theme-light !important;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.custom-table tbody tr:hover td {
+  background-color: $theme-light;
+}
+
+.custom-table tbody tr:nth-last-of-type(1) {
+  border-bottom: transparent;
+}
+
+.custom-table .badge {
+  background-color: $theme !important;
+  padding: 10px;
+}
+
+.custom-table .table-content {
+  padding: 5px 2px 5px 2px;
+}
+
+.custom-table .table-content h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.custom-table .table-content h4 a {
+  color: $primary-dark;
+  &:hover {
+    color: #0d6efd;
+  }
+}
+.custom-table .dropdown button {
+  border: 1px solid #dee2e6;
+  color: $primary-dark;
+}
+
 /*------Loaders------*/
 .loading_skeleton {
   border: 1px solid rgba(0, 0, 0, 0.175);
-  margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 8px;
   background-color: $primary-light;
 }

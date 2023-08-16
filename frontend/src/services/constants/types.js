@@ -18,6 +18,7 @@ export const GET_ALL_NOTIFS = "GET_ALL_NOTIFS";
 //user types
 export const GET_USER_PROFILE = "GET_USER_PROFILE";
 export const GET_CURRENT_USER_PROFILE = "GET_CURRENT_USER_PROFILE";
+export const GET_VOTES = "GET_VOTES";
 
 //comment types
 export const GET_ALL_COMMENTS = "GET_ALL_COMMENTS";

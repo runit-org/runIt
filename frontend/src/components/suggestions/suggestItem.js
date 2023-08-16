@@ -6,6 +6,7 @@ import { Information } from "../../layouts/icons";
 import { Skeleton } from "../../layouts/loader";
 import PopoverItem from "./popoverItem";
 import { EventSuggestHandler } from "./utilities/suggestHandler";
+import { SectionHeader } from "../../layouts/sectionHeader.js";
 
 function SuggestItem(props) {
   const [data, setData] = useState("");
@@ -25,9 +26,7 @@ function SuggestItem(props) {
   return (
     <>
       <ListGroup as="ol" className="mb-3 suggested">
-        <div className="ps-1">
-          <p className="fw-bold m-0">Suggestions</p>
-        </div>
+        <SectionHeader>Suggestions</SectionHeader>
         {suggestData.suggestData.data
           ? suggestData.suggestData.data.map((item, index) => {
               return (

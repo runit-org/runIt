@@ -49,7 +49,7 @@ function EventMembers(props) {
                     <div className="ms-4">
                       <Link
                         to={{
-                          pathname: "/profile",
+                          pathname: "/profilea/settings",
                           search: `user=${member.username}`,
                         }}
                       >

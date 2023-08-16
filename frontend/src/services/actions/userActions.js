@@ -4,6 +4,7 @@ import {
   GET_USER_PROFILE,
   GET_CURRENT_USER_PROFILE,
   SET_CURRENT_USER,
+  GET_VOTES,
 } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 
@@ -87,6 +88,48 @@ export const userStatus = (postData, setLoad, setError) => async (dispatch) => {
       .catch((error) => {
         setLoad(false);
         setError(error.response.data);
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
+      });
+  });
+};
+
+export const getVotes = (page) => async (dispatch) => {
+  await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+    axios
+      .get(`/user/vote/?page=${page}`)
+      .then((res) => {
+        dispatch({
+          type: GET_VOTES,
+          payload: res.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response,
+        });
+      });
+  });
+};
+
+export const updateDetails = (postData, setLoad) => async (dispatch) => {
+  await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+    setLoad(true);
+    axios
+      .put(`/user/updateDetails/`, postData)
+      .then((res) => {
+        if (res.status === 200) {
+          setLoad(false);
+        }
+      })
+      .catch((error) => {
+        setLoad(false);
+
         dispatch({
           type: GET_ERRORS,
           payload: error.response.data,

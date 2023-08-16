@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllComments } from "../../../services/actions/commentActions";
 import {
+  affiliatedEvents,
   getAllEvents,
   getEventMembers,
   getSingleEvent,
@@ -73,4 +74,22 @@ export const EventHandler = (pageId) => {
   }, [allEventsData]);
 
   return eventData;
+};
+
+export const AffiliatedEvents = (filter) => {
+  const dispatch = useDispatch();
+  const [affiliatedData, setAffiliatedData] = useState([]);
+  var res = useSelector((eventReducer) => eventReducer.events.affiliatedData);
+
+  useEffect(() => {
+    dispatch(affiliatedEvents(filter ? filter : ""));
+  }, [dispatch, filter]);
+
+  useEffect(() => {
+    if (res) {
+      setAffiliatedData(res);
+    }
+  }, [res]);
+
+  return affiliatedData;
 };
