@@ -20,7 +20,7 @@ function UserStatus() {
   const [message, setMessage] = useState(
     currentUser && currentUser.statusMessage
       ? currentUser.statusMessage
-      : "Set status..."
+      : "What's happening?"
   );
 
   const handleSubmit = async (e) => {
@@ -32,7 +32,6 @@ function UserStatus() {
       dispatch(getCurrentUserProfile());
     });
   };
-
   return (
     <ModalItem
       ref={(ref, btnRef)}
@@ -41,7 +40,7 @@ function UserStatus() {
         <span className="d-grid">
           <span className="ms-1 text-truncate" style={{ maxWidth: "100%" }}>
             <Smiley />
-            {message}
+            {currentUser.statusMessage}
           </span>
         </span>
       }
@@ -57,7 +56,7 @@ function UserStatus() {
           <Form.Group className="mb-3">
             <Form.Control
               type="text"
-              placeholder="What's happening?"
+              placeholder={currentUser.statusMessage}
               onChange={(e) => setMessage(e.target.value)}
             />
           </Form.Group>
