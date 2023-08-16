@@ -13,6 +13,7 @@ import { RoutesContainer } from "./routes/routesContainer";
 import CalendarMain from "./components/calendar/calendarMain";
 import ProfileMain from "./components/profile/profileMain";
 import History from "./components/profile/history";
+import Support from "./components/profile/support";
 
 const ProfileDash = lazy(() => import("./pages/profileDash"));
 const SingleEventDash = lazy(() => import("./pages/singleEventDash"));
@@ -63,7 +64,7 @@ function App() {
             <Route path="calendar" element={<CalendarMain />} />
             <Route path="settings" element={<ProfileMain />} />
             <Route path="history" element={<History />} />
-            {/*   <Route path="feedback-support" element={<ProfileDash />} /> */}
+            <Route path="feedback-support" element={<Support />} />
           </Route>
 
           <Route
