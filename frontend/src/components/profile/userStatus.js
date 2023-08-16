@@ -17,11 +17,7 @@ function UserStatus() {
   const { currentUser } = useContext(UserContext);
   const [load, setLoad] = useState(false);
   const [error, setError] = useState({});
-  const [message, setMessage] = useState(
-    currentUser && currentUser.statusMessage
-      ? currentUser.statusMessage
-      : "What's happening?"
-  );
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +36,9 @@ function UserStatus() {
         <span className="d-grid">
           <span className="ms-1 text-truncate" style={{ maxWidth: "100%" }}>
             <Smiley />
-            {currentUser.statusMessage}
+            {currentUser && currentUser.statusMessage
+              ? currentUser.statusMessage
+              : "Set status"}
           </span>
         </span>
       }
@@ -56,7 +54,11 @@ function UserStatus() {
           <Form.Group className="mb-3">
             <Form.Control
               type="text"
-              placeholder={currentUser.statusMessage}
+              placeholder={
+                currentUser && currentUser.statusMessage
+                  ? currentUser.statusMessage
+                  : "What's happening?"
+              }
               onChange={(e) => setMessage(e.target.value)}
             />
           </Form.Group>
