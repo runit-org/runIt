@@ -7,6 +7,7 @@ import {
   GET_VOTES,
 } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
+import { OK } from "../constants/responseStatus";
 
 axios.defaults.baseURL = `${
   process.env.NODE_ENV === "production"
@@ -116,24 +117,25 @@ export const getVotes = (page) => async (dispatch) => {
   });
 };
 
-export const updateDetails = (postData, setLoad) => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    setLoad(true);
-    axios
-      .put(`/user/updateDetails/`, postData)
-      .then((res) => {
-        if (res.status === 200) {
+export const updateDetails =
+  (postData, setLoad, navigate) => async (dispatch) => {
+    await refreshToken().then((ref) => {
+      setToken(ref.data.access);
+      setLoad(true);
+      axios
+        .put(`/user/updateDetails/`, postData)
+        .then((res) => {
+          if (res.status === OK) {
+            setLoad(false);
+            navigate(`/`);
+          }
+        })
+        .catch((error) => {
           setLoad(false);
-        }
-      })
-      .catch((error) => {
-        setLoad(false);
-
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
+          dispatch({
+            type: GET_ERRORS,
+            payload: error.response,
+          });
         });
-      });
-  });
-};
+    });
+  };

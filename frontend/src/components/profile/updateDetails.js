@@ -4,28 +4,25 @@ import { useDispatch } from "react-redux";
 import CTAButton from "../../layouts/ctaButton";
 import { Cross, Submit } from "../../layouts/icons";
 import { useHandleChange } from "../../hooks/useHandleChange";
-import {
-  getCurrentUserProfile,
-  updateDetails,
-} from "../../services/actions/userActions";
+import { updateDetails } from "../../services/actions/userActions";
 import { UserContext } from "../../context/userProvider";
+import { useNavigate } from "react-router-dom";
+import { ResponseItem } from "../../layouts/responseItems";
 
 function UpdateDetails(props) {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
   const [load, setLoad] = useState(false);
   const { currentUser } = useContext(UserContext);
   const { formValue, handleFieldChange } = useHandleChange({
     username: currentUser.username,
-    message: currentUser.statusMessage === "" ? " " : currentUser.statusMessage,
+    message: currentUser.email,
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch(updateDetails(formValue, setLoad)).then(() => {
-      dispatch(getCurrentUserProfile());
-    });
-    props.toggleEditor();
+    dispatch(updateDetails(formValue, setLoad, navigate));
   };
 
   return (
@@ -38,21 +35,22 @@ function UpdateDetails(props) {
         <div>
           <h5 className="fw-bold mb-2">Edit Profile</h5>
         </div>
+        <ResponseItem />
         <Form.Group className="mb-2">
           <Form.Label className="text-muted small">Username</Form.Label>
           <Form.Control
             type="text"
             name="username"
-            value={formValue.username}
+            placeholder={formValue.username}
             onChange={handleFieldChange}
-            required
           />
         </Form.Group>
         <Form.Group className="mb-2">
-          <Form.Label className="text-muted small">Status</Form.Label>
+          <Form.Label className="text-muted small">Email</Form.Label>
           <Form.Control
-            type="text"
-            placeholder="What's happening?"
+            type="email"
+            name="email"
+            placeholder={formValue.email}
             onChange={handleFieldChange}
           />
         </Form.Group>
