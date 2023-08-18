@@ -27,9 +27,11 @@ function CommentItem(props) {
   const pageId = usePageId();
 
   const commentReact = () => {
-    dispatch(likeUnlike(props.commentData.id)).then(() => {
-      dispatch(getAllComments(eventData.id, pageId));
-      emitter([props.commentData.username]);
+    dispatch(likeUnlike(props.commentData.id)).then((res) => {
+      if (res.status === 200) {
+        dispatch(getAllComments(eventData.id, pageId));
+        emitter([props.commentData.username]);
+      }
     });
   };
 

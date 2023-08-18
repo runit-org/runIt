@@ -7,6 +7,7 @@ import { ResponseItem } from "../../layouts/responseItems";
 
 import { FormButton } from "./utilities/auth-builder";
 import { useHandleChange } from "../../hooks/useHandleChange";
+import { FormGroup, FormLabel } from "../../layouts/customForm";
 
 function ResetPassword(props) {
   const dispatch = useDispatch();
@@ -40,18 +41,18 @@ function ResetPassword(props) {
           <h4 className="subTitle">Reset your password</h4>
         </div>
 
-        <Form.Group className="mb-2" controlId="password">
-          <Form.Label className="text-muted small">Password</Form.Label>
+        <FormGroup formId="password">
+          <FormLabel>Password</FormLabel>
           <Form.Control
             type="password"
             name="password"
             onChange={handleFieldChange}
             required
           />
-        </Form.Group>
+        </FormGroup>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label className="text-muted small">Confirm Password</Form.Label>
+        <FormGroup formId="formBasicPassword">
+          <FormLabel>Confirm Password</FormLabel>
 
           <Form.Control
             type="password"
@@ -59,7 +60,7 @@ function ResetPassword(props) {
             onChange={handleFieldChange}
             required
           />
-        </Form.Group>
+        </FormGroup>
         <ResponseItem />
         <FormButton load={load} name="Confirm" />
         <hr className="divider" />

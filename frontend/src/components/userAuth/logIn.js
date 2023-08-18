@@ -8,6 +8,7 @@ import { FormButton } from "./utilities/auth-builder";
 import { Eye, EyeSlash } from "../../layouts/icons";
 import { ResponseItem } from "../../layouts/responseItems";
 import { useHandleChange } from "../../hooks/useHandleChange";
+import { FormLabel, FormGroup } from "../../layouts/customForm";
 
 function Login() {
   let navigate = useNavigate();
@@ -67,8 +68,8 @@ function Login() {
             </h4>
           </div>
 
-          <Form.Label className="text-muted small">Username</Form.Label>
-          <Form.Group className="mb-2" controlId="formBasicEmail">
+          <FormGroup formId="formBasicType">
+            <FormLabel>Username</FormLabel>
             <Form.Control
               type="username"
               name="username"
@@ -80,10 +81,10 @@ function Login() {
               onChange={handleFieldChange}
               required
             />
-          </Form.Group>
+          </FormGroup>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label className="text-muted small">Password</Form.Label>
+          <FormGroup formId="formBasicPassword">
+            <FormLabel>Password</FormLabel>
             <InputGroup>
               <Form.Control
                 type={inputType}
@@ -101,7 +102,7 @@ function Login() {
                 {inputType === "password" ? <Eye /> : <EyeSlash />}
               </Button>
             </InputGroup>
-          </Form.Group>
+          </FormGroup>
           <ResponseItem />
           <FormButton load={load} name="Login" />
           <hr className="divider" />

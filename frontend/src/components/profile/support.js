@@ -1,65 +1,110 @@
-import React, { useState } from "react";
-import { Container, Form, Row } from "react-bootstrap";
+import React from "react";
+import { Card, Container, Form, Row } from "react-bootstrap";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
-import { FormButton } from "../userAuth/utilities/auth-builder.js";
 import { ResponseItem } from "../../layouts/responseItems.js";
 import { useHandleChange } from "../../hooks/useHandleChange.js";
+import CTAButton from "../../layouts/ctaButton.js";
+import { FormGroup, FormLabel } from "../../layouts/customForm.js";
 
 function Support() {
   //   const dispatch = useDispatch();
-  const [load, setLoad] = useState(false);
-  const { formValue, handleFieldChange } = useHandleChange({});
+  // const [load, setLoad] = useState(false);
+  const { handleFieldChange } = useHandleChange({});
 
   return (
     <>
       <div className="content">
         <Container className="content-wrapper">
-          <SectionHeader size={"sm"}>Feedback & Support</SectionHeader>
-          <hr />
-          <fieldset>
-            <Form
-            /*   onSubmit={(e) => {
+          <div className="mx-4 col-md-8">
+            <SectionHeader size={"sm"}>Feedback & Support</SectionHeader>
+            <hr />
+
+            <Row className="my-4">
+              <div className="col-md-4">
+                <Card>
+                  <Card.Body>
+                    <Card.Title>Events</Card.Title>
+                    <Card.Text className="text-muted">
+                      Learn how to create and manage events.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </div>
+              <div className="col-md-4">
+                <Card>
+                  <Card.Body>
+                    <Card.Title>Account Settings</Card.Title>
+                    <Card.Text className="text-muted ">
+                      Learn how to manage your account.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </div>
+              <div className="col-md-4">
+                <Card>
+                  <Card.Body>
+                    <Card.Title>Security</Card.Title>
+                    <Card.Text className="text-muted">
+                      How to reset password and verify your account.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </div>
+            </Row>
+            <SectionHeader size={"sm"}>
+              Looking for something else?
+            </SectionHeader>
+            <div className="border p-4">
+              <fieldset>
+                <Form
+                /*   onSubmit={(e) => {
                 handleSubmit(e);
               }} */
-            >
-              <Row className="col-md-6 m-2">
-                <Form.Group controlId="formBasicEmail1">
-                  <Form.Label className="text-muted small">Username</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="username"
-                    onChange={handleFieldChange}
-                    required
-                  />
-                </Form.Group>
+                >
+                  <FormGroup formId="formBasicType" customStyle="col-md-6">
+                    <FormLabel>Type</FormLabel>
 
-                <Form.Group controlId="formBasicPassword" className="mb-2">
-                  <Form.Label className="text-muted small">Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    onChange={handleFieldChange}
-                    pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
-                    required
-                  />
-                </Form.Group>
+                    <Form.Select aria-label="Default select example">
+                      <option>Type</option>
+                      <option value="1">Support</option>
+                      <option value="2">Feedback</option>
+                    </Form.Select>
+                  </FormGroup>
+                  <FormGroup formId="formBasicCategory" customStyle="col-md-6">
+                    <FormLabel>Category</FormLabel>
 
-                <Form.Group controlId="formBasic_CPassword" className="mb-3">
-                  <Form.Label className="text-muted small">
-                    Confirm Password
-                  </Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="c_password"
-                    onChange={handleFieldChange}
-                    required
+                    <Form.Select aria-label="Default select example">
+                      <option>Category</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </Form.Select>
+                  </FormGroup>
+
+                  <FormGroup formId="formBasicDetails">
+                    <FormLabel>Details</FormLabel>
+                    <Form.Control
+                      type="details"
+                      as="textarea"
+                      name="details"
+                      onChange={handleFieldChange}
+                      required
+                    />
+                  </FormGroup>
+
+                  <CTAButton
+                    type={"submit"}
+                    btnStyle={"formBtn cta_button"}
+                    variant={"primary"}
+                    placeholder={
+                      <div className="d-flex align-items-center">Submit</div>
+                    }
                   />
-                </Form.Group>
-                <ResponseItem />
-                <FormButton load={load} name="Continue" />
-              </Row>
-            </Form>
-          </fieldset>
+                  <ResponseItem />
+                </Form>
+              </fieldset>
+            </div>
+          </div>
         </Container>
       </div>
     </>

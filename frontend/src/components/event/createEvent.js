@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Col, Row, Form, Card } from "react-bootstrap";
+import { Row, Form, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import {
   createNewEvent,
@@ -10,6 +10,7 @@ import CTAButton from "../../layouts/ctaButton";
 import { MentionFilter } from "../../utilities/utility-service";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 import { useHandleChange } from "../../hooks/useHandleChange";
+import { FormGroup, FormLabel } from "../../layouts/customForm";
 
 function CreateEvent(props) {
   const dispatch = useDispatch();
@@ -54,9 +55,11 @@ function CreateEvent(props) {
       minute:
         formValue.time !== "" ? parseInt(formValue.time.split(":")[1]) : "",
     };
-    dispatch(createNewEvent(postData, setFormStatus)).then(() => {
-      dispatch(getAllEvents(1));
-      emitter(MentionFilter(formValue.details));
+    dispatch(createNewEvent(postData, setFormStatus)).then((res) => {
+      if (res.status === ResponseStatus.OK) {
+        dispatch(getAllEvents(1));
+        emitter(MentionFilter(formValue.details));
+      }
     });
   };
 
@@ -97,72 +100,65 @@ function CreateEvent(props) {
           ref={formRef}
         >
           <div className="new-post-container">
-            <Row>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label className="m-1">Event Title</Form.Label>
-                  <Form.Control
-                    type="title"
-                    name="title"
-                    value={formValue.title}
-                    onChange={handleFieldChange}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label className="m-1">Size</Form.Label>
-                  <Form.Control
-                    type="number"
-                    name="maxMember"
-                    className="mb-3"
-                    onChange={handleFieldChange}
-                    min="2"
-                    required
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label className="m-1">Time</Form.Label>
+            <FormGroup formId="formBasicTitle">
+              <FormLabel>Event Title</FormLabel>
+              <Form.Control
+                type="title"
+                name="title"
+                value={formValue.title}
+                onChange={handleFieldChange}
+                required
+              />
+            </FormGroup>
 
-                  <Form.Control
-                    type="time"
-                    placeholder="Time"
-                    name="time"
-                    value={formValue.time}
-                    onChange={handleFieldChange}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label className="m-1">Date</Form.Label>
+            <Row>
+              <FormGroup formId="formBasicNumber" customStyle="col-md-4">
+                <FormLabel>Size</FormLabel>
+                <Form.Control
+                  type="number"
+                  name="maxMember"
+                  className="mb-3"
+                  onChange={handleFieldChange}
+                  min="2"
+                  required
+                />
+              </FormGroup>
 
-                  <Form.Control
-                    type="date"
-                    placeholder="Date"
-                    name="date"
-                    value={formValue.date}
-                    onChange={handleFieldChange}
-                    min={
-                      new Date(
-                        Date.now() - new Date().getTimezoneOffset() * 60000
-                      )
-                        .toISOString()
-                        .split("T")[0]
-                    }
-                    required
-                  />
-                </Form.Group>
-              </Col>
+              <FormGroup formId="formBasicTime" customStyle="col-md-4">
+                <FormLabel>Time</FormLabel>
+
+                <Form.Control
+                  type="time"
+                  placeholder="Time"
+                  name="time"
+                  value={formValue.time}
+                  onChange={handleFieldChange}
+                  required
+                />
+              </FormGroup>
+
+              <FormGroup formId="formBasicDate" customStyle="col-md-4">
+                <FormLabel>Date</FormLabel>
+
+                <Form.Control
+                  type="date"
+                  placeholder="Date"
+                  name="date"
+                  value={formValue.date}
+                  onChange={handleFieldChange}
+                  min={
+                    new Date(
+                      Date.now() - new Date().getTimezoneOffset() * 60000
+                    )
+                      .toISOString()
+                      .split("T")[0]
+                  }
+                  required
+                />
+              </FormGroup>
             </Row>
 
-            <Form.Group>
+            <FormGroup formId="formBasicDetails">
               <Form.Control
                 spellCheck={true}
                 name="details"
@@ -173,7 +169,7 @@ function CreateEvent(props) {
                 rows={4}
                 required
               />
-            </Form.Group>
+            </FormGroup>
           </div>
 
           <div className="d-flex justify-content-between mt-3">
