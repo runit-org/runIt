@@ -24,7 +24,7 @@ export const NavigationObj = (user) => {
       href: user ? `history?user=${user.username}` : "",
     },
     {
-      title: "Password & Verification",
+      title: "Security Settings",
       href: user ? `security?user=${user.username}` : "",
     },
     {

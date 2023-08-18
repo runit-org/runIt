@@ -1,14 +1,12 @@
 import React from "react";
-import { Card, Container, Form, Row } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
 import { ResponseItem } from "../../layouts/responseItems.js";
 import { useHandleChange } from "../../hooks/useHandleChange.js";
 import CTAButton from "../../layouts/ctaButton.js";
 import { FormGroup, FormLabel } from "../../layouts/customForm.js";
 
-function Support() {
-  //   const dispatch = useDispatch();
-  // const [load, setLoad] = useState(false);
+function Security() {
   const { handleFieldChange } = useHandleChange({});
 
   return (
@@ -16,44 +14,9 @@ function Support() {
       <div className="content">
         <Container className="content-wrapper">
           <div className="mx-4 col-md-8">
-            <SectionHeader size={"sm"}>Feedback & Support</SectionHeader>
+            <SectionHeader size={"sm"}>Security Settings</SectionHeader>
             <hr />
 
-            <Row className="my-4">
-              <div className="col-md-4">
-                <Card>
-                  <Card.Body>
-                    <Card.Title>Events</Card.Title>
-                    <Card.Text className="text-muted">
-                      Learn how to create and manage events.
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </div>
-              <div className="col-md-4">
-                <Card>
-                  <Card.Body>
-                    <Card.Title>Account Settings</Card.Title>
-                    <Card.Text className="text-muted ">
-                      Learn how to manage your account.
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </div>
-              <div className="col-md-4">
-                <Card>
-                  <Card.Body>
-                    <Card.Title>Security</Card.Title>
-                    <Card.Text className="text-muted">
-                      How to reset password and verify your account.
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </div>
-            </Row>
-            <SectionHeader size={"sm"}>
-              Looking for something else?
-            </SectionHeader>
             <div className="border p-4">
               <fieldset>
                 <Form
@@ -75,9 +38,9 @@ function Support() {
 
                     <Form.Select aria-label="Default select example">
                       <option>Category</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                      <option value="1">Event</option>
+                      <option value="2">Comment</option>
+                      <option value="3">Account</option>
                     </Form.Select>
                   </FormGroup>
 
@@ -111,4 +74,4 @@ function Support() {
   );
 }
 
-export default Support;
+export default Security;
