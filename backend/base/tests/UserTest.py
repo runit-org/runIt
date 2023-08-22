@@ -247,6 +247,25 @@ class UserTestClass(BaseTestClass):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(message, UserExtend.objects.get(userId=user.id).statusMessage)
 
+    def test_update_my_status_message_empty_message_success(self):
+        user = self.generateNewUserObject()
+        url = self.baseUrl + 'updateStatusMessage/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        message = ''
+        data = {
+            'message': message
+        }
+        response = c.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(message, UserExtend.objects.get(userId=user.id).statusMessage)
+
     def test_change_password_success(self):
         user = self.generateNewUserObject()
         url = self.baseUrl + 'changePassword/'
