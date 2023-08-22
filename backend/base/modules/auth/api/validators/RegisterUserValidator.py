@@ -10,6 +10,9 @@ def validate(request):
     if len(data['email']) > 100:
         return validationError('Email too long')
     
+    if len(data['password']) > 100:
+        return validationError('Password too long')
+    
     email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     if not re.match(email_regex, data['email']):
         return validationError('Invalid email format')
