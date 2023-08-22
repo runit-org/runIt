@@ -112,6 +112,15 @@ class AuthTestClass(TestCase):
         response = c.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
 
+    def test_register_user_email_too_long_fails(self):
+        c = Client()
+        url = self.baseUrl + 'register/'
+
+        data = self.newUser
+        data['email'] = 'a' * 101
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
     def test_register_user_username_and_email_taken_fails(self):
         c = Client()
         url = self.baseUrl + 'register/'
