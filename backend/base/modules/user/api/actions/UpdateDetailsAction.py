@@ -12,9 +12,5 @@ def update(request):
     user.username = data['username']
     user.save()
 
-    userExtend = UserExtend.objects.get(userId=user.id)
-    userExtend.statusMessage = data['message']
-    userExtend.save()
-
     return response('User details messaged updated')
     

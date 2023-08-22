@@ -3,7 +3,7 @@ from base.views.baseViews import validationError
 def validate(request):
     data = request.data
     
-    if data.get('username') == None or data.get('message') == None:
+    if data.get('username') == None:
         return validationError('Required fields not met')
     
     if ' ' in data['username']:
