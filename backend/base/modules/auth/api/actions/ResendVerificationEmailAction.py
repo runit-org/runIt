@@ -2,6 +2,7 @@ from base.models import EmailVerify, UserExtend
 from base.mail.AuthMail import userRegistered, resendOTPSent
 from base.views.baseViews import response, error
 from base.modules.auth.api.actions import SendEmailOTPAction
+from base.events.api import ResendVerificationEmailSent
 
 import random
 from django.utils import timezone
@@ -15,6 +16,6 @@ def send(request):
     if userExtend.isEmailVerified:
         return error('Email already verified')
     
-    SendEmailOTPAction.send(user=user)
+    ResendVerificationEmailSent.dispatch(user)
 
     return response('Email verification sent')

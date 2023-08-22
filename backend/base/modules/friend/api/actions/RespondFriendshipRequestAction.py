@@ -3,6 +3,7 @@ from base.serializers import EventCommentSerializer
 from base.views.baseViews import response, error, paginate
 from base.enums import EventMemberStatus
 from base.traits import NotifyUser
+from base.events.api import FriendRequestResponded
 
 from django.db.models import Q
 from datetime import datetime
@@ -38,13 +39,6 @@ def checkRequestExist(main, requester):
     else:
         return False
 
-def sendNotification(target, user):
-    link = '/profile?user=' + user.username
-    notificationMessage = 'User <b>' + user.username + '</b> has accepted your friendship request.'  
-    NotifyUser.notify(
-        target.id, notificationMessage, link
-    )
-
 def respond(request, userId):
     data = request.data
     user = request.user
@@ -71,7 +65,7 @@ def respond(request, userId):
 
     if data['respond'] == 1:
         Friend.objects.create(user1=user, user2=targetUser)
-        sendNotification(targetUser, user)
+        FriendRequestResponded.dispatch(targetUser, user)
 
         return response('Request accepted')
     else:

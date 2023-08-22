@@ -4,6 +4,7 @@ from base.views.baseViews import response, error
 from django.db.models import Q
 from base.traits import NotifyUser
 from base.enums import EventMemberStatus
+from base.events.api import EventInvitationSentToFriend
 
 
 def checkAreFriends(user1, user2):
@@ -34,16 +35,6 @@ def checkEventId(eventId):
         return True
     else:
         return False
-
-
-def sendNotification(currUser, target, event):
-    link = '/event/' + str(event.id)
-    notificationMessage = 'Your friend ' + currUser.username + \
-        ' has invited you to join their event <b><i>' + \
-        event.title.upper() + '</i></b>. Click here to view event.'
-    NotifyUser.notify(
-        target.id, notificationMessage, link
-    )
 
 
 def checkEventMemberStatus(eventId, userId):
@@ -78,6 +69,6 @@ def send(request, userId):
         if checkEventMemberStatus(event.id, user.id) != EventMemberStatus.get.ACCEPTED.value:
             return error('Can only invite friends as an accepted member or owner of an event')
 
-    sendNotification(user, targetUser, event)
+    EventInvitationSentToFriend.dispatch(user, targetUser, event)
 
     return response('Friend invited.')

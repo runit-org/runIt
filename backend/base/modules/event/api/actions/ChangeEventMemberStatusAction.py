@@ -3,6 +3,7 @@ from base.serializers import EventSerializer
 from base.views.baseViews import response, error
 from base.enums import EventMemberStatus
 from base.traits import NotifyUser
+from base.events.api import EventMemberStatusChanged
 
 def checkEventId(id):
     checkEventExist = Event.objects.filter(id = id)
@@ -79,21 +80,16 @@ def updateStatus(request):
             eventMember.status = data['status']
             eventMember.save()
 
-        link = '/event/' + str(event.id)
+        requester = User.objects.get(id=data['userId'])
+        EventMemberStatusChanged.dispatch(event, requester, data['status'])
 
         if (data['status']) == EventMemberStatus.get.ACCEPTED.value:
-            notifContent = 'Your request to join event <b>' + event.title + '</b> has been ' + EventMemberStatus.get.ACCEPTED.name
-            NotifyUser.notify(data['userId'], notifContent, link)
             return response('Request approved')
 
         elif (data['status']) == EventMemberStatus.get.REJECTED.value:
-            notifContent = 'Your request to join event <b>' + event.title + '</b> has been ' + EventMemberStatus.get.REJECTED.name
-            NotifyUser.notify(data['userId'], notifContent, link)
             return response('Request rejected')
         
         else:
-            notifContent = 'Your request to join event <b>' + event.title + '</b> has been removed by the event creator. You may re-apply if you wish.'
-            NotifyUser.notify(data['userId'], notifContent, link)
             return response('Request removed')
             
     else:

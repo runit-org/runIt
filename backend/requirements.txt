@@ -56,3 +56,4 @@ wsproto==1.2.0
 factory_boy
 mysqlclient==2.1.1
 webdriver-manager
+django-event-system
