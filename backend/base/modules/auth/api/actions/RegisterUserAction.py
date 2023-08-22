@@ -25,8 +25,6 @@ def register(request):
         userId = user.id,
     )
 
-    SendEmailOTPAction.send(user)
-
     UserRegistered.dispatch(user = user)
 
     serializer = UserSerializer(user, many=False)
