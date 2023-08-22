@@ -9,3 +9,4 @@ from base.listeners.api.EventMemberStatusChangedListener import EventMemberStatu
 from base.listeners.api.EventJoinRequestSentListener import EventJoinRequestSentListener
 from base.listeners.api.EventCommentLikedListener import EventCommentLikedListener
 from base.listeners.api.EventCommentCreatedListener import EventCommentCreatedListener
+from base.listeners.api.ResendVerificationEmailSentListener import ResendVerificationEmailSentListener
