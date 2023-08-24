@@ -18,7 +18,7 @@ function Support() {
       <div className="content">
         <Container className="content-wrapper">
           <div className="mx-4 col-md-8">
-            <SectionHeader size={"sm"}>Feedback & Support</SectionHeader>
+            <SectionHeader>Feedback & Support</SectionHeader>
             <hr />
 
             <Row className="my-4">
@@ -60,9 +60,7 @@ function Support() {
                 />
               </div>
             </Row>
-            <SectionHeader size={"sm"}>
-              Looking for something else?
-            </SectionHeader>
+            <SectionHeader>Looking for something else?</SectionHeader>
             <div className="border p-4">
               <fieldset>
                 <Form

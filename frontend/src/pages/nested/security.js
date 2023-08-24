@@ -14,7 +14,7 @@ function Security() {
       <div className="content">
         <Container className="content-wrapper">
           <div className="mx-4 col-md-8">
-            <SectionHeader size={"sm"}>Security Settings</SectionHeader>
+            <SectionHeader>Security Settings</SectionHeader>
             <hr />
 
             <div className="border p-4">

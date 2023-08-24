@@ -16,7 +16,7 @@ function Profile() {
     <>
       <div className="content">
         <Container className="content-wrapper">
-          <SectionHeader size={"sm"}>User Acitvity</SectionHeader>
+          <SectionHeader size={"md"}>User Acitvity</SectionHeader>
           <Timeline />
         </Container>
       </div>
