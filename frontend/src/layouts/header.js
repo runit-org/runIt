@@ -97,6 +97,7 @@ function Header() {
                 <Nav.Link className="button-wrapper mb-1" as="div">
                   <UserStatus />
                 </Nav.Link>
+                <Nav.Link onClick={handleNotifShow}>Notifications</Nav.Link>
                 <Nav.Link
                   href={
                     currentUser
@@ -104,13 +105,35 @@ function Header() {
                       : ""
                   }
                 >
-                  Your Profile
+                  Profile
                 </Nav.Link>
-              </div>
-
-              <div className="responsive-elements">
-                <Nav.Link onClick={handleNotifShow}>Notifications</Nav.Link>
-
+                <Nav.Link
+                  href={
+                    currentUser
+                      ? `/profile/calendar?user=${currentUser.username}`
+                      : ""
+                  }
+                >
+                  Calendar
+                </Nav.Link>
+                <Nav.Link
+                  href={
+                    currentUser
+                      ? `/profile/security?user=${currentUser.username}`
+                      : ""
+                  }
+                >
+                  Security Settings
+                </Nav.Link>
+                <Nav.Link
+                  href={
+                    currentUser
+                      ? `/profile/feedback-support?user=${currentUser.username}`
+                      : ""
+                  }
+                >
+                  Feedback & Support
+                </Nav.Link>
                 <Nav.Link
                   onClick={(e) => {
                     handleLogout(e);

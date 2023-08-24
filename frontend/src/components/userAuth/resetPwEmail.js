@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { ResponseItem } from "../../layouts/responseItems";
 import { FormButton } from "./utilities/auth-builder";
 import { useHandleChange } from "../../hooks/useHandleChange";
+import { FormLabel, FormGroup } from "../../layouts/customForm";
 
 function ResetPasswordEmail() {
   const dispatch = useDispatch();
@@ -38,8 +39,8 @@ function ResetPasswordEmail() {
             <ResponseItem />
           </div>
 
-          <Form.Label className="text-muted small">Email</Form.Label>
-          <Form.Group controlId="formBasicEmail2">
+          <FormLabel>Email</FormLabel>
+          <FormGroup formId="formBasicEmail">
             <Form.Control
               className="p-2"
               type="email"
@@ -47,7 +48,7 @@ function ResetPasswordEmail() {
               onChange={handleFieldChange}
               required
             />
-          </Form.Group>
+          </FormGroup>
           <FormButton load={load} name="Confirm" />
           <hr className="divider" />
           <Row className="mt-3">

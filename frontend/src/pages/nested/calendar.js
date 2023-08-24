@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import { Container } from "react-bootstrap";
-import Calendar from "./calendarItem";
-import CalendarEventItem from "./calendarEventItem";
+import Calendar from "../../components/calendar/calendarItem";
+import CalendarEventItem from "../../components/calendar/calendarEventItem";
 
 import { SectionHeader } from "../../layouts/sectionHeader.js";
 import { useSearchParams } from "react-router-dom";
 import { UserContext } from "../../context/userProvider";
-import UserProfileHandler from "../profile/utilities/actionHandlers";
+import UserProfileHandler from "../../components/profile/utilities/actionHandlers";
 import { CalendarContext } from "../../context/calendarProvider";
 import { DateFormat, DateOrdinal } from "../../utilities/utility-service";
 
-function CalendarMain() {
+function CalendarPage() {
   const { currentDay } = useContext(CalendarContext);
   const [searchParams] = useSearchParams();
   const param = searchParams.get("user");
@@ -52,4 +52,4 @@ function CalendarMain() {
   );
 }
 
-export default CalendarMain;
+export default CalendarPage;

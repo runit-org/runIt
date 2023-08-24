@@ -78,10 +78,10 @@ export const affiliatedEvents = (filter) => async (dispatch) => {
 };
 
 export const createNewEvent = (postData, setFormStatus) => async (dispatch) => {
-  await refreshToken().then((ref) => {
+  return await refreshToken().then((ref) => {
     setToken(ref.data.access);
     setFormStatus({ load: true });
-    axios
+    return axios
       .post("/event/create/", postData)
       .then((res) => {
         if (res.status === ResponseStatus.OK) {
@@ -91,6 +91,7 @@ export const createNewEvent = (postData, setFormStatus) => async (dispatch) => {
           type: GET_ERRORS,
           payload: res.data,
         });
+        return res;
       })
       .catch((error) => {
         setFormStatus({ load: false, error: error.response.data.message });

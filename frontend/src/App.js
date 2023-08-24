@@ -10,9 +10,11 @@ import UserContext from "./context/userProvider";
 import SecurityContext from "./context/securityProvider";
 import CalendarContext from "./context/calendarProvider.js";
 import { RoutesContainer } from "./routes/routesContainer";
-import CalendarMain from "./components/calendar/calendarMain";
-import ProfileMain from "./components/profile/profileMain";
-import History from "./components/profile/history";
+import Profile from "./pages/nested/profile";
+import History from "./pages/nested/history";
+import Support from "./pages/nested/support";
+import CalendarPage from "./pages/nested/calendar";
+import Security from "./pages/nested/security";
 
 const ProfileDash = lazy(() => import("./pages/profileDash"));
 const SingleEventDash = lazy(() => import("./pages/singleEventDash"));
@@ -60,10 +62,11 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route path="calendar" element={<CalendarMain />} />
-            <Route path="settings" element={<ProfileMain />} />
+            <Route path="calendar" element={<CalendarPage />} />
+            <Route path="settings" element={<Profile />} />
             <Route path="history" element={<History />} />
-            {/*   <Route path="feedback-support" element={<ProfileDash />} /> */}
+            <Route path="security" element={<Security />} />
+            <Route path="feedback-support" element={<Support />} />
           </Route>
 
           <Route

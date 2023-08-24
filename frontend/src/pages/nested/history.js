@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Card, Container } from "react-bootstrap";
-import UserProfile from "./userProfile";
+import UserProfile from "../../components/profile/userProfile";
 import { CustomTable, CustomTableCells } from "../../layouts/customTable";
 import SortDropdown from "../../layouts/sortDropdown";
-import { GetVotes } from "./utilities/actionHandlers";
+import { GetVotes } from "../../components/profile/utilities/actionHandlers";
 import { Username } from "../../layouts/username";
 import Pagination from "../../layouts/pagination";
 

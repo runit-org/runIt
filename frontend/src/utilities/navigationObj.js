@@ -23,10 +23,14 @@ export const NavigationObj = (user) => {
       title: "History",
       href: user ? `history?user=${user.username}` : "",
     },
-    /*   {
+    {
+      title: "Security Settings",
+      href: user ? `security?user=${user.username}` : "",
+    },
+    {
       title: "Feedback & Support",
-      href: user ? `/profile/feedback-support?user=${user.username}` : "",
-    }, */
+      href: user ? `feedback-support?user=${user.username}` : "",
+    },
   ];
 
   return { profileNav, profileNavCurrUser };

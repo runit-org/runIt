@@ -1,14 +1,14 @@
 import React from "react";
 import { Button, Card, Container } from "react-bootstrap";
 
-import UserProfile from "./userProfile";
-import UpdateDetails from "./updateDetails";
+import UserProfile from "../../components/profile/userProfile";
+import UpdateDetails from "../../components/profile/updateDetails";
 import Timeline from "../../layouts/timeline";
 import { useEditor } from "../../hooks/useEditor";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
 // import { AffiliatedEvents } from "../event/utilities/actionHandlers";
 
-function ProfileMain() {
+function Profile() {
   const { editorMode, handleClick } = useEditor(false);
   // const affiliatedEvents = AffiliatedEvents(2);
 
@@ -16,7 +16,7 @@ function ProfileMain() {
     <>
       <div className="content">
         <Container className="content-wrapper">
-          <SectionHeader size={"sm"}>User Acitvity</SectionHeader>
+          <SectionHeader size={"md"}>User Acitvity</SectionHeader>
           <Timeline />
         </Container>
       </div>
@@ -49,4 +49,4 @@ function ProfileMain() {
   );
 }
 
-export default ProfileMain;
+export default Profile;

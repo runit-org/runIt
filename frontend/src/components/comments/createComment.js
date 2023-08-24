@@ -41,10 +41,14 @@ function CreateComment(props) {
     const postData = {
       content: content,
     };
-    dispatch(createComment(props.id, postData, setLoad, setError)).then(() => {
-      dispatch(getAllComments(props.id, pageId));
-      emitter(MentionFilter(content, eventData.userName));
-    });
+    dispatch(createComment(props.id, postData, setLoad, setError)).then(
+      (res) => {
+        if (res.status === 200) {
+          dispatch(getAllComments(props.id, pageId));
+          emitter(MentionFilter(content, eventData.userName));
+        }
+      }
+    );
   };
 
   useEffect(() => {

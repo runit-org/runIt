@@ -37,10 +37,19 @@ body {
 
 .section-header p {
   margin-left: 0.25rem;
-  font-size: 20px !important;
+  font-size: $size-lg !important;
   font-weight: 500 !important;
   margin-bottom: 8px;
   color: lighten($primary-dark, 20);
+
+  &.sm {
+    @extend .section-header;
+    font-size: $size-sm !important;
+  }
+  &.md {
+    @extend .section-header;
+    font-size: $size-md !important;
+  }
 }
 
 .btn-primary {
