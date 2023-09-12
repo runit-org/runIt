@@ -23,12 +23,14 @@ function RemoveComment(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(removeComment(props.commentId, setLoad, setError)).then(() => {
-      dispatch(getAllComments(props.eventId, pageId));
-      navigate(`/event/${props.eventId}?page=${pageId}`, {
-        replace: true,
-        state: { id: pageId },
-      });
+    dispatch(removeComment(props.commentId, setLoad, setError)).then((res) => {
+      if (res.status === 200) {
+        dispatch(getAllComments(props.eventId, pageId));
+        navigate(`/event/${props.eventId}?page=${pageId}`, {
+          replace: true,
+          state: { id: pageId },
+        });
+      }
     });
   };
   return (

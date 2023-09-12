@@ -11,7 +11,7 @@ axios.defaults.baseURL = `${
 
 export const createComment =
   (id, postData, setLoad, setError) => async (dispatch) => {
-    return await refreshToken().then((ref) => {
+    return await refreshToken().then(async (ref) => {
       setToken(ref.data.access);
       setLoad(true);
       return axios
@@ -39,31 +39,30 @@ export const createComment =
   };
 
 export const removeComment = (id, setLoad, setError) => async (dispatch) => {
-  await refreshToken().then((ref) => {
+  return await refreshToken().then(async (ref) => {
     setToken(ref.data.access);
 
     setLoad(true);
-    axios
-      .delete(`/event/comment/delete/${id}/`)
-      .then((res) => {
-        if (res.status === ResponseStatus.OK) {
-          setLoad(false);
-
-          setError(res.data);
-        }
-        dispatch({
-          type: GET_ERRORS,
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
+    try {
+      const res = await axios.delete(`/event/comment/delete/${id}/`);
+      if (res.status === ResponseStatus.OK) {
         setLoad(false);
-        setError(error.response.data);
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response,
-        });
+
+        setError(res.data);
+      }
+      dispatch({
+        type: GET_ERRORS,
+        payload: res.data,
       });
+      return res;
+    } catch (error) {
+      setLoad(false);
+      setError(error.response.data);
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response,
+      });
+    }
   });
 };
 
