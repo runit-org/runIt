@@ -5,3 +5,4 @@ class get(Enum):
     TEST_USER_PASSWORD                   = 'password123*'
     EMAIL_VERIFICATION_TOKEN_EXPIRY_TIME = 180 #seconds
     EMAIL_VERIFICATION_TOKEN_OTP_LENGTH  = 6
+    MAX_CONTENT_LENGTH                   = 400
