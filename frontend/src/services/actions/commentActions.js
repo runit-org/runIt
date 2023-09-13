@@ -41,13 +41,11 @@ export const createComment =
 export const removeComment = (id, setLoad, setError) => async (dispatch) => {
   return await refreshToken().then(async (ref) => {
     setToken(ref.data.access);
-
     setLoad(true);
     try {
       const res = await axios.delete(`/event/comment/delete/${id}/`);
       if (res.status === ResponseStatus.OK) {
         setLoad(false);
-
         setError(res.data);
       }
       dispatch({
@@ -67,16 +65,18 @@ export const removeComment = (id, setLoad, setError) => async (dispatch) => {
 };
 
 export const updateComment = (id, postData) => async (dispatch) => {
-  await refreshToken().then((ref) => {
+  return await refreshToken().then(async (ref) => {
     setToken(ref.data.access);
-
-    axios
+    return axios
       .put(`/event/comment/update/${id}/`, postData)
       .then((res) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: res.data,
-        });
+        if (res.status === ResponseStatus.OK) {
+          dispatch({
+            type: GET_ERRORS,
+            payload: res.data,
+          });
+        }
+        return res;
       })
       .catch((error) => {
         dispatch({
@@ -108,12 +108,11 @@ export const getAllComments = (id, page) => async (dispatch) => {
 };
 
 export const likeUnlike = (id) => async (dispatch) => {
-  return await refreshToken().then((ref) => {
+  return await refreshToken().then(async (ref) => {
     setToken(ref.data.access);
     return axios
       .post(`/event/comment/likeUnlike/${id}/`)
       .then((res) => {
-        // console.log(res);
         dispatch({
           type: GET_ERRORS,
           payload: res,
@@ -128,23 +127,3 @@ export const likeUnlike = (id) => async (dispatch) => {
       });
   });
 };
-
-/* export function likeUnlike(id) {
-  return async function (dispatch) {
-    return await refreshToken().then((ref) => {
-      setToken(ref.data.access);
-
-      return axios
-        .post(`/event/comment/likeUnlike/${id}/`)
-        .then((res) => {
-          return res;
-        })
-        .catch((error) => {
-          dispatch({
-            type: GET_ERRORS,
-            payload: error.response.data,
-          });
-        });
-    });
-  };
-} */

@@ -10,6 +10,7 @@ import { usePageId } from "../../hooks/usePageId";
 import { emitter } from "../client/socket";
 import { MentionFilter } from "../../utilities/utility-service";
 import { Cross } from "../../layouts/icons";
+import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function UpdateComment(props, { handleUpate }) {
   const dispatch = useDispatch();
@@ -24,9 +25,11 @@ function UpdateComment(props, { handleUpate }) {
       content: content,
     };
 
-    dispatch(updateComment(props.commentId, postData)).then(() => {
-      dispatch(getAllComments(props.eventId, pageId));
-      emitter(MentionFilter(content));
+    dispatch(updateComment(props.commentId, postData)).then((res) => {
+      if (res.status === ResponseStatus.OK) {
+        dispatch(getAllComments(props.eventId, pageId));
+        emitter(MentionFilter(content));
+      }
     });
     props.handleUpate();
   };

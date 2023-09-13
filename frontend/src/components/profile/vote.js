@@ -3,14 +3,17 @@ import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getUserProfile, vote } from "../../services/actions/userActions";
 import { VoteArrow } from "../../layouts/icons";
+import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function Vote(props) {
   const dispatch = useDispatch();
 
   const voteUser = (status) => {
     const postData = { status: status };
-    dispatch(vote(props.user.id, postData)).then(() => {
-      dispatch(getUserProfile(props.user.username));
+    dispatch(vote(props.user.id, postData)).then((res) => {
+      if (res.status === ResponseStatus.OK) {
+        dispatch(getUserProfile(props.user.username));
+      }
     });
   };
 

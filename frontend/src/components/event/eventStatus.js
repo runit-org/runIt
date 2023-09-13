@@ -12,6 +12,7 @@ import { emitter } from "../client/socket";
 import { PencilSquare } from "../../layouts/icons";
 import { CANCELLED, FINISHED } from "./utilities/eventTypes";
 import { EventMembersHandler } from "./utilities/actionHandlers";
+import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function EventStatus(props) {
   const dispatch = useDispatch();
@@ -33,9 +34,11 @@ function EventStatus(props) {
     };
 
     dispatch(updateStatus(props.eventId, postData, setLoad, setError)).then(
-      () => {
-        dispatch(getSingleEvent(params.id));
-        emitter(eventMembers.map((member) => member.username));
+      (res) => {
+        if (res.status === ResponseStatus.OK) {
+          dispatch(getSingleEvent(params.id));
+          emitter(eventMembers.map((member) => member.username));
+        }
       }
     );
   };

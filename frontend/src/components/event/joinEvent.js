@@ -8,10 +8,10 @@ import {
 } from "../../services/actions/eventActions";
 import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modalItem";
-import { usePageId } from "../../hooks/usePageId";
 import { useLocation, useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
 import { Plus } from "../../layouts/icons";
+import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function JoinEvent(props) {
   const dispatch = useDispatch();
@@ -20,7 +20,6 @@ function JoinEvent(props) {
   const [load, setLoad] = useState(false);
   const [error, setError] = useState({});
 
-  let pageId = usePageId();
   const params = useParams();
   const location = useLocation();
 
@@ -31,11 +30,13 @@ function JoinEvent(props) {
       eventId: props.eventId,
     };
 
-    dispatch(requestToJoin(postData, setLoad, setError)).then(() => {
-      location.pathname.includes("event")
-        ? dispatch(getSingleEvent(params.id))
-        : dispatch(getAllEvents(pageId));
-      emitter([props.userName]);
+    dispatch(requestToJoin(postData, setLoad, setError)).then((res) => {
+      if (res.status === ResponseStatus.OK) {
+        location.pathname.includes("event")
+          ? dispatch(getSingleEvent(params.id))
+          : dispatch(getAllEvents(1));
+        emitter([props.userName]);
+      }
     });
   };
   return (

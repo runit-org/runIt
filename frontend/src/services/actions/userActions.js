@@ -60,12 +60,12 @@ export const getCurrentUserProfile = () => async (dispatch) => {
 };
 
 export const vote = (id, postData) => async (dispatch) => {
-  await refreshToken().then((ref) => {
+  return await refreshToken().then(async (ref) => {
     setToken(ref.data.access);
-    axios
+    return axios
       .post(`/user/vote/${id}/`, postData)
       .then((res) => {
-        console.log(res);
+        return res;
       })
       .catch((error) => {
         dispatch({
@@ -77,14 +77,15 @@ export const vote = (id, postData) => async (dispatch) => {
 };
 
 export const userStatus = (postData, setLoad, setError) => async (dispatch) => {
-  await refreshToken().then((ref) => {
+  return await refreshToken().then(async (ref) => {
     setToken(ref.data.access);
     setLoad(true);
-    axios
+    return axios
       .put(`/user/updateStatusMessage/`, postData)
       .then((res) => {
         setLoad(false);
         setError(res.data);
+        return res;
       })
       .catch((error) => {
         setLoad(false);
