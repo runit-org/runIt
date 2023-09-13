@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../services/actions/securityActions";
 import Notifications from "../components/notification/notification";
 import { getCurrentUserProfile } from "../services/actions/userActions";
 import { receiver } from "../components/client/socket";
 import { getNotifications } from "../services/actions/notificationActions";
 import { AppLogo, Notification } from "./icons";
-import Cookies from "js-cookie";
 import UserStatus from "../components/profile/userStatus";
+import { useHandleLogout } from "../hooks/useHandleLogout";
 
 function Header() {
-  let navigate = useNavigate();
   const dispatch = useDispatch();
   const [showNotif, setShowNotif] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
@@ -20,17 +17,7 @@ function Header() {
   const [unreadCount, setUnreadCount] = useState("");
   const handleNotifShow = () => setShowNotif(true);
   const handleNotifClose = () => setShowNotif(false);
-
-  const handleLogout = (e) => {
-    e.preventDefault();
-    const token = Cookies.get("token");
-
-    const refToken = {
-      refresh: token,
-    };
-
-    dispatch(logout(refToken, navigate));
-  };
+  const logout = useHandleLogout();
 
   // get current user
   useEffect(() => {
@@ -136,7 +123,7 @@ function Header() {
                 </Nav.Link>
                 <Nav.Link
                   onClick={(e) => {
-                    handleLogout(e);
+                    logout(e);
                   }}
                   className="w-100"
                   data-testid="logout-btn-responsive"
@@ -185,7 +172,7 @@ function Header() {
 
                 <NavDropdown.Item
                   onClick={(e) => {
-                    handleLogout(e);
+                    logout(e);
                   }}
                   data-testid="logout-btn"
                 >

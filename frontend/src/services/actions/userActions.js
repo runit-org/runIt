@@ -72,6 +72,7 @@ export const vote = (id, postData) => async (dispatch) => {
           type: GET_ERRORS,
           payload: error.response.data,
         });
+        return error;
       });
   });
 };
@@ -94,6 +95,7 @@ export const userStatus = (postData, setLoad, setError) => async (dispatch) => {
           type: GET_ERRORS,
           payload: error.response.data,
         });
+        return error;
       });
   });
 };
@@ -140,3 +142,26 @@ export const updateDetails =
         });
     });
   };
+
+export const changePassword = (postData, setLoad) => async (dispatch) => {
+  return await refreshToken().then(async (ref) => {
+    setToken(ref.data.access);
+    setLoad(true);
+    return axios
+      .put(`/user/changePassword/`, postData)
+      .then((res) => {
+        if (res.status === OK) {
+          setLoad(false);
+        }
+        return res;
+      })
+      .catch((error) => {
+        setLoad(false);
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response,
+        });
+        return error;
+      });
+  });
+};

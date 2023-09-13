@@ -34,6 +34,7 @@ export const createComment =
             type: GET_ERRORS,
             payload: error.response.data,
           });
+          return error;
         });
     });
   };
@@ -60,6 +61,7 @@ export const removeComment = (id, setLoad, setError) => async (dispatch) => {
         type: GET_ERRORS,
         payload: error.response,
       });
+      return error;
     }
   });
 };
@@ -83,6 +85,7 @@ export const updateComment = (id, postData) => async (dispatch) => {
           type: GET_ERRORS,
           payload: error.response.data,
         });
+        return error;
       });
   });
 };
@@ -124,6 +127,7 @@ export const likeUnlike = (id) => async (dispatch) => {
           type: GET_ERRORS,
           payload: error.response.data,
         });
+        return error;
       });
   });
 };
