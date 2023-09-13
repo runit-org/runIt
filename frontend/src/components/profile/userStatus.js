@@ -9,6 +9,7 @@ import {
 } from "../../services/actions/userActions";
 import { Smiley } from "../../layouts/icons";
 import { UserContext } from "../../context/userProvider";
+import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function UserStatus() {
   const dispatch = useDispatch();
@@ -24,8 +25,10 @@ function UserStatus() {
     const postData = {
       message: message,
     };
-    dispatch(userStatus(postData, setLoad, setError)).then(() => {
-      dispatch(getCurrentUserProfile());
+    dispatch(userStatus(postData, setLoad, setError)).then((res) => {
+      if (res.status === ResponseStatus.OK) {
+        dispatch(getCurrentUserProfile());
+      }
     });
   };
   return (

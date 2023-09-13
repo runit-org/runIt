@@ -78,7 +78,7 @@ export const affiliatedEvents = (filter) => async (dispatch) => {
 };
 
 export const createNewEvent = (postData, setFormStatus) => async (dispatch) => {
-  return await refreshToken().then((ref) => {
+  return await refreshToken().then(async (ref) => {
     setToken(ref.data.access);
     setFormStatus({ load: true });
     return axios
@@ -104,15 +104,16 @@ export const createNewEvent = (postData, setFormStatus) => async (dispatch) => {
 };
 
 export const updateEvent = (id, postData) => async (dispatch) => {
-  await refreshToken().then((ref) => {
+  return await refreshToken().then(async (ref) => {
     setToken(ref.data.access);
-    axios
+    return axios
       .put(`/event/update/${id}/`, postData)
       .then((res) => {
         dispatch({
           type: GET_ERRORS,
           payload: res.data,
         });
+        return res;
       })
       .catch((error) => {
         dispatch({
@@ -125,10 +126,10 @@ export const updateEvent = (id, postData) => async (dispatch) => {
 
 export const updateStatus =
   (id, postData, setLoad, setError) => async (dispatch) => {
-    await refreshToken().then((ref) => {
+    return await refreshToken().then(async (ref) => {
       setToken(ref.data.access);
       setLoad(true);
-      axios
+      return axios
         .patch(`/event/updateStatus/${id}/`, postData)
         .then((res) => {
           if (res.status === ResponseStatus.OK) {
@@ -140,6 +141,7 @@ export const updateStatus =
             type: GET_ERRORS,
             payload: res.data,
           });
+          return res;
         })
         .catch((error) => {
           setLoad(false);
@@ -154,11 +156,11 @@ export const updateStatus =
 
 export const requestToJoin =
   (postData, setLoad, setError) => async (dispatch) => {
-    await refreshToken().then((ref) => {
+    return await refreshToken().then(async (ref) => {
       setToken(ref.data.access);
 
       setLoad(true);
-      axios
+      return axios
         .post("/event/member/requestJoin/", postData)
         .then((res) => {
           if (res.status === ResponseStatus.OK) {
@@ -169,6 +171,7 @@ export const requestToJoin =
             type: GET_ERRORS,
             payload: res.data,
           });
+          return res;
         })
         .catch((error) => {
           setLoad(false);
@@ -185,7 +188,6 @@ export const removeEvent =
   (id, setLoad, setError, navigate) => async (dispatch) => {
     await refreshToken().then((ref) => {
       setToken(ref.data.access);
-
       setLoad(true);
       axios
         .delete(`/event/delete/${id}/`)

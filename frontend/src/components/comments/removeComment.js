@@ -10,6 +10,7 @@ import {
   removeComment,
 } from "../../services/actions/commentActions";
 import { Delete } from "../../layouts/icons";
+import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function RemoveComment(props) {
   const dispatch = useDispatch();
@@ -23,12 +24,14 @@ function RemoveComment(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(removeComment(props.commentId, setLoad, setError)).then(() => {
-      dispatch(getAllComments(props.eventId, pageId));
-      navigate(`/event/${props.eventId}?page=${pageId}`, {
-        replace: true,
-        state: { id: pageId },
-      });
+    dispatch(removeComment(props.commentId, setLoad, setError)).then((res) => {
+      if (res.status === ResponseStatus.OK) {
+        dispatch(getAllComments(props.eventId, pageId));
+        navigate(`/event/${props.eventId}?page=${pageId}`, {
+          replace: true,
+          state: { id: pageId },
+        });
+      }
     });
   };
   return (

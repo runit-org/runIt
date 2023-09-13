@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
 import { MentionFilter } from "../../utilities/utility-service";
 import { Cross, Submit } from "../../layouts/icons";
+import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function UpdateEvent(props) {
   const dispatch = useDispatch();
@@ -27,9 +28,11 @@ function UpdateEvent(props) {
       details: details,
     };
 
-    dispatch(updateEvent(props.eventId, postData)).then(() => {
-      dispatch(getSingleEvent(params.id));
-      emitter(MentionFilter(details));
+    dispatch(updateEvent(props.eventId, postData)).then((res) => {
+      if (res.status === ResponseStatus.OK) {
+        dispatch(getSingleEvent(params.id));
+        emitter(MentionFilter(details));
+      }
     });
     props.handleUpate();
   };

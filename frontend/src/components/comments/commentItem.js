@@ -18,6 +18,7 @@ import { usePageId } from "../../hooks/usePageId";
 import CustomDropdown from "../../layouts/customDropdown";
 import { Username } from "../../layouts/username";
 import { useEditor } from "../../hooks/useEditor";
+import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function CommentItem(props) {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function CommentItem(props) {
 
   const commentReact = () => {
     dispatch(likeUnlike(props.commentData.id)).then((res) => {
-      if (res.status === 200) {
+      if (res.status === ResponseStatus.OK) {
         dispatch(getAllComments(eventData.id, pageId));
         emitter([props.commentData.username]);
       }

@@ -28,7 +28,6 @@ function Main() {
             style={currPath !== "/signup" ? { width: "28rem" } : {}}
           >
             {!isValid ? <AppLogo w={"80px"} defClass="mb-4" /> : ""}
-
             {currPath === "/signup" ? (
               <SignUp />
             ) : currPath === "/reset-password-auth" ? (
