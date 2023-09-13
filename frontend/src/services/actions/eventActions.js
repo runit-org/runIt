@@ -99,6 +99,7 @@ export const createNewEvent = (postData, setFormStatus) => async (dispatch) => {
           type: GET_ERRORS,
           payload: error.response.data,
         });
+        return error;
       });
   });
 };
@@ -120,6 +121,7 @@ export const updateEvent = (id, postData) => async (dispatch) => {
           type: GET_ERRORS,
           payload: error.response.data,
         });
+        return error;
       });
   });
 };
@@ -150,6 +152,7 @@ export const updateStatus =
             type: GET_ERRORS,
             payload: error.response.data,
           });
+          return error;
         });
     });
   };
@@ -180,6 +183,7 @@ export const requestToJoin =
             type: GET_ERRORS,
             payload: error.response.data,
           });
+          return error;
         });
     });
   };
