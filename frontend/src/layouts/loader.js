@@ -15,15 +15,12 @@ export const Loading = () => {
 };
 
 export const Skeleton = () => {
-  var arr = [];
-  for (var i = 0; i < 4; i++) {
-    arr.push(i + 1);
-  }
+  const skeletonItems = Array(4).fill(null);
   return (
     <>
-      {arr.map((i) => {
+      {skeletonItems.map((_, index) => {
         return (
-          <div key={i} className="p-3 loading_skeleton">
+          <div key={index} className="p-3 loading_skeleton">
             <div className="title" />
             <div className="img">
               <svg

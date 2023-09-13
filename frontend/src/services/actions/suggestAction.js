@@ -15,12 +15,14 @@ export const getSuggestions = (id, setIsLoading) => async (dispatch) => {
     axios
       .get(`/event/createSuggestions/${id}/`)
       .then((res) => {
+        setIsLoading(false);
         dispatch({
           type: GET_EVENT_SUGGESTIONS,
           payload: res.data,
         });
       })
       .catch((error) => {
+        setIsLoading(false);
         dispatch({
           type: GET_ERRORS,
           payload: error.response.data,
