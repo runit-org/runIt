@@ -185,9 +185,30 @@ export const resetPw = (userData, setLoad) => async (dispatch) => {
     });
 };
 
+export const verifyEmail = (data, setLoad) => async (dispatch) => {
+  setLoad(true);
+  return await axios
+    .post(`/auth/verifyEmail/`, data)
+    .then((res) => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: res,
+      });
+      return res;
+    })
+    .catch((error) => {
+      setLoad(false);
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response,
+      });
+      return error;
+    });
+};
+
 export const resendOtp = (setLoad) => async (dispatch) => {
   setLoad(true);
-  await axios
+  return await axios
     .post(`/auth/resendVerifyEmail/`)
     .then((res) => {
       if (res.status === ResponseStatus.OK) {
@@ -197,6 +218,7 @@ export const resendOtp = (setLoad) => async (dispatch) => {
         type: GET_ERRORS,
         payload: res,
       });
+      return res;
     })
     .catch((error) => {
       setLoad(false);
@@ -204,5 +226,6 @@ export const resendOtp = (setLoad) => async (dispatch) => {
         type: GET_ERRORS,
         payload: error.response,
       });
+      return error;
     });
 };

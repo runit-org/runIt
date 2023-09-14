@@ -1,72 +1,78 @@
 import React, { useState } from "react";
-import { Card, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { FormGroup, FormLabel } from "../../layouts/customForm.js";
 import CTAButton from "../../layouts/ctaButton";
 import { useDispatch } from "react-redux";
 import { ResponseItem } from "../../layouts/responseItems";
 import { useHandleChange } from "../../hooks/useHandleChange";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
+import { Link, useNavigate } from "react-router-dom";
+import { verifyEmail } from "../../services/actions/securityActions.js";
+import * as ResponseStatus from "../../services/constants/responseStatus";
+import Cookies from "js-cookie";
 
 function VerifyEmail() {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
   const [load, setLoad] = useState(false);
   const { formValue, handleFieldChange } = useHandleChange({
-    current_password: "",
-    password: "",
-    c_password: "",
+    token: "",
   });
 
-  /* const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(changePassword(formValue, setLoad)).then((res) => {
+    dispatch(verifyEmail(formValue, setLoad)).then((res) => {
       if (res.status === ResponseStatus.OK) {
-        logout(e);
+        Cookies.set("isVerified", "true");
+        setTimeout(() => {
+          navigate("/posts");
+        }, 2000);
       }
     });
-  }; */
+  };
 
   return (
-    <div className="mb-3">
+    <>
       <SectionHeader>Verify account</SectionHeader>
-      <Form.Text className="text-muted d-block ms-1">
-        Enter the OTP sent to your email.
-      </Form.Text>
-      <hr />
-      <div className="p-2">
-        <fieldset>
-          <Form
-          /* onSubmit={(e) => {
-              handleSubmit(e);
-            }} */
-          >
-            <FormGroup formId="oldPassword" customStyle="col-md-6">
-              <FormLabel>6 digit OTP</FormLabel>
-              <Form.Control
-                type="password"
-                name="current_password"
-                onChange={handleFieldChange}
-                required
-              />
-            </FormGroup>
+      <div className="otp-card p-2">
+        <Form
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+        >
+          <FormGroup formId="oldPassword">
+            <FormLabel>Enter the 6 digit OTP sent to your email</FormLabel>
+            <Form.Control
+              type="number"
+              name="token"
+              onChange={handleFieldChange}
+            />
+            <ResponseItem />
+          </FormGroup>
 
-            <Form.Text className="text-muted d-block">
-              You will reqiuire to login again after being verified
-            </Form.Text>
-
+          <div className="d-flex align-items-center gap-3">
             <CTAButton
               type={"submit"}
-              btnStyle={"formBtn cta_button mt-3 d-block"}
+              btnStyle={"formBtn cta_button d-inline"}
               variant={"primary"}
               isLoading={load}
               placeholder={
-                <div className="d-flex align-items-center">Submit</div>
+                <div className="d-flex align-items-center">Confirm</div>
               }
             />
-            <ResponseItem />
-          </Form>
-        </fieldset>
+
+            <Link
+              to={{
+                pathname: "/posts",
+              }}
+              className="text-muted"
+            >
+              return to dash
+            </Link>
+          </div>
+        </Form>
       </div>
-    </div>
+    </>
   );
 }
 

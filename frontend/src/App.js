@@ -19,6 +19,7 @@ import Login from "./components/userAuth/logIn";
 import SignUp from "./components/userAuth/signUp";
 import ResetPasswordEmail from "./components/userAuth/resetPwEmail";
 import ResetPassword from "./components/userAuth/resetPw";
+import VerifyEmail from "./components/userAuth/verifyEmail";
 
 const ProfileDash = lazy(() => import("./pages/profileDash"));
 const SingleEventDash = lazy(() => import("./pages/singleEventDash"));
@@ -57,6 +58,7 @@ function App() {
               path="reset-password-auth"
               element={<ResetPassword token={encodeURIComponent(token)} />}
             />
+            <Route path="verify" element={<VerifyEmail />} />
           </Route>
 
           {/* dash/posts routes */}

@@ -5,16 +5,23 @@ import { resendOtp } from "../../services/actions/securityActions";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { ResponseItem } from "../../layouts/responseItems";
+import * as ResponseStatus from "../../services/constants/responseStatus";
+import { useNavigate } from "react-router-dom";
 
 function ResendOtp() {
   const dispatch = useDispatch();
   const [show, setShow] = useState(true);
   const [load, setLoad] = useState(false);
   const isVerified = Cookies.get("isVerified");
+  let navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(resendOtp(setLoad));
+    dispatch(resendOtp(setLoad)).then((res) => {
+      if (res.status === ResponseStatus.OK) {
+        navigate("/verify");
+      }
+    });
   };
 
   useEffect(() => {

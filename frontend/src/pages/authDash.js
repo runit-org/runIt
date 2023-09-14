@@ -22,7 +22,7 @@ function Main() {
           >
             {!isValid ? <AppLogo w={"80px"} defClass="mb-4" /> : ""}
 
-            {isValid ? (
+            {isValid && currPath !== "/verify" ? (
               <CurrAuthUser>
                 <SingleClick currUserProfile={CurrAuthUser.currUserProfile} />
               </CurrAuthUser>
