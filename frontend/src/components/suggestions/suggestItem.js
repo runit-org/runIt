@@ -64,7 +64,7 @@ function SuggestItem(props) {
         ) : suggestData.isLoading ? (
           <Skeleton />
         ) : (
-          "Error fetching data"
+          "No suggestions at this moment...."
         )}
       </ListGroup>
     </>

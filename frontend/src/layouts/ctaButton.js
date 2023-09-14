@@ -19,7 +19,7 @@ function CTAButton(props) {
           size="sm"
         >
           {(() => {
-            if (props.load) {
+            if (props.isLoading) {
               return <Loading />;
             } else {
               return props.placeholder;

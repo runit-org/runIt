@@ -10,6 +10,7 @@ const initialState = {
   users: {},
   data: [],
   validToken: false,
+  userData: {},
 };
 
 const booleanPayload = (payload) => {
@@ -41,8 +42,7 @@ export default function setUser(state = initialState, action) {
     case GET_USER:
       return {
         ...state,
-        singleUser: action.payload,
-        userData: action.payload.data,
+        userData: action.payload,
       };
     default:
       return state;
