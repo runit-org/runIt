@@ -36,7 +36,6 @@ function ChangePassword() {
         You will be logged out upon successful password update.
       </Form.Text>
       <hr />
-
       <div className="p-2">
         <fieldset>
           <Form

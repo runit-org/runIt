@@ -1,13 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import Footer from "../layouts/footer";
-import Login from "../components/userAuth/logIn";
-import ResetPassword from "../components/userAuth/resetPw";
-import ResetPasswordEmail from "../components/userAuth/resetPwEmail";
-import SignUp from "../components/userAuth/signUp";
-import { useParams } from "react-router-dom";
 import SingleClick from "../components/userAuth/singleClick";
-
 import { Card } from "react-bootstrap";
 import { AppLogo } from "../layouts/icons";
 import { useCurrentPath } from "../hooks/useCurrentPath";
@@ -15,7 +9,6 @@ import { useAuthStatus } from "../hooks/useAuthStatus";
 import { CurrAuthUser } from "../routes/currentUserRoute";
 
 function Main() {
-  let { token } = useParams();
   const currPath = useCurrentPath();
   const isValid = useAuthStatus();
 
@@ -28,18 +21,13 @@ function Main() {
             style={currPath !== "/signup" ? { width: "28rem" } : {}}
           >
             {!isValid ? <AppLogo w={"80px"} defClass="mb-4" /> : ""}
-            {currPath === "/signup" ? (
-              <SignUp />
-            ) : currPath === "/reset-password-auth" ? (
-              <ResetPasswordEmail />
-            ) : currPath === `/reset-password/${encodeURIComponent(token)}` ? (
-              <ResetPassword token={encodeURIComponent(token)} />
-            ) : isValid ? (
+
+            {isValid && currPath !== "/verify" ? (
               <CurrAuthUser>
                 <SingleClick currUserProfile={CurrAuthUser.currUserProfile} />
               </CurrAuthUser>
             ) : (
-              <Login />
+              <Outlet />
             )}
           </Card>
         </div>

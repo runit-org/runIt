@@ -4,6 +4,7 @@ import {
   GET_ERRORS,
   SET_CURRENT_USER,
   SET_NEW_USER,
+  GET_USER,
 } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 import jwt_decode from "jwt-decode";
@@ -69,7 +70,6 @@ export const createNewUser =
   };
 
 export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
-  //post => login request
   setLoad(true);
   await axios
     .post("/auth/login/", LoginRequest)
@@ -79,6 +79,9 @@ export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
       const accessToken = res.data.access;
       //store token in local storage
       Cookies.set("token", refToken, { sameSite: "strict" });
+      Cookies.set("isVerified", res.data.is_email_verified, {
+        sameSite: "strict",
+      });
       //set token in header
       setToken(accessToken);
       //get data from response
@@ -94,9 +97,10 @@ export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
         navigate("/posts");
       }
       dispatch({
-        type: GET_ERRORS,
+        type: GET_USER,
         payload: res,
       });
+
       dispatch({
         type: SET_CURRENT_USER,
         payload: decoded_token,
@@ -120,7 +124,7 @@ export const logout = (refToken, navigate) => async (dispatch) => {
   setToken(false);
   localStorage.clear();
   Cookies.remove("token");
-  // navigate("/", { replace: true });
+  Cookies.remove("isVerified");
   navigate(0);
 
   dispatch({
@@ -178,5 +182,50 @@ export const resetPw = (userData, setLoad) => async (dispatch) => {
         type: GET_ERRORS,
         payload: error.response,
       });
+    });
+};
+
+export const verifyEmail = (data, setLoad) => async (dispatch) => {
+  setLoad(true);
+  return await axios
+    .post(`/auth/verifyEmail/`, data)
+    .then((res) => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: res,
+      });
+      return res;
+    })
+    .catch((error) => {
+      setLoad(false);
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response,
+      });
+      return error;
+    });
+};
+
+export const resendOtp = (setLoad) => async (dispatch) => {
+  setLoad(true);
+  return await axios
+    .post(`/auth/resendVerifyEmail/`)
+    .then((res) => {
+      if (res.status === ResponseStatus.OK) {
+        setLoad(false);
+      }
+      dispatch({
+        type: GET_ERRORS,
+        payload: res,
+      });
+      return res;
+    })
+    .catch((error) => {
+      setLoad(false);
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response,
+      });
+      return error;
     });
 };

@@ -1,6 +1,6 @@
 import "./styles/App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import Header from "./layouts/header";
 import AuthDash from "./pages/authDash";
 import React, { lazy, Suspense } from "react";
@@ -15,12 +15,21 @@ import History from "./pages/nested/history";
 import Support from "./pages/nested/support";
 import CalendarPage from "./pages/nested/calendar";
 import Security from "./pages/nested/security";
+import Login from "./components/userAuth/logIn";
+import SignUp from "./components/userAuth/signUp";
+import ResetPasswordEmail from "./components/userAuth/resetPwEmail";
+import ResetPassword from "./components/userAuth/resetPw";
+import VerifyEmail from "./components/userAuth/verifyEmail";
+// import UnverifiedDash from "./pages/unverifiedDash";
+// import Cookies from "js-cookie";
 
 const ProfileDash = lazy(() => import("./pages/profileDash"));
 const SingleEventDash = lazy(() => import("./pages/singleEventDash"));
 const EventsDash = lazy(() => import("./pages/eventsDash"));
 
 function App() {
+  let { token } = useParams();
+  // const isVerified = Cookies.get("isVerified");
   return (
     <Suspense
       fallback={
@@ -33,22 +42,43 @@ function App() {
     >
       <RoutesContainer>
         <Routes>
-          <Route path="/" element={<AuthDash />} />
-          <Route path="/signup" element={<AuthDash />} />
-          <Route path="/reset-password/:token" element={<AuthDash />} />
-          <Route path="/reset-password-auth" element={<AuthDash />} />
+          {/* user auth routes */}
+          <Route
+            path="/"
+            element={
+              <>
+                <AuthDash />
+              </>
+            }
+          >
+            <Route path="/" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route
+              path="reset-password/:token"
+              element={<ResetPasswordEmail />}
+            />
+            <Route
+              path="reset-password-auth"
+              element={<ResetPassword token={encodeURIComponent(token)} />}
+            />
+            <Route path="verify" element={<VerifyEmail />} />
+          </Route>
 
+          {/* dash/posts routes */}
           <Route
             path="/posts"
             element={
               <ProtectedRoute>
                 <UserContext>
                   <Header />
+                  {/* {isVerified === "true" ? <EventsDash /> : <UnverifiedDash />} */}
                   <EventsDash />
                 </UserContext>
               </ProtectedRoute>
             }
           />
+
+          {/* profile routes */}
           <Route
             path="/profile"
             element={
@@ -69,6 +99,7 @@ function App() {
             <Route path="feedback-support" element={<Support />} />
           </Route>
 
+          {/* event routes */}
           <Route
             path="/event/:id"
             element={

@@ -69,3 +69,24 @@ div#auth-container {
   transition: all 0.2s;
   background-color: $secondary-light;
 }
+
+//otp card
+/* Chrome, Safari, Edge, Opera */
+.otp-card,
+input::-webkit-outer-spin-button,
+.otp-card,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.otp-card input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.otp-card a {
+  font-weight: 500;
+  font-size: 14px;
+  margin-top: 8px;
+}
