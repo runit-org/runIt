@@ -161,7 +161,6 @@ export const requestToJoin =
   (postData, setLoad, setError) => async (dispatch) => {
     return await refreshToken().then(async (ref) => {
       setToken(ref.data.access);
-
       setLoad(true);
       return axios
         .post("/event/member/requestJoin/", postData)

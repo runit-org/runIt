@@ -20,6 +20,8 @@ import SignUp from "./components/userAuth/signUp";
 import ResetPasswordEmail from "./components/userAuth/resetPwEmail";
 import ResetPassword from "./components/userAuth/resetPw";
 import VerifyEmail from "./components/userAuth/verifyEmail";
+// import UnverifiedDash from "./pages/unverifiedDash";
+// import Cookies from "js-cookie";
 
 const ProfileDash = lazy(() => import("./pages/profileDash"));
 const SingleEventDash = lazy(() => import("./pages/singleEventDash"));
@@ -27,6 +29,7 @@ const EventsDash = lazy(() => import("./pages/eventsDash"));
 
 function App() {
   let { token } = useParams();
+  // const isVerified = Cookies.get("isVerified");
   return (
     <Suspense
       fallback={
@@ -68,6 +71,7 @@ function App() {
               <ProtectedRoute>
                 <UserContext>
                   <Header />
+                  {/* {isVerified === "true" ? <EventsDash /> : <UnverifiedDash />} */}
                   <EventsDash />
                 </UserContext>
               </ProtectedRoute>
