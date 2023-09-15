@@ -1,23 +1,13 @@
-import React, { useContext } from "react";
-import { useSearchParams } from "react-router-dom";
-import { UserContext } from "../../context/userProvider";
+import React from "react";
 import { DisplayImage } from "../../layouts/userDisplayImg";
-import UserProfileHandler from "./utilities/actionHandlers";
 import { UserCardInfo, VoteBadge } from "./utilities/profileBuilder.js";
 import Vote from "./vote";
 import { Username } from "../../layouts/username";
 import UserStatus from "./userStatus";
+import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
 
 function UserProfile() {
-  const [searchParams] = useSearchParams();
-  const param = searchParams.get("user");
-  const userContext = useContext(UserContext);
-  const user = UserProfileHandler(
-    param ? param : userContext.currentUser.username
-  );
-  const authUser = user
-    ? user.username === userContext.currentUser.username
-    : "";
+  const { authUser, user } = useVerifyAuthUser();
 
   return (
     <>

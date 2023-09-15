@@ -6,11 +6,13 @@ import UpdateDetails from "../../components/profile/updateDetails";
 import Timeline from "../../layouts/timeline";
 import { useEditor } from "../../hooks/useEditor";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
+import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
 // import { AffiliatedEvents } from "../event/utilities/actionHandlers";
 
 function Profile() {
   const { editorMode, handleClick } = useEditor(false);
   // const affiliatedEvents = AffiliatedEvents(2);
+  const { authUser } = useVerifyAuthUser();
 
   return (
     <>
@@ -26,19 +28,23 @@ function Profile() {
           <Container className="content-wrapper">
             <Card>
               <Card.Body>
-                {editorMode ? (
-                  <UpdateDetails toggleEditor={handleClick} />
+                {authUser ? (
+                  editorMode ? (
+                    <UpdateDetails toggleEditor={handleClick} />
+                  ) : (
+                    <>
+                      <UserProfile />
+                      <Button
+                        variant="primary"
+                        className="w-100"
+                        onClick={handleClick}
+                      >
+                        Edit profile
+                      </Button>
+                    </>
+                  )
                 ) : (
-                  <>
-                    <UserProfile />
-                    <Button
-                      variant="primary"
-                      className="w-100"
-                      onClick={handleClick}
-                    >
-                      Edit profile
-                    </Button>
-                  </>
+                  <UserProfile />
                 )}
               </Card.Body>
             </Card>
