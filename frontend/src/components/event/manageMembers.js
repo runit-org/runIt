@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, ButtonGroup, Card } from "react-bootstrap";
+import { Button, ButtonGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import {
   getSingleEvent,
