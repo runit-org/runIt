@@ -9,7 +9,6 @@ import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modalItem";
 import { useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
-import { PencilSquare } from "../../layouts/icons";
 import { CANCELLED, FINISHED } from "./utilities/eventTypes";
 import { EventMembersHandler } from "./utilities/actionHandlers";
 import * as ResponseStatus from "../../services/constants/responseStatus";
@@ -48,7 +47,7 @@ function EventStatus(props) {
       customBtn={""}
       btnIcon={
         <div className="d-flex align-items-center">
-          <PencilSquare />
+          {/* <PencilSquare /> */}
           Status
         </div>
       }

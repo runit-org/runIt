@@ -2,7 +2,6 @@ import EventMembers from "../eventMembers";
 import JoinEvent from "../joinEvent";
 import RemoveEvent from "../removeEvent";
 import CTAButton from "../../../layouts/ctaButton";
-import { Edit } from "../../../layouts/icons";
 import EventStatus from "../eventStatus";
 
 export const eventOptions = (id, title, user, currUser, handleClick) => {
@@ -17,7 +16,7 @@ export const eventOptions = (id, title, user, currUser, handleClick) => {
             onClick={handleClick}
             placeholder={
               <div className="d-flex align-items-center">
-                <Edit />
+                {/* <Edit /> */}
                 Edit
               </div>
             }

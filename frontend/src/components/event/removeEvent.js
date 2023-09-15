@@ -5,7 +5,6 @@ import { removeEvent } from "../../services/actions/eventActions";
 import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modalItem";
 import { useNavigate } from "react-router-dom";
-import { Delete } from "../../layouts/icons";
 
 function RemoveEvent(props) {
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ function RemoveEvent(props) {
       customBtn={""}
       btnIcon={
         <div className="d-flex align-items-center">
-          <Delete />
+          {/* <Delete /> */}
           Delete
         </div>
       }
