@@ -10,3 +10,5 @@ from base.events.api.EventJoinRequestSent import EventJoinRequestSent
 from base.events.api.EventCommentLiked import EventCommentLiked
 from base.events.api.EventCommentCreated import EventCommentCreated
 from base.events.api.ResendVerificationEmailSent import ResendVerificationEmailSent
+from base.events.api.EventCreated import EventCreated
+from base.events.api.EventDeleted import EventDeleted

@@ -10,3 +10,5 @@ from base.listeners.api.EventJoinRequestSentListener import EventJoinRequestSent
 from base.listeners.api.EventCommentLikedListener import EventCommentLikedListener
 from base.listeners.api.EventCommentCreatedListener import EventCommentCreatedListener
 from base.listeners.api.ResendVerificationEmailSentListener import ResendVerificationEmailSentListener
+from base.listeners.api.EventCreatedListener import EventCreatedListener
+from base.listeners.api.EventDeletedListener import EventDeletedListener

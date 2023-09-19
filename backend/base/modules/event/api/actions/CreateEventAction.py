@@ -4,6 +4,7 @@ from base.enums import EventMemberStatus
 from base.traits import NotifyUser
 from base.views.baseViews import response, error
 from django.utils import timezone
+from base.events.api import EventCreated
 
 from datetime import datetime
 
@@ -85,5 +86,6 @@ def create(request):
     processTags(event, data['details'])
 
     mention(event, event.details, user)
+    EventCreated.dispatch(event = event)
 
     return response('Event created', [])
