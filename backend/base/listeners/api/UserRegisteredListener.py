@@ -8,7 +8,7 @@ def sendNotification(user):
     NotifyUser.notify(user.id, message)
 
 def logUserActivity(user):
-    details = 'Joined runIt'
+    details = 'Joined runIt.'
     LogUserActivity.log(user.id, details)
 
 class UserRegisteredListener(EventListener):
