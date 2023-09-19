@@ -1,4 +1,5 @@
 from base.views.baseViews import validationError
+from base.enums import Utils
 
 def validate(request):
     data = request.data
@@ -9,8 +10,11 @@ def validate(request):
     if str(data['title']) == '' or str(data['title']).isspace() == True:
         return validationError('Title cannot be empty')
     
-    if len(data['title']) > 100:
-        return validationError('Title is too long (100 chars max)')
+    if len(data['title']) > Utils.get.MAX_TITLE_LENGTH.value:
+        return validationError('Title is too long')
+    
+    if len(data['details']) > Utils.get.MAX_CONTENT_LENGTH.value:
+        return validationError('Details is too long')
 
     if  isinstance(data['maxMember'], int) == False:
         return validationError('Max member must be integer')

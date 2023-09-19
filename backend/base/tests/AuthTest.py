@@ -9,6 +9,7 @@ from rest_framework.test import APIRequestFactory
 from datetime import datetime
 from dateutil import parser
 from django.utils import timezone
+from base.enums import Utils
 
 class AuthTestClass(TestCase):
     newUser = None
@@ -117,7 +118,7 @@ class AuthTestClass(TestCase):
         url = self.baseUrl + 'register/'
 
         data = self.newUser
-        data['email'] = 'a' * 101
+        data['email'] = 'a' * Utils.get.MAX_CRED_LENGTH.value
         response = c.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
 
@@ -126,8 +127,8 @@ class AuthTestClass(TestCase):
         url = self.baseUrl + 'register/'
 
         data = self.newUser
-        data['password'] = data['password'] + 'zzz' * 100
-        data['c_password'] = data['password'] + 'zzz' * 100
+        data['password'] = data['password'] + 'zzz' * Utils.get.MAX_CRED_LENGTH.value
+        data['c_password'] = data['password'] + 'zzz' * Utils.get.MAX_CRED_LENGTH.value
         response = c.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
 

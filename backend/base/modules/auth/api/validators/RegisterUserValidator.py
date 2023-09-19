@@ -1,4 +1,5 @@
 from base.views.baseViews import validationError
+from base.enums import Utils
 
 import re
 
@@ -7,10 +8,10 @@ def validate(request):
     if data.get('email') == None or data.get('username') == None or data.get('password') == None or data.get('c_password') == None:
         return validationError('Required fields not met')
     
-    if len(data['email']) > 100:
+    if len(data['email']) > Utils.get.MAX_CRED_LENGTH.value:
         return validationError('Email too long')
     
-    if len(data['password']) > 100:
+    if len(data['password']) > Utils.get.MAX_CRED_LENGTH.value:
         return validationError('Password too long')
     
     email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
