@@ -13,6 +13,7 @@ import string
 import datetime
 from django.utils import timezone
 from base.tests import BaseTestClass
+from base.enums import Utils
 
 class EventTestClass(BaseTestClass):
     newUser = None
@@ -253,7 +254,7 @@ class EventTestClass(BaseTestClass):
         # ------------------------------------------------------------
 
         data = self.generateNewEventData()
-        data['title'] = 'a' * 200
+        data['title'] = 'a' * Utils.get.MAX_TITLE_LENGTH.value + 1
         response = c.put(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
 
