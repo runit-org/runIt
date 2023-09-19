@@ -12,6 +12,7 @@ import random
 import string
 import datetime
 from django.utils import timezone
+from base.enums import Utils
 
 from django.db.models import Q
 
@@ -27,6 +28,23 @@ class FeedbackTestClass(BaseTestClass):
             "email": "test@email.com",
             "password": "password123*"
         }
+
+    def test_create_feedback_details_too_long_fails(self):
+        url = self.baseUrl + 'create/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        data = {
+            "details": self.generateRandomString(Utils.get.MAX_CONTENT_LENGTH.value + 1)
+        }
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(len(Feedback.objects.filter(details=data['details'])) > 0)
 
     def test_create_feedback_success(self):
         url = self.baseUrl + 'create/'

@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 from rest_framework.test import force_authenticate
-from base.enums import UserVoteStatus, EventStatus, EventMemberStatus
+from base.enums import Utils, EventStatus, EventMemberStatus
 from base.factories import EventFactory, UserFactory
 import random
 import string
@@ -25,6 +25,23 @@ class EventCommentTestClass(BaseTestClass):
             "email": "test@email.com",
             "password": "password123*"
         }
+
+    def test_create_event_comment_comment_too_long_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'comment/create/' + str(eventObject.id) + '/'
+
+        # Authenticated user is event owner
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=eventObject.user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+        
+        data = {
+            "content" : "a" * (Utils.get.MAX_CONTENT_LENGTH.value + 1)
+        }
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
 
     def test_create_event_comment_as_event_owner_success(self):
         eventObject = self.generateNewEventObject()
