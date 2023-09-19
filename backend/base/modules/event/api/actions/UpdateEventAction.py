@@ -2,6 +2,7 @@ from base.models import Event, User, EventCategory
 from base.serializers import EventSerializer
 from base.traits import NotifyUser
 from base.views.baseViews import response, error
+from base.events.api import EventUpdated
 
 def checkEventId(pk):
     checkEventExist = Event.objects.filter(id = pk)
@@ -108,5 +109,7 @@ def update(request, pk):
     serializer = EventSerializer(event, many=False)
 
     mention(event, event.details, user)
+
+    EventUpdated.dispatch(event = event)
 
     return response('Event updated', serializer.data)
