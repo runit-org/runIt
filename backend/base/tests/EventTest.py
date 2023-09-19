@@ -254,7 +254,7 @@ class EventTestClass(BaseTestClass):
         # ------------------------------------------------------------
 
         data = self.generateNewEventData()
-        data['title'] = 'a' * Utils.get.MAX_TITLE_LENGTH.value + 1
+        data['title'] = 'a' * (Utils.get.MAX_TITLE_LENGTH.value + 1)
         response = c.put(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
 
