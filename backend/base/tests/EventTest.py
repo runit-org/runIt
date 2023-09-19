@@ -258,6 +258,22 @@ class EventTestClass(BaseTestClass):
         response = c.put(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
 
+    def test_update_event_details_too_long_fails(self):
+        eventObject = self.generateNewEventObject()
+        url = self.baseUrl + 'update/' + str(eventObject.id) + '/'
+
+        # The authenticated user must be the event creator
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=eventObject.user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        data = self.generateNewEventData()
+        data['details'] = 'a' * (Utils.get.MAX_CONTENT_LENGTH.value + 1)
+        response = c.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
     def test_update_event_status_success(self):
         eventObject = self.generateNewEventObject()
         url = self.baseUrl + 'updateStatus/' + str(eventObject.id) + '/'

@@ -11,6 +11,6 @@ def validate(request):
         return validationError('Content cannot be empty')
     
     if len(data['content']) > Utils.get.MAX_CONTENT_LENGTH.value:
-        return validationError('Content too long: ' + Utils.get.MAX_CONTENT_LENGTH.value)
+        return validationError('Content too long: ' + str(Utils.get.MAX_CONTENT_LENGTH.value))
 
     return None
