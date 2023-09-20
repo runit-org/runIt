@@ -3,6 +3,7 @@ from base.serializers import EventCommentSerializer
 from base.views.baseViews import response, error, paginate
 from base.enums import EventMemberStatus
 from base.traits import NotifyUser
+from base.events.api import FriendshipDeleted
 
 from django.db.models import Q
 from datetime import datetime
@@ -47,6 +48,7 @@ def delete(request, userId):
         Q(user2=user) | Q(user2=targetUser)
         )
 
+    FriendshipDeleted.dispatch(target=user, user=targetUser)
     friendshipObject.delete()
 
     return response('Friendship deleted')

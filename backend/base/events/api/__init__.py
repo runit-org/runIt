@@ -15,3 +15,4 @@ from base.events.api.EventDeleted import EventDeleted
 from base.events.api.EventUpdated import EventUpdated
 from base.events.api.EventCommentDeleted import EventCommentDeleted
 from base.events.api.FeedbackSubmitted import FeedbackSubmitted
+from base.events.api.FriendshipDeleted import FriendshipDeleted
