@@ -3,6 +3,7 @@ from base.models import User, UserExtend
 from base.views.baseViews import response, error
 from django.contrib.auth.hashers import make_password
 from base.serializers import UserSerializer
+from base.events.api import PasswordReset
 
 import string
 import random
@@ -46,6 +47,8 @@ def reset(request):
     userExtend.resetToken = ''
     userExtend.resetTokenTime = None
     userExtend.save()
+
+    PasswordReset.dispatch(user)
 
     return response('Password changed successfully')
     

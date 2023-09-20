@@ -7,7 +7,7 @@ class UserActivity(models.Model):
     details     = models.CharField(max_length=Utils.get.MAX_CONTENT_LENGTH.value*2, null=True, blank=True)
     link        = models.CharField(max_length=300, null=True, blank=True)
 
-    createdAt   = models.DateTimeField(auto_now_add=True)
+    createdAt   = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.id

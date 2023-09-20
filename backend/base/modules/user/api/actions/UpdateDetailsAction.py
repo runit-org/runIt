@@ -1,5 +1,6 @@
 from base.models import User, UserExtend
 from base.views.baseViews import response, error
+from base.events.api import UserDetailsUpdated
 
 def update(request):
     data = request.data
@@ -11,6 +12,8 @@ def update(request):
     user = User.objects.get(id=user.id)
     user.username = data['username']
     user.save()
+    
+    UserDetailsUpdated.dispatch(user)
 
-    return response('User details messaged updated')
+    return response('User details updated')
     

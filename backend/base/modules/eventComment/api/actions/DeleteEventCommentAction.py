@@ -2,6 +2,7 @@ from base.models import Event, User, EventComment, EventMember
 from base.serializers import EventCommentSerializer
 from base.views.baseViews import response, error, paginate
 from base.enums import EventMemberStatus
+from base.events.api import EventCommentDeleted
 
 def checkCommentId(id):
     checkCommentExist = EventComment.objects.filter(id = id)
@@ -32,6 +33,8 @@ def delete(request, commentId):
 
     if comment.event.status != None:
         return error('Event status is FINISHED/CANCELLED')
+
+    EventCommentDeleted.dispatch(user, comment.event, comment.content)
 
     comment.delete()
 

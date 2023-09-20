@@ -1,6 +1,7 @@
 from base.models import User, UserExtend
 from base.views.baseViews import response, error
 from django.contrib.auth.hashers import make_password, check_password
+from base.events.api import PasswordChanged
 
 def update(request):
     data = request.data
@@ -11,6 +12,8 @@ def update(request):
 
     user.password = make_password(data['password'])
     user.save()
+
+    PasswordChanged.dispatch(user)
 
     return response('Password changed successfully')
     

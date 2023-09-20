@@ -1,6 +1,7 @@
 from base.models import Event
 from base.serializers import EventSerializer
 from base.views.baseViews import response, error
+from base.events.api import EventDeleted
 
 def checkEventId(pk):
     checkEventExist = Event.objects.filter(id = pk)
@@ -22,6 +23,7 @@ def delete(request, pk):
     if user.id != event.user.id:
         return error('Can only delete your own events')
 
+    EventDeleted.dispatch(event.title, user)
     event.delete()
 
     return response('Event deleted.')

@@ -10,3 +10,12 @@ from base.listeners.api.EventJoinRequestSentListener import EventJoinRequestSent
 from base.listeners.api.EventCommentLikedListener import EventCommentLikedListener
 from base.listeners.api.EventCommentCreatedListener import EventCommentCreatedListener
 from base.listeners.api.ResendVerificationEmailSentListener import ResendVerificationEmailSentListener
+from base.listeners.api.EventCreatedListener import EventCreatedListener
+from base.listeners.api.EventDeletedListener import EventDeletedListener
+from base.listeners.api.EventUpdatedListener import EventUpdatedListener
+from base.listeners.api.EventCommentDeletedListener import EventCommentDeletedListener
+from base.listeners.api.FeedbackSubmittedListener import FeedbackSubmittedListener
+from base.listeners.api.FriendshipDeletedListener import FriendshipDeletedListener
+from base.listeners.api.PasswordChangedListener import PasswordChangedListener
+from base.listeners.api.UserDetailsUpdatedListener import UserDetailsUpdatedListener
+from base.listeners.api.PasswordResetListener import PasswordResetListener

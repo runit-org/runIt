@@ -10,3 +10,12 @@ from base.events.api.EventJoinRequestSent import EventJoinRequestSent
 from base.events.api.EventCommentLiked import EventCommentLiked
 from base.events.api.EventCommentCreated import EventCommentCreated
 from base.events.api.ResendVerificationEmailSent import ResendVerificationEmailSent
+from base.events.api.EventCreated import EventCreated
+from base.events.api.EventDeleted import EventDeleted
+from base.events.api.EventUpdated import EventUpdated
+from base.events.api.EventCommentDeleted import EventCommentDeleted
+from base.events.api.FeedbackSubmitted import FeedbackSubmitted
+from base.events.api.FriendshipDeleted import FriendshipDeleted
+from base.events.api.PasswordChanged import PasswordChanged
+from base.events.api.UserDetailsUpdated import UserDetailsUpdated
+from base.events.api.PasswordReset import PasswordReset
