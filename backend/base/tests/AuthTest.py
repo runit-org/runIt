@@ -365,6 +365,20 @@ class AuthTestClass(TestCase):
         responseResetPass = c.post(resetPassUrl, resetPassData, format='json')
         self.assertEqual(responseResetPass.status_code, status.HTTP_400_BAD_REQUEST)
 
+    def test_reset_forgotten_password_functionality_invalid_password_format_fails(self):
+        c = Client()
+        resetPassUrl = self.baseUrl + 'resetPassword/'
+        newPassword = 'passwordpassword'
+
+        # Test the reset password api
+        resetPassData = {
+            "token": 'dummyToken',
+            "password": newPassword,
+            "c_password": newPassword
+        }
+        responseResetPass = c.post(resetPassUrl, resetPassData, format='json')
+        self.assertEqual(responseResetPass.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
     def test_send_forgot_password_email_empty_fields_fails(self):
         c = Client()
         sendResetPassUrl = self.baseUrl + 'sendResetPasswordEmail/'
