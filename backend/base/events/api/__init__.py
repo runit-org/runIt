@@ -13,3 +13,5 @@ from base.events.api.ResendVerificationEmailSent import ResendVerificationEmailS
 from base.events.api.EventCreated import EventCreated
 from base.events.api.EventDeleted import EventDeleted
 from base.events.api.EventUpdated import EventUpdated
+from base.events.api.EventCommentDeleted import EventCommentDeleted
+from base.events.api.FeedbackSubmitted import FeedbackSubmitted

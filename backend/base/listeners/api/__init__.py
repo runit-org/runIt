@@ -13,3 +13,5 @@ from base.listeners.api.ResendVerificationEmailSentListener import ResendVerific
 from base.listeners.api.EventCreatedListener import EventCreatedListener
 from base.listeners.api.EventDeletedListener import EventDeletedListener
 from base.listeners.api.EventUpdatedListener import EventUpdatedListener
+from base.listeners.api.EventCommentDeletedListener import EventCommentDeletedListener
+from base.listeners.api.FeedbackSubmittedListener import FeedbackSubmittedListener
