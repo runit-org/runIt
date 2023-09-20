@@ -17,3 +17,4 @@ from base.listeners.api.EventCommentDeletedListener import EventCommentDeletedLi
 from base.listeners.api.FeedbackSubmittedListener import FeedbackSubmittedListener
 from base.listeners.api.FriendshipDeletedListener import FriendshipDeletedListener
 from base.listeners.api.PasswordChangedListener import PasswordChangedListener
+from base.listeners.api.UserDetailsUpdatedListener import UserDetailsUpdatedListener

@@ -18,6 +18,7 @@ from base.events.api import (
     FeedbackSubmitted,
     FriendshipDeleted,
     PasswordChanged,
+    UserDetailsUpdated,
 )
 from base.listeners.api import (
     UserRegisteredListener,
@@ -39,6 +40,7 @@ from base.listeners.api import (
     FeedbackSubmittedListener,
     FriendshipDeletedListener,
     PasswordChangedListener,
+    UserDetailsUpdatedListener,
 )
 
 def register_events():
@@ -61,3 +63,4 @@ def register_events():
     FeedbackSubmitted.register(FeedbackSubmittedListener)
     FriendshipDeleted.register(FriendshipDeletedListener)
     PasswordChanged.register(PasswordChangedListener)
+    UserDetailsUpdated.register(UserDetailsUpdatedListener)
