@@ -83,8 +83,7 @@ def create(request, eventId):
         createdAt = timezone.make_aware(datetime.now())
     )
 
-    if event.user.id != user.id:
-        EventCommentCreated.dispatch(user, event)
+    EventCommentCreated.dispatch(user, event)
 
     mention(event, data['content'], user)
 
