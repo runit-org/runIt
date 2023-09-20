@@ -18,3 +18,4 @@ from base.listeners.api.FeedbackSubmittedListener import FeedbackSubmittedListen
 from base.listeners.api.FriendshipDeletedListener import FriendshipDeletedListener
 from base.listeners.api.PasswordChangedListener import PasswordChangedListener
 from base.listeners.api.UserDetailsUpdatedListener import UserDetailsUpdatedListener
+from base.listeners.api.PasswordResetListener import PasswordResetListener

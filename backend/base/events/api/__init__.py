@@ -18,3 +18,4 @@ from base.events.api.FeedbackSubmitted import FeedbackSubmitted
 from base.events.api.FriendshipDeleted import FriendshipDeleted
 from base.events.api.PasswordChanged import PasswordChanged
 from base.events.api.UserDetailsUpdated import UserDetailsUpdated
+from base.events.api.PasswordReset import PasswordReset
