@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getActivity,
   getUserProfile,
   getVotes,
 } from "../../../services/actions/userActions";
@@ -53,4 +54,23 @@ export const GetVotes = (pageId) => {
 ; */
 
   return votesList;
+};
+
+export const GetActivity = () => {
+  const dispatch = useDispatch();
+  const [activity, setActivity] = useState({});
+
+  useEffect(() => {
+    dispatch(getActivity());
+  }, [dispatch]);
+
+  var userActivity = useSelector((userReducer) => userReducer.users.activity);
+
+  useEffect(() => {
+    if (userActivity) {
+      setActivity(userActivity);
+    }
+  }, [userActivity]);
+
+  return activity;
 };

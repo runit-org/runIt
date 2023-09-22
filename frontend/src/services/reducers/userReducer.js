@@ -1,5 +1,6 @@
 import {
   GET_CURRENT_USER_PROFILE,
+  GET_USER_ACTIVITY,
   GET_USER_PROFILE,
   GET_VOTES,
 } from "../constants/types";
@@ -8,6 +9,7 @@ const initialState = {
   userProfile: [],
   currProfile: [],
   votes: [],
+  activity: [],
 };
 
 export default function setUser(state = initialState, action) {
@@ -26,6 +28,11 @@ export default function setUser(state = initialState, action) {
       return {
         ...state,
         votes: action.payload,
+      };
+    case GET_USER_ACTIVITY:
+      return {
+        ...state,
+        activity: action.payload,
       };
 
     default:
