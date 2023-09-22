@@ -10,6 +10,8 @@ class Feedback(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     details = models.TextField(max_length=Utils.get.MAX_CONTENT_LENGTH.value, null=True, blank=True)
+    type = models.CharField(max_length=200, null=True, blank=True)
+    category = models.CharField(max_length=200, null=True, blank=True)
 
     createdAt = models.DateTimeField(null=True, blank=True)
 
