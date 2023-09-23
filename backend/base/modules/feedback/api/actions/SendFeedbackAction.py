@@ -8,6 +8,8 @@ def create(request):
 
     feedback = Feedback.objects.create(
         user = user,
+        type = data['type'],
+        category = data['category'],
         details = data['details']
     )
 
