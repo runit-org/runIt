@@ -21,7 +21,7 @@ function Profile() {
       <div className="content">
         <Container className="content-wrapper">
           <SectionHeader size={"md"}>User Acitvity</SectionHeader>
-          <Timeline data={activity} />
+          <Timeline data={activity.results ? activity.results : []} />
         </Container>
       </div>
 
