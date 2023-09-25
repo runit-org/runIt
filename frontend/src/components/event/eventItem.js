@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { Card } from "react-bootstrap";
 import UpdateEvent from "./updateEvent";
-import { eventOptions } from "./utilities/eventOptions";
+import { eventOptions } from "./helper/eventOptions";
 import { Mention } from "../../utilities/utility-service";
 import EventMembers from "./eventMembers";
-import { RequestBtn, StatusBadge } from "./utilities/eventBuilder";
+import { RequestBtn, StatusBadge } from "./helper/eventBuilder";
 import { SingleEventContext } from "../../pages/singleEventDash";
 import { SecurityContext } from "../../context/securityProvider";
-import { CANCELLED, FINISHED } from "./utilities/eventTypes";
+import { CANCELLED, FINISHED } from "./helper/eventTypes";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import CustomDropdown from "../../layouts/customDropdown";
 import PopoverItem from "../../layouts/popoverItem";

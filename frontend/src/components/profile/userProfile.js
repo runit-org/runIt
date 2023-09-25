@@ -1,6 +1,6 @@
 import React from "react";
 import { DisplayImage } from "../../layouts/userDisplayImg";
-import { UserCardInfo, VoteBadge } from "./utilities/profileBuilder.js";
+import { UserCardInfo, VoteBadge } from "./helper/profileBuilder.js";
 import Vote from "./vote";
 import { Username } from "../../layouts/username";
 import UserStatus from "./userStatus";

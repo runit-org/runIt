@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
 import { Mention } from "../../utilities/utility-service";
-import { commentOptions } from "./utilities/commentOptions";
+import { commentOptions } from "./helper/commentOptions";
 import UpdateComment from "./updateComment";
 import {
   getAllComments,
   likeUnlike,
 } from "../../services/actions/commentActions";
 import PopoverItem from "../../layouts/popoverItem";
-import { CommentReacts } from "./utilities/commentBuilder";
+import { CommentReacts } from "./helper/commentBuilder";
 import { SingleEventContext } from "../../pages/singleEventDash";
 import { SecurityContext } from "../../context/securityProvider";
 import { emitter } from "../client/socket";

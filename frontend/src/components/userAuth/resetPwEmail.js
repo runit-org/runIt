@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { resetPwEmail } from "../../services/actions/securityActions";
 import { Link } from "react-router-dom";
 import { ResponseItem } from "../../layouts/responseItems";
-import { FormButton } from "./utilities/auth-builder";
+import { FormButton } from "./helper/auth-builder";
 import { useHandleChange } from "../../hooks/useHandleChange";
 import { FormLabel, FormGroup } from "../../layouts/customForm";
 

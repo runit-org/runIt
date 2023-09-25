@@ -3,7 +3,7 @@ import { Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewUser } from "../../services/actions/securityActions";
 import { useNavigate } from "react-router-dom";
-import { FormButton } from "./utilities/auth-builder";
+import { FormButton } from "./helper/auth-builder";
 import { ResponseItem } from "../../layouts/responseItems";
 import { useHandleChange } from "../../hooks/useHandleChange";
 import { FormGroup, FormLabel } from "../../layouts/customForm";

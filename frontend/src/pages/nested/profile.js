@@ -7,7 +7,7 @@ import Timeline from "../../layouts/timeline";
 import { useEditor } from "../../hooks/useEditor";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
 import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
-import { GetActivity } from "../../components/profile/utilities/actionHandlers";
+import { GetActivity } from "../../components/profile/helper/actionHandlers";
 // import { AffiliatedEvents } from "../event/utilities/actionHandlers";
 
 function Profile() {

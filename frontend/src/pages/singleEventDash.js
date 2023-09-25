@@ -13,9 +13,9 @@ import {
   CANCELLED,
   FINISHED,
   OWNER,
-} from "../components/event/utilities/eventTypes";
-import { SingleEventHandler } from "../components/event/utilities/actionHandlers";
-import { BadgeItem } from "../components/event/utilities/eventBuilder";
+} from "../components/event/helper/eventTypes";
+import { SingleEventHandler } from "../components/event/helper/actionHandlers";
+import { BadgeItem } from "../components/event/helper/eventBuilder";
 import { Information } from "../layouts/icons";
 import { InfoCard } from "../layouts/infoCards";
 

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Badge } from "react-bootstrap";
-import { DayEventsHandler } from "./utilities/actionHandler";
+import { DayEventsHandler } from "./helper/actionHandler";
 import { CalendarContext } from "../../context/calendarProvider";
 import SortDropdown from "../../layouts/sortDropdown";
 import { Link } from "react-router-dom";

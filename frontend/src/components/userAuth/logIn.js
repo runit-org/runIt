@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../../services/actions/securityActions";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { FormButton } from "./utilities/auth-builder";
+import { FormButton } from "./helper/auth-builder";
 import { Eye, EyeSlash } from "../../layouts/icons";
 import { ResponseItem } from "../../layouts/responseItems";
 import { useHandleChange } from "../../hooks/useHandleChange";
