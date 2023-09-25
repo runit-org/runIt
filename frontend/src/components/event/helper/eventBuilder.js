@@ -12,23 +12,24 @@ import {
 } from "./eventTypes";
 
 export const BadgeItem = (props) => {
+  const { eventStatus, content } = props;
   const badgeStyle =
-    props.eventStatus === FINISHED
+    eventStatus === FINISHED
       ? {
           backgroundColor: "#dbeafe",
           color: "#1e40af",
         }
-      : props.eventStatus === ONGOING
+      : eventStatus === ONGOING
       ? {
           backgroundColor: "#ffedd5",
           color: "#9a3412",
         }
-      : props.eventStatus === PENDING_START
+      : eventStatus === PENDING_START
       ? {
           backgroundColor: "#cffafe",
           color: "#155e75",
         }
-      : props.eventStatus === CANCELLED
+      : eventStatus === CANCELLED
       ? {
           backgroundColor: "#f1f5f9",
           color: "#1e293b",
@@ -38,18 +39,18 @@ export const BadgeItem = (props) => {
   return (
     <>
       <Badge bg="" id="badgeItem" style={badgeStyle}>
-        {props.eventStatus === ONGOING ? (
+        {eventStatus === ONGOING ? (
           <>
             Underway
             <span className="animate_pulse" />
             <span className="pulse_dot" />
           </>
-        ) : props.eventStatus === FINISHED ? (
+        ) : eventStatus === FINISHED ? (
           <>Ended</>
-        ) : props.eventStatus === CANCELLED ? (
+        ) : eventStatus === CANCELLED ? (
           <>Cancelled</>
         ) : (
-          <> in {props.content}</>
+          <> in {content}</>
         )}
       </Badge>
     </>
@@ -57,63 +58,58 @@ export const BadgeItem = (props) => {
 };
 
 export const StatusBadge = (props) => {
-  const status = props.eventData.joinedStatus;
+  const { joinedStatus } = props.eventData;
+  const badgeStyles = {
+    ACCEPTED: { backgroundColor: "#DFF2BF", color: "#4F8A10" },
+    PENDING: { backgroundColor: "#e5edff", color: "#5850ec" },
+    REJECTED: { backgroundColor: "#FFD2D2", color: "#D8000C" },
+  };
+
+  const selectedBadgeStyle = badgeStyles[joinedStatus] || {};
+
+  if (!selectedBadgeStyle) {
+    return null;
+  }
 
   return (
-    <>
-      {status === ACCEPTED ? (
-        <div>
-          <Badge bg="" style={{ backgroundColor: "#DFF2BF", color: "#4F8A10" }}>
-            Joined
-          </Badge>
-        </div>
-      ) : status === PENDING ? (
-        <div>
-          <Badge bg="" style={{ backgroundColor: "#e5edff", color: "#5850ec" }}>
-            Requested
-          </Badge>
-        </div>
-      ) : status === REJECTED ? (
-        <div>
-          <Badge bg="" style={{ backgroundColor: "#FFD2D2", color: "#D8000C" }}>
-            Rejected
-          </Badge>
-        </div>
-      ) : (
-        ""
-      )}
-    </>
+    <div>
+      <Badge bg="" style={selectedBadgeStyle}>
+        {joinedStatus === ACCEPTED
+          ? "Joined"
+          : joinedStatus === PENDING
+          ? "Requested"
+          : "Rejected"}
+      </Badge>
+    </div>
   );
 };
 
 export const RequestBtn = (props) => {
-  const userStatusOnEvent = props.eventData.joinedStatus;
-  const statusOnEvent = props.eventData.eventStatus;
+  const joinedStatus = props.eventData.joinedStatus;
+  const eventStatus = props.eventData.eventStatus;
+  const { id, title, btnStyleFull, userName, fullStatus } = props.eventData;
+
+  const isUserAllowedToJoin =
+    ![ACCEPTED, PENDING, REJECTED, OWNER].includes(joinedStatus) &&
+    ![FINISHED, CANCELLED].includes(eventStatus) &&
+    !fullStatus;
 
   return (
     <>
-      {userStatusOnEvent !== ACCEPTED &&
-      userStatusOnEvent !== PENDING &&
-      userStatusOnEvent !== REJECTED &&
-      userStatusOnEvent !== OWNER &&
-      statusOnEvent !== FINISHED &&
-      statusOnEvent !== CANCELLED &&
-      !props.eventData.fullStatus ? (
+      {isUserAllowedToJoin ? (
         <JoinEvent
-          eventId={props.eventData.id}
-          eventTitle={props.eventData.title}
-          btnStyleFull={props.btnStyleFull}
-          userName={props.eventData.userName}
+          eventId={id}
+          eventTitle={title}
+          btnStyleFull={btnStyleFull}
+          userName={userName}
         />
-      ) : props.eventData.fullStatus && userStatusOnEvent !== ACCEPTED ? (
+      ) : fullStatus && joinedStatus !== ACCEPTED ? (
         <div>
           <Badge bg="" style={{ backgroundColor: "#e2e8f0", color: "#475569" }}>
             Full
           </Badge>
         </div>
-      ) : (
-        ""
-      )}
+      ) : null}
     </>
   );
 };
