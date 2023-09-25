@@ -25,9 +25,9 @@ class BaseTestClass(TestCase):
             "password": "password123*"
         }
 
-    def generateRandomString(self, length):
+    def generateRandomString(self, length=10):
         letters = string.ascii_lowercase
-        return ''.join(random.choice(letters) for i in range(10))
+        return ''.join(random.choice(letters) for i in range(length))
 
     def createNewUser(self):
         user = User.objects.create(

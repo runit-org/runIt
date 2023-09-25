@@ -12,7 +12,7 @@ import random
 import string
 import datetime
 from django.utils import timezone
-from base.enums import Utils
+from base.enums import Utils, FeedbackTypes, FeedbackCategories
 
 from django.db.models import Q
 
@@ -38,13 +38,54 @@ class FeedbackTestClass(BaseTestClass):
         c = APIClient()
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
-
+        details = self.generateRandomString(Utils.get.MAX_CONTENT_LENGTH.value + 1)
+        print(len(details))
         data = {
+            "type": FeedbackTypes.get.SUPPORT.value,
+            "category": FeedbackCategories.get.FRIENDS.value,
             "details": self.generateRandomString(Utils.get.MAX_CONTENT_LENGTH.value + 1)
         }
         response = c.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertTrue(len(Feedback.objects.filter(details=data['details'])) > 0)
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+        self.assertTrue(len(Feedback.objects.filter(details=data['details'])) < 1)
+
+    def test_create_feedback_invalid_type_fails(self):
+        url = self.baseUrl + 'create/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        data = {
+            "type": FeedbackTypes.get.SUPPORT.value + '.',
+            "category": FeedbackCategories.get.FRIENDS.value,
+            "details": self.generateRandomString(Utils.get.MAX_CONTENT_LENGTH.value + 1)
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+        self.assertTrue(len(Feedback.objects.filter(details=data['details'])) < 1)
+
+    def test_create_feedback_invalid_category_fails(self):
+        url = self.baseUrl + 'create/'
+
+        # Authenticate user-------------------------------------------
+        self.createNewUser()
+        user = User.objects.get(username=self.newUser['username'])
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        data = {
+            "type": FeedbackTypes.get.SUPPORT.value,
+            "category": FeedbackCategories.get.FRIENDS.value + '.',
+            "details": self.generateRandomString(Utils.get.MAX_CONTENT_LENGTH.value + 1)
+        }
+        response = c.post(url, data, format='json')
+        self.assertFalse(response.status_code == status.HTTP_200_OK)
+        self.assertTrue(len(Feedback.objects.filter(details=data['details'])) < 1)
 
     def test_create_feedback_success(self):
         url = self.baseUrl + 'create/'
@@ -57,6 +98,8 @@ class FeedbackTestClass(BaseTestClass):
         # ------------------------------------------------------------
 
         data = {
+            "type": FeedbackTypes.get.SUPPORT.value,
+            "category": FeedbackCategories.get.FRIENDS.value,
             "details": self.generateRandomString(15)
         }
         response = c.post(url, data, format='json')
