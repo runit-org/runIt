@@ -7,6 +7,7 @@ import {
   getEventMembers,
   getSingleEvent,
 } from "../../../services/actions/eventActions";
+import { OK } from "../../../services/constants/responseStatus";
 
 export const EventMembersHandler = (eventId) => {
   const dispatch = useDispatch();
@@ -36,8 +37,10 @@ export const SingleEventHandler = (params, pageId) => {
   const [commentData, setCommentData] = useState([]);
 
   useEffect(() => {
-    dispatch(getSingleEvent(params.id)).then(() => {
-      dispatch(getAllComments(params.id, pageId ? pageId : 1));
+    dispatch(getSingleEvent(params.id)).then((res) => {
+      if (res.status === OK) {
+        dispatch(getAllComments(params.id, pageId ? pageId : 1));
+      }
     });
   }, [dispatch, params.id, pageId]);
 
