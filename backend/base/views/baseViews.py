@@ -10,8 +10,8 @@ def response(message, data=None):
     retVal = {'success' : 'true', 'message': message, 'data' : data}
     return Response(retVal)
 
-def error(message):
-    retVal = {'success' : 'false', 'message' : message}
+def error(message, info=None):
+    retVal = {'success' : 'false', 'message' : message, 'info': info}
     return Response(retVal, status = status.HTTP_400_BAD_REQUEST)
 
 def validationError(message='Required fields not met', info=None):
