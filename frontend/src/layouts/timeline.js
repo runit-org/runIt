@@ -22,7 +22,11 @@ function Timeline({ data }) {
             <time className="d-block mb-2 text-muted">
               {item.humanTimeDiffCreatedAt} ago
             </time>
-            <p>{item.details}</p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: item.details,
+              }}
+            />
           </li>
         );
       })}
