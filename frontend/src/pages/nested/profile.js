@@ -7,19 +7,21 @@ import Timeline from "../../layouts/timeline";
 import { useEditor } from "../../hooks/useEditor";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
 import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
+import { GetActivity } from "../../components/profile/helper/actionHandlers";
 // import { AffiliatedEvents } from "../event/utilities/actionHandlers";
 
 function Profile() {
   const { editorMode, handleClick } = useEditor(false);
   // const affiliatedEvents = AffiliatedEvents(2);
   const { authUser } = useVerifyAuthUser();
+  const activity = GetActivity();
 
   return (
     <>
       <div className="content">
         <Container className="content-wrapper">
           <SectionHeader size={"md"}>User Acitvity</SectionHeader>
-          <Timeline />
+          <Timeline data={activity.results ? activity.results : []} />
         </Container>
       </div>
 

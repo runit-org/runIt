@@ -1,12 +1,12 @@
 export const NavigationObj = (user) => {
   const profileNav = [
     {
-      title: "Calendar",
-      href: user ? `calendar?user=${user.username}` : "",
-    },
-    {
       title: "Profile",
       href: user ? `settings?user=${user.username}` : "",
+    },
+    {
+      title: "Calendar",
+      href: user ? `calendar?user=${user.username}` : "",
     },
   ];
 

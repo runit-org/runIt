@@ -9,8 +9,8 @@ import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modalItem";
 import { useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
-import { CANCELLED, FINISHED } from "./utilities/eventTypes";
-import { EventMembersHandler } from "./utilities/actionHandlers";
+import { CANCELLED, FINISHED } from "./helper/eventTypes";
+import { EventMembersHandler } from "./helper/actionHandlers";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function EventStatus(props) {

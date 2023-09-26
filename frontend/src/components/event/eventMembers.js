@@ -3,8 +3,8 @@ import { Form, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import ModalItem from "../../layouts/modalItem";
-import { EventMembersHandler } from "./utilities/actionHandlers";
-import { Accepted } from "./utilities/eventBuilder";
+import { EventMembersHandler } from "./helper/actionHandlers";
+import { Accepted } from "./helper/eventBuilder";
 
 function EventMembers(props) {
   const ref = React.createRef();

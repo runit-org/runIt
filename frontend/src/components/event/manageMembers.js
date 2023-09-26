@@ -8,8 +8,8 @@ import {
 import { Loading } from "../../layouts/loader";
 import { Link } from "react-router-dom";
 import { emitter } from "../client/socket";
-import { EventMembersHandler } from "./utilities/actionHandlers";
-import { Pending } from "./utilities/eventBuilder";
+import { EventMembersHandler } from "./helper/actionHandlers";
+import { Pending } from "./helper/eventBuilder";
 import { SingleEventContext } from "../../pages/singleEventDash";
 import { Cross, Tick } from "../../layouts/icons";
 import { DisplayImage } from "../../layouts/userDisplayImg";

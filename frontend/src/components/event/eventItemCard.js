@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PopoverItem from "../../layouts/popoverItem";
 import { ArrowRight } from "../../layouts/icons";
-import { BadgeItem, RequestBtn, StatusBadge } from "./utilities/eventBuilder";
+import { BadgeItem, RequestBtn, StatusBadge } from "./helper/eventBuilder";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import { Username } from "../../layouts/username";
 

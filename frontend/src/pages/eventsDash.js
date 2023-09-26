@@ -4,7 +4,7 @@ import CreatePost from "../components/event/createEvent";
 import Pagination from "../layouts/pagination";
 import EventItemCard from "../components/event/eventItemCard";
 import CurrentUserProfile from "../components/profile/currentUserProfile";
-import { EventHandler } from "../components/event/utilities/actionHandlers";
+import { EventHandler } from "../components/event/helper/actionHandlers";
 import SuggestItem from "../components/suggestions/suggestItem";
 
 function MainDash() {
@@ -13,6 +13,7 @@ function MainDash() {
   const [postPerPage] = useState(10);
 
   const eventData = EventHandler(currentPage);
+  //const { eventData, handleShowMore } = EventHandler(currentPage);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   //suggestions
@@ -48,6 +49,7 @@ function MainDash() {
                   : ""}
               </Row>
             </div>
+            {/* <button onClick={handleShowMore}>Show More</button> */}
             {eventData.count > 10 ? (
               <Pagination
                 postsPerPage={postPerPage}

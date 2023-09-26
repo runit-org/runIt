@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUserProfile } from "../../services/actions/userActions";
 import { DisplayImage } from "../../layouts/userDisplayImg";
-import { UserCardInfo, VoteBadge } from "./utilities/profileBuilder";
+import { UserCardInfo, VoteBadge } from "./helper/profileBuilder";
 import { Username } from "../../layouts/username";
 
 function CurrentUserProfile() {

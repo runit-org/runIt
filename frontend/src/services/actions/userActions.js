@@ -5,6 +5,7 @@ import {
   GET_CURRENT_USER_PROFILE,
   SET_CURRENT_USER,
   GET_VOTES,
+  GET_USER_ACTIVITY,
 } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 import { OK } from "../constants/responseStatus";
@@ -162,6 +163,26 @@ export const changePassword = (postData, setLoad) => async (dispatch) => {
           payload: error.response,
         });
         return error;
+      });
+  });
+};
+
+export const getActivity = () => async (dispatch) => {
+  await refreshToken().then((ref) => {
+    setToken(ref.data.access);
+    axios
+      .get(`/user/activity/`)
+      .then((res) => {
+        dispatch({
+          type: GET_USER_ACTIVITY,
+          payload: res.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data,
+        });
       });
   });
 };

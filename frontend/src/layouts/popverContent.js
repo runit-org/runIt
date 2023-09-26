@@ -2,9 +2,9 @@ import React from "react";
 import {
   UserCardInfo,
   VoteBadge,
-} from "../components/profile/utilities/profileBuilder";
+} from "../components/profile/helper/profileBuilder";
 import Vote from "../components/profile/vote";
-import UserProfileHandler from "../components/profile/utilities/actionHandlers.js";
+import UserProfileHandler from "../components/profile/helper/actionHandlers.js";
 import { ArrowRight, Smiley } from "./icons";
 import { DisplayImage } from "./userDisplayImg";
 

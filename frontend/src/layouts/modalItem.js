@@ -1,6 +1,7 @@
 import React, { useState, useImperativeHandle, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import CTAButton from "./ctaButton";
+import { ResponseItem } from "./responseItems";
 
 const ModalItem = React.forwardRef(
   (
@@ -49,11 +50,12 @@ const ModalItem = React.forwardRef(
         >
           <Modal.Body>
             <Modal.Title>{title}</Modal.Title>
-            {error && error.success === "false" ? (
+            {/*   {error && error.success === "false" ? (
               <small className="mb-4 text-danger">{error.message}</small>
             ) : (
               ""
-            )}
+            )} */}
+            <ResponseItem />
             {children}
           </Modal.Body>
         </Modal>

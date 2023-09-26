@@ -81,7 +81,9 @@ export const ResponseItem = () => {
           </>
         );
       default:
-        return null;
+        return (
+          <small className="text-danger fw-bold">{response.message}</small>
+        );
     }
   };
   return <>{renderResponse()}</>;

@@ -5,7 +5,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { Information } from "../../layouts/icons";
 import { Skeleton } from "../../layouts/loader";
 import PopoverItem from "./popoverItem";
-import { EventSuggestHandler } from "./utilities/suggestHandler";
+import { EventSuggestHandler } from "./helper/suggestHandler";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
 
 function SuggestItem(props) {

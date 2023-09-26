@@ -16,21 +16,24 @@ axios.defaults.baseURL = `${
 }/api`;
 
 export const getSingleEvent = (id) => async (dispatch) => {
-  await refreshToken().then((ref) => {
+  return await refreshToken().then((ref) => {
     setToken(ref.data.access);
-    axios
+    return axios
       .get(`/event/view/${id}/`)
       .then((res) => {
         dispatch({
           type: GET_SINGLE_EVENT,
           payload: res.data,
         });
+        return res;
       })
+
       .catch((error) => {
         dispatch({
           type: GET_ERRORS,
           payload: error.response.data,
         });
+        return error.response;
       });
   });
 };
@@ -180,8 +183,9 @@ export const requestToJoin =
           setError(error.response.data);
           dispatch({
             type: GET_ERRORS,
-            payload: error.response.data,
+            payload: error.response,
           });
+
           return error;
         });
     });
@@ -231,7 +235,7 @@ export const getEventMembers = (id) => async (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: error.response.data,
+        payload: error.response,
       });
     });
 };
@@ -257,7 +261,7 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
         setLoad(false);
         dispatch({
           type: GET_ERRORS,
-          payload: error.response.data,
+          payload: error.response,
         });
       });
   });
