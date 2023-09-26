@@ -37,3 +37,20 @@ class ActivityLogTestClass(BaseTestClass):
         response = c.get(url, {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.json()['count'] == 1)
+
+    def test_activity_log_contains_title_and_type_success(self):
+        url = self.baseUrl
+        user = self.generateNewUserObject()
+
+        self.generateNewUserActivityObject(user)
+
+        # Authenticate user-------------------------------------------
+        user = User.objects.get(username=user.username)
+        c = APIClient()
+        c.force_authenticate(user=user)
+        # ------------------------------------------------------------
+
+        keys = ['title', 'type']
+        response = c.get(url, {}, format='json')
+        # print(response.json()['results'][0])
+        self.assertTrue(all(key in response.json()['results'][0] for key in keys))
