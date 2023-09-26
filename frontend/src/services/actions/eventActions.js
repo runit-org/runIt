@@ -235,7 +235,7 @@ export const getEventMembers = (id) => async (dispatch) => {
     .catch((error) => {
       dispatch({
         type: GET_ERRORS,
-        payload: error.response.data,
+        payload: error.response,
       });
     });
 };
@@ -261,7 +261,7 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
         setLoad(false);
         dispatch({
           type: GET_ERRORS,
-          payload: error.response.data,
+          payload: error.response,
         });
       });
   });
