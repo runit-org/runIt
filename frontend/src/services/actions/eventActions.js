@@ -183,8 +183,9 @@ export const requestToJoin =
           setError(error.response.data);
           dispatch({
             type: GET_ERRORS,
-            payload: error.response.data,
+            payload: error.response,
           });
+
           return error;
         });
     });
