@@ -17,7 +17,7 @@ function Timeline({ data }) {
               </svg>
             </span>
             <h5 className="d-flex alignxXZ -items-center mb-1">
-              Application UI v2.0.0 {index === 0 && <Badge>Latest</Badge>}
+              {item.title} {index === 0 && <Badge>Latest</Badge>}
             </h5>
             <time className="d-block mb-2 text-muted">
               {item.humanTimeDiffCreatedAt} ago
