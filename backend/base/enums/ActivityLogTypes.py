@@ -6,4 +6,5 @@ class get(Enum):
     ACCOUNT         = 'Account'
     NOTIFICATION    = 'Notification'
     FRIENDS         = 'Friends'
+    FEEDBACK        = 'Feedback'
 
