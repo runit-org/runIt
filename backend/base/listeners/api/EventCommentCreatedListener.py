@@ -1,6 +1,6 @@
 from events import EventListener
 from base.events.api import EventCommentCreated
-from base.enums import EventMemberStatus
+from base.enums import EventMemberStatus, ActivityLogTypes
 from base.traits import NotifyUser, LogUserActivity
 
 def sendNotification(user, event):
@@ -10,9 +10,11 @@ def sendNotification(user, event):
     NotifyUser.notify(eventCreatorUserId, notificationMessage, link)
 
 def logUserActivity(user, event):
+    title = 'Created comment'
+    type = ActivityLogTypes.get.COMMENT.value
     details = 'Commented on event ' + '<b>' + event.title + '</b>'
     link = '/event/' + str(event.id)
-    LogUserActivity.log(user.id, details, link)
+    LogUserActivity.log(user.id, title, type, details, link)
 
 class EventCommentCreatedListener(EventListener):
     listensFor = [

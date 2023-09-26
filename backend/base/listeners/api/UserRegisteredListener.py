@@ -1,6 +1,7 @@
 from events import EventListener
 from base.events.api import UserRegistered
 from base.traits import NotifyUser, LogUserActivity
+from base.enums import ActivityLogTypes
 from base.modules.auth.api.actions import SendEmailOTPAction
 
 def sendNotification(user):
@@ -8,8 +9,10 @@ def sendNotification(user):
     NotifyUser.notify(user.id, message)
 
 def logUserActivity(user):
-    details = 'Joined runIt.'
-    LogUserActivity.log(user.id, details)
+    title = 'Account registered'
+    type = ActivityLogTypes.get.ACCOUNT.value
+    details = 'You joined runIt.'
+    LogUserActivity.log(user.id, title, type, details)
 
 class UserRegisteredListener(EventListener):
     listensFor = [

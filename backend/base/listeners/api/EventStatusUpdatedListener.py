@@ -1,7 +1,7 @@
 from events import EventListener
 from base.events.api import EventStatusUpdated
 from base.models import EventMember
-from base.enums import EventMemberStatus
+from base.enums import EventMemberStatus, ActivityLogTypes
 from base.traits import NotifyUser, LogUserActivity
 
 def sendNotification(user, event, status):
@@ -14,9 +14,11 @@ def sendNotification(user, event, status):
                 NotifyUser.notify(eventMember.user.id, notificationMessage, link)
 
 def logUserActivity(user, event, status):
+    title = 'Updated event'
+    type = ActivityLogTypes.get.EVENT.value
     link = '/event/' + str(event.id)
     details = 'Updated status of an event you created: <b>' + event.title.upper() + '</b>. New status: ' + status
-    LogUserActivity.log(user.id, details, link)
+    LogUserActivity.log(user.id, title, type, details, link)
 
 class EventStatusUpdatedListener(EventListener):
     listensFor = [

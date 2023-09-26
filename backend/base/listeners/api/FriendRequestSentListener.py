@@ -1,6 +1,7 @@
 from events import EventListener
 from base.events.api import FriendRequestSent
 from base.traits import NotifyUser, LogUserActivity
+from base.enums import ActivityLogTypes
 
 def sendNotification(target, user):
     link = '/friend-request/'
@@ -10,10 +11,12 @@ def sendNotification(target, user):
     )
 
 def logUserActivity(target, user):
+    title = 'Requested friendship'
+    type = ActivityLogTypes.get.FRIENDS.value
     link = '/profile?username=' + user.username
     details = 'Requested friendship to user <b>' + target.username + '</b>.'  
     LogUserActivity.log(
-        user.id, details, link
+        user.id, title, type, details, link
     )
 
 class FriendRequestSentListener(EventListener):

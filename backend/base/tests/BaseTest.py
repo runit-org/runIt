@@ -1,12 +1,12 @@
 from django.test import TestCase
 from django.test import Client
-from base.models import User, UserExtend, UserVote, Event, EventMember, EventComment, EventCommentLike, Friend, FriendRequest, Notification
+from base.models import User, UserExtend, UserVote, Event, EventMember, EventComment, EventCommentLike, Friend, FriendRequest, Notification, UserActivity
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 from rest_framework.test import force_authenticate
-from base.enums import UserVoteStatus, EventStatus, EventMemberStatus
+from base.enums import UserVoteStatus, EventStatus, EventMemberStatus, ActivityLogTypes
 from base.factories import EventFactory, UserFactory
 import random
 import string
@@ -112,6 +112,17 @@ class BaseTestClass(TestCase):
             userId = user.id,
             details = 'Hello World',
             link = '',
+
+            createdAt = timezone.make_aware(datetime.datetime.now())
+        )
+    
+    def generateNewUserActivityObject(self, user):
+        return UserActivity.objects.create(
+            userId = user.id,
+            details = 'Hello World',
+            link = '',
+            title = 'Title Placeholder',
+            type = ActivityLogTypes.get.ACCOUNT.value,
 
             createdAt = timezone.make_aware(datetime.datetime.now())
         )

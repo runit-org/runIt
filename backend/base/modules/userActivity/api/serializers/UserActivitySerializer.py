@@ -6,8 +6,8 @@ class UserActivitySerializer(serializers.ModelSerializer):
     humanTimeDiffCreatedAt = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
-        model = Notification
-        fields = ['id', 'userId', 'details', 'link', 'humanTimeDiffCreatedAt', 'createdAt']
+        model = UserActivity
+        fields = ['id', 'userId', 'title', 'type', 'details', 'link', 'humanTimeDiffCreatedAt', 'createdAt']
 
     def get_humanTimeDiffCreatedAt(self, obj):
         return GetHumanTimeDifferenceToNow.get(obj.createdAt)

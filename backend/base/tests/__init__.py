@@ -7,3 +7,4 @@ from base.tests.EventMemberTest import EventMemberTestClass
 from base.tests.NotificationTest import NotificationTestClass
 from base.tests.FriendTest import FriendTestClass
 from base.tests.FeedbackTest import FeedbackTestClass
+from base.tests.ActivityLogTest import ActivityLogTestClass
