@@ -1,4 +1,11 @@
 import { Badge } from "react-bootstrap";
+import {
+  Comment,
+  Event,
+  Feedback,
+  Notification,
+  User,
+} from "../../../layouts/icons";
 
 export const VoteBadge = (props) => {
   return (
@@ -35,4 +42,23 @@ export const UserCardInfo = (props) => {
       )}
     </div>
   );
+};
+
+export const TimelineIcons = (props) => {
+  const { icons } = props;
+
+  const types = {
+    Event: <Event />,
+    Comment: <Comment />,
+    Account: <User />,
+    Notification: <Notification />,
+    Feedback: <Feedback />,
+  };
+  const selectedType = types[icons] || {};
+
+  if (!selectedType) {
+    return null;
+  }
+
+  return <> {selectedType}</>;
 };
