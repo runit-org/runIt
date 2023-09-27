@@ -116,13 +116,13 @@ class BaseTestClass(TestCase):
             createdAt = timezone.make_aware(datetime.datetime.now())
         )
     
-    def generateNewUserActivityObject(self, user):
+    def generateNewUserActivityObject(self, user, type=ActivityLogTypes.get.EVENT.value):
         return UserActivity.objects.create(
             userId = user.id,
             details = 'Hello World',
             link = '',
             title = 'Title Placeholder',
-            type = ActivityLogTypes.get.ACCOUNT.value,
+            type = type,
 
             createdAt = timezone.make_aware(datetime.datetime.now())
         )

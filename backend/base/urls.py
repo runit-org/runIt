@@ -40,7 +40,7 @@ user_vote_patterns = [
 ]
 
 user_activity_patterns = [
-    path('', UserActivityViews.index, name="list_current_user_activities"),
+    path('<str:username>/', UserActivityViews.index, name="list_current_user_activities"),
 ]
 
 event_patterns = [
