@@ -27,22 +27,33 @@
 }
 
 .timeline li .badge {
-  font-size: 12px;
   margin-left: 0.85rem;
+  font-size: 12px;
+  background-color: $theme-light !important;
+  color: #4338ca;
+  align-self: center;
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+  --bs-border-opacity: 0.1;
+  border-color: rgba(
+    var(--bs-success-rgb),
+    var(--bs-border-opacity)
+  ) !important;
+  font-weight: 500;
 }
 
 .timeline .icon svg {
   display: flex;
   justify-self: center;
   align-self: center;
-  width: 0.725rem;
-  height: 0.725rem;
+  width: 1.1rem;
+  height: 1.1rem;
   color: $theme;
 }
 
-.timeline li h5 {
+.timeline li h5 a {
   font-size: 18px;
   font-weight: 600;
+  color: $primary-dark;
 }
 
 .timeline li time {
