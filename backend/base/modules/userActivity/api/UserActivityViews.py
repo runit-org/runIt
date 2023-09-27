@@ -6,5 +6,5 @@ from base.modules.userActivity.api.actions import (
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def index(request):
-    return GetCurrentUserActivityLogsAction.get(request)
+def index(request, username):
+    return GetCurrentUserActivityLogsAction.get(request, username)
