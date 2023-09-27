@@ -206,7 +206,6 @@ export const feedback = (postData, setLoad) => async (dispatch) => {
           type: GET_ERRORS,
           payload: error.response,
         });
-        console.log(error.response);
         return error;
       });
   });
