@@ -5,16 +5,27 @@ import {
   getUserProfile,
   getVotes,
 } from "../../../services/actions/userActions";
+import {
+  BAD_REQUEST,
+  SERVER_ERROR,
+} from "../../../services/constants/responseStatus";
+import { useNavigate } from "react-router-dom";
 
 const UserProfileHandler = (data) => {
   const dispatch = useDispatch();
   const [userProfile, setUserProfile] = useState({});
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
-      dispatch(getUserProfile(data));
+      dispatch(getUserProfile(data)).then((res) => {
+        let { status } = res;
+        if (status === BAD_REQUEST || status === SERVER_ERROR) {
+          navigate("*");
+        }
+      });
     }
-  }, [dispatch, data]);
+  }, [dispatch, data, navigate]);
 
   var profile = useSelector((userReducer) => userReducer.users.userProfile);
 

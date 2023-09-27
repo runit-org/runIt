@@ -17,21 +17,23 @@ axios.defaults.baseURL = `${
 }/api`;
 
 export const getUserProfile = (userName) => async (dispatch) => {
-  await refreshToken().then((ref) => {
+  return await refreshToken().then(async (ref) => {
     setToken(ref.data.access);
-    axios
+    return axios
       .get(`/user/profile/${userName}/`)
       .then((res) => {
         dispatch({
           type: GET_USER_PROFILE,
           payload: res.data,
         });
+        return res;
       })
       .catch((error) => {
         dispatch({
           type: GET_ERRORS,
           payload: error.response.data,
         });
+        return error.response;
       });
   });
 };
