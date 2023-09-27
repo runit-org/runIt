@@ -67,7 +67,6 @@ function EventStatus(props) {
             </Form.Label>
             <Form.Control
               type="title"
-              placeholder="Christmas social"
               pattern="(FINISHED|CANCELLED)"
               onChange={(e) =>
                 setStatus(
