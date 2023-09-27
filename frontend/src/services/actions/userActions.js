@@ -194,7 +194,7 @@ export const feedback = (postData, setLoad) => async (dispatch) => {
     setToken(ref.data.access);
     setLoad(true);
     return axios
-      .post(`/user/feedback/create/`, postData)
+      .post(`/feedback/create/`, postData)
       .then((res) => {
         if (res.status === OK) {
           setLoad(false);

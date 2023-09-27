@@ -26,7 +26,6 @@ function CreateEvent(props) {
 
   const { formValue, setFormValue, handleFieldChange } =
     useHandleChange(initialState);
-
   const [validateFormEmpty, setValidateFormEmpty] = useState(false);
   const [formStatus, setFormStatus] = useState({
     load: false,
