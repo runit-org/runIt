@@ -7,7 +7,12 @@ import {
   getEventMembers,
   getSingleEvent,
 } from "../../../services/actions/eventActions";
-import { OK } from "../../../services/constants/responseStatus";
+import {
+  BAD_REQUEST,
+  OK,
+  SERVER_ERROR,
+} from "../../../services/constants/responseStatus";
+import { useNavigate } from "react-router-dom";
 
 export const EventMembersHandler = (eventId) => {
   const dispatch = useDispatch();
@@ -35,14 +40,18 @@ export const SingleEventHandler = (params, pageId) => {
   const dispatch = useDispatch();
   const [eventData, setEventData] = useState([]);
   const [commentData, setCommentData] = useState([]);
+  let navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getSingleEvent(params.id)).then((res) => {
-      if (res.status === OK) {
+      let { status } = res;
+      if (status === OK) {
         dispatch(getAllComments(params.id, pageId ? pageId : 1));
+      } else if (status === BAD_REQUEST || status === SERVER_ERROR) {
+        navigate("*");
       }
     });
-  }, [dispatch, params.id, pageId]);
+  }, [dispatch, params.id, pageId, navigate]);
 
   var event = useSelector((securityReducer) => securityReducer.events.events);
   var comments = useSelector(

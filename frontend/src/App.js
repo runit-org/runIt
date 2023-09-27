@@ -1,12 +1,10 @@
 import "./styles/App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, Routes, useParams } from "react-router-dom";
-import Header from "./layouts/header";
+import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import AuthDash from "./pages/authDash";
 import React, { lazy, Suspense } from "react";
 import { ProtectedRoute } from "./routes/protectedRoute";
 import { Spinner } from "react-bootstrap";
-import UserContext from "./context/userProvider";
 import SecurityContext from "./context/securityProvider";
 import CalendarContext from "./context/calendarProvider.js";
 import { RoutesContainer } from "./routes/routesContainer";
@@ -20,6 +18,7 @@ import SignUp from "./components/userAuth/signUp";
 import ResetPasswordEmail from "./components/userAuth/resetPwEmail";
 import ResetPassword from "./components/userAuth/resetPw";
 import VerifyEmail from "./components/userAuth/verifyEmail";
+import NotFound from "./pages/notFound";
 // import UnverifiedDash from "./pages/unverifiedDash";
 // import Cookies from "js-cookie";
 
@@ -69,11 +68,8 @@ function App() {
             path="/posts"
             element={
               <ProtectedRoute>
-                <UserContext>
-                  <Header />
-                  {/* {isVerified === "true" ? <EventsDash /> : <UnverifiedDash />} */}
-                  <EventsDash />
-                </UserContext>
+                {/* {isVerified === "true" ? <EventsDash /> : <UnverifiedDash />} */}
+                <EventsDash />
               </ProtectedRoute>
             }
           />
@@ -83,12 +79,9 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute>
-                <UserContext>
-                  <CalendarContext>
-                    <Header />
-                    <ProfileDash />
-                  </CalendarContext>
-                </UserContext>
+                <CalendarContext>
+                  <ProfileDash />
+                </CalendarContext>
               </ProtectedRoute>
             }
           >
@@ -105,14 +98,20 @@ function App() {
             element={
               <ProtectedRoute>
                 <SecurityContext>
-                  <UserContext>
-                    <Header />
-                    <SingleEventDash />
-                  </UserContext>
+                  <SingleEventDash />
                 </SecurityContext>
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/404"
+            element={
+              <ProtectedRoute>
+                <NotFound />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/404" replace />} />
         </Routes>
       </RoutesContainer>
     </Suspense>

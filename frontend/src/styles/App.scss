@@ -18,7 +18,7 @@ body {
   font-size: 1rem;
 }
 
-:any-link {
+:any-link :not(.not-found) {
   text-decoration: none;
 }
 
@@ -499,6 +499,16 @@ div.content {
 .custom-table .dropdown button {
   border: 1px solid #dee2e6;
   color: $primary-dark;
+}
+
+/*------Not Found------*/
+.not-found {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  margin: 0rem auto 0rem auto;
+  text-align: center;
+  padding: 3rem;
 }
 
 /*------Loaders------*/
