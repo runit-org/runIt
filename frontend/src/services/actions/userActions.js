@@ -186,3 +186,28 @@ export const getActivity = () => async (dispatch) => {
       });
   });
 };
+
+export const feedback = (postData, setLoad) => async (dispatch) => {
+  return await refreshToken().then(async (ref) => {
+    setToken(ref.data.access);
+    setLoad(true);
+    return axios
+      .post(`/user/feedback/create/`, postData)
+      .then((res) => {
+        if (res.status === OK) {
+          setLoad(false);
+        }
+
+        return res;
+      })
+      .catch((error) => {
+        setLoad(false);
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response,
+        });
+        console.log(error.response);
+        return error;
+      });
+  });
+};

@@ -62,3 +62,19 @@ export const TimelineIcons = (props) => {
 
   return <> {selectedType}</>;
 };
+
+export const FeedbackTypes = () => {
+  const feedbackType = [
+    { title: "Support", value: "support" },
+    { title: "Feedback", value: "feedback" },
+  ];
+  const category = [
+    { title: "Event", value: "event" },
+    { title: "Comment", value: "comment" },
+    { title: "Account", value: "account" },
+    { title: "Friends", value: "friends" },
+    { title: "Other", value: "other" },
+  ];
+
+  return { feedbackType, category };
+};

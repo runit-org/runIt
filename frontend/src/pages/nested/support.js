@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Form, Row } from "react-bootstrap";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
 import { ResponseItem } from "../../layouts/responseItems.js";
@@ -7,11 +7,25 @@ import CTAButton from "../../layouts/ctaButton.js";
 import { FormGroup, FormLabel } from "../../layouts/customForm.js";
 import { InfoCard } from "../../layouts/infoCards.js";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { feedback } from "../../services/actions/userActions.js";
+import { FeedbackTypes } from "../../components/profile/helper/profileBuilder.js";
 
 function Support() {
-  //   const dispatch = useDispatch();
-  // const [load, setLoad] = useState(false);
-  const { handleFieldChange } = useHandleChange({});
+  const dispatch = useDispatch();
+  const [load, setLoad] = useState(false);
+  const { feedbackType, category } = FeedbackTypes();
+
+  const { formValue, handleFieldChange } = useHandleChange({
+    type: "",
+    category: "",
+    details: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(feedback(formValue, setLoad));
+  };
 
   return (
     <>
@@ -64,27 +78,44 @@ function Support() {
             <div className="border p-4">
               <fieldset>
                 <Form
-                /*   onSubmit={(e) => {
-                handleSubmit(e);
-              }} */
+                  onSubmit={(e) => {
+                    handleSubmit(e);
+                  }}
                 >
                   <FormGroup formId="formBasicType" customStyle="col-md-6">
                     <FormLabel>Type</FormLabel>
 
-                    <Form.Select aria-label="Default select example">
+                    <Form.Select
+                      name="type"
+                      onChange={handleFieldChange}
+                      aria-label="Default select example"
+                    >
                       <option>Type</option>
-                      <option value="1">Support</option>
-                      <option value="2">Feedback</option>
+                      {feedbackType.map((item, i) => {
+                        return (
+                          <option key={i} value={item.value}>
+                            {item.title}
+                          </option>
+                        );
+                      })}
                     </Form.Select>
                   </FormGroup>
                   <FormGroup formId="formBasicCategory" customStyle="col-md-6">
                     <FormLabel>Category</FormLabel>
 
-                    <Form.Select aria-label="Default select example">
+                    <Form.Select
+                      name="category"
+                      onChange={handleFieldChange}
+                      aria-label="Default select example"
+                    >
                       <option>Category</option>
-                      <option value="1">Event</option>
-                      <option value="2">Comment</option>
-                      <option value="3">Account</option>
+                      {category.map((item, i) => {
+                        return (
+                          <option key={i} value={item.value}>
+                            {item.title}
+                          </option>
+                        );
+                      })}
                     </Form.Select>
                   </FormGroup>
 
@@ -103,6 +134,7 @@ function Support() {
                     type={"submit"}
                     btnStyle={"formBtn cta_button"}
                     variant={"primary"}
+                    isLoading={load}
                     placeholder={
                       <div className="d-flex align-items-center">Submit</div>
                     }
