@@ -29,7 +29,7 @@ function ResetPassword(props) {
   useEffect(() => {
     setFormSwitch(load);
   }, [load]);
-  console.log(formValue);
+
   return (
     <fieldset disabled={formSwitch}>
       <Form
