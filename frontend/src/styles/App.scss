@@ -18,7 +18,7 @@ body {
   font-size: 1rem;
 }
 
-:any-link :not(.not-found) {
+:any-link {
   text-decoration: none;
 }
 
@@ -509,6 +509,11 @@ div.content {
   margin: 0rem auto 0rem auto;
   text-align: center;
   padding: 3rem;
+}
+
+.not-found a {
+  text-decoration: underline;
+  font-size: 14px;
 }
 
 /*------Loaders------*/
