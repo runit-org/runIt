@@ -169,18 +169,23 @@ export const changePassword = (postData, setLoad) => async (dispatch) => {
   });
 };
 
-export const getActivity = () => async (dispatch) => {
+export const getActivity = (userName, setLoad) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
+    setLoad(true);
     axios
-      .get(`/user/activity/`)
+      .get(`/user/activity/${userName}/`)
       .then((res) => {
-        dispatch({
-          type: GET_USER_ACTIVITY,
-          payload: res.data,
-        });
+        if (res.status === OK) {
+          dispatch({
+            type: GET_USER_ACTIVITY,
+            payload: res.data,
+          });
+          setLoad(false);
+        }
       })
       .catch((error) => {
+        setLoad(false);
         dispatch({
           type: GET_ERRORS,
           payload: error.response.data,

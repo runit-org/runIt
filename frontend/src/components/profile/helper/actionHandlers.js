@@ -67,13 +67,14 @@ export const GetVotes = (pageId) => {
   return votesList;
 };
 
-export const GetActivity = () => {
+export const GetActivity = (userName) => {
   const dispatch = useDispatch();
   const [activity, setActivity] = useState({});
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    dispatch(getActivity());
-  }, [dispatch]);
+    if (userName) dispatch(getActivity(userName, setLoad));
+  }, [dispatch, userName]);
 
   var userActivity = useSelector((userReducer) => userReducer.users.activity);
 
@@ -83,5 +84,5 @@ export const GetActivity = () => {
     }
   }, [userActivity]);
 
-  return activity;
+  return { activity, load };
 };

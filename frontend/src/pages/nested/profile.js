@@ -8,20 +8,36 @@ import { useEditor } from "../../hooks/useEditor";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
 import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
 import { GetActivity } from "../../components/profile/helper/actionHandlers";
+import { Loading } from "../../layouts/loader";
 // import { AffiliatedEvents } from "../event/utilities/actionHandlers";
 
 function Profile() {
   const { editorMode, handleClick } = useEditor(false);
   // const affiliatedEvents = AffiliatedEvents(2);
-  const { authUser } = useVerifyAuthUser();
-  const activity = GetActivity();
+  const { authUser, user } = useVerifyAuthUser();
+  const { activity, load } = GetActivity(user ? user.username : "");
 
   return (
     <>
       <div className="content">
         <Container className="content-wrapper">
-          <SectionHeader size={"md"}>User Acitvity</SectionHeader>
-          <Timeline data={activity.results ? activity.results : []} />
+          {activity.count > 0 ? (
+            <>
+              <SectionHeader size={"md"}>User Acitvity</SectionHeader>
+              <Timeline data={activity.results || []} />
+            </>
+          ) : !load && activity.count === 0 ? (
+            <div>
+              <h1>Nothing yet...</h1>
+              <small>
+                No activity has been recorded for {user ? user.username : ""} at
+                this time. An activity log will become available once the user
+                initiates an action or interaction.
+              </small>
+            </div>
+          ) : (
+            <Loading />
+          )}
         </Container>
       </div>
 
