@@ -68,10 +68,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
     friendStatus = serializers.SerializerMethodField(read_only=True)
     statusMessage = serializers.SerializerMethodField(read_only=True)
     numParticipatedEvents = serializers.SerializerMethodField(read_only=True)
+    is_email_verified = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'date_joined', 'totalVote', 'voteStatus', 'gravatarImage', 'friendStatus', 'statusMessage', 'last_login', 'numParticipatedEvents']
+        fields = ['id', 'username', 'email', 'date_joined', 'totalVote', 'voteStatus', 'gravatarImage', 'friendStatus', 'statusMessage', 'last_login', 'numParticipatedEvents', 'is_email_verified']
 
     def get_totalVote(self, obj):
         return getUserTotalVotes(obj.id)
@@ -93,3 +94,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     def get_numParticipatedEvents(self, obj):
         return getNumberOfParticipatedEvents(obj)
+    
+    def get_is_email_verified(self, obj):
+        return UserExtend.objects.get(userId=obj.id).isEmailVerified
