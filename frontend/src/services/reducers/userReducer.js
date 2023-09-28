@@ -6,10 +6,10 @@ import {
 } from "../constants/types";
 
 const initialState = {
-  userProfile: [],
-  currProfile: [],
+  userProfile: {},
+  currProfile: {},
   votes: [],
-  activity: [],
+  activity: {},
 };
 
 export default function setUser(state = initialState, action) {

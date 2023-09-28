@@ -13,13 +13,13 @@ import { useNavigate } from "react-router-dom";
 
 const UserProfileHandler = (data) => {
   const dispatch = useDispatch();
-  const [userProfile, setUserProfile] = useState({});
   let navigate = useNavigate();
+  const [userProfile, setUserProfile] = useState({});
+  var profile = useSelector((userReducer) => userReducer.users.userProfile);
 
   useEffect(() => {
     if (data) {
-      dispatch(getUserProfile(data)).then((res) => {
-        let { status } = res;
+      dispatch(getUserProfile(data)).then(({ status }) => {
         if (status === BAD_REQUEST || status === SERVER_ERROR) {
           navigate("*");
         }
@@ -27,10 +27,8 @@ const UserProfileHandler = (data) => {
     }
   }, [dispatch, data, navigate]);
 
-  var profile = useSelector((userReducer) => userReducer.users.userProfile);
-
   useEffect(() => {
-    if (profile) {
+    if (profile && profile.data) {
       setUserProfile(profile.data);
     }
   }, [profile]);

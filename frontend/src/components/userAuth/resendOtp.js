@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Alert } from "react-bootstrap";
 import CTAButton from "../../layouts/ctaButton";
 import { resendOtp } from "../../services/actions/securityActions";
 import { useDispatch } from "react-redux";
-import Cookies from "js-cookie";
 import { ResponseItem } from "../../layouts/responseItems";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 import { useNavigate } from "react-router-dom";
+import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
 
 function ResendOtp() {
   const dispatch = useDispatch();
-  const [show, setShow] = useState(true);
-  const [load, setLoad] = useState(false);
-  const isVerified = Cookies.get("isVerified");
   let navigate = useNavigate();
+  const { user } = useVerifyAuthUser();
+  const [load, setLoad] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,16 +23,12 @@ function ResendOtp() {
     });
   };
 
-  useEffect(() => {
-    if (isVerified === "true") {
-      setShow(false);
-    } else {
-      setShow(true);
-    }
-  }, [isVerified]);
+  if (!user || Object.keys(user).length === 0) {
+    return null;
+  }
 
   return (
-    <Alert show={show} variant="danger">
+    <Alert show={!user.is_email_verified} variant="danger">
       <h6 className="d-flex justify-content-between">
         Verify your account <ResponseItem />
       </h6>

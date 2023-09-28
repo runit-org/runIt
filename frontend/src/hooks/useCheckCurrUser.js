@@ -7,12 +7,9 @@ import UserProfileHandler from "../components/profile/helper/actionHandlers";
 export function useVerifyAuthUser() {
   const [searchParams] = useSearchParams();
   const param = searchParams.get("user");
-  const userContext = useContext(UserContext);
-  const user = UserProfileHandler(
-    param ? param : userContext.currentUser.username
-  );
-
-  var authUser = user ? user.username === userContext.currentUser.username : "";
+  const { currentUser } = useContext(UserContext);
+  const user = UserProfileHandler(param || currentUser.username);
+  var authUser = user ? user.username === currentUser.username : false;
 
   //returns current user validation value and user info
   return { authUser, user };

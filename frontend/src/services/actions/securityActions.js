@@ -79,9 +79,6 @@ export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
       const accessToken = res.data.access;
       //store token in local storage
       Cookies.set("token", refToken, { sameSite: "strict" });
-      Cookies.set("isVerified", res.data.is_email_verified, {
-        sameSite: "strict",
-      });
       //set token in header
       setToken(accessToken);
       //get data from response
@@ -124,7 +121,6 @@ export const logout = (refToken, navigate) => async (dispatch) => {
   setToken(false);
   localStorage.clear();
   Cookies.remove("token");
-  Cookies.remove("isVerified");
   navigate(0);
 
   dispatch({

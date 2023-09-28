@@ -9,7 +9,6 @@ import { SectionHeader } from "../../layouts/sectionHeader.js";
 import { Link, useNavigate } from "react-router-dom";
 import { verifyEmail } from "../../services/actions/securityActions.js";
 import * as ResponseStatus from "../../services/constants/responseStatus";
-import Cookies from "js-cookie";
 
 function VerifyEmail() {
   const dispatch = useDispatch();
@@ -23,7 +22,6 @@ function VerifyEmail() {
     e.preventDefault();
     dispatch(verifyEmail(formValue, setLoad)).then((res) => {
       if (res.status === ResponseStatus.OK) {
-        Cookies.set("isVerified", "true");
         setTimeout(() => {
           navigate("/posts");
         }, 2000);

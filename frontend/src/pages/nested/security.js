@@ -10,7 +10,6 @@ function Security() {
         <Container className="content-wrapper">
           <div className="mx-4 col-md-8">
             <ResendOtp />
-
             <ChangePassword />
           </div>
         </Container>
