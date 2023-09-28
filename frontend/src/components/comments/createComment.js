@@ -42,8 +42,8 @@ function CreateComment(props) {
       content: content,
     };
     dispatch(createComment(props.id, postData, setLoad, setError)).then(
-      (res) => {
-        if (res.status === ResponseStatus.OK) {
+      ({ status }) => {
+        if (status === ResponseStatus.OK) {
           dispatch(getAllComments(props.id, pageId));
           emitter(MentionFilter(content, eventData.userName));
         }

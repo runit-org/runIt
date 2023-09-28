@@ -54,8 +54,8 @@ function CreateEvent(props) {
       minute:
         formValue.time !== "" ? parseInt(formValue.time.split(":")[1]) : "",
     };
-    dispatch(createNewEvent(postData, setFormStatus)).then((res) => {
-      if (res.status === ResponseStatus.OK) {
+    dispatch(createNewEvent(postData, setFormStatus)).then(({ status }) => {
+      if (status === ResponseStatus.OK) {
         dispatch(getAllEvents(1));
         emitter(MentionFilter(formValue.details));
       }

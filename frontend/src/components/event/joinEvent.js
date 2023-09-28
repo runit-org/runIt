@@ -30,8 +30,8 @@ function JoinEvent(props) {
       eventId: props.eventId,
     };
 
-    dispatch(requestToJoin(postData, setLoad, setError)).then((res) => {
-      if (res.status === ResponseStatus.OK) {
+    dispatch(requestToJoin(postData, setLoad, setError)).then(({ status }) => {
+      if (status === ResponseStatus.OK) {
         location.pathname.includes("event")
           ? dispatch(getSingleEvent(params.id))
           : dispatch(getAllEvents(1));

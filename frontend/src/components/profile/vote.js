@@ -10,8 +10,8 @@ function Vote(props) {
 
   const voteUser = (status) => {
     const postData = { status: status };
-    dispatch(vote(props.user.id, postData)).then((res) => {
-      if (res.status === ResponseStatus.OK) {
+    dispatch(vote(props.user.id, postData)).then(({ status }) => {
+      if (status === ResponseStatus.OK) {
         dispatch(getUserProfile(props.user.username));
       }
     });

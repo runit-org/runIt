@@ -22,8 +22,8 @@ function ChangePassword() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(changePassword(formValue, setLoad)).then((res) => {
-      if (res.status === ResponseStatus.OK) {
+    dispatch(changePassword(formValue, setLoad)).then(({ status }) => {
+      if (status === ResponseStatus.OK) {
         logout(e);
       }
     });

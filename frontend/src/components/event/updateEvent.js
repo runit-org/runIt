@@ -28,8 +28,8 @@ function UpdateEvent(props) {
       details: details,
     };
 
-    dispatch(updateEvent(props.eventId, postData)).then((res) => {
-      if (res.status === ResponseStatus.OK) {
+    dispatch(updateEvent(props.eventId, postData)).then(({ status }) => {
+      if (status === ResponseStatus.OK) {
         dispatch(getSingleEvent(params.id));
         emitter(MentionFilter(details));
       }

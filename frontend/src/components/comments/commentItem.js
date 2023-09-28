@@ -28,8 +28,8 @@ function CommentItem(props) {
   const pageId = usePageId();
 
   const commentReact = () => {
-    dispatch(likeUnlike(props.commentData.id)).then((res) => {
-      if (res.status === ResponseStatus.OK) {
+    dispatch(likeUnlike(props.commentData.id)).then(({ status }) => {
+      if (status === ResponseStatus.OK) {
         dispatch(getAllComments(eventData.id, pageId));
         emitter([props.commentData.username]);
       }

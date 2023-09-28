@@ -25,8 +25,8 @@ function UpdateComment(props, { handleUpate }) {
       content: content,
     };
 
-    dispatch(updateComment(props.commentId, postData)).then((res) => {
-      if (res.status === ResponseStatus.OK) {
+    dispatch(updateComment(props.commentId, postData)).then(({ status }) => {
+      if (status === ResponseStatus.OK) {
         dispatch(getAllComments(props.eventId, pageId));
         emitter(MentionFilter(content));
       }

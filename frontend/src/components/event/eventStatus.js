@@ -33,8 +33,8 @@ function EventStatus(props) {
     };
 
     dispatch(updateStatus(props.eventId, postData, setLoad, setError)).then(
-      (res) => {
-        if (res.status === ResponseStatus.OK) {
+      ({ status }) => {
+        if (status === ResponseStatus.OK) {
           dispatch(getSingleEvent(params.id));
           emitter(eventMembers.map((member) => member.username));
         }

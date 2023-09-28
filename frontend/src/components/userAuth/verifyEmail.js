@@ -20,8 +20,8 @@ function VerifyEmail() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(verifyEmail(formValue, setLoad)).then((res) => {
-      if (res.status === ResponseStatus.OK) {
+    dispatch(verifyEmail(formValue, setLoad)).then(({ status }) => {
+      if (status === ResponseStatus.OK) {
         setTimeout(() => {
           navigate("/posts");
         }, 2000);

@@ -16,8 +16,8 @@ function ResendOtp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(resendOtp(setLoad)).then((res) => {
-      if (res.status === ResponseStatus.OK) {
+    dispatch(resendOtp(setLoad)).then(({ status }) => {
+      if (status === ResponseStatus.OK) {
         navigate("/verify");
       }
     });

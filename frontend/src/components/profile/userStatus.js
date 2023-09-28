@@ -25,8 +25,8 @@ function UserStatus() {
     const postData = {
       message: message,
     };
-    dispatch(userStatus(postData, setLoad, setError)).then((res) => {
-      if (res.status === ResponseStatus.OK) {
+    dispatch(userStatus(postData, setLoad, setError)).then(({ status }) => {
+      if (status === ResponseStatus.OK) {
         dispatch(getCurrentUserProfile());
       }
     });
