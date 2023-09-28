@@ -6,6 +6,7 @@ from base.seeds import EventSeeder
 from base.seeds import EventMemberSeeder
 from base.seeds import EventCommentSeeder
 from base.seeds import EventCommentLikeSeeder
+from base.seeds import UserActivitySeeder
 
 def seed():
     seed_scenario_1()
@@ -17,3 +18,4 @@ def seed_scenario_1():
     EventMemberSeeder.create_seed_data()
     EventCommentSeeder.create_seed_data()
     EventCommentLikeSeeder.create_seed_data()
+    UserActivitySeeder.create_seed_data()
