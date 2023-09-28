@@ -6,10 +6,11 @@ import { Username } from "../../layouts/username";
 import UserStatus from "./userStatus";
 import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
 import { Loading } from "../../layouts/loader";
+import { VerifiedRender } from "../../routes/verifiedRender";
 
 function UserProfile() {
   const { authUser, user } = useVerifyAuthUser();
-  if (!user) {
+  if (!user || Object.keys(user).length === 0) {
     return <Loading />;
   }
   const {
@@ -33,22 +34,26 @@ function UserProfile() {
 
         <div className="position-absolute top-0 end-0 p-1">
           {!authUser ? (
-            <Vote user={user} fullW={false} />
+            <VerifiedRender>
+              <Vote user={user} fullW={false} />
+            </VerifiedRender>
           ) : (
             <VoteBadge votes={totalVote} />
           )}
         </div>
       </div>
 
-      {authUser ? (
-        <div className="my-3">
-          <UserStatus />
-        </div>
-      ) : (
-        <small className="d-block text-muted content_sm5">
-          {statusMessage}
-        </small>
-      )}
+      <VerifiedRender>
+        {authUser ? (
+          <div className="my-3">
+            <UserStatus />
+          </div>
+        ) : (
+          <small className="d-block text-muted content_sm5">
+            {statusMessage}
+          </small>
+        )}
+      </VerifiedRender>
 
       <div className="mt-3 ">
         <UserCardInfo

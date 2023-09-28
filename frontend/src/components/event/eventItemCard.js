@@ -6,6 +6,7 @@ import { ArrowRight } from "../../layouts/icons";
 import { BadgeItem, RequestBtn, StatusBadge } from "./helper/eventBuilder";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import { Username } from "../../layouts/username";
+import { VerifiedRender } from "../../routes/verifiedRender";
 
 function EventItemCard(props) {
   return (
@@ -28,7 +29,9 @@ function EventItemCard(props) {
         </div>
 
         <StatusBadge eventData={props.eventData} />
-        <RequestBtn eventData={props.eventData} btnStyleFull={false} />
+        <VerifiedRender>
+          <RequestBtn eventData={props.eventData} btnStyleFull={false} />
+        </VerifiedRender>
       </div>
 
       <Card>

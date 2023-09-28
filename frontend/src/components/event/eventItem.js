@@ -12,6 +12,7 @@ import { DisplayImage } from "../../layouts/userDisplayImg";
 import CustomDropdown from "../../layouts/customDropdown";
 import PopoverItem from "../../layouts/popoverItem";
 import { useEditor } from "../../hooks/useEditor";
+import { VerifiedRender } from "../../routes/verifiedRender";
 
 function EventItem() {
   const eventData = useContext(SingleEventContext);
@@ -31,32 +32,34 @@ function EventItem() {
                 />
               </PopoverItem>
               <StatusBadge eventData={eventData} />
-              {currentUser === eventData.user ? (
-                <CustomDropdown>
-                  {eventOptions(
-                    eventData.id,
-                    eventData.title,
-                    eventData.user,
-                    currentUser,
-                    handleClick
-                  )
-                    .options_owner.slice(
-                      eventData.eventStatus === CANCELLED ||
-                        eventData.eventStatus === FINISHED
-                        ? (0, 2)
-                        : ""
+              <VerifiedRender>
+                {currentUser === eventData.user ? (
+                  <CustomDropdown>
+                    {eventOptions(
+                      eventData.id,
+                      eventData.title,
+                      eventData.user,
+                      currentUser,
+                      handleClick
                     )
-                    .map((i, index) => {
-                      return (
-                        <div key={index} className="p-1">
-                          {i.item}
-                        </div>
-                      );
-                    })}
-                </CustomDropdown>
-              ) : (
-                <RequestBtn eventData={eventData} />
-              )}
+                      .options_owner.slice(
+                        eventData.eventStatus === CANCELLED ||
+                          eventData.eventStatus === FINISHED
+                          ? (0, 2)
+                          : ""
+                      )
+                      .map((i, index) => {
+                        return (
+                          <div key={index} className="p-1">
+                            {i.item}
+                          </div>
+                        );
+                      })}
+                  </CustomDropdown>
+                ) : (
+                  <RequestBtn eventData={eventData} />
+                )}
+              </VerifiedRender>
             </div>
           </Card.Header>
           <Card.Body>

@@ -19,6 +19,7 @@ import CustomDropdown from "../../layouts/customDropdown";
 import { Username } from "../../layouts/username";
 import { useEditor } from "../../hooks/useEditor";
 import * as ResponseStatus from "../../services/constants/responseStatus";
+import { VerifiedRender } from "../../routes/verifiedRender";
 
 function CommentItem(props) {
   const dispatch = useDispatch();
@@ -54,24 +55,26 @@ function CommentItem(props) {
           </span>
         </div>
 
-        {currentUser === props.commentData.user ? (
-          <CustomDropdown>
-            {commentOptions(
-              props.commentData.id,
-              eventData.id,
-              props.commentCount,
-              handleClick
-            ).options_owner.map((i, index) => {
-              return (
-                <div key={index} className="p-1">
-                  {i.item}
-                </div>
-              );
-            })}
-          </CustomDropdown>
-        ) : (
-          ""
-        )}
+        <VerifiedRender>
+          {currentUser === props.commentData.user ? (
+            <CustomDropdown>
+              {commentOptions(
+                props.commentData.id,
+                eventData.id,
+                props.commentCount,
+                handleClick
+              ).options_owner.map((i, index) => {
+                return (
+                  <div key={index} className="p-1">
+                    {i.item}
+                  </div>
+                );
+              })}
+            </CustomDropdown>
+          ) : (
+            ""
+          )}
+        </VerifiedRender>
       </div>
 
       {!editorMode ? (
@@ -86,20 +89,22 @@ function CommentItem(props) {
               }}
             />
 
-            <ButtonGroup
-              aria-label="Basic example"
-              className="mt-3 w-100 gap-2"
-            >
-              <Button
-                variant="light"
-                className="postBtn-placements cta_button p-0"
-                onClick={() => {
-                  commentReact();
-                }}
+            <VerifiedRender>
+              <ButtonGroup
+                aria-label="Basic example"
+                className="mt-3 w-100 gap-2"
               >
-                <CommentReacts commentData={props.commentData} />
-              </Button>
-            </ButtonGroup>
+                <Button
+                  variant="light"
+                  className="postBtn-placements cta_button p-0"
+                  onClick={() => {
+                    commentReact();
+                  }}
+                >
+                  <CommentReacts commentData={props.commentData} />
+                </Button>
+              </ButtonGroup>
+            </VerifiedRender>
           </Card.Body>
         </Card>
       ) : (
