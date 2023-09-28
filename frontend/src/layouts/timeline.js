@@ -3,6 +3,7 @@ import { TimelineIcons } from "../components/profile/helper/profileBuilder";
 import { Link } from "react-router-dom";
 
 function Timeline({ data }) {
+  console.log(data);
   return (
     <ol className="timeline">
       {data.map((item, index) => {

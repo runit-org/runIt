@@ -53,8 +53,9 @@ export const TimelineIcons = (props) => {
     Account: <User />,
     Notification: <Notification />,
     Feedback: <Feedback />,
+    Friends: <User />,
   };
-  const selectedType = types[icons] || {};
+  const selectedType = types[icons] || null;
 
   if (!selectedType) {
     return null;
