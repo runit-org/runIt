@@ -78,7 +78,9 @@ export const StatusBadge = (props) => {
           ? "Joined"
           : joinedStatus === PENDING
           ? "Requested"
-          : "Rejected"}
+          : joinedStatus === REJECTED
+          ? "Rejected"
+          : ""}
       </Badge>
     </div>
   );

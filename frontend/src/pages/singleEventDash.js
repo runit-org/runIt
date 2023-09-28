@@ -18,6 +18,7 @@ import { SingleEventHandler } from "../components/event/helper/actionHandlers";
 import { BadgeItem } from "../components/event/helper/eventBuilder";
 import { Information } from "../layouts/icons";
 import { InfoCard } from "../layouts/infoCards";
+import { VerifiedRender } from "../routes/verifiedRender";
 
 export const SingleEventContext = createContext();
 
@@ -130,28 +131,30 @@ function SingleEventDash() {
                     {/* event item card */}
                     <EventItem />
                     {/* publish commnent */}
-                    {eventData.joinedStatus === OWNER ||
-                    eventData.joinedStatus === ACCEPTED ? (
-                      <CreateComment id={params.id} />
-                    ) : (
-                      <Card className="event-card">
-                        <Card.Body>
-                          <Card.Text>
-                            You will be able collaborate with others via
-                            comments once you are accepted.
-                          </Card.Text>
-                        </Card.Body>
-                      </Card>
-                    )}
-                    {/* manage members */}
-                    {eventData.joinedStatus === OWNER &&
-                    !eventData.fullStatus &&
-                    eventData.eventStatus !== CANCELLED &&
-                    eventData.eventStatus !== FINISHED ? (
-                      <ManageMembers />
-                    ) : (
-                      ""
-                    )}
+                    <VerifiedRender>
+                      {eventData.joinedStatus === OWNER ||
+                      eventData.joinedStatus === ACCEPTED ? (
+                        <CreateComment id={params.id} />
+                      ) : (
+                        <Card className="event-card">
+                          <Card.Body>
+                            <Card.Text>
+                              You will be able collaborate with others via
+                              comments once you are accepted.
+                            </Card.Text>
+                          </Card.Body>
+                        </Card>
+                      )}
+                      {/* manage members */}
+                      {eventData.joinedStatus === OWNER &&
+                      !eventData.fullStatus &&
+                      eventData.eventStatus !== CANCELLED &&
+                      eventData.eventStatus !== FINISHED ? (
+                        <ManageMembers />
+                      ) : (
+                        ""
+                      )}
+                    </VerifiedRender>
                   </Container>
                 </div>
               </div>

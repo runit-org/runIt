@@ -6,6 +6,8 @@ import EventItemCard from "../components/event/eventItemCard";
 import CurrentUserProfile from "../components/profile/currentUserProfile";
 import { EventHandler } from "../components/event/helper/actionHandlers";
 import SuggestItem from "../components/suggestions/suggestItem";
+import { VerifiedRender } from "../routes/verifiedRender";
+import ResendOtp from "../components/userAuth/resendOtp";
 
 function MainDash() {
   //pagination and event api
@@ -38,7 +40,9 @@ function MainDash() {
         <div className="content">
           <Container>
             <div>
-              <CreatePost suggestion={suggestedData} />
+              <VerifiedRender>
+                <CreatePost suggestion={suggestedData} />
+              </VerifiedRender>
               <Row xs={1} sm={1} md={1}>
                 {eventData.results
                   ? eventData.results.map((event, index) => (
@@ -66,6 +70,7 @@ function MainDash() {
         <div className="sidebar">
           <div className="sidebar-wrapper ">
             <div className="sidebar_right">
+              <ResendOtp />
               <Card>
                 <Card.Body>
                   <CurrentUserProfile />

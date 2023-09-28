@@ -7,6 +7,7 @@ import Vote from "../components/profile/vote";
 import UserProfileHandler from "../components/profile/helper/actionHandlers.js";
 import { ArrowRight, Smiley } from "./icons";
 import { DisplayImage } from "./userDisplayImg";
+import { VerifiedRender } from "../routes/verifiedRender";
 
 const UserPopoverContent = (props) => {
   const user = UserProfileHandler(props.data);
@@ -57,13 +58,15 @@ const UserPopoverContent = (props) => {
             </div>
           </div>
 
-          {user.username !== localStorage.getItem("username") ? (
-            <div className="mt-4">
-              <Vote user={user} fullW={true} />
-            </div>
-          ) : (
-            ""
-          )}
+          <VerifiedRender>
+            {user.username !== localStorage.getItem("username") ? (
+              <div className="mt-4">
+                <Vote user={user} fullW={true} />
+              </div>
+            ) : (
+              ""
+            )}
+          </VerifiedRender>
         </div>
       ) : (
         ""

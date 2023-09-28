@@ -8,6 +8,7 @@ import { getNotifications } from "../services/actions/notificationActions";
 import { AppLogo, Notification } from "./icons";
 import UserStatus from "../components/profile/userStatus";
 import { useHandleLogout } from "../hooks/useHandleLogout";
+import { VerifiedRender } from "../routes/verifiedRender";
 
 function Header() {
   const dispatch = useDispatch();
@@ -81,9 +82,11 @@ function Header() {
           <Navbar.Collapse>
             <Nav className="me-auto ms-4">
               <div className="responsive-elements">
-                <Nav.Link className="button-wrapper mb-1" as="div">
-                  <UserStatus />
-                </Nav.Link>
+                <VerifiedRender>
+                  <Nav.Link className="button-wrapper mb-1" as="div">
+                    <UserStatus />
+                  </Nav.Link>
+                </VerifiedRender>
                 <Nav.Link onClick={handleNotifShow}>Notifications</Nav.Link>
                 <Nav.Link
                   href={
@@ -157,9 +160,11 @@ function Header() {
                 }
                 id="basic-nav-dropdown"
               >
-                <NavDropdown.Item className="button-wrapper mb-1" as="div">
-                  <UserStatus />
-                </NavDropdown.Item>
+                <VerifiedRender>
+                  <NavDropdown.Item className="button-wrapper mb-1" as="div">
+                    <UserStatus />
+                  </NavDropdown.Item>
+                </VerifiedRender>
                 <NavDropdown.Item
                   href={
                     currentUser
