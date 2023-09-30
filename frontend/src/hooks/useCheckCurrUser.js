@@ -12,5 +12,5 @@ export function useVerifyAuthUser() {
   var authUser = user ? user.username === currentUser.username : false;
 
   //returns current user validation value and user info
-  return { authUser, user };
+  return { authUser, user, currentUser };
 }

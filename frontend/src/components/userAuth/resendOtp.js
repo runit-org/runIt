@@ -11,7 +11,7 @@ import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
 function ResendOtp() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
-  const { user } = useVerifyAuthUser();
+  const { currentUser } = useVerifyAuthUser();
   const [load, setLoad] = useState(false);
 
   const handleSubmit = (e) => {
@@ -23,12 +23,12 @@ function ResendOtp() {
     });
   };
 
-  if (!user || Object.keys(user).length === 0) {
+  if (!currentUser || Object.keys(currentUser).length === 0) {
     return null;
   }
 
   return (
-    <Alert show={!user.is_email_verified} variant="danger">
+    <Alert show={!currentUser.is_email_verified} variant="danger">
       <h6 className="d-flex justify-content-between">
         Verify your account <ResponseItem />
       </h6>
