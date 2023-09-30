@@ -41,7 +41,7 @@ export const createNewUser =
       .post("/auth/register/", userData)
       .then((res) => {
         if (res.status === ResponseStatus.OK) {
-          navigate("/", {
+          navigate("/verify", {
             replace: true,
             state: { id: res.data },
           });

@@ -32,7 +32,7 @@ function ResendOtp() {
       <h6 className="d-flex justify-content-between">
         Verify your account <ResponseItem />
       </h6>
-      <small>Verify your account to gain uninterrupted access.</small>
+      <small>Verify your account to start running it! 🚀</small>
 
       <CTAButton
         type={"submit"}

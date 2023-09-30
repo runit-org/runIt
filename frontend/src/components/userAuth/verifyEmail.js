@@ -6,13 +6,14 @@ import { useDispatch } from "react-redux";
 import { ResponseItem } from "../../layouts/responseItems";
 import { useHandleChange } from "../../hooks/useHandleChange";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { verifyEmail } from "../../services/actions/securityActions.js";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function VerifyEmail() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
+  const { state } = useLocation();
   const [load, setLoad] = useState(false);
   const { formValue, handleFieldChange } = useHandleChange({
     token: "",
@@ -23,7 +24,7 @@ function VerifyEmail() {
     dispatch(verifyEmail(formValue, setLoad)).then(({ status }) => {
       if (status === ResponseStatus.OK) {
         setTimeout(() => {
-          navigate("/posts");
+          navigate("/");
         }, 2000);
       }
     });
@@ -32,7 +33,17 @@ function VerifyEmail() {
   return (
     <>
       <SectionHeader>Verify account</SectionHeader>
+
       <div className="otp-card p-2">
+        {state ? (
+          <div className="message-block">
+            Hello{" "}
+            <span style={{ color: "#5865f2" }}>{state.id.data.username}</span>,
+            you're just one step away from unlocking complete{" "}
+            <span style={{ color: "#5865f2" }}>runit</span> functionalities. 🚀
+          </div>
+        ) : null}
+
         <Form
           onSubmit={(e) => {
             handleSubmit(e);
@@ -65,7 +76,7 @@ function VerifyEmail() {
               }}
               className="text-muted"
             >
-              return to dash
+              verify later
             </Link>
           </div>
         </Form>
