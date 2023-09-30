@@ -8,3 +8,4 @@ class get(Enum):
     MAX_TITLE_LENGTH                     = 200
     MAX_CONTENT_LENGTH                   = 400
     MAX_CRED_LENGTH                      = 100
+    SEND_FEEDBACK_INTERVAL               = 300 #seconds
