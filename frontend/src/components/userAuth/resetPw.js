@@ -2,20 +2,21 @@ import React, { useEffect, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { resetPw } from "../../services/actions/securityActions";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ResponseItem } from "../../layouts/responseItems";
 
 import { FormButton } from "./helper/auth-builder";
 import { useHandleChange } from "../../hooks/useHandleChange";
 import { FormGroup, FormLabel } from "../../layouts/customForm";
 
-function ResetPassword(props) {
+function ResetPassword() {
   const dispatch = useDispatch();
+  let { token } = useParams();
 
   const { formValue, handleFieldChange } = useHandleChange({
     password: "",
     c_password: "",
-    token: props.token,
+    token: encodeURIComponent(token),
   });
   const [load, setLoad] = useState(false);
   const [formSwitch, setFormSwitch] = useState(false);

@@ -1,6 +1,6 @@
 import "./styles/App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Navigate, Route, Routes, useParams } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import AuthDash from "./pages/authDash";
 import React, { lazy, Suspense } from "react";
 import { ProtectedRoute } from "./routes/protectedRoute";
@@ -25,7 +25,6 @@ const SingleEventDash = lazy(() => import("./pages/singleEventDash"));
 const EventsDash = lazy(() => import("./pages/eventsDash"));
 
 function App() {
-  let { token } = useParams();
   return (
     <Suspense
       fallback={
@@ -50,13 +49,10 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
             <Route
-              path="reset-password/:token"
+              path="reset-password-auth"
               element={<ResetPasswordEmail />}
             />
-            <Route
-              path="reset-password-auth"
-              element={<ResetPassword token={encodeURIComponent(token)} />}
-            />
+            <Route path="reset-password/:token" element={<ResetPassword />} />
             <Route path="verify" element={<VerifyEmail />} />
           </Route>
 
