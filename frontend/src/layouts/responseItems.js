@@ -56,7 +56,7 @@ export const ResponseItem = () => {
   // Helper function to render password error items
   const renderErrorItems = (errors) => {
     return errors.map((item, index) => (
-      <small className="text-danger" key={index}>
+      <small className="text-danger d-block" key={index}>
         {item}
       </small>
     ));
