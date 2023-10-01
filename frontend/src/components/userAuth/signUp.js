@@ -79,7 +79,6 @@ function SignUp() {
                 type="password"
                 name="password"
                 onChange={handleFieldChange}
-                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
                 required
               />
             </FormGroup>
@@ -93,6 +92,10 @@ function SignUp() {
                 required
               />
             </FormGroup>
+            <Form.Text>
+              Minimum 8 characters At least 1 number At least 1 alphabetical
+              letter At least 1 special character (e.g., @$!%*#?&)
+            </Form.Text>
             <ResponseItem />
             <FormButton load={load} name="Continue" />
           </Row>
