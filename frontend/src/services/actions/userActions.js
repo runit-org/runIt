@@ -213,7 +213,7 @@ export const feedback = (postData, setLoad) => async (dispatch) => {
           type: GET_ERRORS,
           payload: error.response,
         });
-        return error;
+        return error.response;
       });
   });
 };

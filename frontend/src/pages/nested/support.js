@@ -10,12 +10,13 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { feedback } from "../../services/actions/userActions.js";
 import { FeedbackTypes } from "../../components/profile/helper/profileBuilder.js";
+import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function Support() {
   const dispatch = useDispatch();
   const [load, setLoad] = useState(false);
   const { feedbackType, category } = FeedbackTypes();
-
+  const [success, setSuccess] = useState(false);
   const { formValue, handleFieldChange } = useHandleChange({
     type: "",
     category: "",
@@ -24,7 +25,11 @@ function Support() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(feedback(formValue, setLoad));
+    dispatch(feedback(formValue, setLoad)).then(({ status }) => {
+      if (status === ResponseStatus.OK) {
+        setSuccess(true);
+      }
+    });
   };
 
   return (
@@ -76,72 +81,83 @@ function Support() {
             </Row>
             <SectionHeader>Looking for something else?</SectionHeader>
             <div className="border p-4">
-              <fieldset>
-                <Form
-                  onSubmit={(e) => {
-                    handleSubmit(e);
-                  }}
-                >
-                  <FormGroup formId="formBasicType" customStyle="col-md-6">
-                    <FormLabel>Type</FormLabel>
+              {!success ? (
+                <fieldset>
+                  <Form
+                    onSubmit={(e) => {
+                      handleSubmit(e);
+                    }}
+                  >
+                    <FormGroup formId="formBasicType" customStyle="col-md-6">
+                      <FormLabel>Type</FormLabel>
 
-                    <Form.Select
-                      name="type"
-                      onChange={handleFieldChange}
-                      aria-label="Default select example"
+                      <Form.Select
+                        name="type"
+                        onChange={handleFieldChange}
+                        aria-label="Default select example"
+                      >
+                        <option>Type</option>
+                        {feedbackType.map((item, i) => {
+                          return (
+                            <option key={i} value={item.value}>
+                              {item.title}
+                            </option>
+                          );
+                        })}
+                      </Form.Select>
+                    </FormGroup>
+                    <FormGroup
+                      formId="formBasicCategory"
+                      customStyle="col-md-6"
                     >
-                      <option>Type</option>
-                      {feedbackType.map((item, i) => {
-                        return (
-                          <option key={i} value={item.value}>
-                            {item.title}
-                          </option>
-                        );
-                      })}
-                    </Form.Select>
-                  </FormGroup>
-                  <FormGroup formId="formBasicCategory" customStyle="col-md-6">
-                    <FormLabel>Category</FormLabel>
+                      <FormLabel>Category</FormLabel>
 
-                    <Form.Select
-                      name="category"
-                      onChange={handleFieldChange}
-                      aria-label="Default select example"
-                    >
-                      <option>Category</option>
-                      {category.map((item, i) => {
-                        return (
-                          <option key={i} value={item.value}>
-                            {item.title}
-                          </option>
-                        );
-                      })}
-                    </Form.Select>
-                  </FormGroup>
+                      <Form.Select
+                        name="category"
+                        onChange={handleFieldChange}
+                        aria-label="Default select example"
+                      >
+                        <option>Category</option>
+                        {category.map((item, i) => {
+                          return (
+                            <option key={i} value={item.value}>
+                              {item.title}
+                            </option>
+                          );
+                        })}
+                      </Form.Select>
+                    </FormGroup>
 
-                  <FormGroup formId="formBasicDetails">
-                    <FormLabel>Details</FormLabel>
-                    <Form.Control
-                      type="details"
-                      as="textarea"
-                      name="details"
-                      onChange={handleFieldChange}
-                      required
+                    <FormGroup formId="formBasicDetails">
+                      <FormLabel>Details</FormLabel>
+                      <Form.Control
+                        type="details"
+                        as="textarea"
+                        name="details"
+                        onChange={handleFieldChange}
+                        required
+                      />
+                    </FormGroup>
+                    <ResponseItem />
+                    <CTAButton
+                      type={"submit"}
+                      btnStyle={"formBtn cta_button d-block mt-2"}
+                      variant={"primary"}
+                      isLoading={load}
+                      placeholder={
+                        <div className="d-flex align-items-center">Submit</div>
+                      }
                     />
-                  </FormGroup>
-
-                  <CTAButton
-                    type={"submit"}
-                    btnStyle={"formBtn cta_button"}
-                    variant={"primary"}
-                    isLoading={load}
-                    placeholder={
-                      <div className="d-flex align-items-center">Submit</div>
-                    }
-                  />
-                  <ResponseItem />
-                </Form>
-              </fieldset>
+                  </Form>
+                </fieldset>
+              ) : (
+                <>
+                  <h4>Feedback Received</h4>
+                  <span>
+                    Thank you for getting in touch. We will respond shortly.
+                  </span>
+                </>
+              )}
             </div>
           </div>
         </Container>
