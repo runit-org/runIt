@@ -82,6 +82,7 @@ function CreateEvent(props) {
           timeStyle: "short",
           hour12: false,
         }),
+        maxMember: formValue.maxMember,
       });
     }
   }, [props.suggestion, setFormValue]);
