@@ -10,6 +10,7 @@ import {
   SERVER_ERROR,
 } from "../../../services/constants/responseStatus";
 import { useNavigate } from "react-router-dom";
+import { GroupEntriesByMonthAndYear } from "../../../utilities/utility-service";
 
 const UserProfileHandler = (data) => {
   const dispatch = useDispatch();
@@ -68,10 +69,11 @@ export const GetVotes = (pageId) => {
 export const GetActivity = (userName) => {
   const dispatch = useDispatch();
   const [activity, setActivity] = useState({});
+  const [groupedEntries, setGroupedEntries] = useState({});
   const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    if (userName) dispatch(getActivity(userName, setLoad));
+    if (userName) dispatch(getActivity(1, userName, setLoad));
   }, [dispatch, userName]);
 
   var userActivity = useSelector((userReducer) => userReducer.users.activity);
@@ -82,5 +84,50 @@ export const GetActivity = (userName) => {
     }
   }, [userActivity]);
 
-  return { activity, load };
+  useEffect(() => {
+    setGroupedEntries(GroupEntriesByMonthAndYear(activity.results));
+  }, [activity]);
+
+  return { activity, load, groupedEntries };
+};
+
+export const GetActivity2 = (userName) => {
+  const dispatch = useDispatch();
+  const [activity, setActivity] = useState({ results: [] });
+  const [groupedEntries, setGroupedEntries] = useState([]);
+  const [load, setLoad] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    if (userName) {
+      dispatch(getActivity(currentPage, userName, setLoad));
+    }
+  }, [dispatch, userName, currentPage]);
+
+  var userActivity = useSelector((userReducer) => userReducer.users.activity);
+
+  useEffect(() => {
+    if (
+      userActivity &&
+      userActivity.results &&
+      userActivity.results.length > 0
+    ) {
+      setActivity((prevActivity) => ({
+        ...prevActivity,
+        results: [...prevActivity.results, ...userActivity.results],
+      }));
+    }
+  }, [userActivity]);
+
+  useEffect(() => {
+    if (activity.results && activity.results.length > 0) {
+      setGroupedEntries(GroupEntriesByMonthAndYear(activity.results));
+    }
+  }, [activity]);
+
+  const handleLoadMore = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  return { activity, load, groupedEntries, handleLoadMore };
 };

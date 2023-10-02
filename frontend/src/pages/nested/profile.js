@@ -7,7 +7,10 @@ import Timeline from "../../layouts/timeline";
 import { useEditor } from "../../hooks/useEditor";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
 import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
-import { GetActivity } from "../../components/profile/helper/actionHandlers";
+import {
+  GetActivity,
+  GetActivity2,
+} from "../../components/profile/helper/actionHandlers";
 import { Loading } from "../../layouts/loader";
 // import { AffiliatedEvents } from "../event/utilities/actionHandlers";
 
@@ -15,18 +18,25 @@ function Profile() {
   const { editorMode, handleClick } = useEditor(false);
   // const affiliatedEvents = AffiliatedEvents(2);
   const { authUser, user } = useVerifyAuthUser();
-  const { activity, load } = GetActivity(user ? user.username : "");
+  /* const { activity, load, groupedEntries, handleLoadMore } = GetActivity(
+    user ? user.username : ""
+  ); */
+
+  const { activity, load, groupedEntries, handleLoadMore } = GetActivity2(
+    user ? user.username : ""
+  );
 
   return (
     <>
       <div className="content">
         <Container className="content-wrapper">
-          {activity.count > 0 ? (
+          {activity.results.length > 0 ? (
             <>
               <SectionHeader size={"md"}>User Acitvity</SectionHeader>
-              <Timeline data={activity.results || []} />
+              <Timeline data={groupedEntries || []} />
+              <button onClick={handleLoadMore}>Show More</button>
             </>
-          ) : !load && activity.count === 0 ? (
+          ) : !load && activity.results.length === 0 ? (
             <div>
               <h1>Nothing yet...</h1>
               <small>

@@ -4,29 +4,36 @@ import { Link } from "react-router-dom";
 
 function Timeline({ data }) {
   return (
-    <ol className="timeline">
-      {data.map((item, index) => {
-        return (
-          <li key={index}>
-            <span className="icon">
-              <TimelineIcons icons={item.type} />
-            </span>
-            <h5 className="d-flex align-items-center mb-1">
-              <Link to={item.link}>{item.title}</Link>{" "}
-              {index === 0 && <Badge>Latest</Badge>}
-            </h5>
-            <time className="d-block mb-2 text-muted">
-              {item.humanTimeDiffCreatedAt} ago
-            </time>
-            <p
-              dangerouslySetInnerHTML={{
-                __html: item.details,
-              }}
-            />
-          </li>
-        );
-      })}
-    </ol>
+    <>
+      {Object.keys(data).map((item) => (
+        <div key={item}>
+          <h3 className="timeline_date ">
+            <span>{item}</span>
+          </h3>
+          <ol className="timeline">
+            {data[item].map((entry, index) => (
+              <li key={index}>
+                <span className="icon">
+                  <TimelineIcons icons={entry.type} />
+                </span>
+                <h5 className="d-flex align-items-center mb-1">
+                  <Link to={entry.link}>{entry.title}</Link>{" "}
+                  {index === 0 && <Badge>Latest</Badge>}
+                </h5>
+                <time className="d-block mb-2 text-muted">
+                  {entry.humanTimeDiffCreatedAt} ago
+                </time>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: entry.details,
+                  }}
+                />
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+    </>
   );
 }
 

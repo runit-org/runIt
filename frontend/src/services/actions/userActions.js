@@ -169,12 +169,12 @@ export const changePassword = (postData, setLoad) => async (dispatch) => {
   });
 };
 
-export const getActivity = (userName, setLoad) => async (dispatch) => {
+export const getActivity = (page, userName, setLoad) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     setLoad(true);
     axios
-      .get(`/user/activity/${userName}/`)
+      .get(`/user/activity/${userName}/?page=${page}`)
       .then((res) => {
         if (res.status === OK) {
           dispatch({
