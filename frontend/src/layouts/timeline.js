@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 function Timeline({ data }) {
   return (
     <>
-      {Object.keys(data).map((item) => (
-        <div key={item}>
+      {Object.keys(data).map((item, i) => (
+        <div key={i}>
           <h3 className="timeline_date ">
             <span>{item}</span>
           </h3>
@@ -18,7 +18,7 @@ function Timeline({ data }) {
                 </span>
                 <h5 className="d-flex align-items-center mb-1">
                   <Link to={entry.link}>{entry.title}</Link>{" "}
-                  {index === 0 && <Badge>Latest</Badge>}
+                  {i === 0 && <Badge>Latest</Badge>}
                 </h5>
                 <time className="d-block mb-2 text-muted">
                   {entry.humanTimeDiffCreatedAt} ago
