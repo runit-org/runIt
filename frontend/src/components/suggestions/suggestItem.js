@@ -7,6 +7,7 @@ import { Skeleton } from "../../layouts/loader";
 import PopoverItem from "./popoverItem";
 import { EventSuggestHandler } from "./helper/suggestHandler";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
+import { VerifiedRender } from "../../routes/verifiedRender";
 
 function SuggestItem(props) {
   const [data, setData] = useState("");
@@ -49,14 +50,15 @@ function SuggestItem(props) {
                 </div>
                 <div className="d-flex justify-content-between align-items-start mt-4">
                   <Badge bg="secondary">{item.category}</Badge>
-
-                  <Button
-                    className="d-block"
-                    onClick={() => setData(item)}
-                    size="sm"
-                  >
-                    Event it
-                  </Button>
+                  <VerifiedRender>
+                    <Button
+                      className="d-block"
+                      onClick={() => setData(item)}
+                      size="sm"
+                    >
+                      Event it
+                    </Button>
+                  </VerifiedRender>
                 </div>
               </ListGroup.Item>
             );
