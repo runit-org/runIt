@@ -66,7 +66,7 @@ function SuggestItem(props) {
         ) : suggestData.isLoading ? (
           <Skeleton />
         ) : (
-          "No suggestions at this moment...."
+          <h6 className="m-1">No suggestions at this moment....</h6>
         )}
       </ListGroup>
     </>
