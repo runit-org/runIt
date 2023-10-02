@@ -32,9 +32,9 @@ function ChangePassword() {
   return (
     <>
       <SectionHeader>Change password</SectionHeader>
-      <Form.Text className="text-muted d-block ms-1">
+      <small className="text-muted d-block ms-1">
         You will be logged out upon successful password update.
-      </Form.Text>
+      </small>
       <hr />
       <div className="p-2">
         <fieldset>

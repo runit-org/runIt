@@ -9,13 +9,18 @@ import { InfoCard } from "../../layouts/infoCards.js";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { feedback } from "../../services/actions/userActions.js";
-import { FeedbackTypes } from "../../components/profile/helper/profileBuilder.js";
+import {
+  FeedbackTypes,
+  SupportObj,
+} from "../../components/profile/helper/profileBuilder.js";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function Support() {
   const dispatch = useDispatch();
   const [load, setLoad] = useState(false);
   const { feedbackType, category } = FeedbackTypes();
+  const { support } = SupportObj();
+
   const [success, setSuccess] = useState(false);
   const { formValue, handleFieldChange } = useHandleChange({
     type: "",
@@ -38,49 +43,39 @@ function Support() {
         <Container className="content-wrapper">
           <div className="mx-4 col-md-8">
             <SectionHeader>Feedback & Support</SectionHeader>
+            <small className="text-muted d-block ms-1">
+              Browse through our Help Center articles
+            </small>
             <hr />
-
-            <Row className="my-4">
-              <div className="col-md-4">
-                <InfoCard
-                  title="Events"
-                  content={
-                    <>
-                      Learn how to create and manage events.
-                      <Link className="d-block mt-2">Learn more</Link>
-                    </>
-                  }
-                  cardStyle={{ backgroundColor: "#eaebfd" }}
-                />
-              </div>
-              <div className="col-md-4">
-                <InfoCard
-                  title="Account Settings"
-                  content={
-                    <>
-                      Learn how to manage your account.{" "}
-                      <Link className="d-block mt-2">Learn more</Link>
-                    </>
-                  }
-                  cardStyle={{ backgroundColor: "#eaebfd" }}
-                />
-              </div>
-              <div className="col-md-4">
-                <InfoCard
-                  title="Security"
-                  content={
-                    <>
-                      {" "}
-                      How to reset password and verify your account.{" "}
-                      <Link className="d-block mt-2">Learn more</Link>
-                    </>
-                  }
-                  cardStyle={{ backgroundColor: "#eaebfd" }}
-                />
-              </div>
+            <Row className="mt-2 mb-4 row-gap-2">
+              {support.map((item, i) => {
+                return (
+                  <div className="col-md-4" key={i}>
+                    <InfoCard
+                      title={
+                        <span className="m-0 fw-semibold">{item.title}</span>
+                      }
+                      content={
+                        <>
+                          <small>{item.content}</small>
+                          <span className="d-block mt-4">
+                            <Link
+                              className="d-block position-absolute bottom-0"
+                              to={item.route}
+                            >
+                              Learn more
+                            </Link>
+                          </span>
+                        </>
+                      }
+                      cardStyle={{ backgroundColor: "#eaebfd", height: "100%" }}
+                    />
+                  </div>
+                );
+              })}
             </Row>
             <SectionHeader>Looking for something else?</SectionHeader>
-            <div className="border p-4">
+            <div className="border p-4 rounded-2">
               {!success ? (
                 <fieldset>
                   <Form
@@ -89,14 +84,15 @@ function Support() {
                     }}
                   >
                     <FormGroup formId="formBasicType" customStyle="col-md-6">
-                      <FormLabel>Type</FormLabel>
-
+                      <FormLabel>Topic</FormLabel>
                       <Form.Select
                         name="type"
                         onChange={handleFieldChange}
                         aria-label="Default select example"
                       >
-                        <option>Type</option>
+                        <option disabled selected>
+                          Select a topic
+                        </option>
                         {feedbackType.map((item, i) => {
                           return (
                             <option key={i} value={item.value}>
@@ -111,13 +107,14 @@ function Support() {
                       customStyle="col-md-6"
                     >
                       <FormLabel>Category</FormLabel>
-
                       <Form.Select
                         name="category"
                         onChange={handleFieldChange}
                         aria-label="Default select example"
                       >
-                        <option>Category</option>
+                        <option disabled selected>
+                          Select a category
+                        </option>
                         {category.map((item, i) => {
                           return (
                             <option key={i} value={item.value}>
@@ -127,16 +124,20 @@ function Support() {
                         })}
                       </Form.Select>
                     </FormGroup>
-
                     <FormGroup formId="formBasicDetails">
                       <FormLabel>Details</FormLabel>
                       <Form.Control
                         type="details"
                         as="textarea"
+                        placeholder="Describe the issue..."
                         name="details"
                         onChange={handleFieldChange}
                         required
                       />
+                      <small className="d-block mb-2">
+                        Share your feedback to enhance runit or report a bug to
+                        help us improve!
+                      </small>
                     </FormGroup>
                     <ResponseItem />
                     <CTAButton
@@ -145,14 +146,14 @@ function Support() {
                       variant={"primary"}
                       isLoading={load}
                       placeholder={
-                        <div className="d-flex align-items-center">Submit</div>
+                        <div className="d-flex align-items-center">Send</div>
                       }
                     />
                   </Form>
                 </fieldset>
               ) : (
                 <>
-                  <h4>Feedback Received</h4>
+                  <h4>Feedback received</h4>
                   <span>
                     Thank you for getting in touch. We will respond shortly.
                   </span>

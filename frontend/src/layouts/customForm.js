@@ -14,7 +14,7 @@ function FormGroup({ children, formId, customStyle }) {
 function FormLabel({ children, customStyle }) {
   return (
     <Form.Label
-      className={`text-muted small ${customStyle ? customStyle : ""}`}
+      className={`text-muted fw-medium small ${customStyle ? customStyle : ""}`}
     >
       {children}
     </Form.Label>

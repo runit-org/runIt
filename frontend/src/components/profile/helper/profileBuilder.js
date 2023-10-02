@@ -79,3 +79,25 @@ export const FeedbackTypes = () => {
 
   return { feedbackType, category };
 };
+
+export const SupportObj = () => {
+  const support = [
+    {
+      title: "Events",
+      content: "Learn how to create and manage events.",
+      route: "/",
+    },
+    {
+      title: "Account",
+      content: "Learn how to manage your account",
+      route: "/",
+    },
+    {
+      title: "Security",
+      content: "How to reset password and verify your account.",
+      route: "/",
+    },
+  ];
+
+  return { support };
+};
