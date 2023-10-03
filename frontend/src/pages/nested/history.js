@@ -1,30 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, Container } from "react-bootstrap";
 import UserProfile from "../../components/profile/userProfile";
 import { CustomTable, CustomTableCells } from "../../layouts/customTable";
 import SortDropdown from "../../layouts/sortDropdown";
 import { GetVotes } from "../../components/profile/helper/actionHandlers";
 import { Username } from "../../layouts/username";
-import Pagination from "../../layouts/pagination";
+import CTAButton from "../../layouts/ctaButton";
+import { Loading } from "../../layouts/loader";
 
 function History() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage] = useState(10);
-  const { count, results } = GetVotes(currentPage);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  /*   useEffect(() => {
-    const getUserList = () => {
-      axios
-        .get(`http://localhost:8000/api/user/vote/?page=${currentPage}`)
-
-        .then((res) => {
-          setTest([...test, ...res.data.results]);
-        });
-    };
-    getUserList();
-  }, [currentPage]); */
-
+  const { count, hasMore, load, votesList, handleLoadMore } = GetVotes();
   return (
     <>
       <div className="content">
@@ -40,9 +25,9 @@ function History() {
                 </th>
               }
               tableItems={
-                results && count > 0 ? (
+                count > 0 ? (
                   <>
-                    {results.map((item, i) => {
+                    {votesList.map((item, i) => {
                       return (
                         <tr key={i} className="table_row">
                           <CustomTableCells cols={"col-11"}>
@@ -65,7 +50,7 @@ function History() {
                       );
                     })}
                   </>
-                ) : (
+                ) : !load && count === 0 ? (
                   <tr className="table_row">
                     <td className="text-center">
                       <div className="table-content">
@@ -73,15 +58,25 @@ function History() {
                       </div>
                     </td>
                   </tr>
+                ) : (
+                  <Loading />
                 )
               }
               tablePagination={
-                <Pagination
-                  postsPerPage={postPerPage}
-                  totalPosts={count}
-                  paginate={paginate}
-                  currentPage={currentPage}
-                />
+                hasMore && (
+                  <CTAButton
+                    type={"submit"}
+                    btnStyle={"formBtn cta_button d-block mt-2 w-100"}
+                    variant={"primary"}
+                    isLoading={load}
+                    onClick={handleLoadMore}
+                    placeholder={
+                      <div className="d-flex align-items-center justify-content-center">
+                        Show more
+                      </div>
+                    }
+                  />
+                )
               }
             />
           </>

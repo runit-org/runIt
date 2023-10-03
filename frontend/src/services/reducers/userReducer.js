@@ -8,7 +8,11 @@ import {
 const initialState = {
   userProfile: {},
   currProfile: {},
-  votes: [],
+  votes: {
+    results: [],
+    next: null,
+    currentPage: 0,
+  },
   activity: {
     results: [],
     next: null,
@@ -28,10 +32,16 @@ export default function setUser(state = initialState, action) {
         ...state,
         currProfile: action.payload,
       };
+
     case GET_VOTES:
       return {
         ...state,
-        votes: action.payload,
+        votes: {
+          results: [...state.votes.results, ...action.payload.results],
+          next: action.payload.next,
+          currentPage: state.votes.currentPage + 1,
+          count: action.payload.count,
+        },
       };
     case GET_USER_ACTIVITY:
       return {
