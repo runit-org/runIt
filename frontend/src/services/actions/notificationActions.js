@@ -1,6 +1,7 @@
 import axios from "axios";
 import { GET_ERRORS, GET_ALL_NOTIFS } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
+import { securedGet } from "../../securityUtils/securedAxios";
 
 axios.defaults.baseURL = `${
   process.env.NODE_ENV === "production"
@@ -9,23 +10,8 @@ axios.defaults.baseURL = `${
 }/api`;
 
 export const getNotifications = () => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    axios
-      .get(`/notifications/all/`)
-      .then((res) => {
-        dispatch({
-          type: GET_ALL_NOTIFS,
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-      });
-  });
+  const apiEndpoint = `/notifications/all/`;
+  return await securedGet(dispatch, apiEndpoint, null, GET_ALL_NOTIFS);
 };
 
 export const notificationRead = (id) => async (dispatch) => {
