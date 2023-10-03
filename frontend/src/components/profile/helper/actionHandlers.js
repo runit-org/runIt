@@ -68,66 +68,39 @@ export const GetVotes = (pageId) => {
 
 export const GetActivity = (userName) => {
   const dispatch = useDispatch();
-  const [activity, setActivity] = useState({});
+  const [load, setLoad] = useState(false);
   const [groupedEntries, setGroupedEntries] = useState({});
-  const [load, setLoad] = useState(false);
 
-  useEffect(() => {
-    if (userName) dispatch(getActivity(1, userName, setLoad));
-  }, [dispatch, userName]);
-
+  //reducer data
   var userActivity = useSelector((userReducer) => userReducer.users.activity);
+  const { currentPage, next, count } = userActivity;
 
+  //get data on initial load
   useEffect(() => {
-    if (userActivity) {
-      setActivity(userActivity);
-    }
-  }, [userActivity]);
-
-  useEffect(() => {
-    setGroupedEntries(GroupEntriesByMonthAndYear(activity.results));
-  }, [activity]);
-
-  return { activity, load, groupedEntries };
-};
-
-export const GetActivity2 = (userName) => {
-  const dispatch = useDispatch();
-  const [activity, setActivity] = useState({ results: [] });
-  const [groupedEntries, setGroupedEntries] = useState([]);
-  const [load, setLoad] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    if (userName) {
-      dispatch(getActivity(currentPage, userName, setLoad));
+    if (userName && currentPage === 0) {
+      dispatch(getActivity(1, userName, setLoad));
     }
   }, [dispatch, userName, currentPage]);
 
-  var userActivity = useSelector((userReducer) => userReducer.users.activity);
-
-  useEffect(() => {
-    if (
-      userActivity &&
-      userActivity.results &&
-      userActivity.results.length > 0
-    ) {
-      setActivity((prevActivity) => ({
-        ...prevActivity,
-        results: [...prevActivity.results, ...userActivity.results],
-      }));
-    }
-  }, [userActivity]);
-
-  useEffect(() => {
-    if (activity.results && activity.results.length > 0) {
-      setGroupedEntries(GroupEntriesByMonthAndYear(activity.results));
-    }
-  }, [activity]);
-
+  //get data when traversing page
   const handleLoadMore = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    if (next) {
+      const url = new URL(next);
+      const urlParams = new URLSearchParams(url.search);
+      const pageParam = urlParams.get("page");
+      dispatch(getActivity(pageParam, userName, setLoad));
+    }
   };
 
-  return { activity, load, groupedEntries, handleLoadMore };
+  useEffect(() => {
+    setGroupedEntries(GroupEntriesByMonthAndYear(userActivity.results));
+  }, [userActivity]);
+
+  return {
+    load,
+    groupedEntries,
+    handleLoadMore,
+    count,
+    hasMore: !!next,
+  };
 };

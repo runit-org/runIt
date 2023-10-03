@@ -9,7 +9,11 @@ const initialState = {
   userProfile: {},
   currProfile: {},
   votes: [],
-  activity: {},
+  activity: {
+    results: [],
+    next: null,
+    currentPage: 0,
+  },
 };
 
 export default function setUser(state = initialState, action) {
@@ -32,7 +36,12 @@ export default function setUser(state = initialState, action) {
     case GET_USER_ACTIVITY:
       return {
         ...state,
-        activity: action.payload,
+        activity: {
+          results: [...state.activity.results, ...action.payload.results],
+          next: action.payload.next,
+          currentPage: state.activity.currentPage + 1,
+          count: action.payload.count,
+        },
       };
 
     default:

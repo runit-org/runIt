@@ -1,28 +1,21 @@
 import React from "react";
 import { Button, Card, Container } from "react-bootstrap";
-
 import UserProfile from "../../components/profile/userProfile";
 import UpdateDetails from "../../components/profile/updateDetails";
 import Timeline from "../../layouts/timeline";
 import { useEditor } from "../../hooks/useEditor";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
 import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
-import {
-  GetActivity,
-  GetActivity2,
-} from "../../components/profile/helper/actionHandlers";
+import { GetActivity } from "../../components/profile/helper/actionHandlers";
 import { Loading } from "../../layouts/loader";
+import CTAButton from "../../layouts/ctaButton";
 // import { AffiliatedEvents } from "../event/utilities/actionHandlers";
 
 function Profile() {
   const { editorMode, handleClick } = useEditor(false);
   // const affiliatedEvents = AffiliatedEvents(2);
   const { authUser, user } = useVerifyAuthUser();
-  /* const { activity, load, groupedEntries, handleLoadMore } = GetActivity(
-    user ? user.username : ""
-  ); */
-
-  const { activity, load, groupedEntries, handleLoadMore } = GetActivity2(
+  const { count, hasMore, load, groupedEntries, handleLoadMore } = GetActivity(
     user ? user.username : ""
   );
 
@@ -30,13 +23,26 @@ function Profile() {
     <>
       <div className="content">
         <Container className="content-wrapper">
-          {activity.results.length > 0 ? (
+          {count > 0 ? (
             <>
               <SectionHeader size={"md"}>User Acitvity</SectionHeader>
               <Timeline data={groupedEntries || []} />
-              <button onClick={handleLoadMore}>Show More</button>
+              {hasMore && (
+                <CTAButton
+                  type={"submit"}
+                  btnStyle={"formBtn cta_button d-block mt-2 w-100"}
+                  variant={"primary"}
+                  isLoading={load}
+                  onClick={handleLoadMore}
+                  placeholder={
+                    <div className="d-flex align-items-center justify-content-center">
+                      Show more
+                    </div>
+                  }
+                />
+              )}
             </>
-          ) : !load && activity.results.length === 0 ? (
+          ) : !load && count === 0 ? (
             <div>
               <h1>Nothing yet...</h1>
               <small>

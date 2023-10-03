@@ -7,9 +7,9 @@ function Timeline({ data }) {
     <>
       {Object.keys(data).map((item, i) => (
         <div key={i}>
-          <h3 className="timeline_date ">
+          <h5 className="timeline_date">
             <span>{item}</span>
-          </h3>
+          </h5>
           <ol className="timeline">
             {data[item].map((entry, index) => (
               <li key={index}>
@@ -18,7 +18,7 @@ function Timeline({ data }) {
                 </span>
                 <h5 className="d-flex align-items-center mb-1">
                   <Link to={entry.link}>{entry.title}</Link>{" "}
-                  {i === 0 && <Badge>Latest</Badge>}
+                  {i === 0 && index === 0 && <Badge>Latest</Badge>}
                 </h5>
                 <time className="d-block mb-2 text-muted">
                   {entry.humanTimeDiffCreatedAt} ago
