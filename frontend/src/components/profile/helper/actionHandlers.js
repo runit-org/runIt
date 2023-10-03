@@ -10,6 +10,7 @@ import {
   SERVER_ERROR,
 } from "../../../services/constants/responseStatus";
 import { useNavigate } from "react-router-dom";
+import { GroupEntriesByMonthAndYear } from "../../../utilities/utility-service";
 
 const UserProfileHandler = (data) => {
   const dispatch = useDispatch();
@@ -67,20 +68,39 @@ export const GetVotes = (pageId) => {
 
 export const GetActivity = (userName) => {
   const dispatch = useDispatch();
-  const [activity, setActivity] = useState({});
   const [load, setLoad] = useState(false);
+  const [groupedEntries, setGroupedEntries] = useState({});
 
-  useEffect(() => {
-    if (userName) dispatch(getActivity(userName, setLoad));
-  }, [dispatch, userName]);
-
+  //reducer data
   var userActivity = useSelector((userReducer) => userReducer.users.activity);
+  const { currentPage, next, count } = userActivity;
+
+  //get data on initial load
+  useEffect(() => {
+    if (userName && currentPage === 0) {
+      dispatch(getActivity(1, userName, setLoad));
+    }
+  }, [dispatch, userName, currentPage]);
+
+  //get data when traversing page
+  const handleLoadMore = () => {
+    if (next) {
+      const url = new URL(next);
+      const urlParams = new URLSearchParams(url.search);
+      const pageParam = urlParams.get("page");
+      dispatch(getActivity(pageParam, userName, setLoad));
+    }
+  };
 
   useEffect(() => {
-    if (userActivity) {
-      setActivity(userActivity);
-    }
+    setGroupedEntries(GroupEntriesByMonthAndYear(userActivity.results));
   }, [userActivity]);
 
-  return { activity, load };
+  return {
+    load,
+    groupedEntries,
+    handleLoadMore,
+    count,
+    hasMore: !!next,
+  };
 };

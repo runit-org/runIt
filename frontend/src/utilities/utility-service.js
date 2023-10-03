@@ -61,3 +61,23 @@ export const DateOrdinal = (number) => {
   var ordinal = number > 0 ? ["th", "st", "nd", "rd"][index] : "";
   return ordinal;
 };
+
+export const GroupEntriesByMonthAndYear = (data) => {
+  var months = Months();
+
+  return data
+    ? data.reduce((acc, entry) => {
+        const createdAt = new Date(entry.createdAt);
+        const yearMonth = `${months[
+          createdAt.getMonth()
+        ].toString()} ${createdAt.getFullYear()}`;
+
+        if (!acc[yearMonth]) {
+          acc[yearMonth] = [];
+        }
+
+        acc[yearMonth].push(entry);
+        return acc;
+      }, {})
+    : "";
+};
