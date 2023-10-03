@@ -10,7 +10,10 @@ import {
   SERVER_ERROR,
 } from "../../../services/constants/responseStatus";
 import { useNavigate } from "react-router-dom";
-import { GroupEntriesByMonthAndYear } from "../../../utilities/utility-service";
+import {
+  GetParamFromURL,
+  GroupEntriesByMonthAndYear,
+} from "../../../utilities/utility-service";
 
 const UserProfileHandler = (data) => {
   const dispatch = useDispatch();
@@ -39,31 +42,39 @@ const UserProfileHandler = (data) => {
 
 export default UserProfileHandler;
 
-export const GetVotes = (pageId) => {
+export const GetVotes = () => {
   const dispatch = useDispatch();
-  const [votesList, setVotesList] = useState({});
+  const [load, setLoad] = useState(false);
+  const [votesList, setVotesList] = useState([]);
 
-  useEffect(() => {
-    dispatch(getVotes(pageId));
-  }, [dispatch, pageId]);
-
+  //reducer data
   var votes = useSelector((userReducer) => userReducer.users.votes);
+  const { currentPage, next, count, results } = votes;
+
+  //get data on initial load
+  useEffect(() => {
+    if (currentPage === 0) dispatch(getVotes(1, setLoad));
+  }, [dispatch, currentPage]);
+
+  //get data when traversing page
+  const handleLoadMore = () => {
+    if (next) {
+      let pageParam = GetParamFromURL(next, "page");
+      dispatch(getVotes(pageParam, setLoad));
+    }
+  };
 
   useEffect(() => {
-    if (votes) {
-      setVotesList(votes);
-    }
-  }, [pageId, votes]);
+    setVotesList(results);
+  }, [results]);
 
-  /* useEffect(() => {
-    if (test && votes.results) {
-      // setTest([...test, ...votes.results.splice(0, pageId * 10)]);
-    }
-  }, [pageId, votes.results]);
-
-; */
-
-  return votesList;
+  return {
+    load,
+    votesList,
+    handleLoadMore,
+    count,
+    hasMore: !!next,
+  };
 };
 
 export const GetActivity = (userName) => {
@@ -85,9 +96,7 @@ export const GetActivity = (userName) => {
   //get data when traversing page
   const handleLoadMore = () => {
     if (next) {
-      const url = new URL(next);
-      const urlParams = new URLSearchParams(url.search);
-      const pageParam = urlParams.get("page");
+      let pageParam = GetParamFromURL(next, "page");
       dispatch(getActivity(pageParam, userName, setLoad));
     }
   };

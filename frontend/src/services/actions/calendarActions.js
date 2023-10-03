@@ -33,7 +33,12 @@ export const getMonthlyEvents = (id, month, year) => async (dispatch) => {
 };
 
 export const getDayEvents = (id, date, month, year) => async (dispatch) => {
-  await refreshToken().then((ref) => {
+  await protectedApi(
+    dispatch,
+    `/event/getPerDate/${id}/${date}-${month}-${year}/`,
+    GET_DAY_EVENTS
+  );
+  /*   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
       .get(`/event/getPerDate/${id}/${date}-${month}-${year}/`)
@@ -49,5 +54,22 @@ export const getDayEvents = (id, date, month, year) => async (dispatch) => {
           payload: error.response.data,
         });
       });
-  });
+  }); */
+};
+
+export const protectedApi = async (dispatch, api, type) => {
+  try {
+    const ref = await refreshToken();
+    setToken(ref.data.access);
+    const res = await axios.get(api);
+    dispatch({
+      type: type,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data,
+    });
+  }
 };

@@ -89,8 +89,9 @@ function Support() {
                         name="type"
                         onChange={handleFieldChange}
                         aria-label="Default select example"
+                        defaultValue={"DEFAULT"}
                       >
-                        <option disabled selected>
+                        <option value="DEFAULT" disabled>
                           Select a topic
                         </option>
                         {feedbackType.map((item, i) => {
@@ -111,8 +112,9 @@ function Support() {
                         name="category"
                         onChange={handleFieldChange}
                         aria-label="Default select example"
+                        defaultValue={"DEFAULT"}
                       >
-                        <option disabled selected>
+                        <option value="DEFAULT" disabled>
                           Select a category
                         </option>
                         {category.map((item, i) => {
