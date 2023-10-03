@@ -45,7 +45,7 @@ const securedGet = async (
       type: GET_ERRORS,
       payload: error.response.data,
     });
-    throw error;
+    return error;
   }
 };
 
@@ -88,7 +88,7 @@ const securedPost = async (
       type: GET_ERRORS,
       payload: error.response.data,
     });
-    throw error;
+    return error;
   }
 };
 
@@ -131,7 +131,7 @@ const securedPut = async (
       type: GET_ERRORS,
       payload: error.response.data,
     });
-    throw error;
+    return error;
   }
 };
 
@@ -174,7 +174,7 @@ const securedDelete = async (
       type: GET_ERRORS,
       payload: error.response,
     });
-    throw error;
+    return error;
   }
 };
 export { securedGet, securedPost, securedPut, securedDelete };
