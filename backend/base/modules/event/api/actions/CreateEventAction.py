@@ -88,4 +88,7 @@ def create(request):
     mention(event, event.details, user)
     EventCreated.dispatch(event = event)
 
-    return response('Event created', [])
+    context = {'userId' : request.user.id}
+    serializer = EventSerializer(event, context=context, many=False)
+
+    return response('Event created', serializer.data)
