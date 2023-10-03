@@ -38,11 +38,11 @@ export const getSingleEvent = (id) => async (dispatch) => {
   });
 };
 
-export const getAllEvents = (id) => async (dispatch) => {
+export const getAllEvents = (page) => async (dispatch) => {
   await refreshToken().then((ref) => {
     setToken(ref.data.access);
     axios
-      .get(`/event/all/?page=${id}`)
+      .get(`/event/all/?page=${page}`)
       .then((res) => {
         dispatch({
           type: GET_ALL_EVENTS,

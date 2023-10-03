@@ -70,42 +70,6 @@ export const SingleEventHandler = (params, pageId) => {
   return { eventData, commentData };
 };
 
-/* export const EventHandler = (initialPage = 1) => {
-  const dispatch = useDispatch();
-  const [eventData, setEventData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(initialPage);
-
-  useEffect(() => {
-    dispatch(getAllEvents(currentPage));
-  }, [dispatch, currentPage]);
-
-  const { events: allEventsData } = useSelector(
-    (eventReducer) => eventReducer.events
-  );
-
-  useEffect(() => {
-    if (allEventsData.results) {
-      setEventData((prevData) => {
-        const newEventData = [...prevData, ...allEventsData.results];
-        const uniqueEventData = newEventData.filter(
-          (event, index, self) =>
-            self.findIndex((e) => e.id === event.id) === index
-        );
-        return uniqueEventData;
-      });
-    }
-  }, [allEventsData]);
-
-  const handleShowMore = () => {
-    // Increment the currentPage and fetch the next set of events when the "Show More" button is clicked
-    const nextPage = currentPage + 1;
-    dispatch(getAllEvents(nextPage));
-    setCurrentPage(nextPage);
-  };
-
-  console.log(eventData);
-  return { eventData, handleShowMore };
-}; */
 export const EventHandler = (pageId) => {
   const dispatch = useDispatch();
   const [eventData, setEventData] = useState([]);

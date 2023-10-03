@@ -15,7 +15,6 @@ function MainDash() {
   const [postPerPage] = useState(10);
 
   const eventData = EventHandler(currentPage);
-  //const { eventData, handleShowMore } = EventHandler(currentPage);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   //suggestions
@@ -53,7 +52,6 @@ function MainDash() {
                   : ""}
               </Row>
             </div>
-            {/* <button onClick={handleShowMore}>Show More</button> */}
             {eventData.count > 10 ? (
               <Pagination
                 postsPerPage={postPerPage}
