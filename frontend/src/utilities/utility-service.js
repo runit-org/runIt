@@ -81,3 +81,11 @@ export const GroupEntriesByMonthAndYear = (data) => {
       }, {})
     : "";
 };
+
+export const GetParamFromURL = (api, param) => {
+  const url = new URL(api);
+  const urlParams = new URLSearchParams(url.search);
+  const pageParam = urlParams.get(param);
+
+  return pageParam;
+};

@@ -10,7 +10,10 @@ import {
   SERVER_ERROR,
 } from "../../../services/constants/responseStatus";
 import { useNavigate } from "react-router-dom";
-import { GroupEntriesByMonthAndYear } from "../../../utilities/utility-service";
+import {
+  GetParamFromURL,
+  GroupEntriesByMonthAndYear,
+} from "../../../utilities/utility-service";
 
 const UserProfileHandler = (data) => {
   const dispatch = useDispatch();
@@ -56,9 +59,7 @@ export const GetVotes = () => {
   //get data when traversing page
   const handleLoadMore = () => {
     if (next) {
-      const url = new URL(next);
-      const urlParams = new URLSearchParams(url.search);
-      const pageParam = urlParams.get("page");
+      let pageParam = GetParamFromURL(next, "page");
       dispatch(getVotes(pageParam, setLoad));
     }
   };
@@ -95,9 +96,7 @@ export const GetActivity = (userName) => {
   //get data when traversing page
   const handleLoadMore = () => {
     if (next) {
-      const url = new URL(next);
-      const urlParams = new URLSearchParams(url.search);
-      const pageParam = urlParams.get("page");
+      let pageParam = GetParamFromURL(next, "page");
       dispatch(getActivity(pageParam, userName, setLoad));
     }
   };
