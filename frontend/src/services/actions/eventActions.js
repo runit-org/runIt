@@ -11,6 +11,7 @@ import * as ResponseStatus from "../constants/responseStatus";
 import {
   securedDelete,
   securedGet,
+  securedPatch,
   securedPost,
   securedPut,
 } from "../../securityUtils/securedAxios";
@@ -72,33 +73,15 @@ export const updateEvent = (id, postData) => async (dispatch) => {
 
 export const updateStatus =
   (id, postData, setLoad, setError) => async (dispatch) => {
-    return await refreshToken().then(async (ref) => {
-      setToken(ref.data.access);
-      setLoad(true);
-      return axios
-        .patch(`/event/updateStatus/${id}/`, postData)
-        .then((res) => {
-          if (res.status === ResponseStatus.OK) {
-            setLoad(false);
-            setError(res.data);
-          }
-
-          dispatch({
-            type: GET_ERRORS,
-            payload: res.data,
-          });
-          return res;
-        })
-        .catch((error) => {
-          setLoad(false);
-          setError(error.response.data);
-          dispatch({
-            type: GET_ERRORS,
-            payload: error.response.data,
-          });
-          return error;
-        });
-    });
+    const apiEndpoint = `/event/updateStatus/${id}/`;
+    return await securedPatch(
+      dispatch,
+      apiEndpoint,
+      postData,
+      GET_ERRORS,
+      setLoad,
+      setError
+    );
   };
 
 export const requestToJoin =
@@ -132,28 +115,16 @@ export const getEventMembers = (id) => async (dispatch) => {
 };
 
 export const memberStatus = (postData, setLoad) => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    setLoad(true);
-    axios
-      .post("/event/member/changeStatus/", postData)
-      .then((res) => {
-        if (res.status === ResponseStatus.OK) {
-          setLoad(false);
-          dispatch(getEventMembers(postData.eventId));
-        }
-
-        dispatch({
-          type: GET_ERRORS,
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        setLoad(false);
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response,
-        });
-      });
+  const apiEndpoint = `/event/member/changeStatus/`;
+  return await securedPost(
+    dispatch,
+    apiEndpoint,
+    postData,
+    GET_ERRORS,
+    setLoad
+  ).then(({ status }) => {
+    if (status === ResponseStatus.OK) {
+      dispatch(getEventMembers(postData.eventId));
+    }
   });
 };
