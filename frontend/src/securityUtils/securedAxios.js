@@ -39,7 +39,7 @@ const securedGet = async (
       setLoad(false);
     }
     if (setError) {
-      setError(error.response ? error.response.data.message : error.message);
+      setError(error.response.data);
     }
     dispatch({
       type: GET_ERRORS,
@@ -81,7 +81,7 @@ const securedPost = async (
     }
 
     if (setError) {
-      setError(error.response ? error.response.data.message : error.message);
+      setError(error.response.data);
     }
 
     dispatch({
@@ -124,12 +124,12 @@ const securedPut = async (
     }
 
     if (setError) {
-      setError(error.response ? error.response.data.message : error.message);
+      setError(error.response.data);
     }
 
     dispatch({
       type: GET_ERRORS,
-      payload: error.response.data,
+      payload: error.response,
     });
     return error;
   }
@@ -177,4 +177,5 @@ const securedDelete = async (
     return error;
   }
 };
+
 export { securedGet, securedPost, securedPut, securedDelete };

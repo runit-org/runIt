@@ -9,7 +9,11 @@ import {
 } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 import { OK } from "../constants/responseStatus";
-import { securedGet, securedPost } from "../../securityUtils/securedAxios";
+import {
+  securedGet,
+  securedPost,
+  securedPut,
+} from "../../securityUtils/securedAxios";
 
 axios.defaults.baseURL = `${
   process.env.NODE_ENV === "production"
@@ -52,26 +56,15 @@ export const vote = (id, postData) => async (dispatch) => {
 };
 
 export const userStatus = (postData, setLoad, setError) => async (dispatch) => {
-  return await refreshToken().then(async (ref) => {
-    setToken(ref.data.access);
-    setLoad(true);
-    return axios
-      .put(`/user/updateStatusMessage/`, postData)
-      .then((res) => {
-        setLoad(false);
-        setError(res.data);
-        return res;
-      })
-      .catch((error) => {
-        setLoad(false);
-        setError(error.response.data);
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-        return error;
-      });
-  });
+  const apiEndpoint = `/user/updateStatusMessage/`;
+  return await securedPut(
+    dispatch,
+    apiEndpoint,
+    postData,
+    GET_ERRORS,
+    setLoad,
+    setError
+  );
 };
 
 export const getVotes = (page) => async (dispatch) => {
@@ -103,26 +96,8 @@ export const updateDetails =
   };
 
 export const changePassword = (postData, setLoad) => async (dispatch) => {
-  return await refreshToken().then(async (ref) => {
-    setToken(ref.data.access);
-    setLoad(true);
-    return axios
-      .put(`/user/changePassword/`, postData)
-      .then((res) => {
-        if (res.status === OK) {
-          setLoad(false);
-        }
-        return res;
-      })
-      .catch((error) => {
-        setLoad(false);
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response,
-        });
-        return error;
-      });
-  });
+  const apiEndpoint = `/user/changePassword/`;
+  return await securedPut(dispatch, apiEndpoint, postData, GET_ERRORS, setLoad);
 };
 
 export const getActivity = (page, userName, setLoad) => async (dispatch) => {

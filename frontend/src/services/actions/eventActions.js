@@ -8,7 +8,11 @@ import {
 } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 import * as ResponseStatus from "../constants/responseStatus";
-import { securedGet, securedPost } from "../../securityUtils/securedAxios";
+import {
+  securedGet,
+  securedPost,
+  securedPut,
+} from "../../securityUtils/securedAxios";
 
 axios.defaults.baseURL = `${
   process.env.NODE_ENV === "production"
@@ -61,25 +65,8 @@ export const createNewEvent = (postData, setFormStatus) => async (dispatch) => {
 };
 
 export const updateEvent = (id, postData) => async (dispatch) => {
-  return await refreshToken().then(async (ref) => {
-    setToken(ref.data.access);
-    return axios
-      .put(`/event/update/${id}/`, postData)
-      .then((res) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: res.data,
-        });
-        return res;
-      })
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-        return error;
-      });
-  });
+  const apiEndpoint = `/event/update/${id}/`;
+  return await securedPut(dispatch, apiEndpoint, postData, GET_ERRORS);
 };
 
 export const updateStatus =
