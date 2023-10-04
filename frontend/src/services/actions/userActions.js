@@ -9,7 +9,7 @@ import {
 } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 import { OK } from "../constants/responseStatus";
-import { securedGet } from "../../securityUtils/securedAxios";
+import { securedGet, securedPost } from "../../securityUtils/securedAxios";
 
 axios.defaults.baseURL = `${
   process.env.NODE_ENV === "production"
@@ -47,21 +47,8 @@ export const getCurrentUserProfile = () => async (dispatch) => {
 };
 
 export const vote = (id, postData) => async (dispatch) => {
-  return await refreshToken().then(async (ref) => {
-    setToken(ref.data.access);
-    return axios
-      .post(`/user/vote/${id}/`, postData)
-      .then((res) => {
-        return res;
-      })
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-        return error;
-      });
-  });
+  const apiEndpoint = `/user/vote/${id}/`;
+  return await securedPost(dispatch, apiEndpoint, postData, GET_ERRORS);
 };
 
 export const userStatus = (postData, setLoad, setError) => async (dispatch) => {
@@ -150,25 +137,12 @@ export const getActivity = (page, userName, setLoad) => async (dispatch) => {
 };
 
 export const feedback = (postData, setLoad) => async (dispatch) => {
-  return await refreshToken().then(async (ref) => {
-    setToken(ref.data.access);
-    setLoad(true);
-    return axios
-      .post(`/feedback/create/`, postData)
-      .then((res) => {
-        if (res.status === OK) {
-          setLoad(false);
-        }
-
-        return res;
-      })
-      .catch((error) => {
-        setLoad(false);
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response,
-        });
-        return error.response;
-      });
-  });
+  const apiEndpoint = `/feedback/create/`;
+  return await securedPost(
+    dispatch,
+    apiEndpoint,
+    postData,
+    GET_ERRORS,
+    setLoad
+  );
 };

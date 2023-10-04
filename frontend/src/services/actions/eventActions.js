@@ -8,7 +8,7 @@ import {
 } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 import * as ResponseStatus from "../constants/responseStatus";
-import { securedGet } from "../../securityUtils/securedAxios";
+import { securedGet, securedPost } from "../../securityUtils/securedAxios";
 
 axios.defaults.baseURL = `${
   process.env.NODE_ENV === "production"
@@ -115,33 +115,15 @@ export const updateStatus =
 
 export const requestToJoin =
   (postData, setLoad, setError) => async (dispatch) => {
-    return await refreshToken().then(async (ref) => {
-      setToken(ref.data.access);
-      setLoad(true);
-      return axios
-        .post("/event/member/requestJoin/", postData)
-        .then((res) => {
-          if (res.status === ResponseStatus.OK) {
-            setLoad(false);
-            setError(res.data);
-          }
-          dispatch({
-            type: GET_ERRORS,
-            payload: res.data,
-          });
-          return res;
-        })
-        .catch((error) => {
-          setLoad(false);
-          setError(error.response.data);
-          dispatch({
-            type: GET_ERRORS,
-            payload: error.response,
-          });
-
-          return error;
-        });
-    });
+    const apiEndpoint = `/event/member/requestJoin/`;
+    return await securedPost(
+      dispatch,
+      apiEndpoint,
+      postData,
+      GET_ERRORS,
+      setLoad,
+      setError
+    );
   };
 
 export const removeEvent =
