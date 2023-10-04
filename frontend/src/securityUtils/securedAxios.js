@@ -45,6 +45,7 @@ const securedGet = async (
       type: GET_ERRORS,
       payload: error.response.data,
     });
+
     return error;
   }
 };

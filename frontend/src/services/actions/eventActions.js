@@ -9,6 +9,7 @@ import {
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 import * as ResponseStatus from "../constants/responseStatus";
 import {
+  securedDelete,
   securedGet,
   securedPost,
   securedPut,
@@ -113,35 +114,17 @@ export const requestToJoin =
     );
   };
 
-export const removeEvent =
-  (id, setLoad, setError, navigate) => async (dispatch) => {
-    await refreshToken().then((ref) => {
-      setToken(ref.data.access);
-      setLoad(true);
-      axios
-        .delete(`/event/delete/${id}/`)
-        .then((res) => {
-          if (res.status === ResponseStatus.OK) {
-            setLoad(false);
-            setError(res.data);
-            navigate(`/posts`);
-          }
-
-          dispatch({
-            type: GET_ERRORS,
-            payload: res.data,
-          });
-        })
-        .catch((error) => {
-          setLoad(false);
-          setError(error.response.data);
-          dispatch({
-            type: GET_ERRORS,
-            payload: error.response,
-          });
-        });
-    });
-  };
+export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
+  const apiEndpoint = `/event/delete/${id}/`;
+  return await securedDelete(
+    dispatch,
+    apiEndpoint,
+    null,
+    GET_ERRORS,
+    setLoad,
+    setError
+  );
+};
 
 export const getEventMembers = (id) => async (dispatch) => {
   const apiEndpoint = `/event/member/getMembers/${id}/`;

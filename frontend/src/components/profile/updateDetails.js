@@ -8,6 +8,7 @@ import { updateDetails } from "../../services/actions/userActions";
 import { UserContext } from "../../context/userProvider";
 import { useNavigate } from "react-router-dom";
 import { ResponseItem } from "../../layouts/responseItems";
+import { OK } from "../../services/constants/responseStatus";
 
 function UpdateDetails(props) {
   const dispatch = useDispatch();
@@ -22,7 +23,11 @@ function UpdateDetails(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch(updateDetails(formValue, setLoad, navigate));
+    dispatch(updateDetails(formValue, setLoad)).then(({ status }) => {
+      if (status === OK) {
+        navigate(`/`);
+      }
+    });
   };
 
   return (

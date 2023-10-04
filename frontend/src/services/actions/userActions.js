@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   GET_ERRORS,
   GET_USER_PROFILE,
@@ -7,19 +6,12 @@ import {
   GET_VOTES,
   GET_USER_ACTIVITY,
 } from "../constants/types";
-import { setToken, refreshToken } from "../../securityUtils/setToken";
-import { OK } from "../constants/responseStatus";
 import {
   securedGet,
   securedPost,
   securedPut,
 } from "../../securityUtils/securedAxios";
-
-axios.defaults.baseURL = `${
-  process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_PROD
-    : process.env.REACT_APP_DEV
-}/api`;
+import { OK } from "../constants/responseStatus";
 
 export const getUserProfile = (userName) => async (dispatch) => {
   const apiEndpoint = `/user/profile/${userName}/`;
@@ -27,26 +19,19 @@ export const getUserProfile = (userName) => async (dispatch) => {
 };
 
 export const getCurrentUserProfile = () => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    axios
-      .get(`/user/me/`)
-      .then((res) => {
-        dispatch({
-          type: GET_CURRENT_USER_PROFILE,
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response,
-        });
-        dispatch({
-          type: SET_CURRENT_USER,
-          payload: null,
-        });
+  const apiEndpoint = `/user/me/`;
+  return await securedGet(
+    dispatch,
+    apiEndpoint,
+    null,
+    GET_CURRENT_USER_PROFILE
+  ).then(({ status }) => {
+    if (status !== OK) {
+      dispatch({
+        type: SET_CURRENT_USER,
+        payload: null,
       });
+    }
   });
 };
 
@@ -72,28 +57,10 @@ export const getVotes = (page) => async (dispatch) => {
   return await securedGet(dispatch, apiEndpoint, null, GET_VOTES);
 };
 
-export const updateDetails =
-  (postData, setLoad, navigate) => async (dispatch) => {
-    await refreshToken().then((ref) => {
-      setToken(ref.data.access);
-      setLoad(true);
-      axios
-        .put(`/user/updateDetails/`, postData)
-        .then((res) => {
-          if (res.status === OK) {
-            setLoad(false);
-            navigate(`/`);
-          }
-        })
-        .catch((error) => {
-          setLoad(false);
-          dispatch({
-            type: GET_ERRORS,
-            payload: error.response,
-          });
-        });
-    });
-  };
+export const updateDetails = (postData, setLoad) => async (dispatch) => {
+  const apiEndpoint = `/user/updateDetails/`;
+  return await securedPut(dispatch, apiEndpoint, postData, GET_ERRORS, setLoad);
+};
 
 export const changePassword = (postData, setLoad) => async (dispatch) => {
   const apiEndpoint = `/user/changePassword/`;
