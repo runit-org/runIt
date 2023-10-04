@@ -178,4 +178,47 @@ const securedDelete = async (
   }
 };
 
-export { securedGet, securedPost, securedPut, securedDelete };
+const securedPatch = async (
+  dispatch,
+  api,
+  body = {},
+  successType,
+  setLoad = null,
+  setError = null
+) => {
+  try {
+    const ref = await refreshToken();
+    setToken(ref.data.access);
+
+    if (setLoad) setLoad(true);
+    const res = await axios.patch(api, body);
+
+    if (res.status === ResponseStatus.OK) {
+      if (setLoad && setError) {
+        setLoad(false);
+        setError(res.status);
+      }
+      dispatch({
+        type: successType,
+        payload: res.data,
+      });
+      return res;
+    }
+  } catch (error) {
+    if (setLoad) {
+      setLoad(false);
+    }
+
+    if (setError) {
+      setError(error.response.data);
+    }
+
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response,
+    });
+    return error;
+  }
+};
+
+export { securedGet, securedPost, securedPut, securedDelete, securedPatch };

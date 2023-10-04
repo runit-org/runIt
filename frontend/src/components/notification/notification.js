@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import {
+  getNotifications,
   notificationRead,
   notificationRead_all,
 } from "../../services/actions/notificationActions";
 import { VscCircleFilled } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import CustomOffCanvas from "../../layouts/customOffCanvas";
+import { OK } from "../../services/constants/responseStatus";
 
 function Notifications(props) {
   const dispatch = useDispatch();
@@ -16,16 +18,23 @@ function Notifications(props) {
 
   useEffect(() => {
     if (read.read) {
-      dispatch(notificationRead(read.read)).then(() => {
+      dispatch(notificationRead(read.read)).then(({ status }) => {
         if (read.link) {
           navigate(read.link);
+        }
+        if (status === OK) {
+          dispatch(getNotifications());
         }
       });
     }
   }, [read, navigate, dispatch]);
 
   const handleReadall = () => {
-    dispatch(notificationRead_all());
+    dispatch(notificationRead_all()).then(({ status }) => {
+      if (status === OK) {
+        dispatch(getNotifications());
+      }
+    });
   };
 
   return (
