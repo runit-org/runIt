@@ -8,6 +8,7 @@ import {
 } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 import * as ResponseStatus from "../constants/responseStatus";
+import { securedGet } from "../../securityUtils/securedAxios";
 
 axios.defaults.baseURL = `${
   process.env.NODE_ENV === "production"
@@ -16,68 +17,20 @@ axios.defaults.baseURL = `${
 }/api`;
 
 export const getSingleEvent = (id) => async (dispatch) => {
-  return await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    return axios
-      .get(`/event/view/${id}/`)
-      .then((res) => {
-        dispatch({
-          type: GET_SINGLE_EVENT,
-          payload: res.data,
-        });
-        return res;
-      })
-
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-        return error.response;
-      });
-  });
+  const apiEndpoint = `/event/view/${id}/`;
+  return await securedGet(dispatch, apiEndpoint, null, GET_SINGLE_EVENT);
 };
 
 export const getAllEvents = (page) => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    axios
-      .get(`/event/all/?page=${page}`)
-      .then((res) => {
-        dispatch({
-          type: GET_ALL_EVENTS,
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-      });
-  });
+  const apiEndpoint = `/event/all/?page=${page}`;
+  return await securedGet(dispatch, apiEndpoint, null, GET_ALL_EVENTS);
 };
 
 export const affiliatedEvents = (filter) => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    axios
-      .get(`/event/affiliated/${filter ? `?filter=status-${filter}` : ""}`)
-      .then((res) => {
-        if (res.status === ResponseStatus.OK) {
-          dispatch({
-            type: GET_AFFILIATED_EVENTS,
-            payload: res.data,
-          });
-        }
-      })
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-      });
-  });
+  const apiEndpoint = `/event/affiliated/${
+    filter ? `?filter=status-${filter}` : ""
+  }`;
+  return await securedGet(dispatch, apiEndpoint, null, GET_AFFILIATED_EVENTS);
 };
 
 export const createNewEvent = (postData, setFormStatus) => async (dispatch) => {
@@ -222,22 +175,8 @@ export const removeEvent =
   };
 
 export const getEventMembers = (id) => async (dispatch) => {
-  await refreshToken()
-    .then((ref) => {
-      setToken(ref.data.access);
-      axios.get(`/event/member/getMembers/${id}/`).then((res) => {
-        dispatch({
-          type: GET_EVENT_MEMBERS,
-          payload: res.data,
-        });
-      });
-    })
-    .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response,
-      });
-    });
+  const apiEndpoint = `/event/member/getMembers/${id}/`;
+  return await securedGet(dispatch, apiEndpoint, null, GET_EVENT_MEMBERS);
 };
 
 export const memberStatus = (postData, setLoad) => async (dispatch) => {

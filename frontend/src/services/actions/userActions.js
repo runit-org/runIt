@@ -9,6 +9,7 @@ import {
 } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 import { OK } from "../constants/responseStatus";
+import { securedGet } from "../../securityUtils/securedAxios";
 
 axios.defaults.baseURL = `${
   process.env.NODE_ENV === "production"
@@ -17,25 +18,8 @@ axios.defaults.baseURL = `${
 }/api`;
 
 export const getUserProfile = (userName) => async (dispatch) => {
-  return await refreshToken().then(async (ref) => {
-    setToken(ref.data.access);
-    return axios
-      .get(`/user/profile/${userName}/`)
-      .then((res) => {
-        dispatch({
-          type: GET_USER_PROFILE,
-          payload: res.data,
-        });
-        return res;
-      })
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-        return error.response;
-      });
-  });
+  const apiEndpoint = `/user/profile/${userName}/`;
+  return await securedGet(dispatch, apiEndpoint, null, GET_USER_PROFILE);
 };
 
 export const getCurrentUserProfile = () => async (dispatch) => {
@@ -104,23 +88,8 @@ export const userStatus = (postData, setLoad, setError) => async (dispatch) => {
 };
 
 export const getVotes = (page) => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    axios
-      .get(`/user/vote/?page=${page}`)
-      .then((res) => {
-        dispatch({
-          type: GET_VOTES,
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response,
-        });
-      });
-  });
+  const apiEndpoint = `/user/vote/?page=${page}`;
+  return await securedGet(dispatch, apiEndpoint, null, GET_VOTES);
 };
 
 export const updateDetails =
@@ -170,28 +139,14 @@ export const changePassword = (postData, setLoad) => async (dispatch) => {
 };
 
 export const getActivity = (page, userName, setLoad) => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    setLoad(true);
-    axios
-      .get(`/user/activity/${userName}/?page=${page}`)
-      .then((res) => {
-        if (res.status === OK) {
-          dispatch({
-            type: GET_USER_ACTIVITY,
-            payload: res.data,
-          });
-          setLoad(false);
-        }
-      })
-      .catch((error) => {
-        setLoad(false);
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response,
-        });
-      });
-  });
+  const apiEndpoint = `/user/activity/${userName}/?page=${page}`;
+  return await securedGet(
+    dispatch,
+    apiEndpoint,
+    null,
+    GET_USER_ACTIVITY,
+    setLoad
+  );
 };
 
 export const feedback = (postData, setLoad) => async (dispatch) => {
