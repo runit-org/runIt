@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Row, Form, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import {
-  createNewEvent,
-  getAllEvents,
-} from "../../services/actions/eventActions";
+import { createNewEvent } from "../../services/actions/eventActions";
 import { emitter } from "../client/socket";
 import CTAButton from "../../layouts/ctaButton";
 import { MentionFilter } from "../../utilities/utility-service";
@@ -12,9 +9,11 @@ import * as ResponseStatus from "../../services/constants/responseStatus";
 import { useHandleChange } from "../../hooks/useHandleChange";
 import { FormGroup, FormLabel } from "../../layouts/customForm";
 import { ResponseItem } from "../../layouts/responseItems";
+import { useNavigate } from "react-router-dom";
 
 function CreateEvent(props) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const formRef = useRef(0);
 
   const initialState = {
@@ -53,12 +52,12 @@ function CreateEvent(props) {
       minute:
         formValue.time !== "" ? parseInt(formValue.time.split(":")[1]) : "",
     };
-    dispatch(createNewEvent(postData, setLoad)).then(({ status }) => {
+    dispatch(createNewEvent(postData, setLoad)).then(({ status, data }) => {
       if (status === ResponseStatus.OK) {
-        dispatch(getAllEvents(1));
         formRef.current.reset();
         setFormValue(initialState);
-        emitter(MentionFilter(formValue.details));
+        emitter(MentionFilter(data.data.details));
+        navigate(`/event/${data.data.id}?page=1`);
       }
     });
   };
