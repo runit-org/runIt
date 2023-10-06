@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   GET_ALL_EVENTS,
   GET_ERRORS,
@@ -6,263 +5,102 @@ import {
   GET_EVENT_MEMBERS,
   GET_SINGLE_EVENT,
 } from "../constants/types";
-import { setToken, refreshToken } from "../../securityUtils/setToken";
 import * as ResponseStatus from "../constants/responseStatus";
-
-axios.defaults.baseURL = `${
-  process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_PROD
-    : process.env.REACT_APP_DEV
-}/api`;
+import {
+  securedDelete,
+  securedGet,
+  securedPatch,
+  securedPost,
+  securedPut,
+} from "../../securityUtils/securedAxios";
 
 export const getSingleEvent = (id) => async (dispatch) => {
-  return await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    return axios
-      .get(`/event/view/${id}/`)
-      .then((res) => {
-        dispatch({
-          type: GET_SINGLE_EVENT,
-          payload: res.data,
-        });
-        return res;
-      })
-
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-        return error.response;
-      });
-  });
+  const apiEndpoint = `/event/view/${id}/`;
+  return await securedGet(dispatch, apiEndpoint, null, GET_SINGLE_EVENT);
 };
 
 export const getAllEvents = (page) => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    axios
-      .get(`/event/all/?page=${page}`)
-      .then((res) => {
-        dispatch({
-          type: GET_ALL_EVENTS,
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-      });
-  });
+  const apiEndpoint = `/event/all/?page=${page}`;
+  return await securedGet(dispatch, apiEndpoint, null, GET_ALL_EVENTS);
 };
 
 export const affiliatedEvents = (filter) => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    axios
-      .get(`/event/affiliated/${filter ? `?filter=status-${filter}` : ""}`)
-      .then((res) => {
-        if (res.status === ResponseStatus.OK) {
-          dispatch({
-            type: GET_AFFILIATED_EVENTS,
-            payload: res.data,
-          });
-        }
-      })
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-      });
-  });
+  const apiEndpoint = `/event/affiliated/${
+    filter ? `?filter=status-${filter}` : ""
+  }`;
+  return await securedGet(dispatch, apiEndpoint, null, GET_AFFILIATED_EVENTS);
 };
 
-export const createNewEvent = (postData, setFormStatus) => async (dispatch) => {
-  return await refreshToken().then(async (ref) => {
-    setToken(ref.data.access);
-    setFormStatus({ load: true });
-    return axios
-      .post("/event/create/", postData)
-      .then((res) => {
-        if (res.status === ResponseStatus.OK) {
-          setFormStatus({ load: false, error: res.status });
-        }
-        dispatch({
-          type: GET_ERRORS,
-          payload: res.data,
-        });
-        return res;
-      })
-      .catch((error) => {
-        setFormStatus({ load: false, error: error.response.data.message });
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-        return error;
-      });
-  });
+export const createNewEvent = (postData, setLoad) => async (dispatch) => {
+  const apiEndpoint = `/event/create/`;
+  return await securedPost(
+    dispatch,
+    apiEndpoint,
+    postData,
+    GET_ERRORS,
+    setLoad
+  );
 };
 
 export const updateEvent = (id, postData) => async (dispatch) => {
-  return await refreshToken().then(async (ref) => {
-    setToken(ref.data.access);
-    return axios
-      .put(`/event/update/${id}/`, postData)
-      .then((res) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: res.data,
-        });
-        return res;
-      })
-      .catch((error) => {
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-        return error;
-      });
-  });
+  const apiEndpoint = `/event/update/${id}/`;
+  return await securedPut(dispatch, apiEndpoint, postData, GET_ERRORS);
 };
 
 export const updateStatus =
   (id, postData, setLoad, setError) => async (dispatch) => {
-    return await refreshToken().then(async (ref) => {
-      setToken(ref.data.access);
-      setLoad(true);
-      return axios
-        .patch(`/event/updateStatus/${id}/`, postData)
-        .then((res) => {
-          if (res.status === ResponseStatus.OK) {
-            setLoad(false);
-            setError(res.data);
-          }
-
-          dispatch({
-            type: GET_ERRORS,
-            payload: res.data,
-          });
-          return res;
-        })
-        .catch((error) => {
-          setLoad(false);
-          setError(error.response.data);
-          dispatch({
-            type: GET_ERRORS,
-            payload: error.response.data,
-          });
-          return error;
-        });
-    });
+    const apiEndpoint = `/event/updateStatus/${id}/`;
+    return await securedPatch(
+      dispatch,
+      apiEndpoint,
+      postData,
+      GET_ERRORS,
+      setLoad,
+      setError
+    );
   };
 
 export const requestToJoin =
   (postData, setLoad, setError) => async (dispatch) => {
-    return await refreshToken().then(async (ref) => {
-      setToken(ref.data.access);
-      setLoad(true);
-      return axios
-        .post("/event/member/requestJoin/", postData)
-        .then((res) => {
-          if (res.status === ResponseStatus.OK) {
-            setLoad(false);
-            setError(res.data);
-          }
-          dispatch({
-            type: GET_ERRORS,
-            payload: res.data,
-          });
-          return res;
-        })
-        .catch((error) => {
-          setLoad(false);
-          setError(error.response.data);
-          dispatch({
-            type: GET_ERRORS,
-            payload: error.response,
-          });
-
-          return error;
-        });
-    });
+    const apiEndpoint = `/event/member/requestJoin/`;
+    return await securedPost(
+      dispatch,
+      apiEndpoint,
+      postData,
+      GET_ERRORS,
+      setLoad,
+      setError
+    );
   };
 
-export const removeEvent =
-  (id, setLoad, setError, navigate) => async (dispatch) => {
-    await refreshToken().then((ref) => {
-      setToken(ref.data.access);
-      setLoad(true);
-      axios
-        .delete(`/event/delete/${id}/`)
-        .then((res) => {
-          if (res.status === ResponseStatus.OK) {
-            setLoad(false);
-            setError(res.data);
-            navigate(`/posts`);
-          }
-
-          dispatch({
-            type: GET_ERRORS,
-            payload: res.data,
-          });
-        })
-        .catch((error) => {
-          setLoad(false);
-          setError(error.response.data);
-          dispatch({
-            type: GET_ERRORS,
-            payload: error.response,
-          });
-        });
-    });
-  };
+export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
+  const apiEndpoint = `/event/delete/${id}/`;
+  return await securedDelete(
+    dispatch,
+    apiEndpoint,
+    null,
+    GET_ERRORS,
+    setLoad,
+    setError
+  );
+};
 
 export const getEventMembers = (id) => async (dispatch) => {
-  await refreshToken()
-    .then((ref) => {
-      setToken(ref.data.access);
-      axios.get(`/event/member/getMembers/${id}/`).then((res) => {
-        dispatch({
-          type: GET_EVENT_MEMBERS,
-          payload: res.data,
-        });
-      });
-    })
-    .catch((error) => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response,
-      });
-    });
+  const apiEndpoint = `/event/member/getMembers/${id}/`;
+  return await securedGet(dispatch, apiEndpoint, null, GET_EVENT_MEMBERS);
 };
 
 export const memberStatus = (postData, setLoad) => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    setLoad(true);
-    axios
-      .post("/event/member/changeStatus/", postData)
-      .then((res) => {
-        if (res.status === ResponseStatus.OK) {
-          setLoad(false);
-          dispatch(getEventMembers(postData.eventId));
-        }
-
-        dispatch({
-          type: GET_ERRORS,
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        setLoad(false);
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response,
-        });
-      });
+  const apiEndpoint = `/event/member/changeStatus/`;
+  return await securedPost(
+    dispatch,
+    apiEndpoint,
+    postData,
+    GET_ERRORS,
+    setLoad
+  ).then(({ status }) => {
+    if (status === ResponseStatus.OK) {
+      dispatch(getEventMembers(postData.eventId));
+    }
   });
 };

@@ -5,6 +5,7 @@ import { removeEvent } from "../../services/actions/eventActions";
 import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modalItem";
 import { useNavigate } from "react-router-dom";
+import { OK } from "../../services/constants/responseStatus";
 
 function RemoveEvent(props) {
   const dispatch = useDispatch();
@@ -16,7 +17,13 @@ function RemoveEvent(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(removeEvent(props.eventId, setLoad, setError, navigate));
+    dispatch(removeEvent(props.eventId, setLoad, setError, navigate)).then(
+      ({ status }) => {
+        if (status === OK) {
+          navigate(`/posts`);
+        }
+      }
+    );
   };
 
   return (

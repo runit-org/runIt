@@ -3,6 +3,7 @@ import store from "../store";
 import jwt_decode from "jwt-decode";
 import { GET_ERRORS, SET_CURRENT_USER } from "../services/constants/types";
 import Cookies from "js-cookie";
+import { OK } from "../services/constants/responseStatus";
 
 axios.defaults.baseURL = `${
   process.env.NODE_ENV === "production"
@@ -19,28 +20,39 @@ const setToken = (token) => {
 };
 
 const refreshToken = async () => {
-  if (Cookies.get("token")) {
+  try {
     const ref = await axios.post("/auth/token/refresh/", {
       refresh: Cookies.get("token"),
     });
+
     return ref;
-  } else {
+  } catch (error) {
     store.dispatch({
       type: SET_CURRENT_USER,
       payload: null,
     });
+
+    return error.response;
   }
 };
 
 const getAccessToken = async () => {
   await refreshToken()
     .then((res) => {
-      setToken(res.data.access);
-      const decoded_token = jwt_decode(res.data.access);
-      store.dispatch({
-        type: SET_CURRENT_USER,
-        payload: decoded_token,
-      });
+      if (res.status === OK) {
+        const decoded_token = jwt_decode(res.data.access);
+        setToken(res.data.access);
+        store.dispatch({
+          type: SET_CURRENT_USER,
+          payload: decoded_token,
+        });
+      } else {
+        Cookies.remove("token");
+        store.dispatch({
+          type: SET_CURRENT_USER,
+          payload: null,
+        });
+      }
     })
     .catch((error) => {
       store.dispatch({
