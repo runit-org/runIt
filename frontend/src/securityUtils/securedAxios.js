@@ -24,8 +24,10 @@ const securedGet = async (
     const res = await axios.get(api, body);
 
     if (res.status === ResponseStatus.OK) {
-      if (setLoad && setError) {
+      if (setLoad) {
         setLoad(false);
+      }
+      if (setError) {
         setError(res.status);
       }
       dispatch({
