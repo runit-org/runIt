@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   GET_ALL_EVENTS,
   GET_ERRORS,
@@ -6,7 +5,6 @@ import {
   GET_EVENT_MEMBERS,
   GET_SINGLE_EVENT,
 } from "../constants/types";
-import { setToken, refreshToken } from "../../securityUtils/setToken";
 import * as ResponseStatus from "../constants/responseStatus";
 import {
   securedDelete,
@@ -15,12 +13,6 @@ import {
   securedPost,
   securedPut,
 } from "../../securityUtils/securedAxios";
-
-axios.defaults.baseURL = `${
-  process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_PROD
-    : process.env.REACT_APP_DEV
-}/api`;
 
 export const getSingleEvent = (id) => async (dispatch) => {
   const apiEndpoint = `/event/view/${id}/`;
@@ -39,31 +31,15 @@ export const affiliatedEvents = (filter) => async (dispatch) => {
   return await securedGet(dispatch, apiEndpoint, null, GET_AFFILIATED_EVENTS);
 };
 
-export const createNewEvent = (postData, setFormStatus) => async (dispatch) => {
-  return await refreshToken().then(async (ref) => {
-    setToken(ref.data.access);
-    setFormStatus({ load: true });
-    return axios
-      .post("/event/create/", postData)
-      .then((res) => {
-        if (res.status === ResponseStatus.OK) {
-          setFormStatus({ load: false, error: res.status });
-        }
-        dispatch({
-          type: GET_ERRORS,
-          payload: res.data,
-        });
-        return res;
-      })
-      .catch((error) => {
-        setFormStatus({ load: false, error: error.response.data.message });
-        dispatch({
-          type: GET_ERRORS,
-          payload: error.response.data,
-        });
-        return error;
-      });
-  });
+export const createNewEvent = (postData, setLoad) => async (dispatch) => {
+  const apiEndpoint = `/event/create/`;
+  return await securedPost(
+    dispatch,
+    apiEndpoint,
+    postData,
+    GET_ERRORS,
+    setLoad
+  );
 };
 
 export const updateEvent = (id, postData) => async (dispatch) => {

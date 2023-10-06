@@ -66,8 +66,10 @@ const securedPost = async (
     const res = await axios.post(api, body);
 
     if (res.status === ResponseStatus.OK) {
-      if (setLoad && setError) {
+      if (setLoad) {
         setLoad(false);
+      }
+      if (setError) {
         setError(res.status);
       }
       dispatch({
@@ -87,7 +89,7 @@ const securedPost = async (
 
     dispatch({
       type: GET_ERRORS,
-      payload: error.response.data,
+      payload: error.response,
     });
     return error;
   }
@@ -109,8 +111,10 @@ const securedPut = async (
     const res = await axios.put(api, body);
 
     if (res.status === ResponseStatus.OK) {
-      if (setLoad && setError) {
+      if (setLoad) {
         setLoad(false);
+      }
+      if (setError) {
         setError(res.status);
       }
       dispatch({
@@ -152,8 +156,10 @@ const securedDelete = async (
     const res = await axios.delete(api, body);
 
     if (res.status === ResponseStatus.OK) {
-      if (setLoad && setError) {
+      if (setLoad) {
         setLoad(false);
+      }
+      if (setError) {
         setError(res.status);
       }
       dispatch({
@@ -195,8 +201,10 @@ const securedPatch = async (
     const res = await axios.patch(api, body);
 
     if (res.status === ResponseStatus.OK) {
-      if (setLoad && setError) {
+      if (setLoad) {
         setLoad(false);
+      }
+      if (setError) {
         setError(res.status);
       }
       dispatch({

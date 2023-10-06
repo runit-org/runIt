@@ -7,18 +7,16 @@ import {
   securedPut,
 } from "../../securityUtils/securedAxios";
 
-export const createComment =
-  (id, postData, setLoad, setError) => async (dispatch) => {
-    const apiEndpoint = `/event/comment/create/${id}/`;
-    return await securedPost(
-      dispatch,
-      apiEndpoint,
-      postData,
-      GET_ERRORS,
-      setLoad,
-      setError
-    );
-  };
+export const createComment = (id, postData, setLoad) => async (dispatch) => {
+  const apiEndpoint = `/event/comment/create/${id}/`;
+  return await securedPost(
+    dispatch,
+    apiEndpoint,
+    postData,
+    GET_ERRORS,
+    setLoad
+  );
+};
 
 export const removeComment = (id, setLoad, setError) => async (dispatch) => {
   const apiEndpoint = `/event/comment/delete/${id}/`;

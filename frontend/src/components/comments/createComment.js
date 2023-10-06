@@ -13,6 +13,7 @@ import { usePageId } from "../../hooks/usePageId";
 import { UserContext } from "../../context/userProvider";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import * as ResponseStatus from "../../services/constants/responseStatus";
+import { ResponseItem } from "../../layouts/responseItems";
 
 function CreateComment(props) {
   const dispatch = useDispatch();
@@ -20,7 +21,6 @@ function CreateComment(props) {
   const [content, setContent] = useState("");
   const [load, setLoad] = useState(false);
   const [validateFormEmpty, setValidateFormEmpty] = useState(false);
-  const [error, setError] = useState("");
 
   const eventData = useContext(SingleEventContext);
   const userContext = useContext(UserContext);
@@ -41,23 +41,15 @@ function CreateComment(props) {
     const postData = {
       content: content,
     };
-    dispatch(createComment(props.id, postData, setLoad, setError)).then(
-      ({ status }) => {
-        if (status === ResponseStatus.OK) {
-          dispatch(getAllComments(props.id, pageId));
-          emitter(MentionFilter(content, eventData.userName));
-        }
+    dispatch(createComment(props.id, postData, setLoad)).then(({ status }) => {
+      if (status === ResponseStatus.OK) {
+        dispatch(getAllComments(props.id, pageId));
+        formRef.current.reset();
+        setContent("");
+        emitter(MentionFilter(content, eventData.userName));
       }
-    );
+    });
   };
-
-  useEffect(() => {
-    if (error === ResponseStatus.OK) {
-      formRef.current.reset();
-      setContent("");
-      setError("");
-    }
-  }, [error]);
 
   return (
     <Card className="comment-card">
@@ -84,7 +76,7 @@ function CreateComment(props) {
           </div>
 
           <div className="d-flex justify-content-between mt-3">
-            <small className="text-danger">{error}</small>
+            <ResponseItem />
             <CTAButton
               type={"submit"}
               btnStyle={"formBtn cta_button"}
