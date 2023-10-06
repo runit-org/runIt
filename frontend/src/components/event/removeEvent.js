@@ -20,7 +20,9 @@ function RemoveEvent(props) {
     dispatch(removeEvent(props.eventId, setLoad, setError, navigate)).then(
       ({ status }) => {
         if (status === OK) {
-          navigate(`/posts`);
+          navigate("/posts", {
+            replace: true,
+          });
         }
       }
     );

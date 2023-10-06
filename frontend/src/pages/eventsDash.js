@@ -1,25 +1,20 @@
 import React, { useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import CreatePost from "../components/event/createEvent";
-import Pagination from "../layouts/pagination";
 import EventItemCard from "../components/event/eventItemCard";
 import CurrentUserProfile from "../components/profile/currentUserProfile";
 import { EventHandler } from "../components/event/helper/actionHandlers";
 import SuggestItem from "../components/suggestions/suggestItem";
 import { VerifiedRender } from "../routes/verifiedRender";
 import ResendOtp from "../components/userAuth/resendOtp";
+import CTAButton from "../layouts/ctaButton";
+import { Loading } from "../layouts/loader";
 
 function MainDash() {
-  //pagination and event api
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage] = useState(10);
-
-  const eventData = EventHandler(currentPage);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const { count, hasMore, load, eventData, handleLoadMore } = EventHandler();
 
   //suggestions
   const [suggestedData, setSuggestedData] = useState({});
-
   const child_data = (data) => {
     if (data) {
       setSuggestedData(data);
@@ -43,24 +38,36 @@ function MainDash() {
                 <CreatePost suggestion={suggestedData} />
               </VerifiedRender>
               <Row xs={1} sm={1} md={1}>
-                {eventData.results
-                  ? eventData.results.map((event, index) => (
-                      <Col key={index}>
-                        <EventItemCard eventData={event} />
-                      </Col>
-                    ))
-                  : ""}
+                {count > 0 ? (
+                  eventData.map((event, index) => (
+                    <Col key={index}>
+                      <EventItemCard eventData={event} />
+                    </Col>
+                  ))
+                ) : !load && count === 0 ? (
+                  <div>
+                    <h1>Nothing yet...</h1>
+                  </div>
+                ) : (
+                  <Col>
+                    <Loading />
+                  </Col>
+                )}
               </Row>
             </div>
-            {eventData.count > 10 ? (
-              <Pagination
-                postsPerPage={postPerPage}
-                totalPosts={eventData.count}
-                paginate={paginate}
-                currentPage={currentPage}
+            {hasMore && (
+              <CTAButton
+                type={"submit"}
+                btnStyle={"formBtn cta_button d-block mt-2"}
+                variant={"primary"}
+                isLoading={load}
+                onClick={handleLoadMore}
+                placeholder={
+                  <div className="d-flex align-items-center justify-content-center">
+                    Show more
+                  </div>
+                }
               />
-            ) : (
-              ""
             )}
           </Container>
         </div>
