@@ -55,19 +55,22 @@ function MainDash() {
                 )}
               </Row>
             </div>
+
             {hasMore && (
-              <CTAButton
-                type={"submit"}
-                btnStyle={"formBtn cta_button d-block mt-2"}
-                variant={"primary"}
-                isLoading={load}
-                onClick={handleLoadMore}
-                placeholder={
-                  <div className="d-flex align-items-center justify-content-center">
-                    Show more
-                  </div>
-                }
-              />
+              <div className="w-100 d-flex justify-content-center mb-3">
+                <CTAButton
+                  type={"submit"}
+                  btnStyle={"formBtn cta_button d-block mt-2"}
+                  variant={"primary"}
+                  isLoading={load}
+                  onClick={handleLoadMore}
+                  placeholder={
+                    <div className="d-flex align-items-center justify-content-center">
+                      Show more
+                    </div>
+                  }
+                />
+              </div>
             )}
           </Container>
         </div>
