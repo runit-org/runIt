@@ -45,7 +45,7 @@ export const SingleEventHandler = (params, pageId) => {
 
   useEffect(() => {
     dispatch(getSingleEvent(params.id)).then((res) => {
-      let { status } = res;
+      let { status } = res.response;
       if (status === OK) {
         dispatch(getAllComments(params.id, pageId ? pageId : 1));
       } else if (status === BAD_REQUEST || status === SERVER_ERROR) {

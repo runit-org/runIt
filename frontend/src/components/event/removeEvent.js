@@ -6,6 +6,7 @@ import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modalItem";
 import { useNavigate } from "react-router-dom";
 import { OK } from "../../services/constants/responseStatus";
+import { RESET_CURRENT_PAGE } from "../../services/constants/types";
 
 function RemoveEvent(props) {
   const dispatch = useDispatch();
@@ -17,12 +18,13 @@ function RemoveEvent(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(removeEvent(props.eventId, setLoad, setError, navigate)).then(
+    dispatch(removeEvent(props.eventId, setLoad, setError)).then(
       ({ status }) => {
         if (status === OK) {
-          navigate("/posts", {
-            replace: true,
+          dispatch({
+            type: RESET_CURRENT_PAGE,
           });
+          navigate("/posts");
         }
       }
     );
@@ -32,12 +34,7 @@ function RemoveEvent(props) {
     <ModalItem
       ref={(ref, btnRef)}
       customBtn={""}
-      btnIcon={
-        <div className="d-flex align-items-center">
-          {/* <Delete /> */}
-          Delete
-        </div>
-      }
+      btnIcon={<div className="d-flex align-items-center">Delete</div>}
       title={"Delete Event"}
       error={error}
     >

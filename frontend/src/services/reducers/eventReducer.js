@@ -3,6 +3,7 @@ import {
   GET_AFFILIATED_EVENTS,
   GET_EVENT_MEMBERS,
   GET_SINGLE_EVENT,
+  RESET_CURRENT_PAGE,
 } from "../constants/types";
 
 const initialState = {
@@ -42,6 +43,15 @@ export default function setEvents(state = initialState, action) {
       return {
         ...state,
         eventMembers: action.payload,
+      };
+    case RESET_CURRENT_PAGE:
+      return {
+        ...state,
+        events: {
+          results: [],
+          next: null,
+          currentPage: 0,
+        },
       };
     default:
       return state;
