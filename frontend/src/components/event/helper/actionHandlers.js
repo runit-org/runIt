@@ -44,8 +44,7 @@ export const SingleEventHandler = (params, pageId) => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getSingleEvent(params.id)).then((res) => {
-      let status = res?.response?.status || "";
+    dispatch(getSingleEvent(params.id)).then(({ status }) => {
       if (status === OK) {
         dispatch(getAllComments(params.id, pageId ? pageId : 1));
       } else if (status === BAD_REQUEST || status === SERVER_ERROR) {

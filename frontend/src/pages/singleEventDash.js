@@ -72,27 +72,23 @@ function SingleEventDash() {
                 <Container className="content-wrapper">
                   <Breadcrumbs items={breadcrumbItem} />
                   {/* comment item */}
-                  {commentData.results ? (
-                    commentData.count > 0 ? (
-                      commentData.results.map((comment, index) => {
-                        return (
-                          <div key={index}>
-                            <CommentItem
-                              commentData={comment}
-                              commentCount={commentData.count}
-                            />
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <Card className="comment-item">
-                        <Card.Body>
-                          <Card.Text>No comments published</Card.Text>
-                        </Card.Body>
-                      </Card>
-                    )
+                  {commentData.results && commentData.count > 0 ? (
+                    commentData.results.map((comment, index) => {
+                      return (
+                        <div key={index}>
+                          <CommentItem
+                            commentData={comment}
+                            commentCount={commentData.count}
+                          />
+                        </div>
+                      );
+                    })
                   ) : (
-                    ""
+                    <Card className="comment-item">
+                      <Card.Body>
+                        <Card.Text>No comments published</Card.Text>
+                      </Card.Body>
+                    </Card>
                   )}
                   {/* end of comment item */}
                   {commentData.count > 10 ? (
