@@ -9,7 +9,6 @@ export const Loading = () => {
       size="sm"
       role="status"
       aria-hidden="true"
-      // variant="primary"
     />
   );
 };

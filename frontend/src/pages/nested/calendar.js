@@ -21,7 +21,7 @@ function CalendarPage() {
 
   return (
     <>
-      {user ? (
+      {user && (
         <>
           <div className="content">
             <Container className="content-wrapper">
@@ -44,8 +44,6 @@ function CalendarPage() {
             </div>
           </div>
         </>
-      ) : (
-        ""
       )}
     </>
   );

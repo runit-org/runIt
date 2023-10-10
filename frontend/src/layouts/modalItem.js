@@ -5,15 +5,7 @@ import { ResponseItem } from "./responseItems";
 
 const ModalItem = React.forwardRef(
   (
-    {
-      btnIcon,
-      customBtn,
-      btnStyleFull,
-      title,
-      parentCallback,
-      children,
-      error,
-    },
+    { btnIcon, customBtn, btnStyleFull, title, parentCallback, children },
     r
   ) => {
     const [modalShow, setModalShow] = useState(false);
@@ -50,11 +42,6 @@ const ModalItem = React.forwardRef(
         >
           <Modal.Body>
             <Modal.Title>{title}</Modal.Title>
-            {/*   {error && error.success === "false" ? (
-              <small className="mb-4 text-danger">{error.message}</small>
-            ) : (
-              ""
-            )} */}
             <ResponseItem />
             {children}
           </Modal.Body>

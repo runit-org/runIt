@@ -80,6 +80,7 @@ function CreateEvent(props) {
         maxMember: formValue.maxMember,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.suggestion, setFormValue]);
 
   return (

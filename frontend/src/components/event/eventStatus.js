@@ -19,7 +19,6 @@ function EventStatus(props) {
   const btnRef = useRef();
   const [status, setStatus] = useState("");
   const [load, setLoad] = useState(false);
-  const [error, setError] = useState({});
 
   const params = useParams();
 
@@ -32,7 +31,7 @@ function EventStatus(props) {
       status: status,
     };
 
-    dispatch(updateStatus(props.eventId, postData, setLoad, setError)).then(
+    dispatch(updateStatus(props.eventId, postData, setLoad)).then(
       ({ status }) => {
         if (status === ResponseStatus.OK) {
           dispatch(getSingleEvent(params.id));
@@ -45,14 +44,8 @@ function EventStatus(props) {
     <ModalItem
       ref={(ref, btnRef)}
       customBtn={""}
-      btnIcon={
-        <div className="d-flex align-items-center">
-          {/* <PencilSquare /> */}
-          Status
-        </div>
-      }
+      btnIcon={<div className="d-flex align-items-center">Status</div>}
       title={"Update Status"}
-      error={error}
     >
       <Form
         onSubmit={(e) => {

@@ -32,7 +32,6 @@ function VerifyEmail() {
   return (
     <>
       <SectionHeader>Verify account</SectionHeader>
-
       <div className="otp-card p-2">
         <div className="message-block">
           You're just one step away from unlocking complete{" "}

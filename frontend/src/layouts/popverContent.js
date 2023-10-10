@@ -14,7 +14,7 @@ const UserPopoverContent = (props) => {
 
   return (
     <>
-      {user ? (
+      {user && (
         <div className="w-100">
           <div className="d-flex align-items-center userInfo-div">
             <DisplayImage image={user.gravatarImage} />
@@ -68,8 +68,6 @@ const UserPopoverContent = (props) => {
             )}
           </VerifiedRender>
         </div>
-      ) : (
-        ""
       )}
     </>
   );

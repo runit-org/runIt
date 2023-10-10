@@ -39,7 +39,7 @@ function SingleClick() {
 
   return (
     <>
-      {currUserProfile ? (
+      {currUserProfile && (
         <Card className="current-signedin">
           <ListGroup variant="flush">
             <ListGroup.Item className="p-0">
@@ -71,8 +71,6 @@ function SingleClick() {
             </ListGroup.Item>
           </ListGroup>
         </Card>
-      ) : (
-        ""
       )}
     </>
   );

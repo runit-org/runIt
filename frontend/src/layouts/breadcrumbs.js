@@ -4,7 +4,7 @@ import { Breadcrumb } from "react-bootstrap";
 function Breadcrumbs(props) {
   return (
     <>
-      {props.items ? (
+      {props.items && (
         <Breadcrumb className="w-100">
           {props.items.map((item, index) => {
             return (
@@ -19,8 +19,6 @@ function Breadcrumbs(props) {
             );
           })}
         </Breadcrumb>
-      ) : (
-        ""
       )}
     </>
   );

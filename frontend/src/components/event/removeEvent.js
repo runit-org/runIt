@@ -14,20 +14,17 @@ function RemoveEvent(props) {
   const ref = React.createRef();
   const btnRef = useRef();
   const [load, setLoad] = useState(false);
-  const [error, setError] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(removeEvent(props.eventId, setLoad, setError)).then(
-      ({ status }) => {
-        if (status === OK) {
-          dispatch({
-            type: RESET_CURRENT_PAGE,
-          });
-          navigate("/posts");
-        }
+    dispatch(removeEvent(props.eventId, setLoad)).then(({ status }) => {
+      if (status === OK) {
+        dispatch({
+          type: RESET_CURRENT_PAGE,
+        });
+        navigate("/posts");
       }
-    );
+    });
   };
 
   return (
@@ -36,9 +33,7 @@ function RemoveEvent(props) {
       customBtn={""}
       btnIcon={<div className="d-flex align-items-center">Delete</div>}
       title={"Delete Event"}
-      error={error}
     >
-      {" "}
       <Form
         onSubmit={(e) => {
           handleSubmit(e);

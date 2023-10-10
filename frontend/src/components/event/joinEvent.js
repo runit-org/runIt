@@ -18,8 +18,6 @@ function JoinEvent(props) {
   const ref = React.createRef();
   const btnRef = useRef();
   const [load, setLoad] = useState(false);
-  const [error, setError] = useState({});
-
   const params = useParams();
   const location = useLocation();
 
@@ -30,7 +28,7 @@ function JoinEvent(props) {
       eventId: props.eventId,
     };
 
-    dispatch(requestToJoin(postData, setLoad, setError)).then(({ status }) => {
+    dispatch(requestToJoin(postData, setLoad)).then(({ status }) => {
       if (status === ResponseStatus.OK) {
         location.pathname.includes("event")
           ? dispatch(getSingleEvent(params.id))
@@ -51,7 +49,6 @@ function JoinEvent(props) {
         </div>
       }
       title={"Join Event"}
-      error={error}
     >
       <Form
         onSubmit={(e) => {

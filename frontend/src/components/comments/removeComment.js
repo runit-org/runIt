@@ -18,23 +18,20 @@ function RemoveComment(props) {
   const ref = React.createRef();
   const btnRef = useRef();
   const [load, setLoad] = useState(false);
-  const [error, setError] = useState("");
 
   let pageId = usePageId(props.commentCount);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(removeComment(props.commentId, setLoad, setError)).then(
-      ({ status }) => {
-        if (status === ResponseStatus.OK) {
-          dispatch(getAllComments(props.eventId, pageId));
-          navigate(`/event/${props.eventId}?page=${pageId}`, {
-            replace: true,
-            state: { id: pageId },
-          });
-        }
+    dispatch(removeComment(props.commentId, setLoad)).then(({ status }) => {
+      if (status === ResponseStatus.OK) {
+        dispatch(getAllComments(props.eventId, pageId));
+        navigate(`/event/${props.eventId}?page=${pageId}`, {
+          replace: true,
+          state: { id: pageId },
+        });
       }
-    );
+    });
   };
   return (
     <ModalItem
@@ -47,7 +44,6 @@ function RemoveComment(props) {
         </div>
       }
       title={"Delete Comment"}
-      error={error}
     >
       <Form
         onSubmit={(e) => {

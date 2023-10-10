@@ -65,7 +65,7 @@ function SingleEventDash() {
   return (
     <>
       <SingleEventContext.Provider value={eventData}>
-        {eventData ? (
+        {eventData && (
           <div style={{ position: "relative" }}>
             <div className="dash-container">
               <div className="content">
@@ -160,8 +160,6 @@ function SingleEventDash() {
               </div>
             </div>
           </div>
-        ) : (
-          ""
         )}
       </SingleEventContext.Provider>
     </>
