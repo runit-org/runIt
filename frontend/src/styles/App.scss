@@ -162,13 +162,19 @@ div.content {
   border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
   --bs-border-opacity: 0.1;
   border-color: rgba(#475569, var(--bs-border-opacity)) !important;
-
   &:hover {
     @extend %vote_btn-interactive;
+  }
+  & svg {
+    fill: transparent;
   }
 }
 .vote_btn.user_vote {
   @extend %vote_btn-interactive;
+  & svg {
+    fill: #eac54f;
+    color: #eac54f;
+  }
 }
 
 #vote_badge {

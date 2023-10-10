@@ -8,11 +8,7 @@ import {
 } from "../../../layouts/icons";
 
 export const VoteBadge = (props) => {
-  return (
-    <>
-      <Badge id="vote_badge">{props.votes} Votes</Badge>
-    </>
-  );
+  return <Badge id="vote_badge">{props.votes} Stars</Badge>;
 };
 
 export const UserCardInfo = (props) => {

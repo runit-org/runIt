@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { getUserProfile, vote } from "../../services/actions/userActions";
 import { VoteArrow } from "../../layouts/icons";
 import * as ResponseStatus from "../../services/constants/responseStatus";
+import CustomTooltip from "../../layouts/customTooltip";
 
 function Vote(props) {
   const dispatch = useDispatch();
@@ -31,11 +32,18 @@ function Vote(props) {
           : `vote_btn ${fullW} `
       }
     >
-      <VoteArrow />
-      <span className="d-block">
-        {!props.fullW ? props.user.totalVote : ""}
-      </span>
-      <span className="visually-hidden">up vote</span>
+      <CustomTooltip
+        tooltip={props.user.voteStatus === "UPVOTE" ? "Starred" : "Star"}
+        id="tooltip-vote"
+      >
+        <div className="d-flex justify-content-center align-items-center">
+          <VoteArrow />
+          <span className="ms-1">
+            {!props.fullW ? props.user.totalVote : ""}
+          </span>
+          <span className="visually-hidden">up vote</span>
+        </div>
+      </CustomTooltip>
     </Button>
   );
 }

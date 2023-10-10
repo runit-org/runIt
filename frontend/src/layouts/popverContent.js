@@ -34,12 +34,10 @@ const UserPopoverContent = (props) => {
             <VoteBadge votes={user.totalVote} />
 
             <small className="d-block text-muted mt-2">
-              {user.statusMessage ? (
+              {user.statusMessage && (
                 <>
                   <Smiley /> {user.statusMessage}
                 </>
-              ) : (
-                ""
               )}
             </small>
             <UserCardInfo
@@ -59,12 +57,10 @@ const UserPopoverContent = (props) => {
           </div>
 
           <VerifiedRender>
-            {user.username !== localStorage.getItem("username") ? (
+            {user.username !== localStorage.getItem("username") && (
               <div className="mt-4">
-                <Vote user={user} fullW={true} />
+                <Vote user={user} />
               </div>
-            ) : (
-              ""
             )}
           </VerifiedRender>
         </div>

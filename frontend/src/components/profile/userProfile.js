@@ -54,7 +54,6 @@ function UserProfile() {
           </small>
         )}
       </VerifiedRender>
-
       <div className="mt-3 ">
         <UserCardInfo
           lastLogin={last_login}
