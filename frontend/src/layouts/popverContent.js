@@ -30,7 +30,7 @@ const UserPopoverContent = (props) => {
             </div>
           </div>
 
-          <div className="mt-3 ">
+          <div className="mt-3">
             <VoteBadge votes={user.totalVote} />
 
             <small className="d-block text-muted mt-2">
@@ -46,7 +46,12 @@ const UserPopoverContent = (props) => {
               size={"sm"}
             />
 
-            <div className="mt-2">
+            <div className="mt-4 d-flex justify-content-between align-items-baseline">
+              <VerifiedRender>
+                {user.username !== localStorage.getItem("username") && (
+                  <Vote user={user} />
+                )}
+              </VerifiedRender>
               <a
                 href={`/profile/settings?user=${user.username}`}
                 className="text-decoration-none"
@@ -55,14 +60,6 @@ const UserPopoverContent = (props) => {
               </a>
             </div>
           </div>
-
-          <VerifiedRender>
-            {user.username !== localStorage.getItem("username") && (
-              <div className="mt-4">
-                <Vote user={user} />
-              </div>
-            )}
-          </VerifiedRender>
         </div>
       )}
     </>
