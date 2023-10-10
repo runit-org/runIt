@@ -11,6 +11,7 @@ export const GET_ALL_EVENTS = "GET_ALL_EVENTS";
 export const GET_AFFILIATED_EVENTS = "GET_AFFILIATED_EVENTS";
 export const GET_EVENT_MEMBERS = "GET_EVENT_MEMBERS";
 export const GET_SINGLE_EVENT = "GET_SINGLE_EVENT";
+export const RESET_CURRENT_PAGE = "RESET_CURRENT_PAGE";
 
 //notifications types
 export const GET_ALL_NOTIFS = "GET_ALL_NOTIFS";

@@ -13,6 +13,7 @@ import {
   SERVER_ERROR,
 } from "../../../services/constants/responseStatus";
 import { useNavigate } from "react-router-dom";
+import { GetParamFromURL } from "../../../utilities/utility-service";
 
 export const EventMembersHandler = (eventId) => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ export const SingleEventHandler = (params, pageId) => {
 
   useEffect(() => {
     dispatch(getSingleEvent(params.id)).then((res) => {
-      let { status } = res;
+      let status = res?.response?.status || "";
       if (status === OK) {
         dispatch(getAllComments(params.id, pageId ? pageId : 1));
       } else if (status === BAD_REQUEST || status === SERVER_ERROR) {
@@ -53,7 +54,7 @@ export const SingleEventHandler = (params, pageId) => {
     });
   }, [dispatch, params.id, pageId, navigate]);
 
-  var event = useSelector((securityReducer) => securityReducer.events.events);
+  var event = useSelector((securityReducer) => securityReducer.events.event);
   var comments = useSelector(
     (commentReducer) => commentReducer.comments.comments
   );
@@ -70,22 +71,42 @@ export const SingleEventHandler = (params, pageId) => {
   return { eventData, commentData };
 };
 
-export const EventHandler = (pageId) => {
+export const EventHandler = () => {
   const dispatch = useDispatch();
+  const [load, setLoad] = useState(false);
   const [eventData, setEventData] = useState([]);
 
-  useEffect(() => {
-    dispatch(getAllEvents(pageId ? pageId : 1));
-  }, [dispatch, pageId]);
-
+  //reducer data
   var allEventsData = useSelector((eventReducer) => eventReducer.events.events);
+
+  const { currentPage, next, count } = allEventsData;
+
+  //get data on initial load
   useEffect(() => {
-    if (allEventsData) {
-      setEventData(allEventsData);
+    if (currentPage === 0) {
+      dispatch(getAllEvents(1, setLoad));
     }
+  }, [dispatch, currentPage]);
+
+  //get data when traversing page
+  const handleLoadMore = () => {
+    if (next) {
+      let pageParam = GetParamFromURL(next, "page");
+      dispatch(getAllEvents(pageParam, setLoad));
+    }
+  };
+
+  useEffect(() => {
+    if (allEventsData.results) setEventData(allEventsData.results);
   }, [allEventsData]);
 
-  return eventData;
+  return {
+    load,
+    eventData,
+    handleLoadMore,
+    count,
+    hasMore: !!next,
+  };
 };
 
 export const AffiliatedEvents = (filter) => {

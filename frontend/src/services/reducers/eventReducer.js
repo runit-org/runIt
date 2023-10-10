@@ -3,12 +3,18 @@ import {
   GET_AFFILIATED_EVENTS,
   GET_EVENT_MEMBERS,
   GET_SINGLE_EVENT,
+  RESET_CURRENT_PAGE,
 } from "../constants/types";
 
 const initialState = {
-  events: {},
+  event: {},
   affiliatedData: {},
   eventMembers: {},
+  events: {
+    results: [],
+    next: null,
+    currentPage: 0,
+  },
 };
 
 export default function setEvents(state = initialState, action) {
@@ -16,12 +22,17 @@ export default function setEvents(state = initialState, action) {
     case GET_SINGLE_EVENT:
       return {
         ...state,
-        events: action.payload,
+        event: action.payload,
       };
     case GET_ALL_EVENTS:
       return {
         ...state,
-        events: action.payload,
+        events: {
+          results: [...state.events.results, ...action.payload.results],
+          next: action.payload.next,
+          currentPage: state.events.currentPage + 1,
+          count: action.payload.count,
+        },
       };
     case GET_AFFILIATED_EVENTS:
       return {
@@ -32,6 +43,15 @@ export default function setEvents(state = initialState, action) {
       return {
         ...state,
         eventMembers: action.payload,
+      };
+    case RESET_CURRENT_PAGE:
+      return {
+        ...state,
+        events: {
+          results: [],
+          next: null,
+          currentPage: 0,
+        },
       };
     default:
       return state;
