@@ -51,11 +51,18 @@ function RemoveComment(props) {
         }}
       >
         <div className="mt-3">
-          Are you sure you want to delete this comment? This can't be undone.
+          <strong className="d-block">
+            Are you sure you want to delete this comment?
+          </strong>
+          <span>This cannot be undone</span>
         </div>
 
-        <div className="mt-3">
-          <Button type="submit" onClick={() => btnRef.current.setModalShow()}>
+        <div className="mt-3 d-flex justify-content-center">
+          <Button
+            type="submit"
+            onClick={() => btnRef.current.setModalShow()}
+            variant="danger w-100"
+          >
             {(() => {
               if (load) {
                 return <Loading />;
@@ -63,12 +70,6 @@ function RemoveComment(props) {
                 return <>Remove</>;
               }
             })()}
-          </Button>
-          <Button
-            className="me-3 btn-cancel"
-            onClick={() => btnRef.current.setModalShow()}
-          >
-            Cancel
           </Button>
         </div>
       </Form>

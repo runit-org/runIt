@@ -9,7 +9,6 @@ import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modalItem";
 import { useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
-import { CANCELLED, FINISHED } from "./helper/eventTypes";
 import { EventMembersHandler } from "./helper/actionHandlers";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 
@@ -17,7 +16,7 @@ function EventStatus(props) {
   const dispatch = useDispatch();
   const ref = React.createRef();
   const btnRef = useRef();
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(0);
   const [load, setLoad] = useState(false);
 
   const params = useParams();
@@ -40,6 +39,7 @@ function EventStatus(props) {
       }
     );
   };
+
   return (
     <ModalItem
       ref={(ref, btnRef)}
@@ -52,33 +52,39 @@ function EventStatus(props) {
           handleSubmit(e);
         }}
       >
-        <div className="mt-3">
-          <Form.Group className="mb-3">
-            <Form.Label className="m-1">
-              Mark your event as <strong>FINISHED</strong> or{" "}
-              <strong>CANCELLED</strong>
-            </Form.Label>
-            <Form.Control
-              type="title"
-              pattern="(FINISHED|CANCELLED)"
-              onChange={(e) =>
-                setStatus(
-                  e.target.value === FINISHED
-                    ? 2
-                    : e.target.value === CANCELLED
-                    ? 3
-                    : ""
-                )
-              }
-              required
-            />
-          </Form.Group>
-          <div className="mt-2">
-            <small className="text-muted">
-              Note: The event status can only be updated once.
-            </small>
-          </div>
-        </div>
+        <Form.Group className="mt-3">
+          <Form.Label>
+            Update your event status as <strong>FINISHED</strong> or{" "}
+            <strong>CANCELLED</strong>
+          </Form.Label>
+           
+          <small>
+            <ul>
+              <li>Status can only be updated once</li>
+              <li>Event will remain as history but uninteractive</li>
+            </ul>
+          </small>
+          <Form.Check
+            type="radio"
+            className="fw-bold"
+            id="default-radio"
+            label="Finished"
+            name="status"
+            value={2}
+            onChange={(e) => setStatus(Number(e.target.value))}
+            inline
+          />
+          <Form.Check
+            type="radio"
+            className="fw-bold"
+            id="default-radio2"
+            label="Cancelled"
+            name="status"
+            value={3}
+            onChange={(e) => setStatus(Number(e.target.value))}
+            inline
+          />
+        </Form.Group>
 
         <div className="mt-3">
           <Button type="submit">

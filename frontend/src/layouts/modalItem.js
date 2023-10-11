@@ -41,7 +41,10 @@ const ModalItem = React.forwardRef(
           aria-labelledby="example-modal-sizes-title-lg"
         >
           <Modal.Body>
-            <Modal.Title>{title}</Modal.Title>
+            <Modal.Header closeButton>
+              <Modal.Title>{title}</Modal.Title>
+            </Modal.Header>
+
             <ResponseItem />
             {children}
           </Modal.Body>

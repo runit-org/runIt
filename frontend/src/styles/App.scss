@@ -78,6 +78,14 @@ body {
   @include btn-style(transparent, $theme, none, 600);
 }
 
+.btn-danger {
+  @include btn-style($button-danger-bg, $button-danger-text, none, 600);
+  &:hover {
+    background-color: $button-danger-hover !important;
+    color: $primary-light !important;
+    border: none;
+  }
+}
 :is(.btn-primary:focus, .btn:focus) {
   outline: none !important;
   box-shadow: none !important;
@@ -345,8 +353,7 @@ div.content {
   border-top-right-radius: 8px !important;
   border-top-left-radius: 8px !important;
   border-color: transparent !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+  padding: 0 !important;
 }
 
 .modal-title {

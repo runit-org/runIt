@@ -40,25 +40,27 @@ function RemoveEvent(props) {
         }}
       >
         <div className="mt-3">
-          Are you sure you want to delete <strong>{props.eventTitle}</strong>?
-          Any affiliations to this event will also be nullified.
+          <strong>Are you sure you want to delete this event?</strong>
+          <ul className="mt-2">
+            <li>This cannot be undone</li>
+            <li>Will remove all affiliations related to this event</li>
+          </ul>
         </div>
 
-        <div className="mt-3">
-          <Button type="submit" onClick={() => btnRef.current.setModalShow()}>
+        <div className="mt-3 d-flex justify-content-center">
+          <Button
+            type="submit"
+            onClick={() => btnRef.current.setModalShow()}
+            variant="danger"
+            className="w-100"
+          >
             {(() => {
               if (load) {
                 return <Loading />;
               } else {
-                return <>Remove</>;
+                return <>Delete this event</>;
               }
             })()}
-          </Button>
-          <Button
-            className="me-3 btn-cancel"
-            onClick={() => btnRef.current.setModalShow()}
-          >
-            Back
           </Button>
         </div>
       </Form>
