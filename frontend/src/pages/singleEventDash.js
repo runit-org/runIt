@@ -143,13 +143,9 @@ function SingleEventDash() {
                       )}
                       {/* manage members */}
                       {eventData.joinedStatus === OWNER &&
-                      !eventData.fullStatus &&
-                      eventData.eventStatus !== CANCELLED &&
-                      eventData.eventStatus !== FINISHED ? (
-                        <ManageMembers />
-                      ) : (
-                        ""
-                      )}
+                        !eventData.fullStatus &&
+                        eventData.eventStatus !== CANCELLED &&
+                        eventData.eventStatus !== FINISHED && <ManageMembers />}
                     </VerifiedRender>
                   </Container>
                 </div>
