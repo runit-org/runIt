@@ -3,7 +3,6 @@ import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import {
   requestToJoin,
-  getAllEvents,
   getSingleEvent,
 } from "../../services/actions/eventActions";
 import { Loading } from "../../layouts/loader";
@@ -12,6 +11,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
 import { Plus } from "../../layouts/icons";
 import * as ResponseStatus from "../../services/constants/responseStatus";
+import { RESET_CURRENT_PAGE } from "../../services/constants/types";
 
 function JoinEvent(props) {
   const dispatch = useDispatch();
@@ -30,9 +30,13 @@ function JoinEvent(props) {
 
     dispatch(requestToJoin(postData, setLoad)).then(({ status }) => {
       if (status === ResponseStatus.OK) {
-        location.pathname.includes("event")
-          ? dispatch(getSingleEvent(params.id))
-          : dispatch(getAllEvents(1));
+        if (location.pathname.includes("event")) {
+          dispatch(getSingleEvent(params.id));
+        } else {
+          dispatch({
+            type: RESET_CURRENT_PAGE,
+          });
+        }
         emitter([props.userName]);
       }
     });

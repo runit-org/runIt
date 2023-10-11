@@ -8,7 +8,7 @@ import {
 import { Loading } from "../../layouts/loader";
 import { Link } from "react-router-dom";
 import { emitter } from "../client/socket";
-import { EventMembersHandler } from "./helper/actionHandlers";
+import { SingleEventHandler } from "./helper/actionHandlers";
 import { Pending } from "./helper/eventBuilder";
 import { SingleEventContext } from "../../pages/singleEventDash";
 import { Cross, Tick } from "../../layouts/icons";
@@ -20,8 +20,9 @@ function ManageMembers() {
   const eventData = useContext(SingleEventContext);
 
   const [load, setLoad] = useState(false);
-  const eventMembers = EventMembersHandler(eventData.id);
-  const pendingMembers = Pending(eventMembers, eventData.user);
+  const { eventMbs } = SingleEventHandler(1);
+
+  const pendingMembers = Pending(eventMbs, eventData.user);
 
   const manageUser = async (status, memberId) => {
     const postData = {

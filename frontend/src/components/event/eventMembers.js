@@ -3,13 +3,13 @@ import { Form, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import ModalItem from "../../layouts/modalItem";
-import { EventMembersHandler } from "./helper/actionHandlers";
+import { SingleEventHandler } from "./helper/actionHandlers";
 import { Accepted } from "./helper/eventBuilder";
 
-function EventMembers(props) {
+function EventMembers() {
   const ref = React.createRef();
-  const eventMembers = EventMembersHandler(props.eventId);
-  const acceptedMembers = Accepted(eventMembers);
+  const { eventMbs } = SingleEventHandler(1);
+  const acceptedMembers = Accepted(eventMbs);
 
   return (
     <ModalItem
@@ -38,7 +38,7 @@ function EventMembers(props) {
     >
       <Form>
         <div className="mt-3">
-          {eventMembers.length === 0 ? (
+          {eventMbs.length === 0 ? (
             <strong>Nobody here yet....</strong>
           ) : (
             <ListGroup className="members-list" variant="flush">

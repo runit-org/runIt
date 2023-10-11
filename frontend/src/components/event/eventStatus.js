@@ -9,7 +9,7 @@ import { Loading } from "../../layouts/loader";
 import ModalItem from "../../layouts/modalItem";
 import { useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
-import { EventMembersHandler } from "./helper/actionHandlers";
+import { SingleEventHandler } from "./helper/actionHandlers";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function EventStatus(props) {
@@ -21,7 +21,7 @@ function EventStatus(props) {
 
   const params = useParams();
 
-  const eventMembers = EventMembersHandler(props.eventId);
+  const { eventMbs } = SingleEventHandler(1);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ function EventStatus(props) {
       ({ status }) => {
         if (status === ResponseStatus.OK) {
           dispatch(getSingleEvent(params.id));
-          emitter(eventMembers.map((member) => member.username));
+          emitter(eventMbs.map((member) => member.username));
         }
       }
     );

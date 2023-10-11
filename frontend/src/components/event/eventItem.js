@@ -98,12 +98,7 @@ function EventItem() {
               </div>
 
               <div className="mt-4">
-                <EventMembers
-                  eventId={eventData.id}
-                  userId={eventData.user}
-                  currentUser={currentUser}
-                  img={eventData.gravatarImage}
-                />
+                <EventMembers />
               </div>
             </div>
           </Card.Body>

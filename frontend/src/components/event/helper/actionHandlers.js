@@ -12,50 +12,35 @@ import {
   OK,
   SERVER_ERROR,
 } from "../../../services/constants/responseStatus";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GetParamFromURL } from "../../../utilities/utility-service";
 
-export const EventMembersHandler = (eventId) => {
+export const SingleEventHandler = (pageId) => {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
+  const { id } = useParams();
+  const [eventData, setEventData] = useState([]);
+  const [commentData, setCommentData] = useState([]);
   const [eventMbs, setEventMbs] = useState([]);
 
   useEffect(() => {
-    if (eventId) {
-      dispatch(getEventMembers(eventId));
-    }
-  }, [dispatch, eventId]);
-
-  var allEventMembers = useSelector(
-    (eventReducer) => eventReducer.events.eventMembers.data
-  );
-  useEffect(() => {
-    if (allEventMembers) {
-      setEventMbs(allEventMembers);
-    }
-  }, [allEventMembers]);
-
-  return eventMbs;
-};
-
-export const SingleEventHandler = (params, pageId) => {
-  const dispatch = useDispatch();
-  const [eventData, setEventData] = useState([]);
-  const [commentData, setCommentData] = useState([]);
-  let navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(getSingleEvent(params.id)).then(({ status }) => {
-      if (status === OK) {
-        dispatch(getAllComments(params.id, pageId ? pageId : 1));
-      } else if (status === BAD_REQUEST || status === SERVER_ERROR) {
-        navigate("*");
-      }
-    });
-  }, [dispatch, params.id, pageId, navigate]);
+    if (id)
+      dispatch(getSingleEvent(id)).then(({ status }) => {
+        if (status === OK) {
+          dispatch(getAllComments(id, pageId ? pageId : 1));
+          dispatch(getEventMembers(id));
+        } else if (status === BAD_REQUEST || status === SERVER_ERROR) {
+          navigate("*");
+        }
+      });
+  }, [dispatch, id, pageId, navigate]);
 
   var event = useSelector((securityReducer) => securityReducer.events.event);
   var comments = useSelector(
     (commentReducer) => commentReducer.comments.comments
+  );
+  var allEventMembers = useSelector(
+    (eventReducer) => eventReducer.events.eventMembers.data
   );
 
   useEffect(() => {
@@ -65,9 +50,12 @@ export const SingleEventHandler = (params, pageId) => {
     if (comments) {
       setCommentData(comments);
     }
-  }, [event, comments]);
+    if (allEventMembers) {
+      setEventMbs(allEventMembers);
+    }
+  }, [event, comments, allEventMembers]);
 
-  return { eventData, commentData };
+  return { eventData, commentData, eventMbs };
 };
 
 export const EventHandler = () => {
