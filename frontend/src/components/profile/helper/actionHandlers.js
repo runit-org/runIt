@@ -15,7 +15,7 @@ import {
   GroupEntriesByMonthAndYear,
 } from "../../../utilities/utility-service";
 
-const UserProfileHandler = (data) => {
+export const UserProfileHandler = (data) => {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const [userProfile, setUserProfile] = useState({});
@@ -39,8 +39,6 @@ const UserProfileHandler = (data) => {
 
   return userProfile;
 };
-
-export default UserProfileHandler;
 
 export const GetVotes = () => {
   const dispatch = useDispatch();

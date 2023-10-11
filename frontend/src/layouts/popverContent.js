@@ -4,7 +4,7 @@ import {
   VoteBadge,
 } from "../components/profile/helper/profileBuilder";
 import Vote from "../components/profile/vote";
-import UserProfileHandler from "../components/profile/helper/actionHandlers.js";
+import { UserProfileHandler } from "../components/profile/helper/actionHandlers.js";
 import { ArrowRight, Smiley } from "./icons";
 import { DisplayImage } from "./userDisplayImg";
 import { VerifiedRender } from "../routes/verifiedRender";

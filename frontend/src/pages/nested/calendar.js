@@ -5,7 +5,7 @@ import CalendarEventItem from "../../components/calendar/calendarEventItem";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
 import { useSearchParams } from "react-router-dom";
 import { UserContext } from "../../context/userProvider";
-import UserProfileHandler from "../../components/profile/helper/actionHandlers";
+import { UserProfileHandler } from "../../components/profile/helper/actionHandlers";
 import { CalendarContext } from "../../context/calendarProvider";
 import { DateFormat, DateOrdinal } from "../../utilities/utility-service";
 

@@ -9,7 +9,7 @@ export const EventSuggestHandler = (pageId) => {
 
   useEffect(() => {
     dispatch(getSuggestions(pageId ? pageId : 1, setIsLoading));
-  }, [dispatch, pageId, setIsLoading]);
+  }, [dispatch, pageId]);
 
   var allSuggestData = useSelector(
     (suggestReducer) => suggestReducer.suggestions.suggestEvent

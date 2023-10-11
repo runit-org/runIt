@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useSearchParams } from "react-router-dom";
 import { UserContext } from "../context/userProvider";
-import UserProfileHandler from "../components/profile/helper/actionHandlers";
+import { UserProfileHandler } from "../components/profile/helper/actionHandlers";
 
 //checks if current route user is the authenticated user
 export function useVerifyAuthUser() {
