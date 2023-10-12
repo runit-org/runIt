@@ -8,6 +8,7 @@ import CustomTooltip from "../../layouts/customTooltip";
 
 function Vote(props) {
   const dispatch = useDispatch();
+  var fullW = props.fullW ? "w-100" : "";
 
   const voteUser = (status) => {
     const postData = { status: status };
@@ -17,8 +18,6 @@ function Vote(props) {
       }
     });
   };
-
-  var fullW = props.fullW ? "w-100" : "";
 
   return (
     <Button
@@ -41,7 +40,7 @@ function Vote(props) {
           <span className="ms-1">
             {!props.fullW ? props.user.totalVote : ""}
           </span>
-          <span className="visually-hidden">star</span>
+          <span className="visually-hidden">up vote</span>
         </div>
       </CustomTooltip>
     </Button>

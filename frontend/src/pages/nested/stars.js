@@ -1,18 +1,15 @@
 import React from "react";
 import { Card, Container } from "react-bootstrap";
-import UserProfile from "../../components/profile/userProfile";
 import { CustomTable, CustomTableCells } from "../../layouts/customTable";
 import SortDropdown from "../../layouts/sortDropdown";
 import { GetVotes } from "../../components/profile/helper/actionHandlers";
 import { Username } from "../../layouts/username";
 import CTAButton from "../../layouts/ctaButton";
 import { Loading } from "../../layouts/loader";
-import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
 import CurrentUserProfile from "../../components/profile/currentUserProfile";
 
 function Stars() {
   // const affiliatedEvents = AffiliatedEvents(2);
-  const { authUser } = useVerifyAuthUser();
   const { count, hasMore, load, votesList, handleLoadMore } = GetVotes();
   return (
     <>
@@ -23,7 +20,7 @@ function Stars() {
               headerItems={
                 <th colSpan={2}>
                   <div className="d-flex justify-content-between align-items-center mx-2">
-                    starred {count}
+                    Starred {count}
                     <SortDropdown />
                   </div>
                 </th>
@@ -42,13 +39,11 @@ function Stars() {
                           </CustomTableCells>
 
                           <CustomTableCells cols={"col-1"}>
-                            <div className="d-flex img-group justify-content-center">
-                              <img
-                                src={item.gravatarImage}
-                                className="members-img "
-                                alt="Img"
-                              />
-                            </div>
+                            <img
+                              src={item.gravatarImage}
+                              className="members-img "
+                              alt="Img"
+                            />
                           </CustomTableCells>
                         </tr>
                       );
@@ -96,7 +91,7 @@ function Stars() {
           <Container className="content-wrapper">
             <Card>
               <Card.Body>
-                {authUser ? <CurrentUserProfile /> : <UserProfile />}
+                <CurrentUserProfile />
               </Card.Body>
             </Card>
           </Container>
