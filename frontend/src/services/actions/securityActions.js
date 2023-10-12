@@ -5,11 +5,13 @@ import {
   SET_CURRENT_USER,
   SET_NEW_USER,
   GET_USER,
+  GET_SUCCESS,
 } from "../constants/types";
 import { setToken, refreshToken } from "../../securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import * as ResponseStatus from "../constants/responseStatus";
+import { RESET_PW } from "../constants/apiTypes";
 
 axios.defaults.baseURL = `${
   process.env.NODE_ENV === "production"
@@ -159,25 +161,26 @@ export const resetPwEmail = (userData, setLoad) => async (dispatch) => {
 
 export const resetPw = (userData, setLoad) => async (dispatch) => {
   setLoad(true);
-  await axios
+  return await axios
     .post(`/auth/resetPassword/`, userData)
     .then((res) => {
       if (res.status === ResponseStatus.OK) {
         setLoad(false);
+        dispatch({
+          type: GET_SUCCESS,
+          payload: { res: res.data, callType: RESET_PW },
+        });
+        return res;
       }
-      dispatch({
-        type: GET_ERRORS,
-        payload: res,
-      });
     })
 
     .catch((error) => {
       setLoad(false);
-
       dispatch({
         type: GET_ERRORS,
         payload: error.response,
       });
+      return error;
     });
 };
 

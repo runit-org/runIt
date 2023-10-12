@@ -529,6 +529,16 @@ div.content {
   font-size: 14px;
 }
 
+/*------Alert------*/
+.alert-dismissible {
+  border-width: 0 !important;
+  padding: 0.5rem 1rem !important;
+  .btn-close {
+    font-size: 10px !important;
+    padding: 1rem 1rem !important;
+  }
+}
+
 /*------Loaders------*/
 .loading_skeleton {
   border: 1px solid rgba(0, 0, 0, 0.175);

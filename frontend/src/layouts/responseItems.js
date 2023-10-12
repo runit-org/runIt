@@ -3,11 +3,11 @@ import { Alert } from "react-bootstrap";
 import { ResponseContext } from "../context/responseProvider";
 import * as ResponseStatus from "../services/constants/responseStatus";
 import { useSelector } from "react-redux";
-import { REMOVE_EVENT } from "../services/constants/apiTypes";
+import { REMOVE_EVENT, RESET_PW } from "../services/constants/apiTypes";
 
 export const ResponseToast = () => {
   const [show, setShow] = useState(true);
-  const successTypes = [REMOVE_EVENT];
+  const successTypes = [REMOVE_EVENT, RESET_PW];
   const { type, response } = useSelector(
     (errorReducer) => errorReducer.errors.success
   );

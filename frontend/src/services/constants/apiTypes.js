@@ -22,3 +22,6 @@ export const USER_STATUS_MSG = "USER_STATUS_MSG";
 export const UPDATE_USER_DETAILS = "UPDATE_USER_DETAILS";
 export const UPDATE_PW = "UPDATE_PW";
 export const FEEDBACK = "FEEDBACK";
+
+//user security types
+export const RESET_PW = "RESET_PW";

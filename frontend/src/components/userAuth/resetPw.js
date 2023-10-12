@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { resetPw } from "../../services/actions/securityActions";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ResponseItem } from "../../layouts/responseItems";
 
 import { FormButton } from "./helper/auth-builder";
 import { useHandleChange } from "../../hooks/useHandleChange";
 import { FormGroup, FormLabel } from "../../layouts/customForm";
+import { OK } from "../../services/constants/responseStatus";
 
 function ResetPassword() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   let { token } = useParams();
 
   const { formValue, handleFieldChange } = useHandleChange({
@@ -24,7 +26,11 @@ function ResetPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch(resetPw(formValue, setLoad));
+    dispatch(resetPw(formValue, setLoad)).then(({ status }) => {
+      if (status === OK) {
+        navigate("/");
+      }
+    });
   };
 
   useEffect(() => {

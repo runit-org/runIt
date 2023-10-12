@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { FormButton } from "./helper/auth-builder";
 import { Eye, EyeSlash } from "../../layouts/icons";
-import { ResponseItem } from "../../layouts/responseItems";
+import { ResponseItem, ResponseToast } from "../../layouts/responseItems";
 import { useHandleChange } from "../../hooks/useHandleChange";
 import { FormLabel, FormGroup } from "../../layouts/customForm";
 
@@ -66,6 +66,7 @@ function Login() {
                 <span>Sign in to your account</span>
               )}
             </h4>
+            <ResponseToast />
           </div>
 
           <FormGroup formId="formBasicType">
