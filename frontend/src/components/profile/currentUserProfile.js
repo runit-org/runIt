@@ -4,14 +4,12 @@ import { getCurrentUserProfile } from "../../services/actions/userActions";
 import { DisplayImage } from "../../layouts/userDisplayImg";
 import { UserCardInfo, VoteBadge } from "./helper/profileBuilder";
 import { Username } from "../../layouts/username";
-import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
 import { VerifiedRender } from "../../routes/verifiedRender";
 import UserStatus from "./userStatus";
 import { Loading } from "../../layouts/loader";
 
 function CurrentUserProfile() {
   const dispatch = useDispatch();
-  const { authUser } = useVerifyAuthUser();
 
   useEffect(() => {
     dispatch(getCurrentUserProfile());
@@ -29,7 +27,6 @@ function CurrentUserProfile() {
     username,
     email,
     totalVote,
-    statusMessage,
     last_login,
     numParticipatedEvents,
   } = currProfile || {};
@@ -51,15 +48,9 @@ function CurrentUserProfile() {
           </div>
 
           <VerifiedRender>
-            {authUser ? (
-              <div className="my-3">
-                <UserStatus />
-              </div>
-            ) : (
-              <small className="d-block text-muted content_sm5">
-                {statusMessage}
-              </small>
-            )}
+            <div className="my-3">
+              <UserStatus />
+            </div>
           </VerifiedRender>
           <div className="mt-3 ">
             <UserCardInfo

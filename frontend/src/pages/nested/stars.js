@@ -7,8 +7,12 @@ import { GetVotes } from "../../components/profile/helper/actionHandlers";
 import { Username } from "../../layouts/username";
 import CTAButton from "../../layouts/ctaButton";
 import { Loading } from "../../layouts/loader";
+import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
+import CurrentUserProfile from "../../components/profile/currentUserProfile";
 
 function Stars() {
+  // const affiliatedEvents = AffiliatedEvents(2);
+  const { authUser } = useVerifyAuthUser();
   const { count, hasMore, load, votesList, handleLoadMore } = GetVotes();
   return (
     <>
@@ -92,7 +96,7 @@ function Stars() {
           <Container className="content-wrapper">
             <Card>
               <Card.Body>
-                <UserProfile />
+                {authUser ? <CurrentUserProfile /> : <UserProfile />}
               </Card.Body>
             </Card>
           </Container>
