@@ -9,6 +9,7 @@ import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
 import { GetActivity } from "../../components/profile/helper/actionHandlers";
 import { Loading } from "../../layouts/loader";
 import CTAButton from "../../layouts/ctaButton";
+import CurrentUserProfile from "../../components/profile/currentUserProfile";
 // import { AffiliatedEvents } from "../event/utilities/actionHandlers";
 
 function Profile() {
@@ -67,7 +68,7 @@ function Profile() {
                     <UpdateDetails toggleEditor={handleClick} />
                   ) : (
                     <>
-                      <UserProfile />
+                      <CurrentUserProfile />
                       <Button
                         variant="primary"
                         className="w-100"
