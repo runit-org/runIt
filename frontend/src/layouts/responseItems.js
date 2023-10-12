@@ -22,7 +22,7 @@ export const ResponseToast = () => {
           onClose={() => setShow(false)}
           dismissible
         >
-          <small>{response.message}</small>
+          <small className="fw-semibold">{response.message}</small>
         </Alert>
       </div>
     )
