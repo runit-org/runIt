@@ -1,9 +1,9 @@
 import {
   GET_ALL_EVENTS,
-  GET_ERRORS,
   GET_AFFILIATED_EVENTS,
   GET_EVENT_MEMBERS,
   GET_SINGLE_EVENT,
+  GET_SUCCESS,
 } from "../constants/types";
 import * as ResponseStatus from "../constants/responseStatus";
 import {
@@ -13,6 +13,16 @@ import {
   securedPost,
   securedPut,
 } from "../../securityUtils/securedAxios";
+import * as ApiTypes from "../constants/apiTypes";
+
+const {
+  CREATE_EVENT,
+  UPDATE_EVENT,
+  UPDATE_EVENT_STATUS,
+  JOIN_EVENT,
+  REMOVE_EVENT,
+  EVENT_MEMBER_STATUS,
+} = ApiTypes;
 
 export const getSingleEvent = (id) => async (dispatch) => {
   const apiEndpoint = `/event/view/${id}/`;
@@ -37,14 +47,21 @@ export const createNewEvent = (postData, setLoad) => async (dispatch) => {
     dispatch,
     apiEndpoint,
     postData,
-    GET_ERRORS,
+    GET_SUCCESS,
+    CREATE_EVENT,
     setLoad
   );
 };
 
 export const updateEvent = (id, postData) => async (dispatch) => {
   const apiEndpoint = `/event/update/${id}/`;
-  return await securedPut(dispatch, apiEndpoint, postData, GET_ERRORS);
+  return await securedPut(
+    dispatch,
+    apiEndpoint,
+    postData,
+    GET_SUCCESS,
+    UPDATE_EVENT
+  );
 };
 
 export const updateStatus =
@@ -54,7 +71,8 @@ export const updateStatus =
       dispatch,
       apiEndpoint,
       postData,
-      GET_ERRORS,
+      GET_SUCCESS,
+      UPDATE_EVENT_STATUS,
       setLoad,
       setError
     );
@@ -67,7 +85,8 @@ export const requestToJoin =
       dispatch,
       apiEndpoint,
       postData,
-      GET_ERRORS,
+      GET_SUCCESS,
+      JOIN_EVENT,
       setLoad,
       setError
     );
@@ -79,7 +98,8 @@ export const removeEvent = (id, setLoad, setError) => async (dispatch) => {
     dispatch,
     apiEndpoint,
     null,
-    GET_ERRORS,
+    GET_SUCCESS,
+    REMOVE_EVENT,
     setLoad,
     setError
   );
@@ -96,7 +116,8 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
     dispatch,
     apiEndpoint,
     postData,
-    GET_ERRORS,
+    GET_SUCCESS,
+    EVENT_MEMBER_STATUS,
     setLoad
   ).then(({ status }) => {
     if (status === ResponseStatus.OK) {

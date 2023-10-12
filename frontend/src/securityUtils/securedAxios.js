@@ -9,6 +9,7 @@ axios.defaults.baseURL = `${
     : process.env.REACT_APP_DEV
 }/api`;
 
+//get
 const securedGet = async (
   dispatch,
   api,
@@ -52,11 +53,13 @@ const securedGet = async (
   }
 };
 
+//post
 const securedPost = async (
   dispatch,
   api,
   body = {},
   successType,
+  callType,
   setLoad = null,
   setError = null
 ) => {
@@ -76,7 +79,7 @@ const securedPost = async (
       }
       dispatch({
         type: successType,
-        payload: res.data,
+        payload: { res: res.data, callType: callType },
       });
       return res;
     }
@@ -97,11 +100,13 @@ const securedPost = async (
   }
 };
 
+//put
 const securedPut = async (
   dispatch,
   api,
   body = {},
   successType,
+  callType,
   setLoad = null,
   setError = null
 ) => {
@@ -121,7 +126,7 @@ const securedPut = async (
       }
       dispatch({
         type: successType,
-        payload: res.data,
+        payload: { res: res.data, callType: callType },
       });
       return res;
     }
@@ -142,11 +147,13 @@ const securedPut = async (
   }
 };
 
+//delete
 const securedDelete = async (
   dispatch,
   api,
   body = {},
   successType,
+  callType,
   setLoad = null,
   setError = null
 ) => {
@@ -166,7 +173,7 @@ const securedDelete = async (
       }
       dispatch({
         type: successType,
-        payload: res.data,
+        payload: { res: res.data, callType: callType },
       });
       return res;
     }
@@ -187,11 +194,13 @@ const securedDelete = async (
   }
 };
 
+//patch
 const securedPatch = async (
   dispatch,
   api,
   body = {},
   successType,
+  callType,
   setLoad = null,
   setError = null
 ) => {
@@ -211,7 +220,7 @@ const securedPatch = async (
       }
       dispatch({
         type: successType,
-        payload: res.data,
+        payload: { res: res.data, callType: callType },
       });
       return res;
     }

@@ -1,11 +1,14 @@
-import { GET_ALL_COMMENTS, GET_ERRORS } from "../constants/types";
-
+import { GET_ALL_COMMENTS, GET_SUCCESS } from "../constants/types";
 import {
   securedDelete,
   securedGet,
   securedPost,
   securedPut,
 } from "../../securityUtils/securedAxios";
+import * as ApiTypes from "../constants/apiTypes";
+
+const { CREATE_COMMENT, REACT_COMMENT, UPDATE_COMMENT, REMOVE_COMMENT } =
+  ApiTypes;
 
 export const createComment = (id, postData, setLoad) => async (dispatch) => {
   const apiEndpoint = `/event/comment/create/${id}/`;
@@ -13,7 +16,8 @@ export const createComment = (id, postData, setLoad) => async (dispatch) => {
     dispatch,
     apiEndpoint,
     postData,
-    GET_ERRORS,
+    GET_SUCCESS,
+    CREATE_COMMENT,
     setLoad
   );
 };
@@ -24,7 +28,8 @@ export const removeComment = (id, setLoad, setError) => async (dispatch) => {
     dispatch,
     apiEndpoint,
     null,
-    GET_ERRORS,
+    GET_SUCCESS,
+    REMOVE_COMMENT,
     setLoad,
     setError
   );
@@ -32,7 +37,13 @@ export const removeComment = (id, setLoad, setError) => async (dispatch) => {
 
 export const updateComment = (id, postData) => async (dispatch) => {
   const apiEndpoint = `/event/comment/update/${id}/`;
-  return await securedPut(dispatch, apiEndpoint, postData, GET_ERRORS);
+  return await securedPut(
+    dispatch,
+    apiEndpoint,
+    postData,
+    GET_SUCCESS,
+    UPDATE_COMMENT
+  );
 };
 
 export const getAllComments = (id, page) => async (dispatch) => {
@@ -42,5 +53,11 @@ export const getAllComments = (id, page) => async (dispatch) => {
 
 export const likeUnlike = (id) => async (dispatch) => {
   const apiEndpoint = `/event/comment/likeUnlike/${id}/`;
-  return await securedPost(dispatch, apiEndpoint, null, GET_ERRORS);
+  return await securedPost(
+    dispatch,
+    apiEndpoint,
+    null,
+    GET_SUCCESS,
+    REACT_COMMENT
+  );
 };

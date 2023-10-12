@@ -9,6 +9,7 @@ import { VerifiedRender } from "../routes/verifiedRender";
 import ResendOtp from "../components/userAuth/resendOtp";
 import CTAButton from "../layouts/ctaButton";
 import { Loading } from "../layouts/loader";
+import { ResponseToast } from "../layouts/responseItems";
 
 function MainDash() {
   const { count, hasMore, load, eventData, handleLoadMore } = EventHandler();
@@ -37,6 +38,7 @@ function MainDash() {
               <VerifiedRender>
                 <CreatePost suggestion={suggestedData} />
               </VerifiedRender>
+
               <Row xs={1} sm={1} md={1}>
                 {count > 0 ? (
                   eventData.map((event, index) => (
@@ -84,6 +86,7 @@ function MainDash() {
                   <CurrentUserProfile />
                 </Card.Body>
               </Card>
+              <ResponseToast />
             </div>
           </div>
         </div>

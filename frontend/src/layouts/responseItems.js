@@ -1,50 +1,31 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Toast } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import React, { useState, useContext } from "react";
+import { Alert } from "react-bootstrap";
 import { ResponseContext } from "../context/responseProvider";
 import * as ResponseStatus from "../services/constants/responseStatus";
+import { useSelector } from "react-redux";
+import { REMOVE_EVENT } from "../services/constants/apiTypes";
 
-export const ResponseToast = (props) => {
-  const [show, setShow] = useState(props.showToast);
-  const [msg, setMsg] = useState("");
-
-  const reducer = useSelector((errorReducer) => errorReducer.errors.errors);
-
-  useEffect(() => {
-    setShow(props.showToast);
-    if (reducer.data) {
-      if (reducer.data.detail) {
-        setMsg(reducer.data.detail);
-      } else if (reducer.data.message) {
-        setMsg(reducer.data.message);
-      }
-    } else {
-      setMsg("Fe: Err report");
-    }
-  }, [props.showToast, reducer]);
+export const ResponseToast = () => {
+  const [show, setShow] = useState(true);
+  const successTypes = [REMOVE_EVENT];
+  const { type, response } = useSelector(
+    (errorReducer) => errorReducer.errors.success
+  );
 
   return (
-    <div className="d-flex justify-content-center">
-      <Toast
-        className="toasts position-absolute"
-        onClose={() => setShow(false)}
-        show={show}
-        delay={3000}
-        autohide
-      >
-        <Toast.Body>
-          <div className="d-flex align-items-center">
-            <div
-              style={props.variant}
-              className="d-inline-flex align-items-center justify-content-center toasts-icon"
-            >
-              {props.variant.icon}
-            </div>
-            <div className="ms-2">{msg}</div>
-          </div>
-        </Toast.Body>
-      </Toast>
-    </div>
+    Object.keys(response).length > 0 &&
+    successTypes.includes(type) && (
+      <div className="mt-2">
+        <Alert
+          show={show}
+          variant={"success"}
+          onClose={() => setShow(false)}
+          dismissible
+        >
+          <small>{response.message}</small>
+        </Alert>
+      </div>
+    )
   );
 };
 

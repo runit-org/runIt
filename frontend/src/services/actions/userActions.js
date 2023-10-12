@@ -1,10 +1,10 @@
 import {
-  GET_ERRORS,
   GET_USER_PROFILE,
   GET_CURRENT_USER_PROFILE,
   SET_CURRENT_USER,
   GET_VOTES,
   GET_USER_ACTIVITY,
+  GET_SUCCESS,
 } from "../constants/types";
 import {
   securedGet,
@@ -12,6 +12,10 @@ import {
   securedPut,
 } from "../../securityUtils/securedAxios";
 import { OK } from "../constants/responseStatus";
+import * as ApiTypes from "../constants/apiTypes";
+
+const { VOTE, USER_STATUS_MSG, UPDATE_USER_DETAILS, UPDATE_PW, FEEDBACK } =
+  ApiTypes;
 
 export const getUserProfile = (userName) => async (dispatch) => {
   const apiEndpoint = `/user/profile/${userName}/`;
@@ -37,7 +41,7 @@ export const getCurrentUserProfile = () => async (dispatch) => {
 
 export const vote = (id, postData) => async (dispatch) => {
   const apiEndpoint = `/user/vote/${id}/`;
-  return await securedPost(dispatch, apiEndpoint, postData, GET_ERRORS);
+  return await securedPost(dispatch, apiEndpoint, postData, GET_SUCCESS, VOTE);
 };
 
 export const userStatus = (postData, setLoad, setError) => async (dispatch) => {
@@ -46,7 +50,8 @@ export const userStatus = (postData, setLoad, setError) => async (dispatch) => {
     dispatch,
     apiEndpoint,
     postData,
-    GET_ERRORS,
+    GET_SUCCESS,
+    USER_STATUS_MSG,
     setLoad,
     setError
   );
@@ -59,12 +64,26 @@ export const getVotes = (page) => async (dispatch) => {
 
 export const updateDetails = (postData, setLoad) => async (dispatch) => {
   const apiEndpoint = `/user/updateDetails/`;
-  return await securedPut(dispatch, apiEndpoint, postData, GET_ERRORS, setLoad);
+  return await securedPut(
+    dispatch,
+    apiEndpoint,
+    postData,
+    GET_SUCCESS,
+    UPDATE_USER_DETAILS,
+    setLoad
+  );
 };
 
 export const changePassword = (postData, setLoad) => async (dispatch) => {
   const apiEndpoint = `/user/changePassword/`;
-  return await securedPut(dispatch, apiEndpoint, postData, GET_ERRORS, setLoad);
+  return await securedPut(
+    dispatch,
+    apiEndpoint,
+    postData,
+    GET_SUCCESS,
+    UPDATE_PW,
+    setLoad
+  );
 };
 
 export const getActivity = (page, userName, setLoad) => async (dispatch) => {
@@ -84,7 +103,8 @@ export const feedback = (postData, setLoad) => async (dispatch) => {
     dispatch,
     apiEndpoint,
     postData,
-    GET_ERRORS,
+    GET_SUCCESS,
+    FEEDBACK,
     setLoad
   );
 };
