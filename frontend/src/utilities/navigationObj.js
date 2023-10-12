@@ -20,8 +20,8 @@ export const NavigationObj = (user) => {
       href: user ? `calendar?user=${user.username}` : "",
     },
     {
-      title: "History",
-      href: user ? `history?user=${user.username}` : "",
+      title: "Starred",
+      href: user ? `stars?user=${user.username}` : "",
     },
     {
       title: "Security Settings",

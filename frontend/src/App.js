@@ -9,7 +9,7 @@ import SecurityContext from "./context/securityProvider";
 import CalendarContext from "./context/calendarProvider.js";
 import { RoutesContainer } from "./routes/routesContainer";
 import Profile from "./pages/nested/profile";
-import History from "./pages/nested/history";
+import Stars from "./pages/nested/stars";
 import Support from "./pages/nested/support";
 import CalendarPage from "./pages/nested/calendar";
 import Security from "./pages/nested/security";
@@ -79,7 +79,7 @@ function App() {
           >
             <Route path="calendar" element={<CalendarPage />} />
             <Route path="settings" element={<Profile />} />
-            <Route path="history" element={<History />} />
+            <Route path="stars" element={<Stars />} />
             <Route path="security" element={<Security />} />
             <Route path="feedback-support" element={<Support />} />
           </Route>

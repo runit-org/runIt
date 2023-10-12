@@ -8,7 +8,7 @@ import { Username } from "../../layouts/username";
 import CTAButton from "../../layouts/ctaButton";
 import { Loading } from "../../layouts/loader";
 
-function History() {
+function Stars() {
   const { count, hasMore, load, votesList, handleLoadMore } = GetVotes();
   return (
     <>
@@ -19,7 +19,7 @@ function History() {
               headerItems={
                 <th colSpan={2}>
                   <div className="d-flex justify-content-between align-items-center mx-2">
-                    {count} votes
+                    starred {count}
                     <SortDropdown />
                   </div>
                 </th>
@@ -59,7 +59,11 @@ function History() {
                     </td>
                   </tr>
                 ) : (
-                  <Loading />
+                  <tr className="table_row">
+                    <td className="text-center">
+                      <Loading />
+                    </td>
+                  </tr>
                 )
               }
               tablePagination={
@@ -98,4 +102,4 @@ function History() {
   );
 }
 
-export default History;
+export default Stars;

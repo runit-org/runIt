@@ -41,7 +41,7 @@ function Vote(props) {
           <span className="ms-1">
             {!props.fullW ? props.user.totalVote : ""}
           </span>
-          <span className="visually-hidden">up vote</span>
+          <span className="visually-hidden">star</span>
         </div>
       </CustomTooltip>
     </Button>
