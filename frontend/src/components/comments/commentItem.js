@@ -8,7 +8,7 @@ import {
   getAllComments,
   likeUnlike,
 } from "../../services/actions/commentActions";
-import PopoverItem from "../../layouts/user/popoverItem";
+import PopoverItem from "../../layouts/popoverItem";
 import { CommentReacts } from "./helper/commentBuilder";
 import { SingleEventContext } from "../../pages/singleEventDash";
 import { SecurityContext } from "../../context/securityProvider";
@@ -40,7 +40,7 @@ function CommentItem(props) {
   return (
     <div className="event-card_dash m-0 mt-4">
       <div className="d-flex" id="card_header">
-        <PopoverItem data={props.commentData.username}>
+        <PopoverItem id={"profile-popover"} data={props.commentData.username}>
           <DisplayImage
             image={props.commentData.gravatarImage}
             imgClass="me-2 cursor-event"

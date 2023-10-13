@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import PopoverItem from "../../layouts/user/popoverItem";
+import PopoverItem from "../../layouts/popoverItem";
 import { ArrowRight } from "../../layouts/icons";
 import { BadgeItem, RequestBtn, StatusBadge } from "./helper/eventBuilder";
 import { DisplayImage } from "../../layouts/user/userDisplayImg";
@@ -12,7 +12,7 @@ function EventItemCard(props) {
   return (
     <div className="event-card_dash">
       <div className="d-flex" id="card_header">
-        <PopoverItem data={props.eventData.userName}>
+        <PopoverItem id={"profile-popover"} data={props.eventData.userName}>
           <DisplayImage
             image={props.eventData.gravatarImage}
             imgClass="me-2 cursor-event"

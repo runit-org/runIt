@@ -10,7 +10,7 @@ import { SecurityContext } from "../../context/securityProvider";
 import { CANCELLED, FINISHED } from "./helper/eventTypes";
 import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import CustomDropdown from "../../layouts/customDropdown";
-import PopoverItem from "../../layouts/user/popoverItem";
+import PopoverItem from "../../layouts/popoverItem";
 import { useEditor } from "../../hooks/useEditor";
 import { VerifiedRender } from "../../routes/verifiedRender";
 
@@ -25,7 +25,7 @@ function EventItem() {
         <Card className="event-card">
           <Card.Header>
             <div className="d-flex justify-content-between">
-              <PopoverItem data={eventData.userName}>
+              <PopoverItem id={"profile-popover"} data={eventData.userName}>
                 <DisplayImage
                   image={eventData.gravatarImage}
                   imgClass="userProf-img me-3 cursor-event"

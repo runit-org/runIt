@@ -4,10 +4,10 @@ import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Information } from "../../layouts/icons";
 import { Skeleton } from "../../layouts/loader";
-import PopoverItem from "./popoverItem";
 import { EventSuggestHandler } from "./helper/suggestHandler";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
 import { VerifiedRender } from "../../routes/verifiedRender";
+import SuggestPopover from "./suggestPopover";
 
 function SuggestItem(props) {
   const [data, setData] = useState("");
@@ -31,7 +31,7 @@ function SuggestItem(props) {
                   <div className="me-auto">
                     <span className="fw-bold">{item.title}</span>
                   </div>
-                  <PopoverItem
+                  <SuggestPopover
                     content={{
                       location: item.location,
                       timeStamp: item.time,
