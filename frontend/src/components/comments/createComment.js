@@ -14,39 +14,61 @@ import { UserContext } from "../../context/userProvider";
 import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 import { ResponseItem } from "../../layouts/responseItems";
+import { useHandleChange } from "../../hooks/useHandleChange";
+import TagUsers from "./tagUsers";
 
 function CreateComment(props) {
+  const initialState = {
+    content: "",
+  };
+
   const dispatch = useDispatch();
   const formRef = useRef(0);
-  const [content, setContent] = useState("");
+  let pageId = usePageId();
   const [load, setLoad] = useState(false);
   const [validateFormEmpty, setValidateFormEmpty] = useState(false);
-
-  const eventData = useContext(SingleEventContext);
+  const { eventData } = useContext(SingleEventContext);
   const userContext = useContext(UserContext);
+  const { formValue, setFormValue, handleFieldChange } =
+    useHandleChange(initialState);
 
-  let pageId = usePageId();
+  //handle tags from dropdown
+  const handleCommentChange = (newComment) => {
+    setFormValue((prevFormValue) => {
+      // Check if the content field is already populated
+      const updatedContent = prevFormValue.content
+        ? `${prevFormValue.content} ${newComment}`
+        : newComment;
 
+      return {
+        ...prevFormValue,
+        content: updatedContent,
+      };
+    });
+  };
+
+  //validate form
   useEffect(() => {
-    if (content === "") {
+    if (formValue === "") {
       setValidateFormEmpty(true);
     } else {
       setValidateFormEmpty(false);
     }
-  }, [content]);
+  }, [formValue]);
 
+  //submit comment logic
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const postData = {
-      content: content,
+      ...formValue,
+      content: formValue.content,
     };
     dispatch(createComment(props.id, postData, setLoad)).then(({ status }) => {
       if (status === ResponseStatus.OK) {
-        dispatch(getAllComments(props.id, pageId));
         formRef.current.reset();
-        setContent("");
-        emitter(MentionFilter(content, eventData.userName));
+        setFormValue(initialState);
+        dispatch(getAllComments(props.id, pageId));
+        emitter(MentionFilter(postData.content, eventData.userName));
       }
     });
   };
@@ -66,17 +88,23 @@ function CreateComment(props) {
               imgClass="user-img me-3"
             />
             <Form.Control
+              name="content"
               spellCheck={true}
               placeholder="Add a comment..."
               as="textarea"
-              onChange={(e) => setContent(e.target.value)}
+              value={
+                Object.keys(formValue.content).length !== 0
+                  ? formValue.content
+                  : ""
+              }
+              onChange={handleFieldChange}
               rows={2}
               required
             />
           </div>
-
+          <ResponseItem />
           <div className="d-flex justify-content-between mt-3">
-            <ResponseItem />
+            <TagUsers onCommentChange={handleCommentChange} />
             <CTAButton
               type={"submit"}
               btnStyle={"formBtn cta_button"}

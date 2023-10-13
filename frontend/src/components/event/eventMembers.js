@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import ModalItem from "../../layouts/modalItem";
-import { SingleEventHandler } from "./helper/actionHandlers";
 import { Accepted } from "./helper/eventBuilder";
+import { SingleEventContext } from "../../pages/singleEventDash";
 
 function EventMembers() {
   const ref = React.createRef();
-  const { eventMbs } = SingleEventHandler(1);
+  const { eventMbs } = useContext(SingleEventContext);
   const acceptedMembers = Accepted(eventMbs);
 
   return (
@@ -47,7 +47,7 @@ function EventMembers() {
                     <div className="ms-4">
                       <Link
                         to={{
-                          pathname: "/profilea/settings",
+                          pathname: "/profile/settings",
                           search: `user=${member.username}`,
                         }}
                       >
