@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUserProfile } from "../../services/actions/userActions";
-import { DisplayImage } from "../../layouts/userDisplayImg";
+import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import { UserCardInfo, VoteBadge } from "./helper/profileBuilder";
-import { Username } from "../../layouts/username";
+import { Username } from "../../layouts/user/username";
 import { VerifiedRender } from "../../routes/verifiedRender";
 import UserStatus from "./userStatus";
 import { Loading } from "../../layouts/loader";

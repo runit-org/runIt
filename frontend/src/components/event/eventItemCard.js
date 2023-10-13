@@ -1,11 +1,11 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import PopoverItem from "../../layouts/popoverItem";
+import PopoverItem from "../../layouts/user/popoverItem";
 import { ArrowRight } from "../../layouts/icons";
 import { BadgeItem, RequestBtn, StatusBadge } from "./helper/eventBuilder";
-import { DisplayImage } from "../../layouts/userDisplayImg";
-import { Username } from "../../layouts/username";
+import { DisplayImage } from "../../layouts/user/userDisplayImg";
+import { Username } from "../../layouts/user/username";
 import { VerifiedRender } from "../../routes/verifiedRender";
 
 function EventItemCard(props) {

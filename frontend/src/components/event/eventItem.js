@@ -8,9 +8,9 @@ import { RequestBtn, StatusBadge } from "./helper/eventBuilder";
 import { SingleEventContext } from "../../pages/singleEventDash";
 import { SecurityContext } from "../../context/securityProvider";
 import { CANCELLED, FINISHED } from "./helper/eventTypes";
-import { DisplayImage } from "../../layouts/userDisplayImg";
+import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import CustomDropdown from "../../layouts/customDropdown";
-import PopoverItem from "../../layouts/popoverItem";
+import PopoverItem from "../../layouts/user/popoverItem";
 import { useEditor } from "../../hooks/useEditor";
 import { VerifiedRender } from "../../routes/verifiedRender";
 

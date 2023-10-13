@@ -8,15 +8,15 @@ import {
   getAllComments,
   likeUnlike,
 } from "../../services/actions/commentActions";
-import PopoverItem from "../../layouts/popoverItem";
+import PopoverItem from "../../layouts/user/popoverItem";
 import { CommentReacts } from "./helper/commentBuilder";
 import { SingleEventContext } from "../../pages/singleEventDash";
 import { SecurityContext } from "../../context/securityProvider";
 import { emitter } from "../client/socket";
-import { DisplayImage } from "../../layouts/userDisplayImg";
+import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import { usePageId } from "../../hooks/usePageId";
 import CustomDropdown from "../../layouts/customDropdown";
-import { Username } from "../../layouts/username";
+import { Username } from "../../layouts/user/username";
 import { useEditor } from "../../hooks/useEditor";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 import { VerifiedRender } from "../../routes/verifiedRender";

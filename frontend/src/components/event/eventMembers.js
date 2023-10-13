@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { DisplayImage } from "../../layouts/userDisplayImg";
+import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import ModalItem from "../../layouts/modalItem";
 import { SingleEventHandler } from "./helper/actionHandlers";
 import { Accepted } from "./helper/eventBuilder";

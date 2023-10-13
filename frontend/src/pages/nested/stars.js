@@ -3,7 +3,7 @@ import { Card, Container } from "react-bootstrap";
 import { CustomTable, CustomTableCells } from "../../layouts/customTable";
 import SortDropdown from "../../layouts/sortDropdown";
 import { GetVotes } from "../../components/profile/helper/actionHandlers";
-import { Username } from "../../layouts/username";
+import { Username } from "../../layouts/user/username";
 import CTAButton from "../../layouts/ctaButton";
 import { Loading } from "../../layouts/loader";
 import CurrentUserProfile from "../../components/profile/currentUserProfile";

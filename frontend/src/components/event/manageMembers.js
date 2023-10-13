@@ -12,7 +12,7 @@ import { SingleEventHandler } from "./helper/actionHandlers";
 import { Pending } from "./helper/eventBuilder";
 import { SingleEventContext } from "../../pages/singleEventDash";
 import { Cross, Tick } from "../../layouts/icons";
-import { DisplayImage } from "../../layouts/userDisplayImg";
+import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import { CustomTable, CustomTableCells } from "../../layouts/customTable";
 
 function ManageMembers() {

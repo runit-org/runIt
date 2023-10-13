@@ -11,7 +11,7 @@ import CTAButton from "../../layouts/ctaButton";
 import { MentionFilter } from "../../utilities/utility-service";
 import { usePageId } from "../../hooks/usePageId";
 import { UserContext } from "../../context/userProvider";
-import { DisplayImage } from "../../layouts/userDisplayImg";
+import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 import { ResponseItem } from "../../layouts/responseItems";
 

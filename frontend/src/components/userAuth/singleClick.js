@@ -4,7 +4,7 @@ import { Card, ListGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../services/actions/securityActions";
-import { DisplayImage } from "../../layouts/userDisplayImg";
+import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import { getCurrentUserProfile } from "../../services/actions/userActions";
 
 function SingleClick() {

@@ -1,8 +1,8 @@
 import React from "react";
-import { DisplayImage } from "../../layouts/userDisplayImg";
+import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import { UserCardInfo } from "./helper/profileBuilder.js";
 import Vote from "./vote";
-import { Username } from "../../layouts/username";
+import { Username } from "../../layouts/user/username";
 import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
 import { Loading } from "../../layouts/loader";
 
