@@ -56,7 +56,7 @@ function CommentItem(props) {
         </div>
 
         <VerifiedRender>
-          {currentUser === props.commentData.user ? (
+          {currentUser === props.commentData.user && (
             <CustomDropdown>
               {commentOptions(
                 props.commentData.id,
@@ -71,8 +71,6 @@ function CommentItem(props) {
                 );
               })}
             </CustomDropdown>
-          ) : (
-            ""
           )}
         </VerifiedRender>
       </div>

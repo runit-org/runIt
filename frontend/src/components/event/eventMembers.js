@@ -27,10 +27,8 @@ function EventMembers() {
               />
             );
           })}
-          {acceptedMembers.length > 4 ? (
+          {acceptedMembers.length > 4 && (
             <span className="members-count">+{acceptedMembers.length - 4}</span>
-          ) : (
-            ""
           )}
         </div>
       }

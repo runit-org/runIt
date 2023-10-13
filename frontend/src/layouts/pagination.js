@@ -22,7 +22,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
           >
             Prev
           </PaginateStyle.Prev>
-          {currentPage !== 1 && pageNumbers.length > 5 ? (
+          {currentPage !== 1 && pageNumbers.length > 5 && (
             <>
               <PaginateStyle.First
                 onClick={() => paginate(1)}
@@ -32,8 +32,6 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
               </PaginateStyle.First>
               <PaginateStyle.Ellipsis disabled />
             </>
-          ) : (
-            ""
           )}
 
           {pageNumbers.map((number, index) => (
@@ -48,7 +46,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
             </div>
           ))}
 
-          {currentPage !== pageNumbers.length && pageNumbers.length > 5 ? (
+          {currentPage !== pageNumbers.length && pageNumbers.length > 5 && (
             <>
               <PaginateStyle.Ellipsis disabled />
               <PaginateStyle.Last
@@ -58,8 +56,6 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
                 {pageNumbers.length}
               </PaginateStyle.Last>
             </>
-          ) : (
-            ""
           )}
           <PaginateStyle.Next
             id="next"
