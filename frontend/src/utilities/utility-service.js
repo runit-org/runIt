@@ -1,4 +1,4 @@
-//mentions
+//looks for mentions and replaces it a dynamic url
 export const Mention = (text) => {
   const regex = /\B@[a-zA-Z0-9_-]+/gm;
   return (text = text.replace(regex, (match) => {
@@ -10,6 +10,7 @@ export const Mention = (text) => {
   }));
 };
 
+//looks for usertags and removes @
 export const MentionFilter = (text, username) => {
   var matchingText = text.match(/\B@[a-zA-Z0-9_-]+/gm);
   var parse = matchingText
