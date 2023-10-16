@@ -60,6 +60,7 @@ function TaggingDropdown({ onCommentChange, formValue }) {
       }
     }
     setDropdownArray(mentions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValue]);
 
   return (
