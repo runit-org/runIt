@@ -15,7 +15,7 @@ import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 import { ResponseItem } from "../../layouts/responseItems";
 import { useHandleChange } from "../../hooks/useHandleChange";
-import TagUsers from "./tagUsers";
+import TaggingDropdown from "./taggingDropdown";
 
 function CreateComment(props) {
   const initialState = {
@@ -104,7 +104,7 @@ function CreateComment(props) {
           </div>
           <ResponseItem />
           <div className="d-flex justify-content-between mt-3">
-            <TagUsers
+            <TaggingDropdown
               onCommentChange={handleCommentChange}
               formValue={formValue.content}
             />

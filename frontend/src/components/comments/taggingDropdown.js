@@ -3,7 +3,7 @@ import { SingleEventContext } from "../../pages/singleEventDash";
 import { useContext, useEffect, useState } from "react";
 import { Accepted } from "../event/helper/eventBuilder";
 
-function TagUsers({ onCommentChange, formValue }) {
+function TaggingDropdown({ onCommentChange, formValue }) {
   const { eventMbs } = useContext(SingleEventContext);
   const acceptedMembers = Accepted(eventMbs);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -95,4 +95,4 @@ function TagUsers({ onCommentChange, formValue }) {
   );
 }
 
-export default TagUsers;
+export default TaggingDropdown;
