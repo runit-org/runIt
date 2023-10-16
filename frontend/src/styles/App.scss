@@ -539,6 +539,16 @@ div.content {
   }
 }
 
+/*------Tag------*/
+#dropdown-tag {
+  font-size: $size-md;
+  font-weight: 600 !important;
+  color: $theme;
+}
+#dropdown-tag.dropdown-toggle::after {
+  display: none !important;
+}
+
 /*------Loaders------*/
 .loading_skeleton {
   border: 1px solid rgba(0, 0, 0, 0.175);

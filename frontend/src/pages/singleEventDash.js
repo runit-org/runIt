@@ -25,7 +25,7 @@ export const SingleEventContext = createContext();
 function SingleEventDash() {
   let pageId = usePageId();
   const { state } = useLocation();
-  const { eventData, commentData } = SingleEventHandler(pageId);
+  const { eventData, commentData, eventMbs } = SingleEventHandler(pageId);
 
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,7 +60,7 @@ function SingleEventDash() {
     : "";
 
   return (
-    <SingleEventContext.Provider value={eventData}>
+    <SingleEventContext.Provider value={{ eventData, eventMbs }}>
       {eventData && (
         <div style={{ position: "relative" }}>
           <div className="dash-container">

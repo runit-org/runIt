@@ -15,7 +15,7 @@ import { useEditor } from "../../hooks/useEditor";
 import { VerifiedRender } from "../../routes/verifiedRender";
 
 function EventItem() {
-  const eventData = useContext(SingleEventContext);
+  const { eventData } = useContext(SingleEventContext);
   const currentUser = useContext(SecurityContext);
   const { editorMode, handleClick } = useEditor(false);
 

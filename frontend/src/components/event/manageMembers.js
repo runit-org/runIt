@@ -17,7 +17,7 @@ import { CustomTable, CustomTableCells } from "../../layouts/customTable";
 
 function ManageMembers() {
   const dispatch = useDispatch();
-  const eventData = useContext(SingleEventContext);
+  const { eventData } = useContext(SingleEventContext);
 
   const [load, setLoad] = useState(false);
   const { eventMbs } = SingleEventHandler(1);

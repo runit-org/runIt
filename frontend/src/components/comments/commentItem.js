@@ -23,7 +23,7 @@ import { VerifiedRender } from "../../routes/verifiedRender";
 
 function CommentItem(props) {
   const dispatch = useDispatch();
-  const eventData = useContext(SingleEventContext);
+  const { eventData } = useContext(SingleEventContext);
   const currentUser = useContext(SecurityContext);
   const { editorMode, handleClick } = useEditor(false);
   const pageId = usePageId();
