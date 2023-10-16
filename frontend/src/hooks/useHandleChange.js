@@ -5,6 +5,7 @@ export function useHandleChange(initialValue) {
 
   const handleChange = (e) => {
     let targetValue = e.target.value;
+    // custom for create event form
     if (e.target.name === "maxMember") {
       targetValue = parseInt(targetValue);
     }

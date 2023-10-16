@@ -37,7 +37,7 @@ function CreateComment(props) {
     setFormValue((prevFormValue) => {
       // Check if the content field is already populated
       const updatedContent = prevFormValue.content
-        ? `${prevFormValue.content} ${newComment}`
+        ? `${prevFormValue.content}${newComment}`
         : newComment;
 
       return {
@@ -104,7 +104,10 @@ function CreateComment(props) {
           </div>
           <ResponseItem />
           <div className="d-flex justify-content-between mt-3">
-            <TagUsers onCommentChange={handleCommentChange} />
+            <TagUsers
+              onCommentChange={handleCommentChange}
+              formValue={formValue.content}
+            />
             <CTAButton
               type={"submit"}
               btnStyle={"formBtn cta_button"}
