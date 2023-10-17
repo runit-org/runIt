@@ -50,15 +50,12 @@ function UpdateDetails(props) {
             onChange={handleFieldChange}
           />
         </Form.Group>
-        <Form.Group className="mb-2">
-          <Form.Label className="text-muted small">Email</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            placeholder={formValue.email}
-            onChange={handleFieldChange}
-          />
-        </Form.Group>
+        <div className="mt-3">
+          <Form.Text>
+            You will be required to log in again after successful update.
+          </Form.Text>
+        </div>
+
         <div className="d-flex justify-content-between mt-3">
           <CTAButton
             type={""}
