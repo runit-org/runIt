@@ -35,14 +35,9 @@ function CreateComment(props) {
   //handle tags from dropdown
   const handleCommentChange = (newComment) => {
     setFormValue((prevFormValue) => {
-      // Check if the content field is already populated
-      const updatedContent = prevFormValue.content
-        ? `${prevFormValue.content}${newComment}`
-        : newComment;
-
       return {
         ...prevFormValue,
-        content: updatedContent,
+        content: newComment,
       };
     });
   };

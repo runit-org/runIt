@@ -30,14 +30,24 @@ function TaggingDropdown({ onCommentChange, formValue }) {
   }, [formValue]);
 
   const handleDropdownItemClick = (item) => {
-    var newComment = "";
+    var newComment = item.username;
     if (lastword(formValue).includes("@")) {
       newComment = `${item.username} `;
     } else {
       newComment = `@${item.username} `;
     }
 
-    onCommentChange(newComment);
+    // Check if the content field is already populated
+    // Check if the content field is already populated and the last word is a tag
+    // If tag then replace the previous value with the tag value
+    const updatedContent =
+      formValue && !lastword(formValue).includes("@")
+        ? `${formValue}${newComment}`
+        : formValue && lastword(formValue).includes("@")
+        ? `${formValue.replace(lastword(formValue), "@")}${newComment}`
+        : newComment;
+
+    onCommentChange(updatedContent);
   };
 
   useEffect(() => {
