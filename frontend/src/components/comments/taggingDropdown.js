@@ -11,13 +11,10 @@ function TaggingDropdown({ onCommentChange, formValue, identifier }) {
 
   //extract the last tag
   const lastWord = (value) => {
-    if (value) {
-      const tags = value.split(" ");
-      const lastTag = tags[tags.length - 1];
-      return lastTag;
-    } else {
-      return "";
-    }
+    if (!value) return "";
+    const tags = value.split(" ");
+    const lastTag = tags[tags.length - 1];
+    return lastTag;
   };
 
   // show dropdown if input field has the tag identifier
@@ -83,24 +80,30 @@ function TaggingDropdown({ onCommentChange, formValue, identifier }) {
         {identifier}
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        {(dropdownArray.length > 0 ? dropdownArray : acceptedMembers).map(
-          (item, index) => {
-            return (
-              <Dropdown.Item
-                key={index}
-                onClick={() => handleDropdownItemClick(item)}
-              >
-                <div className="d-block">
-                  <img
-                    src={item.gravatarImage}
-                    className="members-img me-3"
-                    alt="Img"
-                  />
-                  {item.username}
-                </div>
-              </Dropdown.Item>
-            );
-          }
+        {acceptedMembers.length > 0 ? (
+          (dropdownArray.length > 0 ? dropdownArray : acceptedMembers).map(
+            (item, index) => {
+              return (
+                <Dropdown.Item
+                  key={index}
+                  onClick={() => handleDropdownItemClick(item)}
+                >
+                  <div className="d-block">
+                    <img
+                      src={item.gravatarImage}
+                      className="members-img me-3"
+                      alt="Img"
+                    />
+                    {item.username}
+                  </div>
+                </Dropdown.Item>
+              );
+            }
+          )
+        ) : (
+          <Dropdown.Item>
+            <span>No suggestions</span>
+          </Dropdown.Item>
         )}
       </Dropdown.Menu>
     </Dropdown>
