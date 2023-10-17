@@ -132,7 +132,7 @@ function Support() {
                       onChange={handleFieldChange}
                       required
                     />
-                    <small className="d-block mb-2">
+                    <small className="d-block mb-2 mt-1">
                       Share your feedback to enhance runit or report a bug to
                       help us improve!
                     </small>
