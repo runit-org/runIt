@@ -102,6 +102,7 @@ function CreateComment(props) {
             <TaggingDropdown
               onCommentChange={handleCommentChange}
               formValue={formValue.content}
+              identifier="@"
             />
             <CTAButton
               type={"submit"}
