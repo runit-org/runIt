@@ -11,7 +11,7 @@ import { setToken, refreshToken } from "../../securityUtils/setToken";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import * as ResponseStatus from "../constants/responseStatus";
-import { RESET_PW } from "../constants/apiTypes";
+import { RESET_PW, VERIFY_EMAIL } from "../constants/apiTypes";
 import { POSTS } from "../../routes/routes";
 
 axios.defaults.baseURL = `${
@@ -193,6 +193,10 @@ export const verifyEmail = (data, setLoad) => async (dispatch) => {
       dispatch({
         type: GET_ERRORS,
         payload: res,
+      });
+      dispatch({
+        type: GET_SUCCESS,
+        payload: { res: res.data, callType: VERIFY_EMAIL },
       });
       return res;
     })

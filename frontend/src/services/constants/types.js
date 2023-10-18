@@ -10,6 +10,7 @@ export const CHECK_TOKEN = "CHECK_TOKEN";
 //response types
 export const GET_ERRORS = "GET_ERRORS";
 export const GET_SUCCESS = "GET_SUCCESS";
+export const RESET_SUCCESS = "RESET_SUCCESS";
 
 //event types
 export const GET_ALL_EVENTS = "GET_ALL_EVENTS";

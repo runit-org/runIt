@@ -1,4 +1,4 @@
-import { GET_ERRORS, GET_SUCCESS } from "../constants/types";
+import { GET_ERRORS, GET_SUCCESS, RESET_SUCCESS } from "../constants/types";
 
 const initialState = {
   errors: {},
@@ -21,6 +21,14 @@ export default function errorReducer(state = initialState, action) {
         success: {
           type: action.payload.callType,
           response: action.payload.res,
+        },
+      };
+    case RESET_SUCCESS:
+      return {
+        ...state,
+        success: {
+          type: "",
+          response: {},
         },
       };
 

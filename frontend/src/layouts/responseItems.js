@@ -2,15 +2,28 @@ import React, { useState, useContext } from "react";
 import { Alert } from "react-bootstrap";
 import { ResponseContext } from "../context/responseProvider";
 import * as ResponseStatus from "../services/constants/responseStatus";
-import { useSelector } from "react-redux";
-import { REMOVE_EVENT, RESET_PW } from "../services/constants/apiTypes";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  REMOVE_EVENT,
+  RESET_PW,
+  VERIFY_EMAIL,
+} from "../services/constants/apiTypes";
+import { RESET_SUCCESS } from "../services/constants/types";
 
 export const ResponseToast = () => {
+  const dispatch = useDispatch();
   const [show, setShow] = useState(true);
-  const successTypes = [REMOVE_EVENT, RESET_PW];
+  const successTypes = [REMOVE_EVENT, RESET_PW, VERIFY_EMAIL];
   const { type, response } = useSelector(
     (errorReducer) => errorReducer.errors.success
   );
+
+  const handleClose = () => {
+    setShow(false);
+    dispatch({
+      type: RESET_SUCCESS,
+    });
+  };
 
   return (
     Object.keys(response).length > 0 &&
@@ -19,7 +32,7 @@ export const ResponseToast = () => {
         <Alert
           show={show}
           variant={"success"}
-          onClose={() => setShow(false)}
+          onClose={handleClose}
           dismissible
         >
           <small className="fw-semibold">{response.message}</small>

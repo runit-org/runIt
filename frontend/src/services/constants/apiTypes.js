@@ -25,3 +25,4 @@ export const FEEDBACK = "FEEDBACK";
 
 //user security types
 export const RESET_PW = "RESET_PW";
+export const VERIFY_EMAIL = "VERIFY_EMAIL";

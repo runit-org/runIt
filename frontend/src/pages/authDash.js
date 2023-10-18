@@ -8,6 +8,7 @@ import { useCurrentPath } from "../hooks/useCurrentPath";
 import { useAuthStatus } from "../hooks/useAuthStatus";
 import { CurrAuthUser } from "../routes/currentUserRoute";
 import { SIGN_UP, VERIFY } from "../routes/routes";
+import { ResponseToast } from "../layouts/responseItems";
 
 function Main() {
   const currPath = useCurrentPath();
@@ -22,9 +23,9 @@ function Main() {
             style={currPath !== `/${SIGN_UP}` ? { width: "28rem" } : {}}
           >
             {!isValid ? <AppLogo w={"80px"} defClass="mb-4" /> : ""}
-
             {isValid && currPath !== `/${VERIFY}` ? (
               <CurrAuthUser>
+                <ResponseToast />
                 <SingleClick currUserProfile={CurrAuthUser.currUserProfile} />
               </CurrAuthUser>
             ) : (
