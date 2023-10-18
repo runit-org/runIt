@@ -10,6 +10,7 @@ import { ResponseItem, ResponseToast } from "../../layouts/responseItems";
 import { useHandleChange } from "../../hooks/useHandleChange";
 import { FormLabel, FormGroup } from "../../layouts/customForm";
 import { RESET_PW_EMAIL } from "../../routes/routes";
+import { RESET_PW } from "../../services/constants/apiTypes";
 
 function Login() {
   let navigate = useNavigate();
@@ -67,7 +68,7 @@ function Login() {
                 <span>Sign in to your account</span>
               )}
             </h4>
-            <ResponseToast />
+            <ResponseToast successTypes={RESET_PW} />
           </div>
 
           <FormGroup formId="formBasicType">

@@ -3,17 +3,12 @@ import { Alert } from "react-bootstrap";
 import { ResponseContext } from "../context/responseProvider";
 import * as ResponseStatus from "../services/constants/responseStatus";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  REMOVE_EVENT,
-  RESET_PW,
-  VERIFY_EMAIL,
-} from "../services/constants/apiTypes";
 import { RESET_SUCCESS } from "../services/constants/types";
 
-export const ResponseToast = () => {
+export const ResponseToast = ({ successTypes }) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(true);
-  const successTypes = [REMOVE_EVENT, RESET_PW, VERIFY_EMAIL];
+  const successType = [successTypes];
   const { type, response } = useSelector(
     (errorReducer) => errorReducer.errors.success
   );
@@ -27,7 +22,7 @@ export const ResponseToast = () => {
 
   return (
     Object.keys(response).length > 0 &&
-    successTypes.includes(type) && (
+    successType.includes(type) && (
       <div className="mt-2">
         <Alert
           show={show}

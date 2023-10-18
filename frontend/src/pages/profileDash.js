@@ -4,6 +4,7 @@ import { NavigationObj } from "../utilities/navigationObj";
 import { Outlet, useSearchParams } from "react-router-dom";
 import { UserProfileHandler } from "../components/profile/helper/actionHandlers";
 import { UserContext } from "../context/userProvider";
+import ResendOtp from "../components/userAuth/resendOtp";
 
 function ProfileDash() {
   const [searchParams] = useSearchParams();
@@ -24,6 +25,7 @@ function ProfileDash() {
                     : NavigationObj(user).profileNav
                 }
               />
+              <ResendOtp />
             </div>
           </div>
         </div>

@@ -10,6 +10,7 @@ import ResendOtp from "../components/userAuth/resendOtp";
 import CTAButton from "../layouts/ctaButton";
 import { Loading } from "../layouts/loader";
 import { ResponseToast } from "../layouts/responseItems";
+import { REMOVE_EVENT } from "../services/constants/apiTypes";
 
 function MainDash() {
   const { count, hasMore, load, eventData, handleLoadMore } = EventHandler();
@@ -86,7 +87,7 @@ function MainDash() {
                   <CurrentUserProfile />
                 </Card.Body>
               </Card>
-              <ResponseToast />
+              <ResponseToast successTypes={REMOVE_EVENT} />
             </div>
           </div>
         </div>
