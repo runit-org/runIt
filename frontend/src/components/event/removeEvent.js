@@ -7,6 +7,7 @@ import ModalItem from "../../layouts/modalItem";
 import { useNavigate } from "react-router-dom";
 import { OK } from "../../services/constants/responseStatus";
 import { RESET_CURRENT_PAGE } from "../../services/constants/types";
+import { POSTS } from "../../routes/routes";
 
 function RemoveEvent(props) {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function RemoveEvent(props) {
         dispatch({
           type: RESET_CURRENT_PAGE,
         });
-        navigate("/posts");
+        navigate(`/${POSTS}`);
       }
     });
   };

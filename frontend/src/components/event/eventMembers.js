@@ -5,6 +5,7 @@ import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import ModalItem from "../../layouts/modalItem";
 import { Accepted } from "./helper/eventBuilder";
 import { SingleEventContext } from "../../pages/singleEventDash";
+import { PROFILE, SETTINGS } from "../../routes/routes";
 
 function EventMembers() {
   const ref = React.createRef();
@@ -47,7 +48,7 @@ function EventMembers() {
                     <div className="ms-4">
                       <Link
                         to={{
-                          pathname: "/profile/settings",
+                          pathname: `/${PROFILE}/${SETTINGS}`,
                           search: `user=${member.username}`,
                         }}
                       >

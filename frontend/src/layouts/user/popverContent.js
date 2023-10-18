@@ -8,6 +8,7 @@ import { UserProfileHandler } from "../../components/profile/helper/actionHandle
 import { ArrowRight, Smiley } from "../icons";
 import { DisplayImage } from "./userDisplayImg";
 import { VerifiedRender } from "../../routes/verifiedRender";
+import { PROFILE, SETTINGS } from "../../routes/routes";
 
 const UserPopoverContent = (props) => {
   const user = UserProfileHandler(props.data);
@@ -21,7 +22,7 @@ const UserPopoverContent = (props) => {
             <div className="ms-3">
               <a
                 className="username_tags-dark"
-                href={`/profile/settings?user=${user.username}`}
+                href={`/${PROFILE}/${SETTINGS}?user=${user.username}`}
               >
                 {user.username}
               </a>
@@ -53,7 +54,7 @@ const UserPopoverContent = (props) => {
                 )}
               </VerifiedRender>
               <a
-                href={`/profile/settings?user=${user.username}`}
+                href={`/${PROFILE}/${SETTINGS}?user=${user.username}`}
                 className="text-decoration-none"
               >
                 View profile <ArrowRight />

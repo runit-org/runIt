@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../services/actions/securityActions";
 import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import { getCurrentUserProfile } from "../../services/actions/userActions";
+import { POSTS } from "../../routes/routes";
 
 function SingleClick() {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function SingleClick() {
         <Card className="current-signedin">
           <ListGroup variant="flush">
             <ListGroup.Item className="p-0">
-              <Link to="/posts">
+              <Link to={`/${POSTS}`}>
                 <div className="d-flex align-items-center userInfo-div p-3">
                   <DisplayImage image={currUserProfile.gravatarImage} />
                   <div className="ms-3">

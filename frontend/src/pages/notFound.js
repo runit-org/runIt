@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { POSTS, PROFILE, SETTINGS, SUPPORT } from "../routes/routes";
 
 function NotFound() {
   return (
@@ -8,11 +9,11 @@ function NotFound() {
       <p>Whoops! That page doesn't exist.</p>
       <small className="d-block">Here are some helpful links instead:</small>
       <div className="d-flex gap-2 justify-content-center mt-2">
-        <Link to="/posts" className="">
+        <Link to={`/${POSTS}`} className="">
           Dashboard
         </Link>
-        <Link to="/profile/settings?user=felixgoodman">Profile</Link>
-        <Link to="/profile/feedback-support?user=felixgoodman">Support</Link>
+        <Link to={`/${PROFILE}/${SETTINGS}?user=felixgoodman`}>Profile</Link>
+        <Link to={`/${PROFILE}/${SUPPORT}?user=felixgoodman`}>Support</Link>
       </div>
     </div>
   );

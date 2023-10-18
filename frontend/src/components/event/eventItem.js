@@ -13,6 +13,7 @@ import CustomDropdown from "../../layouts/customDropdown";
 import PopoverItem from "../../layouts/popoverItem";
 import { useEditor } from "../../hooks/useEditor";
 import { VerifiedRender } from "../../routes/verifiedRender";
+import { PROFILE, SETTINGS } from "../../routes/routes";
 
 function EventItem() {
   const { eventData } = useContext(SingleEventContext);
@@ -79,7 +80,9 @@ function EventItem() {
                 <h6>Details</h6>
                 <small className="text-muted">
                   Host:{" "}
-                  <a href={`/profile/settings?user=${eventData.userName}`}>
+                  <a
+                    href={`/${PROFILE}/${SETTINGS}?user=${eventData.userName}`}
+                  >
                     @{eventData.userName}
                   </a>
                 </small>

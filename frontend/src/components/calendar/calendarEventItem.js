@@ -6,6 +6,7 @@ import SortDropdown from "../../layouts/sortDropdown";
 import { Link } from "react-router-dom";
 import { CustomTable, CustomTableCells } from "../../layouts/customTable";
 import { DateFormat } from "../../utilities/utility-service";
+import { EVENT } from "../../routes/routes";
 
 function CalendarEventItem(props) {
   const { currentDay } = useContext(CalendarContext);
@@ -44,7 +45,7 @@ function CalendarEventItem(props) {
                     </CustomTableCells>
                     <CustomTableCells cols={"col-10"}>
                       <h4>
-                        <Link to={`/event/${item.id}`}>{item.title}</Link>
+                        <Link to={`/${EVENT}/${item.id}`}>{item.title}</Link>
                       </h4>
                       <small className="d-block card-timestamp text-muted align-self-center">
                         in {item.timeToEvent}

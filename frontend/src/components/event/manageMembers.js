@@ -14,6 +14,7 @@ import { SingleEventContext } from "../../pages/singleEventDash";
 import { Cross, Tick } from "../../layouts/icons";
 import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import { CustomTable, CustomTableCells } from "../../layouts/customTable";
+import { PROFILE, SETTINGS } from "../../routes/routes";
 
 function ManageMembers() {
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ function ManageMembers() {
                         <div className="ms-4">
                           <Link
                             to={{
-                              pathname: "/profile/settings",
+                              pathname: `/${PROFILE}/${SETTINGS}`,
                               search: `user=${member.username}`,
                             }}
                           >

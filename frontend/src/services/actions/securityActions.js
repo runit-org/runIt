@@ -12,6 +12,7 @@ import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import * as ResponseStatus from "../constants/responseStatus";
 import { RESET_PW } from "../constants/apiTypes";
+import { POSTS } from "../../routes/routes";
 
 axios.defaults.baseURL = `${
   process.env.NODE_ENV === "production"
@@ -93,7 +94,7 @@ export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
 
       if (res.status === ResponseStatus.OK && Cookies.get("token")) {
         setLoad(true);
-        navigate("/posts");
+        navigate(`/${POSTS}`);
       }
       dispatch({
         type: GET_USER,

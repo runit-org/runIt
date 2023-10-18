@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import { PROFILE, SETTINGS } from "../../routes/routes";
 
 export const Username = ({ username, size }) => {
   return (
     <Link
       to={{
-        pathname: "/profile/settings",
+        pathname: `/${PROFILE}/${SETTINGS}`,
         search: `user=${username}`,
       }}
     >

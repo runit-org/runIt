@@ -11,6 +11,7 @@ import {
 } from "../../services/actions/commentActions";
 import { Delete } from "../../layouts/icons";
 import * as ResponseStatus from "../../services/constants/responseStatus";
+import { EVENT } from "../../routes/routes";
 
 function RemoveComment(props) {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function RemoveComment(props) {
     dispatch(removeComment(props.commentId, setLoad)).then(({ status }) => {
       if (status === ResponseStatus.OK) {
         dispatch(getAllComments(props.eventId, pageId));
-        navigate(`/event/${props.eventId}?page=${pageId}`, {
+        navigate(`/${EVENT}/${props.eventId}?page=${pageId}`, {
           replace: true,
           state: { id: pageId },
         });

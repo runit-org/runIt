@@ -9,6 +9,7 @@ import { SectionHeader } from "../../layouts/sectionHeader.js";
 import { Link, useNavigate } from "react-router-dom";
 import { verifyEmail } from "../../services/actions/securityActions.js";
 import * as ResponseStatus from "../../services/constants/responseStatus";
+import { POSTS } from "../../routes/routes.js";
 
 function VerifyEmail() {
   const dispatch = useDispatch();
@@ -66,7 +67,7 @@ function VerifyEmail() {
 
             <Link
               to={{
-                pathname: "/posts",
+                pathname: `/${POSTS}`,
               }}
               className="text-muted"
             >

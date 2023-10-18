@@ -7,6 +7,7 @@ import { ResponseItem } from "../../layouts/responseItems";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 import { useNavigate } from "react-router-dom";
 import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
+import { VERIFY } from "../../routes/routes";
 
 function ResendOtp() {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ function ResendOtp() {
     e.preventDefault();
     dispatch(resendOtp(setLoad)).then(({ status }) => {
       if (status === ResponseStatus.OK) {
-        navigate("/verify");
+        navigate(`/${VERIFY}`);
       }
     });
   };

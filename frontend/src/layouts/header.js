@@ -9,6 +9,14 @@ import { AppLogo, Notification } from "./icons";
 import UserStatus from "../components/profile/userStatus";
 import { useHandleLogout } from "../hooks/useHandleLogout";
 import { VerifiedRender } from "../routes/verifiedRender";
+import {
+  CALENDAR,
+  POSTS,
+  PROFILE,
+  SECURITY,
+  SETTINGS,
+  SUPPORT,
+} from "../routes/routes";
 
 function Header() {
   const dispatch = useDispatch();
@@ -75,7 +83,7 @@ function Header() {
         className="header-blur"
       >
         <Container>
-          <Navbar.Brand href="/posts">
+          <Navbar.Brand href={`/${POSTS}`}>
             <AppLogo w={"50px"} />
           </Navbar.Brand>
           <Navbar.Toggle />
@@ -91,7 +99,7 @@ function Header() {
                 <Nav.Link
                   href={
                     currentUser
-                      ? `/profile/settings?user=${currentUser.username}`
+                      ? `/${PROFILE}/${SETTINGS}?user=${currentUser.username}`
                       : ""
                   }
                 >
@@ -100,7 +108,7 @@ function Header() {
                 <Nav.Link
                   href={
                     currentUser
-                      ? `/profile/calendar?user=${currentUser.username}`
+                      ? `/${PROFILE}/${CALENDAR}?user=${currentUser.username}`
                       : ""
                   }
                 >
@@ -109,7 +117,7 @@ function Header() {
                 <Nav.Link
                   href={
                     currentUser
-                      ? `/profile/security?user=${currentUser.username}`
+                      ? `/${PROFILE}/${SECURITY}?user=${currentUser.username}`
                       : ""
                   }
                 >
@@ -118,7 +126,7 @@ function Header() {
                 <Nav.Link
                   href={
                     currentUser
-                      ? `/profile/feedback-support?user=${currentUser.username}`
+                      ? `/${PROFILE}/${SUPPORT}?user=${currentUser.username}`
                       : ""
                   }
                 >
@@ -168,7 +176,7 @@ function Header() {
                 <NavDropdown.Item
                   href={
                     currentUser
-                      ? `/profile/settings?user=${currentUser.username}`
+                      ? `/${PROFILE}/${SETTINGS}?user=${currentUser.username}`
                       : ""
                   }
                 >

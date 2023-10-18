@@ -9,6 +9,7 @@ import { Eye, EyeSlash } from "../../layouts/icons";
 import { ResponseItem, ResponseToast } from "../../layouts/responseItems";
 import { useHandleChange } from "../../hooks/useHandleChange";
 import { FormLabel, FormGroup } from "../../layouts/customForm";
+import { RESET_PW_EMAIL } from "../../routes/routes";
 
 function Login() {
   let navigate = useNavigate();
@@ -109,7 +110,7 @@ function Login() {
           <hr className="divider" />
           <Row className="mt-3">
             <Col className="text-center">
-              <Link to="/reset-password-auth">Forgot Password?</Link>
+              <Link to={`/${RESET_PW_EMAIL}`}>Forgot Password?</Link>
             </Col>
           </Row>
         </Form>

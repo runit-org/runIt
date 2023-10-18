@@ -7,6 +7,7 @@ import { BadgeItem, RequestBtn, StatusBadge } from "./helper/eventBuilder";
 import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import { Username } from "../../layouts/user/username";
 import { VerifiedRender } from "../../routes/verifiedRender";
+import { EVENT } from "../../routes/routes";
 
 function EventItemCard(props) {
   return (
@@ -55,7 +56,7 @@ function EventItemCard(props) {
           </div>
         </Card.Body>
         <Card.Footer>
-          <Link to={`/event/${props.eventData.id}`}>
+          <Link to={`/${EVENT}/${props.eventData.id}`}>
             Details <ArrowRight />
           </Link>
         </Card.Footer>

@@ -19,6 +19,7 @@ import { BadgeItem } from "../components/event/helper/eventBuilder";
 import { Information } from "../layouts/icons";
 import { InfoCard } from "../layouts/infoCards";
 import { VerifiedRender } from "../routes/verifiedRender";
+import { EVENT, POSTS } from "../routes/routes";
 
 export const SingleEventContext = createContext();
 
@@ -50,10 +51,10 @@ function SingleEventDash() {
   //breadcrumbs
   const breadcrumbItem = eventData
     ? [
-        { title: "Dashboard", path: "/posts", current: false },
+        { title: "Dashboard", path: `/${POSTS}`, current: false },
         {
           title: eventData.title,
-          path: `/event/${eventData.id}`,
+          path: `/${EVENT}/${eventData.id}`,
           current: true,
         },
       ]

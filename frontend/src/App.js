@@ -19,6 +19,21 @@ import ResetPasswordEmail from "./components/userAuth/resetPwEmail";
 import ResetPassword from "./components/userAuth/resetPw";
 import VerifyEmail from "./components/userAuth/verifyEmail";
 import NotFound from "./pages/notFound";
+import {
+  CALENDAR,
+  EVENT,
+  NOT_FOUND,
+  POSTS,
+  PROFILE,
+  RESET_PW,
+  RESET_PW_EMAIL,
+  SECURITY,
+  SETTINGS,
+  SIGN_UP,
+  STARS,
+  SUPPORT,
+  VERIFY,
+} from "./routes/routes";
 
 const ProfileDash = lazy(() => import("./pages/profileDash"));
 const SingleEventDash = lazy(() => import("./pages/singleEventDash"));
@@ -47,18 +62,15 @@ function App() {
             }
           >
             <Route path="/" element={<Login />} />
-            <Route path="signup" element={<SignUp />} />
-            <Route
-              path="reset-password-auth"
-              element={<ResetPasswordEmail />}
-            />
-            <Route path="reset-password/:token" element={<ResetPassword />} />
-            <Route path="verify" element={<VerifyEmail />} />
+            <Route path={SIGN_UP} element={<SignUp />} />
+            <Route path={RESET_PW_EMAIL} element={<ResetPasswordEmail />} />
+            <Route path={`${RESET_PW}/:token`} element={<ResetPassword />} />
+            <Route path={VERIFY} element={<VerifyEmail />} />
           </Route>
 
           {/* dash/posts routes */}
           <Route
-            path="/posts"
+            path={`/${POSTS}`}
             element={
               <ProtectedRoute>
                 <EventsDash />
@@ -68,7 +80,7 @@ function App() {
 
           {/* profile routes */}
           <Route
-            path="/profile"
+            path={`/${PROFILE}`}
             element={
               <ProtectedRoute>
                 <CalendarContext>
@@ -77,16 +89,16 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route path="calendar" element={<CalendarPage />} />
-            <Route path="settings" element={<Profile />} />
-            <Route path="stars" element={<Stars />} />
-            <Route path="security" element={<Security />} />
-            <Route path="feedback-support" element={<Support />} />
+            <Route path={CALENDAR} element={<CalendarPage />} />
+            <Route path={SETTINGS} element={<Profile />} />
+            <Route path={STARS} element={<Stars />} />
+            <Route path={SECURITY} element={<Security />} />
+            <Route path={SUPPORT} element={<Support />} />
           </Route>
 
           {/* event routes */}
           <Route
-            path="/event/:id"
+            path={`/${EVENT}/:id`}
             element={
               <ProtectedRoute>
                 <SecurityContext>
@@ -96,14 +108,14 @@ function App() {
             }
           />
           <Route
-            path="/404"
+            path={`/${NOT_FOUND}`}
             element={
               <ProtectedRoute>
                 <NotFound />
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<Navigate to="/404" replace />} />
+          <Route path="*" element={<Navigate to={`/${NOT_FOUND}`} replace />} />
         </Routes>
       </RoutesContainer>
     </Suspense>

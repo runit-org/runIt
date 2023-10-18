@@ -1,35 +1,37 @@
+import { CALENDAR, SECURITY, SETTINGS, STARS, SUPPORT } from "../routes/routes";
+
 export const NavigationObj = (user) => {
   const profileNav = [
     {
       title: "Profile",
-      href: user ? `settings?user=${user.username}` : "",
+      href: user ? `${SETTINGS}?user=${user.username}` : "",
     },
     {
       title: "Calendar",
-      href: user ? `calendar?user=${user.username}` : "",
+      href: user ? `${CALENDAR}?user=${user.username}` : "",
     },
   ];
 
   const profileNavCurrUser = [
     {
       title: "Profile",
-      href: user ? `settings?user=${user.username}` : "",
+      href: user ? `${SETTINGS}?user=${user.username}` : "",
     },
     {
       title: "Calendar",
-      href: user ? `calendar?user=${user.username}` : "",
+      href: user ? `${CALENDAR}?user=${user.username}` : "",
     },
     {
       title: "Starred",
-      href: user ? `stars?user=${user.username}` : "",
+      href: user ? `${STARS}?user=${user.username}` : "",
     },
     {
       title: "Security Settings",
-      href: user ? `security?user=${user.username}` : "",
+      href: user ? `${SECURITY}?user=${user.username}` : "",
     },
     {
       title: "Feedback & Support",
-      href: user ? `feedback-support?user=${user.username}` : "",
+      href: user ? `${SUPPORT}?user=${user.username}` : "",
     },
   ];
 

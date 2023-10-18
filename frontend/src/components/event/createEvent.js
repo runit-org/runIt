@@ -11,6 +11,7 @@ import { FormGroup, FormLabel } from "../../layouts/customForm";
 import { ResponseItem } from "../../layouts/responseItems";
 import { useNavigate } from "react-router-dom";
 import { RESET_CURRENT_PAGE } from "../../services/constants/types";
+import { EVENT } from "../../routes/routes";
 
 function CreateEvent(props) {
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ function CreateEvent(props) {
         dispatch({
           type: RESET_CURRENT_PAGE,
         });
-        navigate(`/event/${data.data.id}?page=1`);
+        navigate(`/${EVENT}/${data.data.id}?page=1`);
       }
     });
   };
