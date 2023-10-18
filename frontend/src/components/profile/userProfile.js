@@ -5,6 +5,7 @@ import Vote from "./vote";
 import { Username } from "../../layouts/user/username";
 import { useVerifyAuthUser } from "../../hooks/useCheckCurrUser";
 import { Loading } from "../../layouts/loader";
+import { VerifiedRender } from "../../routes/verifiedRender";
 
 function UserProfile() {
   const { user } = useVerifyAuthUser();
@@ -23,9 +24,11 @@ function UserProfile() {
           <small className="d-block text-muted">{email}</small>
         </div>
 
-        <div className="position-absolute top-0 end-0 p-1">
-          <Vote user={user} fullW={false} />
-        </div>
+        <VerifiedRender>
+          <div className="position-absolute top-0 end-0 p-1">
+            <Vote user={user} fullW={false} />
+          </div>
+        </VerifiedRender>
       </div>
 
       <div className="mt-3 ">
