@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Card, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import {
@@ -33,14 +39,18 @@ function CreateComment(props) {
     useHandleChange(initialState);
 
   //handle tags from dropdown
-  const handleCommentChange = (newComment) => {
-    setFormValue((prevFormValue) => {
-      return {
-        ...prevFormValue,
-        content: newComment,
-      };
-    });
-  };
+
+  const handleCommentChange = useCallback(
+    (newComment) => {
+      setFormValue((prevFormValue) => {
+        return {
+          ...prevFormValue,
+          content: newComment,
+        };
+      });
+    },
+    [setFormValue]
+  );
 
   //validate form
   useEffect(() => {

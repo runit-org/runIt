@@ -1,6 +1,6 @@
 import { Dropdown } from "react-bootstrap";
 import { SingleEventContext } from "../../pages/singleEventDash";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Accepted } from "../event/helper/eventBuilder";
 
 function TaggingDropdown({ onCommentChange, formValue, identifier }) {
@@ -27,26 +27,36 @@ function TaggingDropdown({ onCommentChange, formValue, identifier }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValue]);
 
-  const handleDropdownItemClick = (item) => {
-    var newComment = item.username;
-    if (lastWord(formValue).includes(identifier)) {
-      newComment = `${item.username} `;
-    } else {
-      newComment = `${identifier}${item.username} `;
-    }
+  const handleDropdownItemClick = useCallback(
+    (item) => {
+      var newComment = item.username;
+      const inputField = document.getElementsByName("content")[0];
 
-    // Check if the content field is already populated
-    // Check if the content field is already populated and the last word is a tag
-    // If tag then replace the previous value with the tag value
-    const updatedContent =
-      formValue && !lastWord(formValue).includes(identifier)
-        ? `${formValue}${newComment}`
-        : formValue && lastWord(formValue).includes(identifier)
-        ? `${formValue.replace(lastWord(formValue), identifier)}${newComment}`
-        : newComment;
+      if (lastWord(formValue).includes(identifier)) {
+        newComment = `${item.username} `;
+      } else {
+        newComment = `${identifier}${item.username} `;
+      }
 
-    onCommentChange(updatedContent);
-  };
+      // Check if the content field is already populated
+      // Check if the content field is already populated and the last word is a tag
+      // If tag then replace the previous value with the tag value
+      const updatedContent =
+        formValue && !lastWord(formValue).includes(identifier)
+          ? `${formValue}${newComment}`
+          : formValue && lastWord(formValue).includes(identifier)
+          ? `${formValue.replace(lastWord(formValue), identifier)}${newComment}`
+          : newComment;
+
+      //focus on the input field after selecting from the dropdown
+      if (inputField) {
+        inputField.focus();
+      }
+
+      onCommentChange(updatedContent);
+    },
+    [formValue, identifier, onCommentChange]
+  );
 
   useEffect(() => {
     // Regex to find words with the identifier symbol
@@ -69,7 +79,7 @@ function TaggingDropdown({ onCommentChange, formValue, identifier }) {
     }
     setDropdownArray(mentions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formValue]);
+  }, [formValue, identifier]);
 
   return (
     <Dropdown
