@@ -11,6 +11,7 @@ import { emitter } from "../client/socket";
 import { MentionFilter } from "../../utilities/utility-service";
 import { Cross, Submit } from "../../layouts/icons";
 import * as ResponseStatus from "../../services/constants/responseStatus";
+import { FormLabel } from "../../layouts/customForm";
 
 function UpdateEvent(props) {
   const dispatch = useDispatch();
@@ -48,26 +49,32 @@ function UpdateEvent(props) {
           <h3 className="fw-bold m-0">Update event</h3>
         </Card.Header>
         <Card.Body>
-          <Form.Group className="d-flex mb-3">
-            <Form.Control
-              className="me-2"
-              type="title"
-              placeholder="Event Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-
-            <Form.Control
-              type="number"
-              placeholder="Maximum Members"
-              value={maxMembers || ""}
-              onChange={(e) => setMaxMembers(parseInt(e.target.value))}
-              min="2"
-              required
-            />
+          <Form.Group className="d-flex gap-2 mb-3">
+            <div className="w-100">
+              <FormLabel>Title</FormLabel>
+              <Form.Control
+                type="title"
+                placeholder="Event Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+            </div>
+            <div className="w-100">
+              <FormLabel>Size</FormLabel>
+              <Form.Control
+                type="number"
+                placeholder="Maximum Members"
+                value={maxMembers || ""}
+                onChange={(e) => setMaxMembers(parseInt(e.target.value))}
+                min="2"
+                required
+              />
+            </div>
           </Form.Group>
+
           <Form.Group>
+            <FormLabel>Description</FormLabel>
             <Form.Control
               spellCheck={true}
               placeholder="What's on your mind?"
