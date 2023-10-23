@@ -105,7 +105,9 @@ function SingleEventDash() {
                 ) : (
                   <Card className="comment-item">
                     <Card.Body>
-                      <Card.Text>No comments published</Card.Text>
+                      <Card.Text>
+                        No comments have been published yet.
+                      </Card.Text>
                     </Card.Body>
                   </Card>
                 )}
@@ -149,8 +151,8 @@ function SingleEventDash() {
                       <Card className="event-card">
                         <Card.Body>
                           <Card.Text>
-                            You will be able collaborate with others via
-                            comments once you are accepted.
+                            You will be able to collaborate with others via
+                            comments once your request is approved.
                           </Card.Text>
                         </Card.Body>
                       </Card>
