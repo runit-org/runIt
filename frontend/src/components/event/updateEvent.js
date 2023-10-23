@@ -45,8 +45,8 @@ function UpdateEvent(props) {
       }}
     >
       <Card className={props.cardStyle}>
-        <Card.Header>
-          <h3 className="fw-bold m-0">Update event</h3>
+        <Card.Header className="pb-0">
+          <h5 className="fw-bold m-0">Update event</h5>
         </Card.Header>
         <Card.Body>
           <Form.Group className="d-flex gap-2 mb-3">

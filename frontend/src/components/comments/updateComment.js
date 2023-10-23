@@ -42,7 +42,7 @@ function UpdateComment(props, { handleUpate }) {
       className="w-100"
     >
       <Card className="editor-card">
-        <Card.Header>
+        <Card.Header className="pb-0">
           <h6 className="fw-bold m-0">Edit comment</h6>
         </Card.Header>
         <Card.Body>
