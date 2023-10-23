@@ -30,6 +30,21 @@
   border: none;
 }
 
+.ql-toolbar.ql-snow {
+  border: 1px solid rgba($primary-dark, 0.1) !important;
+  border-radius: 0.375rem 0.375rem 0 0 !important;
+}
+
+.ql-container.ql-snow {
+  border: 1px solid rgba($primary-dark, 0.1) !important;
+  border-top: none !important;
+  border-radius: 0 0 0.375rem 0.375rem !important;
+}
+
+.ql-editor p {
+  font-size: 1rem !important;
+}
+
 :is(.new-post-container, .editor-card) :is(.form-control, .form-control) {
   color: $primary-dark;
 }

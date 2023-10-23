@@ -34,6 +34,7 @@ import {
   SUPPORT,
   VERIFY,
 } from "./routes/routes";
+import "react-quill/dist/quill.snow.css";
 
 const ProfileDash = lazy(() => import("./pages/profileDash"));
 const SingleEventDash = lazy(() => import("./pages/singleEventDash"));

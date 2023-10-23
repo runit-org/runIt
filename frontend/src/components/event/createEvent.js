@@ -12,11 +12,14 @@ import { ResponseItem } from "../../layouts/responseItems";
 import { useNavigate } from "react-router-dom";
 import { RESET_CURRENT_PAGE } from "../../services/constants/types";
 import { EVENT } from "../../routes/routes";
+import ReactQuill from "react-quill";
+import { QuillSetting } from "../../utilities/quillSettings";
 
 function CreateEvent(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formRef = useRef(0);
+  const { modules, formats } = QuillSetting();
 
   const initialState = {
     title: "",
@@ -81,6 +84,15 @@ function CreateEvent(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.suggestion, setFormValue]);
+
+  const handleQuillEdit = (value) => {
+    setFormValue((prev) => {
+      return {
+        ...prev,
+        details: value,
+      };
+    });
+  };
 
   return (
     <Card className="create_event-card">
@@ -154,7 +166,7 @@ function CreateEvent(props) {
             </Row>
 
             <FormGroup formId="formBasicDetails">
-              <Form.Control
+              {/*  <Form.Control
                 spellCheck={true}
                 name="details"
                 placeholder="Write event details..."
@@ -163,6 +175,14 @@ function CreateEvent(props) {
                 onChange={handleFieldChange}
                 rows={4}
                 required
+              /> */}
+              <ReactQuill
+                name="details"
+                theme="snow"
+                modules={modules}
+                formats={formats}
+                value={formValue.details}
+                onChange={handleQuillEdit}
               />
             </FormGroup>
           </div>
