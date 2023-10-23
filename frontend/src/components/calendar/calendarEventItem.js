@@ -69,6 +69,10 @@ function CalendarEventItem(props) {
               <td className="text-center">
                 <div className="table-content">
                   <h6 className="p-0 m-0">No events scheduled</h6>
+                  <small>
+                    List of events in which you participate or events you
+                    create.
+                  </small>
                 </div>
               </td>
             </tr>

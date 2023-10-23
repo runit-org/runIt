@@ -57,7 +57,13 @@ function Stars() {
                   <tr className="table_row">
                     <td className="text-center">
                       <div className="table-content">
-                        <h6 className="p-0 m-0">No votes given</h6>
+                        <h6 className="p-0 m-0">
+                          You don't have any starred users yet.
+                        </h6>
+                        <small>
+                          Star users you collaborate with often and they'll show
+                          up here.
+                        </small>
                       </div>
                     </td>
                   </tr>

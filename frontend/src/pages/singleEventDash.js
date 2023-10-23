@@ -63,12 +63,13 @@ function SingleEventDash() {
   // check if user is eligible to comment
   const commentCondition = () => {
     if (!eventData) return null;
-    return (
-      (eventData.joinedStatus === OWNER ||
-        eventData.joinedStatus === ACCEPTED) &&
-      eventData.eventStatus !== CANCELLED &&
-      eventData.eventStatus !== FINISHED
-    );
+
+    const eventActive =
+      eventData.eventStatus !== CANCELLED && eventData.eventStatus !== FINISHED;
+
+    const participant =
+      eventData.joinedStatus === OWNER || eventData.joinedStatus === ACCEPTED;
+    return { eventActive, participant };
   };
 
   // check if user is eligible to accept or reject requests
@@ -104,10 +105,12 @@ function SingleEventDash() {
                   })
                 ) : (
                   <Card className="comment-item">
-                    <Card.Body>
-                      <Card.Text>
-                        No comments have been published yet.
-                      </Card.Text>
+                    <Card.Body className="text-center">
+                      <h6 className="p-0 m-0">No events scheduled</h6>
+                      <small>
+                        List of events in which you participate or events you
+                        create.
+                      </small>
                     </Card.Body>
                   </Card>
                 )}
@@ -145,18 +148,20 @@ function SingleEventDash() {
                   <EventItem />
                   {/* publish comment */}
                   <VerifiedRender>
-                    {commentCondition() ? (
-                      <CreateComment id={eventData.id} />
-                    ) : (
-                      <Card className="event-card">
-                        <Card.Body>
-                          <Card.Text>
-                            You will be able to collaborate with others via
-                            comments once your request is approved.
-                          </Card.Text>
-                        </Card.Body>
-                      </Card>
-                    )}
+                    {commentCondition().eventActive &&
+                      (commentCondition().participant ? (
+                        <CreateComment id={eventData.id} />
+                      ) : (
+                        <Card className="event-card">
+                          <Card.Body>
+                            <small className="fw-semibold">
+                              You will be able to collaborate with others via
+                              comments once your request is approved.
+                            </small>
+                          </Card.Body>
+                        </Card>
+                      ))}
+
                     {/* manage members */}
                     {manageUsersCondition() && <ManageMembers />}
                   </VerifiedRender>
