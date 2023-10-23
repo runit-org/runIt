@@ -27,6 +27,7 @@ export const GET_USER_PROFILE = "GET_USER_PROFILE";
 export const GET_CURRENT_USER_PROFILE = "GET_CURRENT_USER_PROFILE";
 export const GET_VOTES = "GET_VOTES";
 export const GET_USER_ACTIVITY = "GET_USER_ACTIVITY";
+export const RESET_VOTE = "RESET_VOTE";
 
 //comment types
 export const GET_ALL_COMMENTS = "GET_ALL_COMMENTS";

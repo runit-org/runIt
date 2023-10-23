@@ -3,6 +3,7 @@ import {
   GET_USER_ACTIVITY,
   GET_USER_PROFILE,
   GET_VOTES,
+  RESET_VOTE,
 } from "../constants/types";
 
 const initialState = {
@@ -51,6 +52,15 @@ export default function setUser(state = initialState, action) {
           next: action.payload.next,
           currentPage: state.activity.currentPage + 1,
           count: action.payload.count,
+        },
+      };
+    case RESET_VOTE:
+      return {
+        ...state,
+        votes: {
+          results: [],
+          next: null,
+          currentPage: 0,
         },
       };
 

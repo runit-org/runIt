@@ -7,6 +7,7 @@ import { Username } from "../../layouts/user/username";
 import CTAButton from "../../layouts/ctaButton";
 import { Loading } from "../../layouts/loader";
 import CurrentUserProfile from "../../components/profile/currentUserProfile";
+import Vote from "../../components/profile/vote";
 
 function Stars() {
   // const affiliatedEvents = AffiliatedEvents(2);
@@ -36,6 +37,9 @@ function Stars() {
                             <small className="d-block card-timestamp text-muted align-self-center">
                               {item.email}
                             </small>
+                            <div className="mt-2">
+                              <Vote user={item} fullW={false} />
+                            </div>
                           </CustomTableCells>
 
                           <CustomTableCells cols={"col-1"}>

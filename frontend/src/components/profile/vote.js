@@ -5,6 +5,7 @@ import { getUserProfile, vote } from "../../services/actions/userActions";
 import { VoteArrow } from "../../layouts/icons";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 import CustomTooltip from "../../layouts/customTooltip";
+import { RESET_VOTE } from "../../services/constants/types";
 
 function Vote(props) {
   const dispatch = useDispatch();
@@ -15,6 +16,9 @@ function Vote(props) {
     dispatch(vote(props.user.id, postData)).then(({ status }) => {
       if (status === ResponseStatus.OK) {
         dispatch(getUserProfile(props.user.username));
+        dispatch({
+          type: RESET_VOTE,
+        });
       }
     });
   };
@@ -38,7 +42,11 @@ function Vote(props) {
         <div className="d-flex justify-content-center align-items-center">
           <VoteArrow />
           <span className="ms-1">
-            {!props.fullW ? props.user.totalVote : ""}
+            {!props.fullW
+              ? props.user.totalVote
+                ? props.user.totalVote
+                : "Starred"
+              : ""}
           </span>
           <span className="visually-hidden">up vote</span>
         </div>
