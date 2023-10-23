@@ -60,6 +60,28 @@ function SingleEventDash() {
       ]
     : "";
 
+  // check if user is eligible to comment
+  const commentCondition = () => {
+    if (!eventData) return null;
+    return (
+      (eventData.joinedStatus === OWNER ||
+        eventData.joinedStatus === ACCEPTED) &&
+      eventData.eventStatus !== CANCELLED &&
+      eventData.eventStatus !== FINISHED
+    );
+  };
+
+  // check if user is eligible to accept or reject requests
+  const manageUsersCondition = () => {
+    if (!eventData) return null;
+    return (
+      eventData.joinedStatus === OWNER &&
+      !eventData.fullStatus &&
+      eventData.eventStatus !== CANCELLED &&
+      eventData.eventStatus !== FINISHED
+    );
+  };
+
   return (
     <SingleEventContext.Provider value={{ eventData, eventMbs }}>
       {eventData && (
@@ -102,8 +124,8 @@ function SingleEventDash() {
             <div className="sidebar_eventDash">
               <div className="sidebar_eventDash-wrapper">
                 <Container className="content-wrapper">
-                  {eventData.eventStatus === CANCELLED ||
-                  eventData.eventStatus === FINISHED ? (
+                  {(eventData.eventStatus === CANCELLED ||
+                    eventData.eventStatus === FINISHED) && (
                     <InfoCard
                       title="Note"
                       content={
@@ -116,15 +138,12 @@ function SingleEventDash() {
                       icon={<Information />}
                       cardStyle={{ backgroundColor: "#eaebfd" }}
                     />
-                  ) : (
-                    ""
                   )}
                   {/* event item card */}
                   <EventItem />
-                  {/* publish commnent */}
+                  {/* publish comment */}
                   <VerifiedRender>
-                    {eventData.joinedStatus === OWNER ||
-                    eventData.joinedStatus === ACCEPTED ? (
+                    {commentCondition() ? (
                       <CreateComment id={eventData.id} />
                     ) : (
                       <Card className="event-card">
@@ -137,10 +156,7 @@ function SingleEventDash() {
                       </Card>
                     )}
                     {/* manage members */}
-                    {eventData.joinedStatus === OWNER &&
-                      !eventData.fullStatus &&
-                      eventData.eventStatus !== CANCELLED &&
-                      eventData.eventStatus !== FINISHED && <ManageMembers />}
+                    {manageUsersCondition() && <ManageMembers />}
                   </VerifiedRender>
                 </Container>
               </div>
