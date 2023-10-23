@@ -54,7 +54,7 @@ function CreateComment(props) {
 
   //validate form
   useEffect(() => {
-    if (formValue === "") {
+    if (formValue.content === "") {
       setValidateFormEmpty(true);
     } else {
       setValidateFormEmpty(false);
