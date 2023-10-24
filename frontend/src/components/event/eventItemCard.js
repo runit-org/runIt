@@ -48,12 +48,10 @@ function EventItemCard(props) {
             />
           </div>
 
-          <div>
-            <BadgeItem
-              content={props.eventData.timeToEvent}
-              eventStatus={props.eventData.eventStatus}
-            />
-          </div>
+          <BadgeItem
+            content={props.eventData.timeToEvent}
+            eventStatus={props.eventData.eventStatus}
+          />
         </Card.Body>
         <Card.Footer>
           <Link to={`/${EVENT}/${props.eventData.id}`}>

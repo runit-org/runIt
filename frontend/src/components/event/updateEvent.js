@@ -12,10 +12,13 @@ import { MentionFilter } from "../../utilities/utility-service";
 import { Cross, Submit } from "../../layouts/icons";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 import { FormLabel } from "../../layouts/customForm";
+import ReactQuill from "react-quill";
+import { QuillSetting } from "../../utilities/quillSettings";
 
 function UpdateEvent(props) {
   const dispatch = useDispatch();
   const params = useParams();
+  const { modules, formats } = QuillSetting();
   const [title, setTitle] = useState(props.title);
   const [maxMembers, setMaxMembers] = useState(props.maxMembers);
   const [details, setDetails] = useState(props.details);
@@ -75,13 +78,13 @@ function UpdateEvent(props) {
 
           <Form.Group>
             <FormLabel>Description</FormLabel>
-            <Form.Control
-              spellCheck={true}
-              placeholder="What's on your mind?"
-              as="textarea"
-              value={details || ""}
-              onChange={(e) => setDetails(e.target.value)}
-              required
+            <ReactQuill
+              name="details"
+              theme="snow"
+              modules={modules}
+              formats={formats}
+              value={details}
+              onChange={(value) => setDetails(value)}
             />
           </Form.Group>
           <div className="d-flex justify-content-between mt-3">

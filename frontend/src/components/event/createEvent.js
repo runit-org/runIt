@@ -12,11 +12,14 @@ import { ResponseItem } from "../../layouts/responseItems";
 import { useNavigate } from "react-router-dom";
 import { RESET_CURRENT_PAGE } from "../../services/constants/types";
 import { EVENT } from "../../routes/routes";
+import ReactQuill from "react-quill";
+import { QuillSetting } from "../../utilities/quillSettings";
 
 function CreateEvent(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formRef = useRef(0);
+  const { modules, formats } = QuillSetting();
 
   const initialState = {
     title: "",
@@ -70,7 +73,7 @@ function CreateEvent(props) {
     if (Object.keys(props.suggestion).length !== 0) {
       setFormValue({
         title: `${props.suggestion.title} - ${props.suggestion.category}`,
-        details: `Location: ${props.suggestion.location} \nLink: ${props.suggestion.link}\n\n`,
+        details: `Link: <a href=${props.suggestion.link} targe="_blank">${props.suggestion.title}</a><br/>Location: ${props.suggestion.location}<br/>Category: ${props.suggestion.category}\n\n`,
         date: new Date(props.suggestion.time).toISOString().split("T")[0],
         time: new Date(props.suggestion.time).toLocaleTimeString("en-US", {
           timeStyle: "short",
@@ -81,6 +84,15 @@ function CreateEvent(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.suggestion, setFormValue]);
+
+  const handleQuillEdit = (value) => {
+    setFormValue((prev) => {
+      return {
+        ...prev,
+        details: value,
+      };
+    });
+  };
 
   return (
     <Card className="create_event-card">
@@ -154,15 +166,13 @@ function CreateEvent(props) {
             </Row>
 
             <FormGroup formId="formBasicDetails">
-              <Form.Control
-                spellCheck={true}
+              <ReactQuill
                 name="details"
-                placeholder="Write event details..."
-                as="textarea"
+                theme="snow"
+                modules={modules}
+                formats={formats}
                 value={formValue.details}
-                onChange={handleFieldChange}
-                rows={4}
-                required
+                onChange={handleQuillEdit}
               />
             </FormGroup>
           </div>
