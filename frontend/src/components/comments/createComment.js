@@ -121,7 +121,7 @@ function CreateComment(props) {
               formValidation={validateFormEmpty}
               isLoading={load}
               placeholder={
-                <div className="d-flex align-items-center">Send</div>
+                <div className="d-flex align-items-center">Comment</div>
               }
             />
           </div>

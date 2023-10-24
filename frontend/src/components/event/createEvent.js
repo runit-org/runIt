@@ -186,7 +186,7 @@ function CreateEvent(props) {
               formValidation={validateFormEmpty}
               isLoading={load}
               placeholder={
-                <div className="d-flex align-items-center">Post</div>
+                <div className="d-flex align-items-center">Create event</div>
               }
             />
           </div>
