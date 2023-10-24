@@ -14,6 +14,9 @@ import { RESET_CURRENT_PAGE } from "../../services/constants/types";
 import { EVENT } from "../../routes/routes";
 import ReactQuill from "react-quill";
 import { QuillSetting } from "../../utilities/quillSettings";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { handleFormInputs } from "./helper/eventBuilder";
 
 function CreateEvent(props) {
   const dispatch = useDispatch();
@@ -34,6 +37,8 @@ function CreateEvent(props) {
   const [validateFormEmpty, setValidateFormEmpty] = useState(false);
   const [load, setLoad] = useState(false);
   const eventDate = new Date(formValue.date);
+  const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [openTimePicker, setOpenTimePicker] = useState(false);
 
   useEffect(() => {
     if (!/\S/.test(formValue.details)) {
@@ -55,6 +60,7 @@ function CreateEvent(props) {
       minute:
         formValue.time !== "" ? parseInt(formValue.time.split(":")[1]) : "",
     };
+
     dispatch(createNewEvent(postData, setLoad)).then(({ status, data }) => {
       if (status === ResponseStatus.OK) {
         formRef.current.reset();
@@ -84,15 +90,6 @@ function CreateEvent(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.suggestion, setFormValue]);
-
-  const handleQuillEdit = (value) => {
-    setFormValue((prev) => {
-      return {
-        ...prev,
-        details: value,
-      };
-    });
-  };
 
   return (
     <Card className="create_event-card">
@@ -133,21 +130,57 @@ function CreateEvent(props) {
 
               <FormGroup formId="formBasicTime" customStyle="col-md-4">
                 <FormLabel>Time</FormLabel>
-
-                <Form.Control
+                <TimePicker
+                  open={openTimePicker}
+                  onClose={() => setOpenTimePicker(false)}
+                  value={formValue.time["$d"] || ""}
+                  onChange={(value) => {
+                    handleFormInputs(
+                      new Date(value).toLocaleTimeString("en-US", {
+                        timeStyle: "short",
+                        hour12: false,
+                      }),
+                      setFormValue,
+                      ["time"]
+                    );
+                  }}
+                  slots={{ openPickerButton: () => "" }}
+                  slotProps={{
+                    textField: {
+                      onClick: () => setOpenTimePicker(true),
+                    },
+                  }}
+                />
+                {/* <Form.Control
                   type="time"
                   placeholder="Time"
                   name="time"
                   value={formValue.time}
                   onChange={handleFieldChange}
                   required
-                />
+                /> */}
               </FormGroup>
 
               <FormGroup formId="formBasicDate" customStyle="col-md-4">
                 <FormLabel>Date</FormLabel>
 
-                <Form.Control
+                <DatePicker
+                  open={openDatePicker}
+                  onClose={() => setOpenDatePicker(false)}
+                  value={formValue.date["$d"] || ""}
+                  onChange={(value) => {
+                    handleFormInputs(value, setFormValue, ["date"]);
+                  }}
+                  disablePast
+                  slots={{ openPickerButton: () => "" }}
+                  slotProps={{
+                    textField: {
+                      onClick: () => setOpenDatePicker(true),
+                    },
+                  }}
+                />
+
+                {/*  <Form.Control
                   type="date"
                   placeholder="Date"
                   name="date"
@@ -161,7 +194,7 @@ function CreateEvent(props) {
                       .split("T")[0]
                   }
                   required
-                />
+                /> */}
               </FormGroup>
             </Row>
 
@@ -172,7 +205,9 @@ function CreateEvent(props) {
                 modules={modules}
                 formats={formats}
                 value={formValue.details}
-                onChange={handleQuillEdit}
+                onChange={(value) => {
+                  handleFormInputs(value, setFormValue, ["details"]);
+                }}
               />
             </FormGroup>
           </div>

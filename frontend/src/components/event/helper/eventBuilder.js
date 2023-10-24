@@ -131,3 +131,12 @@ export const Pending = (eventMembers, currentUser) => {
 
   return pendingMembers;
 };
+
+export const handleFormInputs = (value, setFormValue, field) => {
+  setFormValue((prev) => {
+    return {
+      ...prev,
+      [field]: value,
+    };
+  });
+};
