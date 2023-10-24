@@ -82,8 +82,7 @@ h3 {
 .content_1 {
   @include font($font-body, 20px, 400, 30px, "normal");
 }
-.content_sm1,
-.content_sm1 p {
+.content_sm1 {
   @include font($font-body, 16px, 400, 24px, "normal");
 }
 .content_sm3 {

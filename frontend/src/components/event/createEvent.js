@@ -73,7 +73,7 @@ function CreateEvent(props) {
     if (Object.keys(props.suggestion).length !== 0) {
       setFormValue({
         title: `${props.suggestion.title} - ${props.suggestion.category}`,
-        details: `Location: ${props.suggestion.location} \nLink: ${props.suggestion.link}\n\n`,
+        details: `Link: <a href=${props.suggestion.link} targe="_blank">${props.suggestion.title}</a><br/>Location: ${props.suggestion.location}<br/>Category: ${props.suggestion.category}\n\n`,
         date: new Date(props.suggestion.time).toISOString().split("T")[0],
         time: new Date(props.suggestion.time).toLocaleTimeString("en-US", {
           timeStyle: "short",
@@ -166,16 +166,6 @@ function CreateEvent(props) {
             </Row>
 
             <FormGroup formId="formBasicDetails">
-              {/*  <Form.Control
-                spellCheck={true}
-                name="details"
-                placeholder="Write event details..."
-                as="textarea"
-                value={formValue.details}
-                onChange={handleFieldChange}
-                rows={4}
-                required
-              /> */}
               <ReactQuill
                 name="details"
                 theme="snow"
