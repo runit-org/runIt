@@ -30,25 +30,6 @@
   border: none;
 }
 
-.ql-toolbar.ql-snow {
-  border: 1px solid rgba($primary-dark, 0.1) !important;
-  border-radius: 0.375rem 0.375rem 0 0 !important;
-  border-bottom: none !important;
-}
-.ql-container.ql-snow {
-  border: none !important;
-}
-
-.ql-editor {
-  border: 1px solid rgba($primary-dark, 0.1) !important;
-  border-radius: 0 0 0.375rem 0.375rem !important;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
-}
-
-.ql-editor span {
-  font-size: 1rem !important;
-}
-
 :is(.new-post-container, .editor-card) :is(.form-control, .form-control) {
   color: $primary-dark;
 }
@@ -58,16 +39,26 @@
     .form-control:focus,
     .form-control:focus,
     .ql-editor:focus,
-    .ql-editor:hover
+    .dateTimePicker
+      .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+      .MuiOutlinedInput-notchedOutline
   ) {
-  border-color: $theme;
+  border-color: $theme !important;
   box-shadow: none !important;
   &.ql-editor {
     border: 1px solid $theme !important;
   }
+  &.MuiOutlinedInput-notchedOutline {
+    border-width: 1px;
+  }
 }
 
-:is(.new-post-container, .editor-card) :is(.form-control, .form-control) {
+:is(.new-post-container, .editor-card)
+  :is(
+    .form-control,
+    .form-control,
+    .dateTimePicker .css-1d3z3hw-MuiOutlinedInput-notchedOutline
+  ) {
   border: 1px solid rgba($primary-dark, 0.1);
 }
 
@@ -177,4 +168,63 @@
 
 .event-card_dash div[role="group"] button {
   max-height: 36px !important;
+}
+
+//quill editor
+.ql-toolbar.ql-snow {
+  border: 1px solid rgba($primary-dark, 0.1) !important;
+  border-radius: 0.375rem 0.375rem 0 0 !important;
+  border-bottom: none !important;
+}
+.ql-container.ql-snow {
+  border: none !important;
+}
+
+.ql-editor {
+  border: 1px solid rgba($primary-dark, 0.1) !important;
+  border-radius: 0 0 0.375rem 0.375rem !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+}
+
+.ql-editor span {
+  font-size: 1rem !important;
+}
+
+//MUI Custom
+.dateTimePicker.css-z3c6am-MuiFormControl-root-MuiTextField-root {
+  display: block !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+}
+.dateTimePicker
+  :is(
+    .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root,
+    .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root
+  ) {
+  line-height: 1.5;
+  padding: 0;
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  appearance: none;
+  border-radius: var(--bs-border-radius);
+}
+
+.dateTimePicker input {
+  padding: 0.375rem 0.75rem;
+  width: 100%;
+  height: auto;
+  margin: 1px;
+}
+
+.dateTimePicker .css-1laqsz7-MuiInputAdornment-root {
+  display: none !important;
+}
+
+:is(
+    .dateTimePicker .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root:hover,
+    .dateTimePicker
+      .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-error
+  )
+  .MuiOutlinedInput-notchedOutline {
+  border-color: rgba($primary-dark, 0.1) !important;
 }

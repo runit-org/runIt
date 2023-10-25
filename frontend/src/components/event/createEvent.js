@@ -131,6 +131,7 @@ function CreateEvent(props) {
               <FormGroup formId="formBasicTime" customStyle="col-md-4">
                 <FormLabel>Time</FormLabel>
                 <TimePicker
+                  className="dateTimePicker mb-3"
                   open={openTimePicker}
                   onClose={() => setOpenTimePicker(false)}
                   value={formValue.time["$d"] || ""}
@@ -151,20 +152,13 @@ function CreateEvent(props) {
                     },
                   }}
                 />
-                {/* <Form.Control
-                  type="time"
-                  placeholder="Time"
-                  name="time"
-                  value={formValue.time}
-                  onChange={handleFieldChange}
-                  required
-                /> */}
               </FormGroup>
 
               <FormGroup formId="formBasicDate" customStyle="col-md-4">
                 <FormLabel>Date</FormLabel>
 
                 <DatePicker
+                  className="dateTimePicker mb-3"
                   open={openDatePicker}
                   onClose={() => setOpenDatePicker(false)}
                   value={formValue.date["$d"] || ""}
@@ -179,22 +173,6 @@ function CreateEvent(props) {
                     },
                   }}
                 />
-
-                {/*  <Form.Control
-                  type="date"
-                  placeholder="Date"
-                  name="date"
-                  value={formValue.date}
-                  onChange={handleFieldChange}
-                  min={
-                    new Date(
-                      Date.now() - new Date().getTimezoneOffset() * 60000
-                    )
-                      .toISOString()
-                      .split("T")[0]
-                  }
-                  required
-                /> */}
               </FormGroup>
             </Row>
 
