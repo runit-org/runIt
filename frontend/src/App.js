@@ -35,6 +35,8 @@ import {
   VERIFY,
 } from "./routes/routes";
 import "react-quill/dist/quill.snow.css";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const ProfileDash = lazy(() => import("./pages/profileDash"));
 const SingleEventDash = lazy(() => import("./pages/singleEventDash"));
@@ -74,7 +76,9 @@ function App() {
             path={`/${POSTS}`}
             element={
               <ProtectedRoute>
-                <EventsDash />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <EventsDash />
+                </LocalizationProvider>
               </ProtectedRoute>
             }
           />
