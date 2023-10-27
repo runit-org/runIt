@@ -471,6 +471,18 @@ div.content {
   overflow: hidden;
   border-radius: 8px !important;
 }
+
+.custom-table tr {
+  animation: displayTransition 0.2s;
+}
+@keyframes displayTransition {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .custom-table table {
   margin-bottom: 0 !important;
 }

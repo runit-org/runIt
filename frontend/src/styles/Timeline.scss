@@ -12,8 +12,17 @@
 .timeline li {
   margin-bottom: 2.5rem;
   margin-left: 1.5rem;
+  animation: displayTransition 0.2s;
 }
 
+@keyframes displayTransition {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .timeline .icon {
   position: absolute !important;
   display: flex !important;
