@@ -17,6 +17,7 @@ import { QuillSetting } from "../../utilities/quillSettings";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { handleFormInputs } from "./helper/eventBuilder";
+import dayjs from "dayjs";
 
 function CreateEvent(props) {
   const dispatch = useDispatch();
@@ -130,11 +131,12 @@ function CreateEvent(props) {
 
               <FormGroup formId="formBasicTime" customStyle="col-md-4">
                 <FormLabel>Time</FormLabel>
+
                 <TimePicker
                   className="dateTimePicker mb-3"
                   open={openTimePicker}
                   onClose={() => setOpenTimePicker(false)}
-                  value={formValue.time["$d"] || ""}
+                  value={formValue.time["$d"] || dayjs(formValue.time, "HH:mm")}
                   onChange={(value) => {
                     handleFormInputs(
                       new Date(value).toLocaleTimeString("en-US", {
@@ -156,12 +158,11 @@ function CreateEvent(props) {
 
               <FormGroup formId="formBasicDate" customStyle="col-md-4">
                 <FormLabel>Date</FormLabel>
-
                 <DatePicker
                   className="dateTimePicker mb-3"
                   open={openDatePicker}
                   onClose={() => setOpenDatePicker(false)}
-                  value={formValue.date["$d"] || ""}
+                  value={formValue.date["$d"] || dayjs(formValue.date)}
                   onChange={(value) => {
                     handleFormInputs(value, setFormValue, ["date"]);
                   }}
