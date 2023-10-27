@@ -12,7 +12,7 @@ import { MentionFilter } from "../../utilities/utility-service";
 import { Cross } from "../../layouts/icons";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 
-function UpdateComment(props, { handleUpate }) {
+function UpdateComment(props) {
   const dispatch = useDispatch();
   const [content, setContent] = useState(props.content);
 
