@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import Footer from "../layouts/footer";
 import SingleClick from "../components/userAuth/singleClick";
-import { Card } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
 import { AppLogo } from "../layouts/icons";
 import { useCurrentPath } from "../hooks/useCurrentPath";
 import { useAuthStatus } from "../hooks/useAuthStatus";

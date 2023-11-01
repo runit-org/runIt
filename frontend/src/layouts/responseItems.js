@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Alert } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert";
 import { ResponseContext } from "../context/responseProvider";
 import * as ResponseStatus from "../services/constants/responseStatus";
 import { useDispatch, useSelector } from "react-redux";

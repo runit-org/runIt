@@ -1,4 +1,4 @@
-import { Badge } from "react-bootstrap";
+import Badge from "react-bootstrap/Badge";
 import { TimelineIcons } from "../components/profile/helper/profileBuilder";
 import { Link } from "react-router-dom";
 

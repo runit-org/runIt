@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import AuthDash from "./pages/authDash";
 import React, { lazy, Suspense } from "react";
 import { ProtectedRoute } from "./routes/protectedRoute";
-import { Spinner } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 import SecurityContext from "./context/securityProvider";
 import CalendarContext from "./context/calendarProvider.js";
 import { RoutesContainer } from "./routes/routesContainer";

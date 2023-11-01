@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Card } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
 import UpdateEvent from "./updateEvent";
 import { eventOptions } from "./helper/eventOptions";
 import { Mention } from "../../utilities/utility-service";

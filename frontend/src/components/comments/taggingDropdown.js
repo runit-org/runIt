@@ -1,4 +1,4 @@
-import { Dropdown } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
 import { SingleEventContext } from "../../pages/singleEventDash";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { Accepted } from "../event/helper/eventBuilder";

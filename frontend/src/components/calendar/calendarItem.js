@@ -4,7 +4,7 @@ import Days from "./days";
 import { MonthlyEventsHandler } from "./helper/actionHandler";
 import { CalendarContext } from "../../context/calendarProvider";
 import { Months, WeekDays } from "../../utilities/utility-service";
-import { Table } from "react-bootstrap";
+import Table from "react-bootstrap/Table";
 
 function Calendar(props) {
   var days = WeekDays();

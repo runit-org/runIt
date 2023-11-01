@@ -1,4 +1,4 @@
-import { Dropdown } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
 import { Ellipse } from "./icons";
 
 function CustomDropdown({ children }) {

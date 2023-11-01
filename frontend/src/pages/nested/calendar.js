@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Container } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
 import Calendar from "../../components/calendar/calendarItem";
 import CalendarEventItem from "../../components/calendar/calendarEventItem";
 import { SectionHeader } from "../../layouts/sectionHeader.js";

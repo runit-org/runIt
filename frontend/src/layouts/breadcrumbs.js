@@ -1,5 +1,5 @@
 import React from "react";
-import { Breadcrumb } from "react-bootstrap";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 function Breadcrumbs(props) {
   return (

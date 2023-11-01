@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Badge } from "react-bootstrap";
+import Badge from "react-bootstrap/Badge";
 import { DayEventsHandler } from "./helper/actionHandler";
 import { CalendarContext } from "../../context/calendarProvider";
 import SortDropdown from "../../layouts/sortDropdown";

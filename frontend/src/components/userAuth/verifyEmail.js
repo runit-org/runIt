@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import { FormGroup, FormLabel } from "../../layouts/customForm.js";
 import CTAButton from "../../layouts/ctaButton";
 import { useDispatch } from "react-redux";

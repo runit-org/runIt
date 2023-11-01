@@ -1,4 +1,4 @@
-import { Table } from "react-bootstrap";
+import Table from "react-bootstrap/Table";
 
 function CustomTable({ headerItems, tableItems, tablePagination }) {
   return (

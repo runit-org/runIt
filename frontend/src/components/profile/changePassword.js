@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import { SectionHeader } from "../../layouts/sectionHeader.js";
 import { ResponseItem } from "../../layouts/responseItems.js";
 import { useHandleChange } from "../../hooks/useHandleChange.js";

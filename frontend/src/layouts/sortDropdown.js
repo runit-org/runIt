@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Dropdown } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
 import { useLocation } from "react-router-dom";
 
 function SortDropdown() {

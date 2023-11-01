@@ -1,4 +1,4 @@
-import { Offcanvas } from "react-bootstrap";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
 function CustomOffCanvas({ children, notifShow, close, placement, title }) {
   return (

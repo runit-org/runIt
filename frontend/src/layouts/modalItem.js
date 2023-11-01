@@ -1,5 +1,5 @@
 import React, { useState, useImperativeHandle, useEffect } from "react";
-import { Modal } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 import CTAButton from "./ctaButton";
 import { ResponseItem } from "./responseItems";
 

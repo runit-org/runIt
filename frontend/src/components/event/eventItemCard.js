@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import PopoverItem from "../../layouts/popoverItem";
 import { ArrowRight } from "../../layouts/icons";

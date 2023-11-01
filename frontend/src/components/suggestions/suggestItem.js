@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import Badge from "react-bootstrap/Badge";
-import ListGroup from "react-bootstrap/ListGroup";
+import { Button, Badge, ListGroup } from "react-bootstrap";
 import { Information } from "../../layouts/icons";
 import { Skeleton } from "../../layouts/loader";
 import { EventSuggestHandler } from "./helper/suggestHandler";

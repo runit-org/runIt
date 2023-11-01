@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 import { getUserProfile, vote } from "../../services/actions/userActions";
 import { VoteArrow } from "../../layouts/icons";

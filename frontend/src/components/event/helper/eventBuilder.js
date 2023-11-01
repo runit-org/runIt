@@ -1,4 +1,4 @@
-import { Badge } from "react-bootstrap";
+import Badge from "react-bootstrap/Badge";
 import JoinEvent from "../joinEvent";
 import {
   ACCEPTED,

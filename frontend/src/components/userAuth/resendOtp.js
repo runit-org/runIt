@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert";
 import CTAButton from "../../layouts/ctaButton";
 import { resendOtp } from "../../services/actions/securityActions";
 import { useDispatch } from "react-redux";
