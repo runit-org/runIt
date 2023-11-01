@@ -5,7 +5,6 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@headlessui/react": "^1.7.7",
     "@mui/material": "^5.14.14",
     "@mui/x-date-pickers": "^6.16.3",
     "@testing-library/cypress": "^9.0.0",
@@ -42,6 +41,12 @@
     "eject": "react-scripts eject",
     "dev": "node server.js & npm start"
   },
+  "size-limit": [
+    {
+      "path": "build/static/js/*.js",
+      "limit": "500 KB"
+    }
+  ],
   "eslintConfig": {
     "extends": [
       "react-app",
