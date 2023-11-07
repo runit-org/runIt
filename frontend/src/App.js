@@ -34,7 +34,7 @@ import {
   SUPPORT,
   VERIFY,
 } from "./routes/routes";
-import "react-quill/dist/quill.snow.css";
+// import "react-quill/dist/quill.snow.css";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 

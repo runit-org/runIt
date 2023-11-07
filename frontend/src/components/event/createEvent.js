@@ -12,8 +12,8 @@ import { ResponseItem } from "../../layouts/responseItems";
 import { useNavigate } from "react-router-dom";
 import { RESET_CURRENT_PAGE } from "../../services/constants/types";
 import { EVENT } from "../../routes/routes";
-import ReactQuill from "react-quill";
-import { QuillSetting } from "../../utilities/quillSettings";
+// import ReactQuill from "react-quill";
+// import { QuillSetting } from "../../utilities/quillSettings";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { handleFormInputs } from "./helper/eventBuilder";
@@ -23,7 +23,7 @@ function CreateEvent(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formRef = useRef(0);
-  const { modules, formats } = QuillSetting();
+  // const { modules, formats } = QuillSetting();
 
   const initialState = {
     title: "",
@@ -177,7 +177,7 @@ function CreateEvent(props) {
               </FormGroup>
             </Row>
 
-            <FormGroup formId="formBasicDetails">
+            {/*   <FormGroup formId="formBasicDetails">
               <ReactQuill
                 name="details"
                 theme="snow"
@@ -188,7 +188,7 @@ function CreateEvent(props) {
                   handleFormInputs(value, setFormValue, ["details"]);
                 }}
               />
-            </FormGroup>
+            </FormGroup> */}
           </div>
 
           <div className="d-flex justify-content-between mt-3">
