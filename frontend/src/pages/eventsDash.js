@@ -12,7 +12,7 @@ import { Loading } from "../layouts/loader";
 import { ResponseToast } from "../layouts/responseItems";
 import { REMOVE_EVENT } from "../services/constants/apiTypes";
 
-function MainDash() {
+function EventDash() {
   const { count, hasMore, load, eventData, handleLoadMore } = EventHandler();
 
   //suggestions
@@ -96,4 +96,4 @@ function MainDash() {
   );
 }
 
-export default MainDash;
+export default EventDash;
