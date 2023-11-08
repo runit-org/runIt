@@ -12,13 +12,13 @@ import { MentionFilter } from "../../utilities/utility-service";
 import { Cross, Submit } from "../../layouts/icons";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 import { FormLabel } from "../../layouts/customForm";
-// import ReactQuill from "react-quill";
-// import { QuillSetting } from "../../utilities/quillSettings";
+import ReactQuill from "react-quill";
+import { QuillSetting } from "../../utilities/quillSettings";
 
 function UpdateEvent(props) {
   const dispatch = useDispatch();
   const params = useParams();
-  // const { modules, formats } = QuillSetting();
+  const { modules, formats } = QuillSetting();
   const [title, setTitle] = useState(props.title);
   const [maxMembers, setMaxMembers] = useState(props.maxMembers);
   const [details, setDetails] = useState(props.details);
@@ -76,7 +76,7 @@ function UpdateEvent(props) {
             </div>
           </Form.Group>
 
-          {/*   <Form.Group>
+          <Form.Group>
             <FormLabel>Description</FormLabel>
             <ReactQuill
               name="details"
@@ -86,7 +86,7 @@ function UpdateEvent(props) {
               value={details}
               onChange={(value) => setDetails(value)}
             />
-          </Form.Group> */}
+          </Form.Group>
           <div className="d-flex justify-content-between mt-3">
             <CTAButton
               type={""}
