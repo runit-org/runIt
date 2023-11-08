@@ -18,12 +18,11 @@ function ResponseProvider({ children }) {
 
   useEffect(() => {
     if (reducer && reducer.data) {
+      const { data } = reducer;
       setResponse({
-        info: reducer.data.info ? reducer.data.info : {},
+        info: data.info || {},
         status: reducer.status,
-        message: reducer.data.detail
-          ? reducer.data.detail
-          : reducer.data.message,
+        message: data.detail || data.message,
       });
     }
   }, [reducer, location]);
