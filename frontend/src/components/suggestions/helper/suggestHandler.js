@@ -34,18 +34,13 @@ export const EventSuggestHandler = (pageId) => {
   }, [dispatch, pageId]);
 
   const suggestData = useMemo(() => {
+    const storedData = sessionStorage.getItem("suggestData");
     if (Object.keys(allSuggestData).length > 0) {
-      const storedData = sessionStorage.getItem("suggestData");
-      if (storedData) {
-        console.log("sess");
-        return JSON.parse(storedData);
-      } else {
-        console.log("api");
-        sessionStorage.setItem("suggestData", JSON.stringify(allSuggestData));
-        return allSuggestData;
-      }
+      sessionStorage.setItem("suggestData", JSON.stringify(allSuggestData));
+      return allSuggestData;
+    } else {
+      return JSON.parse(storedData);
     }
-    return [];
   }, [allSuggestData]);
 
   return { suggestData, isLoading };
