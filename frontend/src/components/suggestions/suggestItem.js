@@ -22,7 +22,7 @@ function SuggestItem(props) {
       <SectionHeader>Suggestions</SectionHeader>
       {isLoading ? (
         <Skeleton />
-      ) : suggestData.data ? (
+      ) : suggestData ? (
         suggestData.data.map((item, index) => {
           return (
             <ListGroup.Item key={index} as="li" className="p-3">
