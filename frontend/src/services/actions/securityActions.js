@@ -124,6 +124,7 @@ export const logout = (refToken, navigate) => async (dispatch) => {
   setToken(false);
   localStorage.clear();
   Cookies.remove("runit_token");
+  sessionStorage.clear();
   navigate(0);
 
   dispatch({

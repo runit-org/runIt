@@ -18,10 +18,11 @@ export const EventSuggestHandler = (pageId) => {
     };
 
     // Fetch data on initial load if there is no data in sessionStorage
-    const storedData = sessionStorage.getItem("initialFetch");
+    const storedDataCheck = sessionStorage.getItem("initialFetch");
 
-    if (!JSON.parse(storedData)) {
+    if (!JSON.parse(storedDataCheck)) {
       fetchData();
+
       sessionStorage.setItem("initialFetch", true);
     }
 
