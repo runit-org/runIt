@@ -26,7 +26,7 @@ describe("Logout", () => {
       cy.findByLabelText(/password/i).type(user.password);
       cy.findByRole("button", { name: /login/i }).click();
       cy.wait("@login").then((interception) => {
-        cy.getCookie("token").should("exist");
+        cy.getCookie("runit_token").should("exist");
         expect(interception.response.statusCode).equal(200);
       });
 
@@ -41,7 +41,7 @@ describe("Logout", () => {
       cy.findByRole("button", { name: /img/i }).click();
       cy.get('[data-testid="logout-btn"]').click();
       cy.wait("@logout").then((interception) => {
-        cy.getCookie("token").should("to.be.null");
+        cy.getCookie("runit_token").should("to.be.null");
         expect(interception.response.statusCode).equal(200);
       });
     });

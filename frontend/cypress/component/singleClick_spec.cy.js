@@ -32,7 +32,7 @@ describe("Single click login", () => {
         cy.location("pathname", { timeout: 6000 })
           .should("include", "/")
           .then(() => {
-            cy.getCookie("token").should("be.not.null");
+            cy.getCookie("runit_token").should("be.not.null");
           });
       });
     });

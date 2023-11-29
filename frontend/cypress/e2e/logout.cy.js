@@ -12,7 +12,7 @@ describe("Auth-logout", () => {
         .then(() => {
           cy.findByRole("button", { name: /img/i }).click();
           cy.findByRole("button", { name: /logout/i }).click();
-          cy.getCookie("token").should("not.exist");
+          cy.getCookie("runit_token").should("not.exist");
         });
     });
   });
