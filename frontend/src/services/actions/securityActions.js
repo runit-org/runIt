@@ -81,7 +81,7 @@ export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
       const refToken = res.data.refresh;
       const accessToken = res.data.access;
       //store token in local storage
-      Cookies.set("token", refToken, { sameSite: "strict" });
+      Cookies.set("runit_token", refToken, { sameSite: "strict" });
       //set token in header
       setToken(accessToken);
       //get data from response
@@ -92,7 +92,7 @@ export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
 
       localStorage.setItem("username", decoded.username);
 
-      if (res.status === ResponseStatus.OK && Cookies.get("token")) {
+      if (res.status === ResponseStatus.OK && Cookies.get("runit_token")) {
         setLoad(true);
         navigate(`/${POSTS}`);
       }
@@ -123,7 +123,7 @@ export const logout = (refToken, navigate) => async (dispatch) => {
 
   setToken(false);
   localStorage.clear();
-  Cookies.remove("token");
+  Cookies.remove("runit_token");
   navigate(0);
 
   dispatch({

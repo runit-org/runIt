@@ -11,7 +11,7 @@ describe("Auth-loggedIn", () => {
         .should("include", "/posts")
         .then(() => {
           cy.visit("/");
-          cy.getCookie("token").should("be.not.empty");
+          cy.getCookie("runit_token").should("be.not.empty");
         });
     });
   });

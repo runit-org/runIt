@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 export function useAuthStatus() {
   let location = useLocation();
   const [isValid, setIsValid] = useState(false);
-  const token = Cookies.get("token");
+  const token = Cookies.get("runit_token");
 
   useEffect(() => {
     if (token && location.state === null) setIsValid(token);

@@ -22,7 +22,7 @@ const setToken = (token) => {
 const refreshToken = async () => {
   try {
     const ref = await axios.post("/auth/token/refresh/", {
-      refresh: Cookies.get("token"),
+      refresh: Cookies.get("runit_token"),
     });
 
     return ref;
@@ -47,7 +47,7 @@ const getAccessToken = async () => {
           payload: decoded_token,
         });
       } else {
-        Cookies.remove("token");
+        Cookies.remove("runit_token");
         store.dispatch({
           type: SET_CURRENT_USER,
           payload: null,

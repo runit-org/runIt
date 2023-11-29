@@ -5,7 +5,7 @@ import Header from "../layouts/header";
 import UserContext from "../context/userProvider";
 
 export const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = Cookies.get("token");
+  const isAuthenticated = Cookies.get("runit_token");
 
   if (isAuthenticated) {
     getAccessToken();

@@ -15,7 +15,7 @@ export const CurrAuthUser = ({ children }) => {
     } else {
       return () => {
         localStorage.clear();
-        Cookies.remove("token");
+        Cookies.remove("runit_token");
         navigate(0);
       };
     }

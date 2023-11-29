@@ -15,7 +15,7 @@ function SingleClick() {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    const token = Cookies.get("token");
+    const token = Cookies.get("runit_token");
 
     const refToken = {
       refresh: token,
