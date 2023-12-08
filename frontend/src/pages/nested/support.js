@@ -61,6 +61,7 @@ function Support() {
                           <Link
                             className="d-block position-absolute bottom-0"
                             to={item.route}
+                            target="_blank"
                           >
                             Learn more
                           </Link>

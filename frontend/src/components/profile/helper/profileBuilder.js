@@ -81,17 +81,19 @@ export const SupportObj = () => {
     {
       title: "Events",
       content: "Learn how to create and manage events.",
-      route: "/",
+      route: "https://personalgroupprojek.github.io/runit.github.io/help/event",
     },
     {
       title: "Account",
       content: "Learn how to manage your account",
-      route: "/",
+      route:
+        "https://personalgroupprojek.github.io/runit.github.io/help/account",
     },
     {
       title: "Security",
       content: "How to reset password and verify your account.",
-      route: "/",
+      route:
+        "https://personalgroupprojek.github.io/runit.github.io/help/security",
     },
   ];
 
