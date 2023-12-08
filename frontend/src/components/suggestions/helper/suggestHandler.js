@@ -18,12 +18,10 @@ export const EventSuggestHandler = (pageId) => {
     };
 
     // Fetch data on initial load if there is no data in sessionStorage
-    const storedDataCheck = sessionStorage.getItem("initialFetch");
+    const storedDataCheck = sessionStorage.getItem("suggestData");
 
     if (!JSON.parse(storedDataCheck)) {
       fetchData();
-
-      sessionStorage.setItem("initialFetch", true);
     }
 
     const intervalId = setInterval(fetchData, 300000); //call api every 5 minutes
