@@ -90,4 +90,4 @@ We've set up Git Actions for this repository to run automated tests on pushes/PR
 - [Julian Tjiong](https://www.linkedin.com/in/juliantj/)
 
 ## ⚖️ License
-- [Apache License 2.0](https://github.com/runit-org/runIt/blob/develop/LICENSE.md)
+- [Apache License 2.0](https://github.com/runit-org/runIt/blob/develop/LICENSE)
