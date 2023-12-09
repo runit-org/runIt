@@ -24,6 +24,7 @@
 <details>
   
  <summary><b>Show screenshots</b></summary>
+ <br>
 <div align="center">
   <img src="https://user-images.githubusercontent.com/53683415/231316646-4167c601-dd37-404e-b290-98f4457ca91f.png" width="350">
   <img src="https://user-images.githubusercontent.com/53683415/231316786-10f3fca8-7133-4799-b27e-43ebdb61e2e0.png" width="350">
