@@ -4,7 +4,7 @@
     <img src="https://user-images.githubusercontent.com/53683415/231315568-595d7449-4d3c-4c0d-9639-9cce67b871fe.png" width="135">
     <br>
   </h1>
-   <a href="http://170.64.146.173:8000/#/landingPage/mainLanding" target=”_blank”><b>:link: LAUNCH</b></a>
+   <a href="http://runit-org.github.io/runit.github.io/" target=”_blank”><b>:link: LAUNCH</b></a>
    <br><br>
    Plan, Organize, and Join Events with <b>runit</b>!
   <br><br>
