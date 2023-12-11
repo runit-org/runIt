@@ -1,11 +1,11 @@
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
-function CustomTooltip({ id, children, tooltip }) {
+function CustomTooltip({ id, children, tooltip, showDelay, hideDelay }) {
   return (
     <OverlayTrigger
       overlay={<Tooltip id={id}>{tooltip}</Tooltip>}
       placement="top"
-      delay={{ show: "1000", hide: "0" }}
+      delay={{ show: showDelay, hide: hideDelay }}
     >
       {children}
     </OverlayTrigger>

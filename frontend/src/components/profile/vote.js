@@ -38,6 +38,8 @@ function Vote(props) {
       <CustomTooltip
         tooltip={props.user.voteStatus === "UPVOTE" ? "Starred" : "Star"}
         id="tooltip-vote"
+        showDelay="1000"
+        hideDelay="0"
       >
         <div className="d-flex justify-content-center align-items-center">
           <VoteArrow />

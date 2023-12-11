@@ -18,6 +18,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { handleFormInputs } from "./helper/eventBuilder";
 import dayjs from "dayjs";
+import CustomTooltip from "../../layouts/customTooltip";
+import { Information } from "../../layouts/icons";
 
 function CreateEvent(props) {
   const dispatch = useDispatch();
@@ -106,7 +108,7 @@ function CreateEvent(props) {
         >
           <div className="new-post-container">
             <FormGroup formId="formBasicTitle">
-              <FormLabel>Event Title</FormLabel>
+              <FormLabel>Event name</FormLabel>
               <Form.Control
                 type="title"
                 name="title"
@@ -118,7 +120,18 @@ function CreateEvent(props) {
 
             <Row>
               <FormGroup formId="formBasicNumber" customStyle="col-md-4">
-                <FormLabel>Size</FormLabel>
+                <FormLabel>Event size</FormLabel>
+                <CustomTooltip
+                  tooltip={"Max capacity for attendees for this event"}
+                  id="tooltip-event"
+                  showDelay="0"
+                  hideDelay="0"
+                >
+                  <span>
+                    <Information />
+                  </span>
+                </CustomTooltip>
+
                 <Form.Control
                   type="number"
                   name="maxMember"
@@ -130,7 +143,7 @@ function CreateEvent(props) {
               </FormGroup>
 
               <FormGroup formId="formBasicTime" customStyle="col-md-4">
-                <FormLabel>Time</FormLabel>
+                <FormLabel>Start time</FormLabel>
 
                 <TimePicker
                   className="dateTimePicker mb-3"
@@ -157,7 +170,7 @@ function CreateEvent(props) {
               </FormGroup>
 
               <FormGroup formId="formBasicDate" customStyle="col-md-4">
-                <FormLabel>Date</FormLabel>
+                <FormLabel>Start date</FormLabel>
                 <DatePicker
                   className="dateTimePicker mb-3"
                   open={openDatePicker}
