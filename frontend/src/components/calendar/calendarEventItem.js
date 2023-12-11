@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Badge from "react-bootstrap/Badge";
 import { DayEventsHandler } from "./helper/actionHandler";
 import { CalendarContext } from "../../context/calendarProvider";
-import SortDropdown from "../../layouts/sortDropdown";
+// import SortDropdown from "../../layouts/sortDropdown";
 import { Link } from "react-router-dom";
 import { CustomTable, CustomTableCells } from "../../layouts/customTable";
 import { DateFormat } from "../../utilities/utility-service";
@@ -25,7 +25,7 @@ function CalendarEventItem(props) {
           <th colSpan={3}>
             <div className="d-flex justify-content-between align-items-center mx-2">
               {calendarEvents ? <>{calendarEvents.length} events</> : ""}
-              <SortDropdown />
+              {/* <SortDropdown /> */}
             </div>
           </th>
         }

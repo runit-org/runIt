@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Container } from "react-bootstrap";
 import { CustomTable, CustomTableCells } from "../../layouts/customTable";
-import SortDropdown from "../../layouts/sortDropdown";
+// import SortDropdown from "../../layouts/sortDropdown";
 import { GetVotes } from "../../components/profile/helper/actionHandlers";
 import { Username } from "../../layouts/user/username";
 import CTAButton from "../../layouts/ctaButton";
@@ -22,7 +22,7 @@ function Stars() {
                 <th colSpan={2}>
                   <div className="d-flex justify-content-between align-items-center mx-2">
                     Starred {count}
-                    <SortDropdown />
+                    {/* <SortDropdown /> */}
                   </div>
                 </th>
               }
