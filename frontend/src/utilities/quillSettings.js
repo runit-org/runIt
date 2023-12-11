@@ -6,7 +6,7 @@ ReactQuill.Quill.register(Font, true);
 
 var Block = ReactQuill.Quill.import("blots/block");
 Block.tagName = "SPAN";
-Block.className = "d-block";
+// Block.className = "d-block";
 ReactQuill.Quill.register(Block, true);
 
 export const QuillSetting = () => {
@@ -40,6 +40,9 @@ export const QuillSetting = () => {
       // ["link", "image", "video"],
       // [{ script: "sub" }, { script: "super" }],
     ],
+    clipboard: {
+      matchVisual: false,
+    },
   };
 
   const formats = [
