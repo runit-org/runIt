@@ -127,7 +127,7 @@ function CreateEvent(props) {
                   showDelay="0"
                   hideDelay="0"
                 >
-                  <span>
+                  <span className="ms-1">
                     <Information />
                   </span>
                 </CustomTooltip>
