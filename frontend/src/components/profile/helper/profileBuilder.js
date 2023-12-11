@@ -6,6 +6,11 @@ import {
   Notification,
   User,
 } from "../../../layouts/icons";
+import {
+  RUNIT_EVENT,
+  RUNIT_ACCOUNT,
+  RUNIT_SECURITY,
+} from "../../../routes/routes";
 
 export const VoteBadge = (props) => {
   return <Badge id="vote_badge">{props.votes} Stars</Badge>;
@@ -81,19 +86,17 @@ export const SupportObj = () => {
     {
       title: "Events",
       content: "Learn how to create and manage events.",
-      route: "https://runit-org.github.io/runit.github.io/help/event",
+      route: RUNIT_EVENT,
     },
     {
       title: "Account",
       content: "Learn how to manage your account",
-      route:
-        "https://runit-org.github.io/runit.github.io/help/account",
+      route: RUNIT_ACCOUNT,
     },
     {
       title: "Security",
       content: "How to reset password and verify your account.",
-      route:
-        "https://runit-org.github.io/runit.github.io/help/security",
+      route: RUNIT_SECURITY,
     },
   ];
 
