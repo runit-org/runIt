@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Row } from "react-bootstrap";
+import { Button, Form, InputGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewUser } from "../../services/actions/securityActions";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,8 @@ import { FormButton } from "./helper/auth-builder";
 import { ResponseItem } from "../../layouts/responseItems";
 import { useHandleChange } from "../../hooks/useHandleChange";
 import { FormGroup, FormLabel } from "../../layouts/customForm";
+import { useInputType } from "../../hooks/useInputType";
+import { Eye, EyeSlash } from "../../layouts/icons";
 
 function SignUp() {
   let navigate = useNavigate();
@@ -20,6 +22,7 @@ function SignUp() {
     password: "",
     c_password: "",
   });
+  const { inputType, handleInputType } = useInputType();
 
   var apiStatus = useSelector((securityReducer) => securityReducer.security);
 
@@ -76,7 +79,7 @@ function SignUp() {
             <FormGroup formId="formBasicPassword">
               <FormLabel>Password</FormLabel>
               <Form.Control
-                type="password"
+                type={inputType}
                 name="password"
                 onChange={handleFieldChange}
                 required
@@ -85,13 +88,25 @@ function SignUp() {
 
             <FormGroup formId="formBasicCPassword">
               <FormLabel>Confirm Password</FormLabel>
-              <Form.Control
-                type="password"
-                name="c_password"
-                onChange={handleFieldChange}
-                required
-              />
+              <InputGroup>
+                <Form.Control
+                  type={inputType}
+                  name="c_password"
+                  onChange={handleFieldChange}
+                  required
+                />
+                <Button
+                  className="fst-italic show_hide-pw"
+                  name="login"
+                  onClick={() => {
+                    handleInputType();
+                  }}
+                >
+                  {inputType === "password" ? <EyeSlash /> : <Eye />}
+                </Button>
+              </InputGroup>
             </FormGroup>
+
             <Form.Text>
               Minimum 8 characters At least 1 number At least 1 alphabetical
               letter At least 1 special character (e.g., @$!%*#?&)

@@ -9,6 +9,9 @@ import { useDispatch } from "react-redux";
 import { changePassword } from "../../services/actions/userActions.js";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 import { useHandleLogout } from "../../hooks/useHandleLogout.js";
+import { Button, InputGroup } from "react-bootstrap";
+import { useInputType } from "../../hooks/useInputType.js";
+import { Eye, EyeSlash } from "../../layouts/icons.js";
 
 function ChangePassword() {
   const dispatch = useDispatch();
@@ -19,6 +22,7 @@ function ChangePassword() {
     password: "",
     c_password: "",
   });
+  const { inputType, handleInputType } = useInputType();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +50,7 @@ function ChangePassword() {
             <FormGroup formId="oldPassword" customStyle="col-md-6">
               <FormLabel>Old password</FormLabel>
               <Form.Control
-                type="password"
+                type={inputType}
                 name="current_password"
                 onChange={handleFieldChange}
                 required
@@ -57,7 +61,7 @@ function ChangePassword() {
               <FormLabel>New password</FormLabel>
 
               <Form.Control
-                type="password"
+                type={inputType}
                 name="password"
                 onChange={handleFieldChange}
                 required
@@ -67,12 +71,23 @@ function ChangePassword() {
             <FormGroup formId="c_newPassword" customStyle="col-md-6">
               <FormLabel>Confirm new password</FormLabel>
 
-              <Form.Control
-                type="password"
-                name="c_password"
-                onChange={handleFieldChange}
-                required
-              />
+              <InputGroup>
+                <Form.Control
+                  type={inputType}
+                  name="c_password"
+                  onChange={handleFieldChange}
+                  required
+                />
+                <Button
+                  className="fst-italic show_hide-pw"
+                  name="login"
+                  onClick={() => {
+                    handleInputType();
+                  }}
+                >
+                  {inputType === "password" ? <EyeSlash /> : <Eye />}
+                </Button>
+              </InputGroup>
             </FormGroup>
 
             <Form.Text className="text-muted d-block">

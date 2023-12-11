@@ -11,6 +11,7 @@ import { useHandleChange } from "../../hooks/useHandleChange";
 import { FormLabel, FormGroup } from "../../layouts/customForm";
 import { RESET_PW_EMAIL } from "../../routes/routes";
 import { RESET_PW } from "../../services/constants/apiTypes";
+import { useInputType } from "../../hooks/useInputType";
 
 function Login() {
   let navigate = useNavigate();
@@ -19,7 +20,7 @@ function Login() {
   const [load, setLoad] = useState(false);
   const [signupData, setSignupData] = useState("");
   const [formSwitch, setFormSwitch] = useState(false);
-  const [inputType, setInputType] = useState("password");
+  const { inputType, handleInputType } = useInputType();
 
   const { formValue, setFormValue, handleFieldChange } = useHandleChange({
     username: "",
@@ -39,10 +40,6 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(login(formValue, navigate, setLoad));
-  };
-
-  const handleInputType = () => {
-    inputType === "password" ? setInputType("text") : setInputType("password");
   };
 
   useEffect(() => {
@@ -102,7 +99,7 @@ function Login() {
                   handleInputType();
                 }}
               >
-                {inputType === "password" ? <Eye /> : <EyeSlash />}
+                {inputType === "password" ? <EyeSlash /> : <Eye />}
               </Button>
             </InputGroup>
           </FormGroup>
