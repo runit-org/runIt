@@ -5,7 +5,6 @@ import {
   GET_SINGLE_EVENT,
   GET_SUCCESS,
 } from "../constants/types";
-import * as ResponseStatus from "../constants/responseStatus";
 import {
   securedDelete,
   securedGet,
@@ -119,9 +118,9 @@ export const memberStatus = (postData, setLoad) => async (dispatch) => {
     GET_SUCCESS,
     EVENT_MEMBER_STATUS,
     setLoad
-  ).then(({ status }) => {
+  ); /* .then(({ status }) => {
     if (status === ResponseStatus.OK) {
       dispatch(getEventMembers(postData.eventId));
     }
-  });
+  }); */
 };
