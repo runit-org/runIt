@@ -19,7 +19,10 @@ class EventMemberSerializer(serializers.ModelSerializer):
         return user
 
     def get_status(self, obj):
-        return EventMemberStatus.get(obj.status).name
+        if obj.status is 'OWNER':
+            return 'OWNER'
+        else:
+            return EventMemberStatus.get(obj.status).name
 
     def get_email(self, obj):
         user = User.objects.get(id = obj.userId).email
