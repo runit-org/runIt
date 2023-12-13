@@ -24,7 +24,7 @@ export const EventSuggestHandler = (pageId) => {
       fetchData();
     }
 
-    const intervalId = setInterval(fetchData, 300000); //call api every 5 minutes
+    const intervalId = !isLoading && setInterval(fetchData, 300000); //call api every 5 minutes
 
     return () => {
       clearInterval(intervalId);
