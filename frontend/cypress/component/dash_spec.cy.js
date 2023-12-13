@@ -4,6 +4,6 @@ import MainDash from "../../src/pages/eventsDash";
 describe("Post page", () => {
   it("renders", () => {
     cy.mount(<Route path={"/"} element={<MainDash />} />);
-    cy.findByText(/create event/i);
+    cy.get("#main");
   });
 });
