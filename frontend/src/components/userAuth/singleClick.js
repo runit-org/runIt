@@ -7,6 +7,7 @@ import { logout } from "../../services/actions/securityActions";
 import { DisplayImage } from "../../layouts/user/userDisplayImg";
 import { getCurrentUserProfile } from "../../services/actions/userActions";
 import { POSTS } from "../../routes/routes";
+import { AppLogo } from "../../layouts/icons";
 
 function SingleClick() {
   const dispatch = useDispatch();
@@ -40,6 +41,11 @@ function SingleClick() {
 
   return (
     <>
+      <AppLogo w={"80px"} defClass="mb-3 ms-2" />
+      <small className="m-2">
+        You're already logged in. Select your account to proceed to the
+        dashboard.
+      </small>
       {currUserProfile && (
         <Card className="current-signedin">
           <ListGroup variant="flush">
