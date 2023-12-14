@@ -56,35 +56,24 @@ function UpdateDetails(props) {
           </Form.Text>
         </div>
 
-        <div className="d-flex justify-content-between mt-3">
+        <div className="d-flex justify-content-start mt-3">
           <CTAButton
             type={""}
             btnStyle={"postBtn-placements"}
             variant={"primary"}
             onClick={props.toggleEditor}
             placeholder={
-              <div className="d-flex align-items-center">
-                <Cross />
-                Cancel
-              </div>
+              <div className="d-flex align-items-center">Cancel</div>
             }
           />
           <CTAButton
             type={"submit"}
-            btnStyle={"postBtn-placements cta_button"}
+            btnStyle={"postBtn-placements cta_button formBtn"}
             variant={"primary"}
             isLoading={""}
             placeholder={
               <div className="d-flex align-items-center">
-                {load ? (
-                  "saving..."
-                ) : (
-                  <>
-                    {" "}
-                    <Submit />
-                    Save
-                  </>
-                )}
+                {load ? "saving..." : <> Save</>}
               </div>
             }
           />

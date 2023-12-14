@@ -9,7 +9,6 @@ import {
 import { usePageId } from "../../hooks/usePageId";
 import { emitter } from "../client/socket";
 import { MentionFilter } from "../../utilities/utility-service";
-import { Cross } from "../../layouts/icons";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 
 function UpdateComment(props) {
@@ -55,17 +54,14 @@ function UpdateComment(props) {
             required
           />
 
-          <div className="d-flex justify-content-between mt-3">
+          <div className="d-flex justify-content-end mt-3">
             <CTAButton
               type={""}
               btnStyle={"postBtn-placements"}
               variant={"primary"}
               onClick={props.handleUpate}
               placeholder={
-                <div className="d-flex align-items-center">
-                  <Cross />
-                  Cancel
-                </div>
+                <div className="d-flex align-items-center">Cancel</div>
               }
             />
             <CTAButton
