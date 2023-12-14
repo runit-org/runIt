@@ -36,7 +36,8 @@ function VerifyEmail() {
       <div className="otp-card p-2">
         <div className="message-block">
           You're just one step away from unlocking complete{" "}
-          <span style={{ color: "#5865f2" }}>runit</span> functionalities. 🚀
+          <span style={{ color: "#5865f2", fontWeight: "600" }}>runit</span>{" "}
+          functionalities. 🚀
         </div>
 
         <Form
