@@ -11,7 +11,7 @@ function Footer() {
         <Col sm={6} className="footer-logo mt-auto">
           <AppLogo w={"40px"} />
           <small className="text-muted align-bottom ms-1">
-            {packageJson.version}
+            v{packageJson.version}
           </small>
         </Col>
 
