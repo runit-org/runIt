@@ -59,7 +59,7 @@ function Support() {
                         <small>{item.content}</small>
                         <span className="d-block mt-4">
                           <Link
-                            className="d-block position-absolute bottom-0"
+                            className="d-block position-absolute bottom-0 pb-2"
                             to={item.route}
                             target="_blank"
                           >
@@ -68,14 +68,17 @@ function Support() {
                         </span>
                       </>
                     }
-                    cardStyle={{ backgroundColor: "#eaebfd", height: "100%" }}
+                    cardStyle={{
+                      backgroundColor: "#f2f3fa",
+                      height: "100%",
+                    }}
                   />
                 </div>
               );
             })}
           </Row>
           <SectionHeader>Looking for something else?</SectionHeader>
-          <div className="border p-4 rounded-2">
+          <div className="p-1 rounded-2">
             {!success ? (
               <fieldset>
                 <Form

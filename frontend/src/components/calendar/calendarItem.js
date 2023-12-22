@@ -5,7 +5,6 @@ import { MonthlyEventsHandler } from "./helper/actionHandler";
 import { CalendarContext } from "../../context/calendarProvider";
 import { Months, WeekDays } from "../../utilities/utility-service";
 import Table from "react-bootstrap/Table";
-
 import Button from "react-bootstrap/Button";
 
 function Calendar(props) {
