@@ -30,6 +30,7 @@ export const EventSuggestHandler = (pageId) => {
       clearInterval(intervalId);
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, pageId]);
 
   const suggestData = useMemo(() => {

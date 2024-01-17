@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
 import CTAButton from "../../layouts/ctaButton";
-import { Cross, Submit } from "../../layouts/icons";
 import { useHandleChange } from "../../hooks/useHandleChange";
 import { updateDetails } from "../../services/actions/userActions";
 import { UserContext } from "../../context/userProvider";
