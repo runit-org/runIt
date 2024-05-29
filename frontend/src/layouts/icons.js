@@ -382,7 +382,7 @@ export const PencilSquare = () => {
   );
 };
 
-export const Information = () => {
+export const Information = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -392,7 +392,7 @@ export const Information = () => {
       stroke="#1e40af"
       width="20"
       height="20"
-      className="me-2"
+      className={props.customStyle ? props.customStyle : "me-2"}
     >
       <path
         strokeLinecap="round"

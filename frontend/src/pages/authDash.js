@@ -7,7 +7,7 @@ import { AppLogo } from "../layouts/icons";
 import { useCurrentPath } from "../hooks/useCurrentPath";
 import { useAuthStatus } from "../hooks/useAuthStatus";
 import { CurrAuthUser } from "../routes/currentUserRoute";
-import { SIGN_UP, VERIFY } from "../routes/routes";
+import { SIGN_UP, TEST_ACC, VERIFY } from "../routes/routes";
 import { ResponseToast } from "../layouts/responseItems";
 import { VERIFY_EMAIL } from "../services/constants/apiTypes";
 
@@ -42,6 +42,12 @@ function Main() {
           ) : (
             <h6>
               Don't have an account? <Link to={`/${SIGN_UP}`}>Sign Up</Link>
+              {currPath !== `/${TEST_ACC}` && (
+                <>
+                  {" "}
+                  or <Link to={`/${TEST_ACC}`}>Test Drive</Link>
+                </>
+              )}
             </h6>
           )}
         </div>

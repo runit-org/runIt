@@ -32,11 +32,13 @@ import {
   SIGN_UP,
   STARS,
   SUPPORT,
+  TEST_ACC,
   VERIFY,
 } from "./routes/routes";
 import "react-quill/dist/quill.snow.css";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import TestAccountLogin from "./components/userAuth/testAccountLogin";
 
 const ProfileDash = lazy(() => import("./pages/profileDash"));
 const SingleEventDash = lazy(() => import("./pages/singleEventDash"));
@@ -69,6 +71,7 @@ function App() {
             <Route path={RESET_PW_EMAIL} element={<ResetPasswordEmail />} />
             <Route path={`${RESET_PW}/:token`} element={<ResetPassword />} />
             <Route path={VERIFY} element={<VerifyEmail />} />
+            <Route path={TEST_ACC} element={<TestAccountLogin />} />
           </Route>
 
           {/* dash/posts routes */}
