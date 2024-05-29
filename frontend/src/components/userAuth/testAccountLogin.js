@@ -17,8 +17,8 @@ function TestAccountLogin() {
     dispatch(
       login(
         {
-          username: "felixgoodman",
-          password: "password",
+          username: process.env.REACT_APP_TEST_USER,
+          password: process.env.REACT_APP_TEST_PASS,
         },
         navigate,
         setLoad
