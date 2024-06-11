@@ -9,7 +9,6 @@ import CTAButton from "../../layouts/ctaButton";
 import { useParams } from "react-router-dom";
 import { emitter } from "../client/socket";
 import { MentionFilter } from "../../utilities/utility-service";
-import { Cross, Submit } from "../../layouts/icons";
 import * as ResponseStatus from "../../services/constants/responseStatus";
 import { FormLabel } from "../../layouts/customForm";
 import ReactQuill from "react-quill";
@@ -87,22 +86,19 @@ function UpdateEvent(props) {
               onChange={(value) => setDetails(value)}
             />
           </Form.Group>
-          <div className="d-flex justify-content-between mt-3">
+          <div className="d-flex justify-content-end mt-3">
             <CTAButton
               type={""}
               btnStyle={"postBtn-placements"}
               variant={"primary"}
               onClick={props.handleUpate}
               placeholder={
-                <div className="d-flex align-items-center">
-                  <Cross />
-                  Cancel
-                </div>
+                <div className="d-flex align-items-center">Cancel</div>
               }
             />
             <CTAButton
               type={"submit"}
-              btnStyle={"postBtn-placements cta_button"}
+              btnStyle={"postBtn-placements cta_button formBtn"}
               variant={"primary"}
               formValidation={
                 title === "" ||
@@ -114,10 +110,7 @@ function UpdateEvent(props) {
               }
               isLoading={""}
               placeholder={
-                <div className="d-flex align-items-center">
-                  <Submit />
-                  Publish
-                </div>
+                <div className="d-flex align-items-center ">Publish</div>
               }
             />
           </div>

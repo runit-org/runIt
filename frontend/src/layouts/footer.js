@@ -1,35 +1,35 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { AppLogo } from "./icons";
-import { RUNIT_ABOUT, RUNIT_CHANGELOG, RUNIT_SUPPORT } from "../routes/routes";
+import packageJson from "../../package.json";
+import { NavigationObj } from "../utilities/navigationObj";
 
 function Footer() {
   return (
     <div className="footer-container">
       <Row>
-        <Col sm={6} className="footer-logo">
-          <small>
-            <AppLogo w={"40px"} />{" "}
-            <small className="text-muter">- v1.0.0</small>
+        <Col sm={6} className="footer-logo mt-auto">
+          <AppLogo w={"40px"} />
+          <small className="text-muted align-bottom ms-1">
+            v{packageJson.version}
           </small>
         </Col>
 
         <Col sm={6} className="footer-links">
-          <span>
-            <a href={RUNIT_SUPPORT} target="_blank" rel="noreferrer">
-              Support
-            </a>
-          </span>
-          <span>
-            <a href={RUNIT_ABOUT} target="_blank" rel="noreferrer">
-              About
-            </a>
-          </span>
-          <span>
-            <a href={RUNIT_CHANGELOG} target="_blank" rel="noreferrer">
-              Changelog
-            </a>
-          </span>
+          {NavigationObj().footerLinks.map((item, index) => {
+            return (
+              <span key={index}>
+                <a href={item.href} target="_blank" rel="noreferrer">
+                  {item.title}
+                </a>
+              </span>
+            );
+          })}
+          <small className="text-muted d-block">
+            All contents @ {new Date().getFullYear()}{" "}
+            <span style={{ color: "#5865f2", fontWeight: "600" }}>runit</span>{" "}
+            All rights reserved.
+          </small>
         </Col>
       </Row>
     </div>

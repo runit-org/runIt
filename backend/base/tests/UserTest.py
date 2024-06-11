@@ -355,7 +355,7 @@ class UserTestClass(BaseTestClass):
         c.force_authenticate(user=user)
         # ------------------------------------------------------------
 
-        newUsername = self.generateRandomString(50)
+        newUsername = self.generateRandomString(20)
         message = 'New Status Message'
         data = {
             'username' : newUsername

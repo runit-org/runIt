@@ -5,7 +5,7 @@ import { CalendarContext } from "../../context/calendarProvider";
 // import SortDropdown from "../../layouts/sortDropdown";
 import { Link } from "react-router-dom";
 import { CustomTable, CustomTableCells } from "../../layouts/customTable";
-import { DateFormat } from "../../utilities/utility-service";
+import { DateFormat, DateOrdinal } from "../../utilities/utility-service";
 import { EVENT } from "../../routes/routes";
 
 function CalendarEventItem(props) {
@@ -18,13 +18,22 @@ function CalendarEventItem(props) {
     currentDay.getFullYear()
   );
 
+  //date
+  var currDay = new Date(currentDay).getDate();
+
   return (
     <>
       <CustomTable
         headerItems={
           <th colSpan={3}>
             <div className="d-flex justify-content-between align-items-center mx-2">
-              {calendarEvents ? <>{calendarEvents.length} events</> : ""}
+              {calendarEvents && (
+                <>
+                  {calendarEvents.length} events on{" "}
+                  {DateFormat("short").format(new Date(currentDay))} {currDay}
+                  {DateOrdinal(currDay)}
+                </>
+              )}
               {/* <SortDropdown /> */}
             </div>
           </th>

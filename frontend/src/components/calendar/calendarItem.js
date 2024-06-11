@@ -5,6 +5,7 @@ import { MonthlyEventsHandler } from "./helper/actionHandler";
 import { CalendarContext } from "../../context/calendarProvider";
 import { Months, WeekDays } from "../../utilities/utility-service";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 
 function Calendar(props) {
   var days = WeekDays();
@@ -45,13 +46,13 @@ function Calendar(props) {
       <div className="head">
         <span> {currentDay.getFullYear()}</span>
         <div className="month-controls">
-          <div onClick={prevMonth}>
+          <Button onClick={prevMonth} className="postBtn-placements btn-sm">
             <ChevronLeft />
-          </div>
+          </Button>
           <h6 className="m-0">{months[currentDay.getMonth()]}</h6>
-          <div onClick={nextMonth}>
+          <Button onClick={nextMonth} className="postBtn-placements btn-sm">
             <ChevronRight />
-          </div>
+          </Button>
         </div>
       </div>
       <div className="calendar">

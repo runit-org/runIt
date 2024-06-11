@@ -1,4 +1,13 @@
-import { CALENDAR, SECURITY, SETTINGS, STARS, SUPPORT } from "../routes/routes";
+import {
+  CALENDAR,
+  RUNIT_ABOUT,
+  RUNIT_CHANGELOG,
+  RUNIT_SUPPORT,
+  SECURITY,
+  SETTINGS,
+  STARS,
+  SUPPORT,
+} from "../routes/routes";
 
 export const NavigationObj = (user) => {
   const profileNav = [
@@ -35,5 +44,19 @@ export const NavigationObj = (user) => {
     },
   ];
 
-  return { profileNav, profileNavCurrUser };
+  const footerLinks = [
+    {
+      title: "Support",
+      href: RUNIT_SUPPORT,
+    },
+    {
+      title: "About",
+      href: RUNIT_ABOUT,
+    },
+    {
+      title: "Changelog",
+      href: RUNIT_CHANGELOG,
+    },
+  ];
+  return { profileNav, profileNavCurrUser, footerLinks };
 };

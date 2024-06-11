@@ -116,25 +116,33 @@ export const login = (LoginRequest, navigate, setLoad) => async (dispatch) => {
 };
 
 export const logout = (refToken, navigate) => async (dispatch) => {
-  await refreshToken().then((ref) => {
-    setToken(ref.data.access);
-    return axios.post("/auth/logout/", refToken);
-  });
+  await refreshToken()
+    .then(async (ref) => {
+      setToken(ref.data.access);
+      const res = await axios.post("/auth/logout/", refToken);
+      if (res.status === ResponseStatus.OK) {
+        setToken(false);
+        localStorage.clear();
+        Cookies.remove("runit_token");
+        sessionStorage.clear();
+        navigate(0);
 
-  setToken(false);
-  localStorage.clear();
-  Cookies.remove("runit_token");
-  sessionStorage.clear();
-  navigate(0);
-
-  dispatch({
-    type: SET_CURRENT_USER,
-    payload: null,
-  });
-  dispatch({
-    type: GET_ERRORS,
-    payload: {},
-  });
+        dispatch({
+          type: SET_CURRENT_USER,
+          payload: null,
+        });
+        dispatch({
+          type: GET_ERRORS,
+          payload: {},
+        });
+      }
+    })
+    .catch((error) => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response,
+      });
+    });
 };
 
 export const resetPwEmail = (userData, setLoad) => async (dispatch) => {

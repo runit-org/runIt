@@ -4,11 +4,19 @@ const Font = ReactQuill.Quill.import("formats/font");
 Font.whitelist = ["Roboto", "Raleway", "Montserrat", "Lato", "Rubik"];
 ReactQuill.Quill.register(Font, true);
 
-var Block = ReactQuill.Quill.import("blots/block");
-Block.tagName = "SPAN";
-// Block.className = "d-block";
-ReactQuill.Quill.register(Block, true);
+class CustomBlock extends ReactQuill.Quill.import("blots/block") {
+  static create(value) {
+    const node = super.create(value);
+    if (this.tagName === "SPAN") {
+      node.classList.add("d-block");
+    }
+    return node;
+  }
+}
 
+CustomBlock.tagName = "SPAN";
+
+ReactQuill.Quill.register(CustomBlock, true);
 export const QuillSetting = () => {
   const modules = {
     toolbar: [

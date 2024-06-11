@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Notifications from "../components/notification/notification";
@@ -9,19 +9,14 @@ import { AppLogo, Notification } from "./icons";
 import UserStatus from "../components/profile/userStatus";
 import { useHandleLogout } from "../hooks/useHandleLogout";
 import { VerifiedRender } from "../routes/verifiedRender";
-import {
-  CALENDAR,
-  POSTS,
-  PROFILE,
-  SECURITY,
-  SETTINGS,
-  SUPPORT,
-} from "../routes/routes";
+import { POSTS, PROFILE, SETTINGS } from "../routes/routes";
+import { NavigationObj } from "../utilities/navigationObj";
+import { UserContext } from "../context/userProvider";
+import { Loading } from "./loader";
 
 function Header() {
   const dispatch = useDispatch();
   const [showNotif, setShowNotif] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
   const [notifs, setNotifData] = useState([]);
   const [unreadCount, setUnreadCount] = useState("");
   const handleNotifShow = () => setShowNotif(true);
@@ -33,15 +28,7 @@ function Header() {
     dispatch(getCurrentUserProfile());
   }, [dispatch]);
 
-  var currProfile = useSelector(
-    (securityReducer) => securityReducer.users.currProfile
-  );
-
-  useEffect(() => {
-    if (currProfile) {
-      setCurrentUser(currProfile.data);
-    }
-  }, [currProfile]);
+  const { currentUser } = useContext(UserContext);
 
   //get notifications
   useEffect(() => {
@@ -79,7 +66,6 @@ function Header() {
         collapseOnSelect
         expand="sm"
         variant="light"
-        // fixed="top"
         className="header-blur"
       >
         <Container>
@@ -96,42 +82,15 @@ function Header() {
                   </Nav.Link>
                 </VerifiedRender>
                 <Nav.Link onClick={handleNotifShow}>Notifications</Nav.Link>
-                <Nav.Link
-                  href={
-                    currentUser
-                      ? `/${PROFILE}/${SETTINGS}?user=${currentUser.username}`
-                      : ""
+                {NavigationObj(currentUser).profileNavCurrUser.map(
+                  (item, index) => {
+                    return (
+                      <Nav.Link href={`/${PROFILE}/${item.href}`} key={index}>
+                        {item.title}
+                      </Nav.Link>
+                    );
                   }
-                >
-                  Profile
-                </Nav.Link>
-                <Nav.Link
-                  href={
-                    currentUser
-                      ? `/${PROFILE}/${CALENDAR}?user=${currentUser.username}`
-                      : ""
-                  }
-                >
-                  Calendar
-                </Nav.Link>
-                <Nav.Link
-                  href={
-                    currentUser
-                      ? `/${PROFILE}/${SECURITY}?user=${currentUser.username}`
-                      : ""
-                  }
-                >
-                  Security Settings
-                </Nav.Link>
-                <Nav.Link
-                  href={
-                    currentUser
-                      ? `/${PROFILE}/${SUPPORT}?user=${currentUser.username}`
-                      : ""
-                  }
-                >
-                  Feedback & Support
-                </Nav.Link>
+                )}
                 <Nav.Link
                   onClick={(e) => {
                     logout(e);
@@ -147,24 +106,23 @@ function Header() {
             <Nav className=" align-items-center gap-1">
               <Nav.Link onClick={handleNotifShow} id="notification-icon">
                 <Notification />
-                {notifs ? (
-                  unreadCount > 0 ? (
-                    <div className="notification-badge" />
-                  ) : (
-                    ""
-                  )
-                ) : (
-                  ""
+                {notifs && unreadCount > 0 && (
+                  <div className="notification-badge" />
                 )}
               </Nav.Link>
               {/* dropdown */}
               <NavDropdown
                 title={
-                  <img
-                    src={currentUser ? currentUser.gravatarImage : ""}
-                    className="nav_userProf"
-                    alt="Img"
-                  />
+                  currentUser.gravatarImage ? (
+                    <img
+                      src={currentUser.gravatarImage}
+                      className="nav_userProf"
+                      alt="Img"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <Loading />
+                  )
                 }
                 id="basic-nav-dropdown"
               >

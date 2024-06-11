@@ -69,7 +69,9 @@ function Login() {
           </div>
 
           <FormGroup formId="formBasicType">
-            <FormLabel>Username</FormLabel>
+            <span className="d-flex justify-content-between ">
+              <FormLabel>Username</FormLabel>
+            </span>
             <Form.Control
               type="username"
               name="username"
@@ -82,7 +84,6 @@ function Login() {
               required
             />
           </FormGroup>
-
           <FormGroup formId="formBasicPassword">
             <FormLabel>Password</FormLabel>
             <InputGroup>

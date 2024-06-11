@@ -39,6 +39,20 @@
 ## :question: About
 <b>runit</b> is a dynamic event match-making web app, enabling users to participate in or create events, explore local happenings, and engage in seamless communication. 
 
+## 🚙 Want to test the app?
+ 
+<details>
+ <summary><b>Click to expand</b></summary>
+  <br>
+ You can easily test runIt by navigating to our test drive page:
+<div align="left">
+  <img src="https://github.com/runit-org/runIt/assets/53683415/c9b5d505-4a45-474b-ad1f-038b228b27c6" height="350">
+  <img src="https://github.com/runit-org/runIt/assets/53683415/1ed54172-b5ea-4d4e-ad60-7e52e6c7dd72" height="350">
+</div>
+
+</details>
+
+
 ## :hammer: Utilization
 <b>runit</b> utilizes the following points:
 - Fully Deployed Web App + Static Landing Page: Establish a strong online presence with our deployed web app and an engaging static landing page.

@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
 import CTAButton from "../../layouts/ctaButton";
-import { Cross, Submit } from "../../layouts/icons";
 import { useHandleChange } from "../../hooks/useHandleChange";
 import { updateDetails } from "../../services/actions/userActions";
 import { UserContext } from "../../context/userProvider";
@@ -56,35 +55,24 @@ function UpdateDetails(props) {
           </Form.Text>
         </div>
 
-        <div className="d-flex justify-content-between mt-3">
+        <div className="d-flex justify-content-start mt-3">
           <CTAButton
             type={""}
             btnStyle={"postBtn-placements"}
             variant={"primary"}
             onClick={props.toggleEditor}
             placeholder={
-              <div className="d-flex align-items-center">
-                <Cross />
-                Cancel
-              </div>
+              <div className="d-flex align-items-center">Cancel</div>
             }
           />
           <CTAButton
             type={"submit"}
-            btnStyle={"postBtn-placements cta_button"}
+            btnStyle={"postBtn-placements cta_button formBtn"}
             variant={"primary"}
             isLoading={""}
             placeholder={
               <div className="d-flex align-items-center">
-                {load ? (
-                  "saving..."
-                ) : (
-                  <>
-                    {" "}
-                    <Submit />
-                    Save
-                  </>
-                )}
+                {load ? "saving..." : <> Save</>}
               </div>
             }
           />

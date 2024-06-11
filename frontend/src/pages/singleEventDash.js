@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { Card, Container } from "react-bootstrap";
 import { useLocation, useSearchParams } from "react-router-dom";
 import EventItem from "../components/event/eventItem";
-import ManageMembers from "../components/event/manageMembers";
+import JoinRequest from "../components/event/joinRequest";
 import CommentItem from "../components/comments/commentItem";
 import CreateComment from "../components/comments/createComment";
 import { usePageId } from "../hooks/usePageId";
@@ -163,7 +163,7 @@ function SingleEventDash() {
                       ))}
 
                     {/* manage members */}
-                    {manageUsersCondition() && <ManageMembers />}
+                    {manageUsersCondition() && <JoinRequest />}
                   </VerifiedRender>
                 </Container>
               </div>
