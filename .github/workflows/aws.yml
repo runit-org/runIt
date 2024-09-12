@@ -1,0 +1,36 @@
+name: Deploy CDK Stack
+
+on:
+  push:
+    branches:
+      # - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: |
+        npm install -g aws-cdk
+        cd cdk
+        npm install
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: arn:aws:iam::311141545056:oidc-provider/token.actions.githubusercontent.com
+        aws-region: ap-southeast-2
+
+    - name: Deploy CDK stack
+      run: |
+        cd cdk
+        cdk deploy --require-approval never
