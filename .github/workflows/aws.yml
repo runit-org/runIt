@@ -31,7 +31,7 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        role-to-assume: arn:aws:iam::311141545056:oidc-provider/token.actions.githubusercontent.com
+        role-to-assume: arn:aws:iam::311141545056:role/OIDC-github-actions
         aws-region: ap-southeast-2
 
     - name: Deploy CDK stack
