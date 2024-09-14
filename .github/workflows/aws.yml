@@ -5,6 +5,10 @@ on:
     branches:
       # - main
 
+permissions:
+  id-token: write   # This is required for requesting the JWT (https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services)
+  contents: read    # This is required for actions/checkout
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
