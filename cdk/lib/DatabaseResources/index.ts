@@ -20,9 +20,9 @@ export class DatabaseResources extends Construct {
     // Generate a secret for the RDS root user
     const databaseCredentialsSecret = new secretsmanager.Secret(this, `${props.environment}-DBCredentialsSecret`, {
         generateSecretString: {
-        secretStringTemplate: JSON.stringify({ username: 'admin' }),
-        generateStringKey: 'password',
-        excludePunctuation: true,
+            secretStringTemplate: JSON.stringify({ username: `${props.environment}-username` }),
+            generateStringKey: 'password',
+            excludePunctuation: true,
         },
     });
 
@@ -34,10 +34,11 @@ export class DatabaseResources extends Construct {
     this.rdsInstance = new rds.DatabaseInstance(this, `${props.environment}-PostgresInstance`, {
         engine,
         vpc,
-        credentials: rds.Credentials.fromGeneratedSecret('postgres', {
-            secretName: `${props.environment}-db-secret`, 
-            excludeCharacters: '!&*^#@()/"\\ ',
-        }),
+        // credentials: rds.Credentials.fromGeneratedSecret(`${props.environment}-username`, {
+        //     secretName: `${props.environment}-db-secret`, 
+        //     excludeCharacters: '!&*^#@()/"\\ ',
+        // }),
+        credentials: rds.Credentials.fromSecret(databaseCredentialsSecret), 
         deletionProtection: false,
         removalPolicy: cdk.RemovalPolicy.DESTROY,  // RETAIN/DESTROY
     });
