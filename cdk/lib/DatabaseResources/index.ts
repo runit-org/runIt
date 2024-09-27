@@ -20,7 +20,7 @@ export class DatabaseResources extends Construct {
     // Generate a secret for the RDS root user
     const databaseCredentialsSecret = new secretsmanager.Secret(this, `${props.environment}-DBCredentialsSecret`, {
         generateSecretString: {
-            secretStringTemplate: JSON.stringify({ username: `${props.environment}-username` }),
+            secretStringTemplate: JSON.stringify({ username: `${props.environment}root` }),
             generateStringKey: 'password',
             excludePunctuation: true,
         },
