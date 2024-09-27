@@ -35,7 +35,7 @@ export class DatabaseResources extends Construct {
         engine,
         vpc,
         credentials: rds.Credentials.fromGeneratedSecret('postgres', {
-            secretName: 'my-db-secret', 
+            secretName: `${props.environment}-db-secret`, 
             excludeCharacters: '!&*^#@()',
         }),
         deletionProtection: false,
