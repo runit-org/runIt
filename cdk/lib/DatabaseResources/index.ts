@@ -59,6 +59,9 @@ export class DatabaseResources extends Construct {
         maxAllocatedStorage: 100, // Optionally allow auto-scaling of storage
         multiAz: false, // Disable multi-AZ for cost-saving
         publiclyAccessible: false, // Ensure it's not exposed to the internet
+        vpcSubnets: {
+            subnetType: ec2.SubnetType.PRIVATE_ISOLATED,  // Use isolated subnets for RDS
+        },
     });
 
     // Output the VPC ID
