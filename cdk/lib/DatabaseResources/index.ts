@@ -16,6 +16,18 @@ export class DatabaseResources extends Construct {
     this.vpc = new ec2.Vpc(this, `${props.environment}-VPC`, {
         maxAzs: 2,
         natGateways: 0,
+        subnetConfiguration: [
+            {
+              cidrMask: 24,
+              name: 'public-subnet',
+              subnetType: ec2.SubnetType.PUBLIC,  // Public subnet doesn't need NAT
+            },
+            {
+              cidrMask: 24,
+              name: 'private-subnet',
+              subnetType: ec2.SubnetType.PRIVATE_ISOLATED,  // Isolated subnet without NAT
+            }
+          ],
     });
 
     // Generate a secret for the RDS root user
