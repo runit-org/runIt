@@ -15,6 +15,7 @@ export class DatabaseResources extends Construct {
     // Create VPC
     this.vpc = new ec2.Vpc(this, `${props.environment}-VPC`, {
         maxAzs: 2,
+        natGateways: 0,
     });
 
     // Generate a secret for the RDS root user
@@ -38,9 +39,14 @@ export class DatabaseResources extends Construct {
         //     secretName: `${props.environment}-db-secret`, 
         //     excludeCharacters: '!&*^#@()/"\\ ',
         // }),
+        instanceType: ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.MICRO),
         credentials: rds.Credentials.fromSecret(databaseCredentialsSecret), 
         deletionProtection: false,
         removalPolicy: cdk.RemovalPolicy.DESTROY,  // RETAIN/DESTROY
+        allocatedStorage: 20, // 20GB storage
+        maxAllocatedStorage: 100, // Optionally allow auto-scaling of storage
+        multiAz: false, // Disable multi-AZ for cost-saving
+        publiclyAccessible: false, // Ensure it's not exposed to the internet
     });
 
     // Output the VPC ID
